@@ -56,7 +56,7 @@ export default function MembersPage() {
               href="#cta"
               className="rounded-lg bg-stone-900 px-3.5 py-2 text-[13px] font-medium tracking-[-0.005em] text-white"
             >
-              Sign up
+              Get the App
             </a>
           </div>
           <MobileMenu activePath="members" ctaLabel="Get the App" ctaHref="#cta" />
