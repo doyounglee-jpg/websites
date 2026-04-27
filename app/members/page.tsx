@@ -119,8 +119,8 @@ export default function MembersPage() {
           </div>
         </div>
 
-        {/* Phone mockup (centered with halo) */}
-        <div className="relative z-10 flex justify-center px-6 pb-20 sm:px-10 sm:pb-24 md:px-16 md:pb-32">
+        {/* Phone mockup (centered with halo). Wrapper height < phone height + overflow-hidden = hard cut at the hero's bottom edge. */}
+        <div className="relative z-10 flex h-[540px] justify-center overflow-hidden px-6 sm:px-10 md:px-16">
           <div
             className="aurora-mono-tight pointer-events-none absolute left-1/2 top-[60px] h-[600px] w-[1100px] -translate-x-1/2"
             aria-hidden="true"
