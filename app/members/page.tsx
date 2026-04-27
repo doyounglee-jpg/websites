@@ -19,21 +19,21 @@ import { MobileMenu } from "../components/MobileMenu";
  *   9. Footer
  *
  * Color palette (B&W theme):
- *   - Ground:        #08090A  → bg-white
- *   - Surface:       rgba(255,255,255,0.03–0.06)  → bg-zinc-100/60
- *   - Hairline:      rgba(255,255,255,0.06–0.1)   → border-zinc-200
- *   - Text primary:  #F7F8F8                       → text-zinc-900
- *   - Text muted:    rgba(247,248,248,0.55)        → text-zinc-600
- *   - Text dim:      rgba(247,248,248,0.4)         → text-zinc-9000
+ *   - Ground:        #08090A  → bg-[#F8F5EE]
+ *   - Surface:       rgba(255,255,255,0.03–0.06)  → bg-stone-200/60
+ *   - Hairline:      rgba(255,255,255,0.06–0.1)   → border-stone-300
+ *   - Text primary:  #F7F8F8                       → text-stone-900
+ *   - Text muted:    rgba(247,248,248,0.55)        → text-stone-600
+ *   - Text dim:      rgba(247,248,248,0.4)         → text-stone-500
  */
 
 export default function MembersPage() {
   return (
-    <main className="min-h-screen bg-white text-zinc-900">
+    <main className="min-h-screen bg-[#F8F5EE] text-stone-900">
       {/* ============================================================
           1. NAV — hairline border, blurred dark background
          ============================================================ */}
-      <header className="sticky top-0 z-50 w-full border-b border-zinc-200 bg-zinc-50/80 backdrop-blur-md">
+      <header className="sticky top-0 z-50 w-full border-b border-stone-300 bg-stone-100/80 backdrop-blur-md">
         <nav className="mx-auto flex w-full max-w-[1440px] items-center justify-between px-6 py-4 sm:px-10 sm:py-5 md:px-16">
           <div className="flex items-center gap-2.5">
             <LogoMark size={24} />
@@ -53,10 +53,10 @@ export default function MembersPage() {
           </div>
           {/* Desktop: Log in + Sign up. Hidden on mobile — replaced by hamburger drawer. */}
           <div className="hidden items-center gap-3 md:flex">
-            <span className="text-sm font-medium text-zinc-600">Log in</span>
+            <span className="text-sm font-medium text-stone-600">Log in</span>
             <a
               href="#cta"
-              className="rounded-lg bg-zinc-900 px-3.5 py-2 text-[13px] font-medium tracking-[-0.005em] text-white"
+              className="rounded-lg bg-stone-900 px-3.5 py-2 text-[13px] font-medium tracking-[-0.005em] text-white"
             >
               Sign up
             </a>
@@ -82,11 +82,11 @@ export default function MembersPage() {
 
         <div className="relative z-10 mx-auto flex max-w-[1440px] flex-col items-center gap-8 px-6 pb-12 pt-20 sm:gap-10 sm:px-10 sm:pb-16 sm:pt-28 md:px-16 md:pb-20 md:pt-[120px]">
           {/* Eyebrow pill */}
-          <div className="flex items-center gap-2 rounded-full border border-zinc-200 bg-zinc-100/60 py-1.5 pl-2 pr-3.5">
-            <span className="rounded-full border border-zinc-300 bg-zinc-100/60 px-2 py-0.5 text-[11px] font-semibold tracking-[0.04em]">
+          <div className="flex items-center gap-2 rounded-full border border-stone-300 bg-stone-200/60 py-1.5 pl-2 pr-3.5">
+            <span className="rounded-full border border-stone-400 bg-stone-200/60 px-2 py-0.5 text-[11px] font-semibold tracking-[0.04em]">
               NEW
             </span>
-            <span className="text-[13px] font-medium tracking-[-0.005em] text-zinc-700">
+            <span className="text-[13px] font-medium tracking-[-0.005em] text-stone-700">
               Negotiate any debt with one tap →
             </span>
           </div>
@@ -96,7 +96,7 @@ export default function MembersPage() {
             <h1 className="text-center text-[44px] font-semibold leading-[1.05] tracking-[-0.045em] sm:text-[60px] md:text-[72px] lg:leading-[1.0] lg:text-[88px]">
               Solve your debt and money problems.
             </h1>
-            <p className="max-w-[580px] text-center text-base leading-[1.55] tracking-[-0.005em] text-zinc-600 sm:text-lg lg:text-[19px]">
+            <p className="max-w-[580px] text-center text-base leading-[1.55] tracking-[-0.005em] text-stone-600 sm:text-lg lg:text-[19px]">
               The easiest way to pay off debt, manage bills, and get
               personalized financial answers — built for the way real people
               earn and spend.
@@ -107,14 +107,14 @@ export default function MembersPage() {
           <div className="flex items-center gap-3">
             <a
               href="#cta"
-              className="flex items-center gap-2 rounded-[10px] bg-zinc-900 px-5 py-3 text-sm font-medium tracking-[-0.005em] text-white"
+              className="flex items-center gap-2 rounded-[10px] bg-stone-900 px-5 py-3 text-sm font-medium tracking-[-0.005em] text-white"
             >
               Sign up free
-              <span className="text-zinc-9000">→</span>
+              <span className="text-stone-500">→</span>
             </a>
             <a
               href="#"
-              className="rounded-[10px] border border-zinc-200 bg-zinc-100/60 px-5 py-3 text-sm font-medium tracking-[-0.005em]"
+              className="rounded-[10px] border border-stone-300 bg-stone-200/60 px-5 py-3 text-sm font-medium tracking-[-0.005em]"
             >
               Talk to an advisor
             </a>
@@ -134,7 +134,7 @@ export default function MembersPage() {
       {/* ============================================================
           3. § 01 — NEGOTIATION TABLE
          ============================================================ */}
-      <section className="border-t border-zinc-200">
+      <section className="border-t border-stone-300">
         <div className="mx-auto max-w-[1440px] px-6 pb-20 pt-24 sm:px-10 sm:pb-24 sm:pt-28 md:px-16 md:pb-28 md:pt-32 lg:px-24 lg:pb-32 lg:pt-40">
           {/* Asymmetric header — stacks on mobile, side-by-side on desktop */}
           <div className="mb-12 flex flex-col gap-6 lg:mb-20 lg:flex-row lg:items-end lg:justify-between lg:gap-20">
@@ -142,31 +142,31 @@ export default function MembersPage() {
               <SectionEyebrow>01 — NEGOTIATION</SectionEyebrow>
               <h2 className="text-4xl font-semibold leading-[1.05] tracking-[-0.04em] sm:text-5xl md:text-[56px] lg:text-[64px] lg:leading-[1.02]">
                 Crush your debt by up to{" "}
-                <span className="text-zinc-9000">70%.</span>
+                <span className="text-stone-500">70%.</span>
               </h2>
             </div>
-            <p className="max-w-[420px] text-base leading-[1.55] tracking-[-0.005em] text-zinc-600 lg:max-w-[360px] lg:text-[17px]">
+            <p className="max-w-[420px] text-base leading-[1.55] tracking-[-0.005em] text-stone-600 lg:max-w-[360px] lg:text-[17px]">
               Our team negotiates directly with your lenders, on your behalf,
               to lower what you owe — fast and without the paperwork.
             </p>
           </div>
 
           {/* Savings table — horizontal scroll on small viewports */}
-          <div className="overflow-x-auto rounded-2xl border border-zinc-200 bg-zinc-100/60">
+          <div className="overflow-x-auto rounded-2xl border border-stone-300 bg-stone-200/60">
             <div className="min-w-[820px]">
             {/* Table header */}
-            <div className="flex items-center border-b border-zinc-200 bg-zinc-50/50 px-6 py-3.5">
+            <div className="flex items-center border-b border-stone-300 bg-stone-100/50 px-6 py-3.5">
               <div className="w-14 shrink-0" />
-              <span className="flex-1 text-xs font-medium tracking-[0.04em] text-zinc-9000">
+              <span className="flex-1 text-xs font-medium tracking-[0.04em] text-stone-500">
                 DEBT TYPE
               </span>
-              <span className="w-[220px] shrink-0 text-xs font-medium tracking-[0.04em] text-zinc-9000">
+              <span className="w-[220px] shrink-0 text-xs font-medium tracking-[0.04em] text-stone-500">
                 LENDER
               </span>
-              <span className="w-[140px] shrink-0 text-right text-xs font-medium tracking-[0.04em] text-zinc-9000">
+              <span className="w-[140px] shrink-0 text-right text-xs font-medium tracking-[0.04em] text-stone-500">
                 ORIGINAL
               </span>
-              <span className="w-40 shrink-0 text-right text-xs font-medium tracking-[0.04em] text-zinc-9000">
+              <span className="w-40 shrink-0 text-right text-xs font-medium tracking-[0.04em] text-stone-500">
                 SAVED
               </span>
             </div>
@@ -179,20 +179,20 @@ export default function MembersPage() {
               />
             ))}
             {/* Footer (totals) */}
-            <div className="flex items-center border-t border-zinc-200 bg-zinc-100/60 px-6 py-4">
+            <div className="flex items-center border-t border-stone-300 bg-stone-200/60 px-6 py-4">
               <div className="flex w-14 shrink-0 items-center">
                 <span
-                  className="block h-2 w-2 rounded-full bg-zinc-900"
+                  className="block h-2 w-2 rounded-full bg-stone-900"
                   style={{ boxShadow: "0 0 12px rgba(255,255,255,0.4)" }}
                 />
               </div>
               <span className="flex-1 text-sm font-medium tracking-[-0.005em]">
                 Total saved across all members this quarter
               </span>
-              <span className="w-[220px] shrink-0 text-[13px] text-zinc-9000">
+              <span className="w-[220px] shrink-0 text-[13px] text-stone-500">
                 62,418 negotiations
               </span>
-              <span className="w-[140px] shrink-0 text-right font-mono text-sm text-zinc-9000">
+              <span className="w-[140px] shrink-0 text-right font-mono text-sm text-stone-500">
                 $148,420,602
               </span>
               <span className="w-40 shrink-0 text-right font-mono text-base font-semibold tracking-[-0.01em]">
@@ -207,7 +207,7 @@ export default function MembersPage() {
       {/* ============================================================
           4. § 02 — AI Q&A
          ============================================================ */}
-      <section className="border-t border-zinc-200">
+      <section className="border-t border-stone-300">
         <div className="mx-auto flex max-w-[1440px] flex-col items-stretch gap-12 px-6 pb-20 pt-24 sm:px-10 sm:pb-24 sm:pt-28 md:px-16 md:pb-28 md:pt-32 lg:flex-row lg:gap-20 lg:px-24 lg:pb-32 lg:pt-40">
           {/* Left: copy */}
           <div className="flex flex-col gap-6 pt-0 sm:gap-8 lg:max-w-[460px] lg:shrink-0 lg:pt-6">
@@ -215,7 +215,7 @@ export default function MembersPage() {
             <h2 className="text-4xl font-semibold leading-[1.05] tracking-[-0.04em] sm:text-5xl md:text-[52px] lg:text-[56px]">
               Real answers. Anytime. Anywhere.
             </h2>
-            <p className="text-base leading-[1.55] tracking-[-0.005em] text-zinc-600 lg:text-[17px]">
+            <p className="text-base leading-[1.55] tracking-[-0.005em] text-stone-600 lg:text-[17px]">
               Clerkie pairs your full financial picture with a private AI
               advisor. Ask anything — debt, credit, budgeting, big-purchase
               decisions — and get an answer grounded in your actual numbers.
@@ -227,8 +227,8 @@ export default function MembersPage() {
                 "No upselling, no commissions, no jargon.",
               ].map((item) => (
                 <li key={item} className="flex items-center gap-3">
-                  <span className="block h-1 w-1 rounded-full bg-zinc-900" />
-                  <span className="text-sm font-medium text-zinc-700">
+                  <span className="block h-1 w-1 rounded-full bg-stone-900" />
+                  <span className="text-sm font-medium text-stone-700">
                     {item}
                   </span>
                 </li>
@@ -244,15 +244,15 @@ export default function MembersPage() {
       {/* ============================================================
           5. § 03 — CATEGORIES GRID
          ============================================================ */}
-      <section className="border-t border-zinc-200">
+      <section className="border-t border-stone-300">
         <div className="mx-auto max-w-[1440px] px-6 pb-20 pt-24 sm:px-10 sm:pb-24 sm:pt-28 md:px-16 md:pb-28 md:pt-32 lg:px-24 lg:pb-32 lg:pt-40">
           <div className="mb-10 flex max-w-[720px] flex-col gap-4 sm:gap-6 lg:mb-16">
             <SectionEyebrow>03 — COVERAGE</SectionEyebrow>
             <h2 className="text-4xl font-semibold leading-[1.05] tracking-[-0.04em] sm:text-5xl md:text-[52px] lg:text-[56px]">
               Every kind of debt.{" "}
-              <span className="text-zinc-9000">One quiet app.</span>
+              <span className="text-stone-500">One quiet app.</span>
             </h2>
-            <p className="max-w-[540px] text-base leading-[1.55] tracking-[-0.005em] text-zinc-600 lg:text-[17px]">
+            <p className="max-w-[540px] text-base leading-[1.55] tracking-[-0.005em] text-stone-600 lg:text-[17px]">
               Whether it&apos;s a hospital bill, a car payment, or a maxed-out
               card, Clerkie handles the negotiation, the paperwork, and the
               follow-through.
@@ -260,7 +260,7 @@ export default function MembersPage() {
           </div>
 
           {/* 2x3 grid with hairline gridlines (made of background bleed) */}
-          <div className="overflow-hidden rounded-[18px] border border-zinc-200 bg-zinc-100/60">
+          <div className="overflow-hidden rounded-[18px] border border-stone-300 bg-stone-200/60">
             <div className="flex flex-wrap gap-px">
               {CATEGORIES.map((cat) => (
                 <CategoryCard key={cat.title} {...cat} />
@@ -273,7 +273,7 @@ export default function MembersPage() {
       {/* ============================================================
           6. § 04 — BILLS DASHBOARD
          ============================================================ */}
-      <section className="border-t border-zinc-200">
+      <section className="border-t border-stone-300">
         <div className="mx-auto flex max-w-[1440px] flex-col items-stretch gap-12 px-6 pb-20 pt-24 sm:px-10 sm:pb-24 sm:pt-28 md:px-16 md:pb-28 md:pt-32 lg:flex-row lg:gap-20 lg:px-24 lg:pb-32 lg:pt-40">
           <BillsMockup />
           <div className="flex flex-col gap-6 pt-0 sm:gap-8 lg:max-w-[460px] lg:shrink-0 lg:pt-6">
@@ -281,7 +281,7 @@ export default function MembersPage() {
             <h2 className="text-4xl font-semibold leading-[1.05] tracking-[-0.04em] sm:text-5xl md:text-[52px] lg:text-[56px]">
               Every bill, paid on time. Without thinking about it.
             </h2>
-            <p className="text-base leading-[1.55] tracking-[-0.005em] text-zinc-600 lg:text-[17px]">
+            <p className="text-base leading-[1.55] tracking-[-0.005em] text-stone-600 lg:text-[17px]">
               Connect your accounts once. Clerkie keeps track of due dates,
               builds your credit with on-time payments, and tells you the
               moment something feels off.
@@ -294,14 +294,14 @@ export default function MembersPage() {
               ].map((item, i) => (
                 <div
                   key={item}
-                  className={`flex items-center justify-between border-t border-zinc-200 py-3.5 ${
+                  className={`flex items-center justify-between border-t border-stone-300 py-3.5 ${
                     i === 2 ? "border-b" : ""
                   }`}
                 >
-                  <span className="text-sm font-medium text-zinc-700">
+                  <span className="text-sm font-medium text-stone-700">
                     {item}
                   </span>
-                  <span className="font-mono text-xs text-zinc-9000">
+                  <span className="font-mono text-xs text-stone-500">
                     0{i + 1}
                   </span>
                 </div>
@@ -314,17 +314,17 @@ export default function MembersPage() {
       {/* ============================================================
           7. § 05 — SAFETY NET
          ============================================================ */}
-      <section className="border-t border-zinc-200">
+      <section className="border-t border-stone-300">
         <div className="mx-auto max-w-[1440px] px-6 pb-20 pt-24 sm:px-10 sm:pb-24 sm:pt-28 md:px-16 md:pb-28 md:pt-32 lg:px-24 lg:pb-32 lg:pt-40">
           <div className="mb-10 flex flex-col gap-6 lg:mb-16 lg:flex-row lg:items-end lg:justify-between lg:gap-20">
             <div className="flex max-w-[720px] flex-col gap-4 lg:gap-6">
               <SectionEyebrow>05 — SAFETY NET</SectionEyebrow>
               <h2 className="text-4xl font-semibold leading-[1.05] tracking-[-0.04em] sm:text-5xl md:text-[56px] lg:text-[64px] lg:leading-[1.02]">
                 When the month is hard,{" "}
-                <span className="text-zinc-9000">we&apos;ve got you.</span>
+                <span className="text-stone-500">we&apos;ve got you.</span>
               </h2>
             </div>
-            <p className="max-w-[420px] text-base leading-[1.55] tracking-[-0.005em] text-zinc-600 lg:max-w-[360px] lg:text-[17px]">
+            <p className="max-w-[420px] text-base leading-[1.55] tracking-[-0.005em] text-stone-600 lg:max-w-[360px] lg:text-[17px]">
               Borrow up to your verified buffer instantly — no credit pull, no
               spiraling fees. Pay it back on your next deposit.
             </p>
@@ -339,13 +339,13 @@ export default function MembersPage() {
               aria-hidden="true"
             />
             <SafetyStatBlock label="YOUR INSTANT BUFFER" value="$1,200">
-              <div className="h-px bg-zinc-100/60" />
+              <div className="h-px bg-stone-200/60" />
               <dl className="flex flex-col gap-2.5 text-[13px]">
                 <Row label="Repayment" value="Next paycheck" />
                 <Row label="Fee" value="$0" />
                 <Row label="Credit pull" value="None" />
               </dl>
-              <p className="pt-2 text-[13px] leading-[1.55] tracking-[-0.005em] text-zinc-600">
+              <p className="pt-2 text-[13px] leading-[1.55] tracking-[-0.005em] text-stone-600">
                 The average advance is $342, fully repaid within 17 days — no
                 spiral into payday debt.
               </p>
@@ -373,7 +373,7 @@ export default function MembersPage() {
          ============================================================ */}
       <section
         id="cta"
-        className="relative overflow-hidden border-t border-zinc-200"
+        className="relative overflow-hidden border-t border-stone-300"
       >
         <div
           className="aurora-mono pointer-events-none absolute left-1/2 top-20 h-[500px] w-[1100px] -translate-x-1/2"
@@ -383,7 +383,7 @@ export default function MembersPage() {
           <h2 className="text-[44px] font-semibold leading-none tracking-[-0.045em] sm:text-6xl md:text-7xl lg:text-[80px]">
             Try it out.
           </h2>
-          <p className="max-w-[480px] text-base leading-[1.55] tracking-[-0.005em] text-zinc-600 sm:text-lg lg:text-[19px]">
+          <p className="max-w-[480px] text-base leading-[1.55] tracking-[-0.005em] text-stone-600 sm:text-lg lg:text-[19px]">
             Free to start. No credit pull. Cancel anytime. Two minutes to your
             first plan.
           </p>
@@ -395,8 +395,8 @@ export default function MembersPage() {
             {["FDIC partners", "SOC 2 Type II", "256-bit encryption"].map(
               (label) => (
                 <div key={label} className="flex items-center gap-2">
-                  <span className="block h-1 w-1 rounded-full bg-zinc-900" />
-                  <span className="text-[13px] font-medium text-zinc-600">
+                  <span className="block h-1 w-1 rounded-full bg-stone-900" />
+                  <span className="text-[13px] font-medium text-stone-600">
                     {label}
                   </span>
                 </div>
@@ -409,7 +409,7 @@ export default function MembersPage() {
       {/* ============================================================
           9. FOOTER
          ============================================================ */}
-      <footer className="border-t border-zinc-200 bg-zinc-50/80">
+      <footer className="border-t border-stone-300 bg-stone-100/80">
         <div className="mx-auto flex max-w-[1440px] flex-col gap-12 px-6 pb-12 pt-12 sm:px-10 sm:pt-16 md:px-16 lg:px-24">
           <div className="flex flex-col items-start gap-10 lg:flex-row lg:justify-between lg:gap-20">
             <div className="flex max-w-[320px] flex-col gap-5">
@@ -422,7 +422,7 @@ export default function MembersPage() {
                   className="h-[22px] w-auto"
                 />
               </div>
-              <p className="text-sm leading-[1.55] tracking-[-0.005em] text-zinc-9000">
+              <p className="text-sm leading-[1.55] tracking-[-0.005em] text-stone-500">
                 A quieter way to handle the money side of life. Built for
                 people, not credit-card algorithms.
               </p>
@@ -457,16 +457,16 @@ export default function MembersPage() {
               />
             </div>
           </div>
-          <div className="flex flex-col items-start justify-between gap-4 border-t border-zinc-200 pt-6 sm:flex-row sm:items-center sm:gap-0 sm:pt-8">
-            <span className="font-mono text-xs text-zinc-9000">
+          <div className="flex flex-col items-start justify-between gap-4 border-t border-stone-300 pt-6 sm:flex-row sm:items-center sm:gap-0 sm:pt-8">
+            <span className="font-mono text-xs text-stone-500">
               © 2025 Henry Labs Inc. · All rights reserved
             </span>
             <div className="flex items-center gap-2">
               <span
-                className="block h-1.5 w-1.5 rounded-full bg-zinc-900"
+                className="block h-1.5 w-1.5 rounded-full bg-stone-900"
                 style={{ boxShadow: "0 0 10px rgba(255,255,255,0.5)" }}
               />
-              <span className="text-xs font-medium text-zinc-600">
+              <span className="text-xs font-medium text-stone-600">
                 All systems operational
               </span>
             </div>
@@ -493,8 +493,8 @@ function NavLink({
   return (
     <Link
       href={href}
-      className={`text-sm font-medium transition-colors hover:text-zinc-900 ${
-        active ? "text-zinc-800" : "text-zinc-600"
+      className={`text-sm font-medium transition-colors hover:text-stone-900 ${
+        active ? "text-stone-800" : "text-stone-600"
       }`}
     >
       {children}
@@ -504,7 +504,7 @@ function NavLink({
 
 function SectionEyebrow({ children }: { children: React.ReactNode }) {
   return (
-    <span className="text-[13px] font-medium tracking-[0.06em] text-zinc-600">
+    <span className="text-[13px] font-medium tracking-[0.06em] text-stone-600">
       {children}
     </span>
   );
@@ -526,8 +526,8 @@ function LogoMark({ size = 24 }: { size?: number }) {
 function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex justify-between">
-      <dt className="text-zinc-600">{label}</dt>
-      <dd className="font-medium text-zinc-100">{value}</dd>
+      <dt className="text-stone-600">{label}</dt>
+      <dd className="font-medium text-stone-50">{value}</dd>
     </div>
   );
 }
@@ -538,22 +538,22 @@ function Row({ label, value }: { label: string; value: string }) {
 
 function PhoneMockup() {
   return (
-    <div className="relative z-20 flex h-[700px] w-[340px] flex-col rounded-[44px] border border-zinc-200 bg-zinc-100 p-2 shadow-[0_30px_80px_rgba(0,0,0,0.5)]">
-      <div className="flex flex-1 flex-col gap-5 overflow-hidden rounded-[36px] bg-gradient-to-b from-zinc-50 to-zinc-100 px-5 py-7">
+    <div className="relative z-20 flex h-[700px] w-[340px] flex-col rounded-[44px] border border-stone-300 bg-stone-200 p-2 shadow-[0_30px_80px_rgba(0,0,0,0.5)]">
+      <div className="flex flex-1 flex-col gap-5 overflow-hidden rounded-[36px] bg-gradient-to-b from-[#F8F5EE] to-stone-200 px-5 py-7">
         {/* Status bar */}
         <div className="flex items-center justify-between px-1">
           <span className="text-[13px] font-semibold">9:41</span>
           <div className="flex items-center gap-1">
-            <span className="block h-2 w-4 rounded-sm bg-zinc-400" />
+            <span className="block h-2 w-4 rounded-sm bg-stone-400" />
             <span className="flex h-[11px] w-[22px] items-center rounded-[3px] border border-zinc-400 p-[1.5px]">
-              <span className="block h-full w-3/4 rounded-[1px] bg-zinc-900" />
+              <span className="block h-full w-3/4 rounded-[1px] bg-stone-900" />
             </span>
           </div>
         </div>
 
         {/* Greeting */}
         <div className="flex flex-col gap-1.5">
-          <span className="text-xs font-medium tracking-[0.02em] text-zinc-9000">
+          <span className="text-xs font-medium tracking-[0.02em] text-stone-500">
             GOOD MORNING, MARIA
           </span>
           <span className="text-2xl font-semibold leading-[1.15] tracking-[-0.02em]">
@@ -562,19 +562,19 @@ function PhoneMockup() {
         </div>
 
         {/* Progress card */}
-        <div className="flex flex-col gap-3.5 rounded-2xl border border-zinc-200 bg-zinc-100/60 p-4.5">
+        <div className="flex flex-col gap-3.5 rounded-2xl border border-stone-300 bg-stone-200/60 p-4.5">
           <div className="flex items-baseline justify-between">
-            <span className="text-xs font-medium text-zinc-600">
+            <span className="text-xs font-medium text-stone-600">
               Total debt remaining
             </span>
-            <span className="font-mono text-[11px] font-medium text-zinc-700">
+            <span className="font-mono text-[11px] font-medium text-stone-700">
               ↓ 18%
             </span>
           </div>
           <span className="text-[32px] font-semibold leading-none tracking-[-0.03em]">
             $12,946
           </span>
-          <div className="relative h-1.5 overflow-hidden rounded-[3px] bg-zinc-100/60">
+          <div className="relative h-1.5 overflow-hidden rounded-[3px] bg-stone-200/60">
             <span
               className="absolute left-0 top-0 h-full rounded-[3px]"
               style={{
@@ -587,22 +587,22 @@ function PhoneMockup() {
         </div>
 
         {/* Action card */}
-        <div className="flex flex-col gap-2 rounded-2xl border border-zinc-200 bg-zinc-100/60 p-4">
-          <span className="text-[11px] font-medium tracking-[0.04em] text-zinc-700">
+        <div className="flex flex-col gap-2 rounded-2xl border border-stone-300 bg-stone-200/60 p-4">
+          <span className="text-[11px] font-medium tracking-[0.04em] text-stone-700">
             SUGGESTED · NEGOTIATION
           </span>
           <span className="text-[15px] font-semibold leading-[1.3] tracking-[-0.01em]">
             We can lower your $4,200 card balance by ~$1,890.
           </span>
           <div className="flex items-center justify-between pt-1.5">
-            <span className="text-xs text-zinc-600">Takes ~2 minutes</span>
+            <span className="text-xs text-stone-600">Takes ~2 minutes</span>
             <span className="text-xs font-medium">Start →</span>
           </div>
         </div>
 
         {/* Bills row */}
         <div className="flex flex-col gap-2.5">
-          <span className="text-xs font-medium tracking-[0.02em] text-zinc-9000">
+          <span className="text-xs font-medium tracking-[0.02em] text-stone-500">
             UPCOMING THIS WEEK
           </span>
           <BillItem code="CL" name="Capital One" amount="$184.00" />
@@ -627,11 +627,11 @@ function BillItem({
   return (
     <div
       className={`flex items-center justify-between py-2.5 ${
-        last ? "" : "border-b border-zinc-200"
+        last ? "" : "border-b border-stone-300"
       }`}
     >
       <div className="flex items-center gap-2.5">
-        <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-zinc-100/60">
+        <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-stone-200/60">
           <span className="text-[11px] font-semibold">{code}</span>
         </span>
         <span className="text-[13px] font-medium">{name}</span>
@@ -722,26 +722,26 @@ function SavingsRow({
   return (
     <div
       className={`flex items-center px-6 py-4.5 ${
-        isLast ? "" : "border-b border-zinc-200"
+        isLast ? "" : "border-b border-stone-300"
       }`}
     >
       <div className="w-14 shrink-0">
-        <span className="flex h-9 w-9 items-center justify-center rounded-[10px] border border-zinc-200 bg-zinc-100/60">
+        <span className="flex h-9 w-9 items-center justify-center rounded-[10px] border border-stone-300 bg-stone-200/60">
           <span className="text-[13px] font-semibold">{code}</span>
         </span>
       </div>
       <span className="flex-1 text-[15px] font-medium tracking-[-0.01em]">
         {type}
       </span>
-      <span className="w-[220px] shrink-0 text-sm text-zinc-600">
+      <span className="w-[220px] shrink-0 text-sm text-stone-600">
         {lender}
       </span>
-      <span className="w-[140px] shrink-0 text-right font-mono text-sm text-zinc-600">
+      <span className="w-[140px] shrink-0 text-right font-mono text-sm text-stone-600">
         {original}
       </span>
       <div className="flex w-40 shrink-0 items-center justify-end gap-2">
         <span className="font-mono text-[15px] font-medium">{saved}</span>
-        <span className="rounded-md bg-zinc-100/60 px-1.5 py-0.5 text-[11px] font-medium tracking-[0.02em] text-zinc-700">
+        <span className="rounded-md bg-stone-200/60 px-1.5 py-0.5 text-[11px] font-medium tracking-[0.02em] text-stone-700">
           {pct}
         </span>
       </div>
@@ -755,29 +755,29 @@ function SavingsRow({
 
 function ChatMockup() {
   return (
-    <div className="flex flex-1 flex-col overflow-hidden rounded-[18px] border border-zinc-200 bg-zinc-100/60 backdrop-blur">
+    <div className="flex flex-1 flex-col overflow-hidden rounded-[18px] border border-stone-300 bg-stone-200/60 backdrop-blur">
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-zinc-200 px-4.5 py-3.5">
+      <div className="flex items-center justify-between border-b border-stone-300 px-4.5 py-3.5">
         <div className="flex items-center gap-2">
           <LogoMark size={24} />
           <span className="text-[13px] font-semibold tracking-[-0.005em]">
             Clerkie AI
           </span>
-          <span className="flex items-center gap-1.5 rounded-full bg-zinc-100/60 px-2 py-0.5">
-            <span className="block h-[5px] w-[5px] rounded-full bg-zinc-900" />
-            <span className="text-[10px] font-medium tracking-[0.04em] text-zinc-700">
+          <span className="flex items-center gap-1.5 rounded-full bg-stone-200/60 px-2 py-0.5">
+            <span className="block h-[5px] w-[5px] rounded-full bg-stone-900" />
+            <span className="text-[10px] font-medium tracking-[0.04em] text-stone-700">
               ONLINE
             </span>
           </span>
         </div>
-        <span className="font-mono text-[11px] text-zinc-9000">⌘K</span>
+        <span className="font-mono text-[11px] text-stone-500">⌘K</span>
       </div>
 
       {/* Body */}
       <div className="flex flex-col gap-4 px-6 py-6">
         {/* User message */}
         <div className="flex justify-end pl-20">
-          <div className="rounded-[16px_16px_4px_16px] border border-zinc-200 bg-zinc-100/60 px-4 py-3">
+          <div className="rounded-[16px_16px_4px_16px] border border-stone-300 bg-stone-200/60 px-4 py-3">
             <span className="text-sm leading-[1.5] tracking-[-0.005em]">
               What&apos;s the fastest way for me to get out of debt?
             </span>
@@ -788,40 +788,40 @@ function ChatMockup() {
         <div className="flex flex-col items-start gap-2.5 pr-15">
           <div className="flex items-center gap-2">
             <LogoMark size={22} />
-            <span className="text-xs font-medium tracking-[0.02em] text-zinc-9000">
+            <span className="text-xs font-medium tracking-[0.02em] text-stone-500">
               CLERKIE · ANALYZED 4 ACCOUNTS
             </span>
           </div>
           <p className="text-sm leading-[1.55] tracking-[-0.005em]">
             Based on your balances, the avalanche method saves you the most:{" "}
-            <span className="font-medium text-zinc-900">
+            <span className="font-medium text-stone-900">
               $2,118 in interest
             </span>{" "}
             over 24 months.
           </p>
 
           {/* Reasoning card */}
-          <div className="flex w-full flex-col gap-2.5 rounded-xl border border-zinc-200 bg-zinc-50/80 px-4 py-3.5">
+          <div className="flex w-full flex-col gap-2.5 rounded-xl border border-stone-300 bg-stone-100/80 px-4 py-3.5">
             <div className="flex items-center justify-between">
-              <span className="text-[11px] font-medium tracking-[0.04em] text-zinc-9000">
+              <span className="text-[11px] font-medium tracking-[0.04em] text-stone-500">
                 SUGGESTED ORDER
               </span>
-              <span className="font-mono text-[11px] text-zinc-9000">
+              <span className="font-mono text-[11px] text-stone-500">
                 payoff plan · v2
               </span>
             </div>
             {STEP_ROWS.map((step, i) => (
               <div key={step.label} className="flex items-center gap-3">
-                <span className="w-5 font-mono text-[11px] font-medium text-zinc-9000">
+                <span className="w-5 font-mono text-[11px] font-medium text-stone-500">
                   {i + 1}.
                 </span>
                 <div className="flex flex-1 items-center gap-2.5">
                   <span className="text-[13px] font-medium">{step.label}</span>
-                  <span className="rounded bg-zinc-100/60 px-1.5 py-px font-mono text-[10px] font-medium text-zinc-700">
+                  <span className="rounded bg-stone-200/60 px-1.5 py-px font-mono text-[10px] font-medium text-stone-700">
                     {step.apr}
                   </span>
                 </div>
-                <span className="font-mono text-[13px] text-zinc-600">
+                <span className="font-mono text-[13px] text-stone-600">
                   {step.balance}
                 </span>
               </div>
@@ -830,10 +830,10 @@ function ChatMockup() {
 
           {/* Action buttons */}
           <div className="flex items-center gap-2 pt-1">
-            <span className="rounded-lg border border-zinc-200 bg-zinc-100/60 px-3 py-1.5 text-xs font-medium">
+            <span className="rounded-lg border border-stone-300 bg-stone-200/60 px-3 py-1.5 text-xs font-medium">
               Apply this plan
             </span>
-            <span className="px-3 py-1.5 text-xs font-medium text-zinc-600">
+            <span className="px-3 py-1.5 text-xs font-medium text-stone-600">
               Show snowball instead
             </span>
           </div>
@@ -849,7 +849,7 @@ function ChatMockup() {
         ].map((s) => (
           <span
             key={s}
-            className="rounded-full border border-zinc-200 bg-zinc-100/60 px-3 py-1.5 text-xs font-medium text-zinc-700"
+            className="rounded-full border border-stone-300 bg-stone-200/60 px-3 py-1.5 text-xs font-medium text-stone-700"
           >
             {s}
           </span>
@@ -857,13 +857,13 @@ function ChatMockup() {
       </div>
 
       {/* Input row */}
-      <div className="flex items-center gap-2.5 border-t border-zinc-200 bg-zinc-300 px-4.5 py-3.5">
-        <span className="flex-1 text-sm tracking-[-0.005em] text-zinc-600">
+      <div className="flex items-center gap-2.5 border-t border-stone-300 bg-stone-300 px-4.5 py-3.5">
+        <span className="flex-1 text-sm tracking-[-0.005em] text-stone-600">
           Ask anything about your money…
         </span>
         <div className="flex items-center gap-2">
-          <span className="font-mono text-[11px] text-zinc-600">↵</span>
-          <button className="flex h-7 w-7 items-center justify-center rounded-lg bg-zinc-900 text-sm font-semibold text-white">
+          <span className="font-mono text-[11px] text-stone-600">↵</span>
+          <button className="flex h-7 w-7 items-center justify-center rounded-lg bg-stone-900 text-sm font-semibold text-white">
             ↑
           </button>
         </div>
@@ -928,22 +928,22 @@ function CategoryCard({
   statValue,
 }: (typeof CATEGORIES)[number]) {
   return (
-    <div className="flex min-h-[240px] basis-full flex-col gap-6 bg-zinc-50/50 px-6 py-7 sm:basis-[calc(50%-1px)] sm:px-8 sm:py-9 lg:basis-[calc(33.333%-1px)]">
-      <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-zinc-200 bg-zinc-100/60">
-        <div className="relative h-4 w-5.5 rounded-[3px] bg-zinc-300">
-          <div className="absolute left-0 top-1 h-[3px] w-full bg-zinc-300" />
+    <div className="flex min-h-[240px] basis-full flex-col gap-6 bg-stone-100/50 px-6 py-7 sm:basis-[calc(50%-1px)] sm:px-8 sm:py-9 lg:basis-[calc(33.333%-1px)]">
+      <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-stone-300 bg-stone-200/60">
+        <div className="relative h-4 w-5.5 rounded-[3px] bg-stone-300">
+          <div className="absolute left-0 top-1 h-[3px] w-full bg-stone-300" />
         </div>
       </div>
       <div className="flex flex-1 flex-col gap-2">
         <span className="text-[22px] font-semibold leading-[1.2] tracking-[-0.02em]">
           {title}
         </span>
-        <span className="text-sm leading-[1.55] tracking-[-0.005em] text-zinc-600">
+        <span className="text-sm leading-[1.55] tracking-[-0.005em] text-stone-600">
           {desc}
         </span>
       </div>
       <div className="flex items-center gap-2 pt-1">
-        <span className="font-mono text-[11px] font-medium tracking-[0.02em] text-zinc-9000">
+        <span className="font-mono text-[11px] font-medium tracking-[0.02em] text-stone-500">
           {statLabel}
         </span>
         <span className="font-mono text-[13px] font-medium">{statValue}</span>
@@ -958,25 +958,25 @@ function CategoryCard({
 
 function BillsMockup() {
   return (
-    <div className="flex flex-1 flex-col gap-5 overflow-hidden rounded-[18px] border border-zinc-200 bg-zinc-50/60 p-7 shadow-sm">
+    <div className="flex flex-1 flex-col gap-5 overflow-hidden rounded-[18px] border border-stone-300 bg-stone-100/60 p-7 shadow-sm">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2.5">
           <span className="text-[15px] font-semibold tracking-[-0.01em]">
             This month&apos;s bills
           </span>
-          <span className="rounded-md bg-zinc-100/60 px-2 py-0.5 font-mono text-[10px] font-medium tracking-[0.04em] text-zinc-700">
+          <span className="rounded-md bg-stone-200/60 px-2 py-0.5 font-mono text-[10px] font-medium tracking-[0.04em] text-stone-700">
             8 PAID · 3 SCHEDULED
           </span>
         </div>
         <div className="flex items-center gap-1.5">
-          <span className="rounded-md border border-zinc-200 bg-zinc-100/60 px-2.5 py-1 text-[11px] font-medium">
+          <span className="rounded-md border border-stone-300 bg-stone-200/60 px-2.5 py-1 text-[11px] font-medium">
             Apr
           </span>
-          <span className="rounded-md px-2.5 py-1 text-[11px] font-medium text-zinc-9000">
+          <span className="rounded-md px-2.5 py-1 text-[11px] font-medium text-stone-500">
             May
           </span>
-          <span className="rounded-md px-2.5 py-1 text-[11px] font-medium text-zinc-9000">
+          <span className="rounded-md px-2.5 py-1 text-[11px] font-medium text-stone-500">
             Jun
           </span>
         </div>
@@ -1055,26 +1055,26 @@ function BillRow({
 }: (typeof BILL_ROWS)[number]) {
   return (
     <div
-      className={`flex items-center border-b border-zinc-200 py-3.5 ${
-        alert ? "rounded-lg bg-zinc-100/60 px-2" : ""
+      className={`flex items-center border-b border-stone-300 py-3.5 ${
+        alert ? "rounded-lg bg-stone-200/60 px-2" : ""
       }`}
     >
-      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[9px] border border-zinc-200 bg-zinc-100/60">
+      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[9px] border border-stone-300 bg-stone-200/60">
         <span className="text-[11px] font-semibold">{code}</span>
       </span>
       <div className="flex flex-1 flex-col gap-0.5 pl-3.5">
         <span className="text-sm font-medium">{name}</span>
-        <span className={`text-xs ${alert ? "text-zinc-700" : "text-zinc-9000"}`}>
+        <span className={`text-xs ${alert ? "text-stone-700" : "text-stone-500"}`}>
           {meta}
         </span>
       </div>
       <div className="flex w-[110px] shrink-0 items-center gap-1.5">
         <span
           className={`block h-1.5 w-1.5 rounded-full ${
-            faded ? "bg-zinc-600" : "bg-zinc-900"
+            faded ? "bg-stone-600" : "bg-stone-900"
           }`}
         />
-        <span className="text-xs font-medium text-zinc-700">{status}</span>
+        <span className="text-xs font-medium text-stone-700">{status}</span>
       </div>
       <span className="w-[90px] shrink-0 text-right font-mono text-[13px] font-medium">
         {amount}
@@ -1097,8 +1097,8 @@ function SafetyStatBlock({
   children: React.ReactNode;
 }) {
   return (
-    <div className="relative z-10 flex flex-1 flex-col gap-4.5 rounded-[18px] border border-zinc-200 bg-zinc-100/60 p-8 backdrop-blur">
-      <span className="text-xs font-medium tracking-[0.04em] text-zinc-9000">
+    <div className="relative z-10 flex flex-1 flex-col gap-4.5 rounded-[18px] border border-stone-300 bg-stone-200/60 p-8 backdrop-blur">
+      <span className="text-xs font-medium tracking-[0.04em] text-stone-500">
         {label}
       </span>
       <span className="text-[56px] font-semibold leading-none tracking-[-0.04em]">
@@ -1111,10 +1111,10 @@ function SafetyStatBlock({
 
 function NotifHot() {
   return (
-    <div className="flex flex-col gap-2.5 rounded-[14px] border border-zinc-200 bg-zinc-100/60 p-4.5">
+    <div className="flex flex-col gap-2.5 rounded-[14px] border border-stone-300 bg-stone-200/60 p-4.5">
       <div className="flex items-center gap-2">
         <LogoMark size={22} />
-        <span className="text-[11px] font-medium tracking-[0.04em] text-zinc-700">
+        <span className="text-[11px] font-medium tracking-[0.04em] text-stone-700">
           CLERKIE · NOW
         </span>
       </div>
@@ -1123,10 +1123,10 @@ function NotifHot() {
         your buffer until your paycheck lands Monday?
       </span>
       <div className="flex gap-2 pt-1">
-        <span className="rounded-lg bg-zinc-900 px-3 py-1.5 text-xs font-medium text-white">
+        <span className="rounded-lg bg-stone-900 px-3 py-1.5 text-xs font-medium text-white">
           Yes, cover it
         </span>
-        <span className="rounded-lg bg-zinc-100/60 px-3 py-1.5 text-xs font-medium text-zinc-700">
+        <span className="rounded-lg bg-stone-200/60 px-3 py-1.5 text-xs font-medium text-stone-700">
           Not now
         </span>
       </div>
@@ -1144,19 +1144,19 @@ function NotifCalm({
   body: string;
 }) {
   return (
-    <div className="flex items-start gap-3 rounded-[14px] border border-zinc-200 bg-zinc-100/60 px-4.5 py-4">
+    <div className="flex items-start gap-3 rounded-[14px] border border-stone-300 bg-stone-200/60 px-4.5 py-4">
       {/* Past notification — dim the logo so it reads as quieter than NotifHot */}
       <span className="shrink-0 opacity-60">
         <LogoMark size={22} />
       </span>
       <div className="flex flex-1 flex-col gap-1">
         <div className="flex justify-between">
-          <span className="text-xs font-medium tracking-[0.02em] text-zinc-9000">
+          <span className="text-xs font-medium tracking-[0.02em] text-stone-500">
             {eyebrow}
           </span>
-          <span className="font-mono text-[11px] text-zinc-9000">{meta}</span>
+          <span className="font-mono text-[11px] text-stone-500">{meta}</span>
         </div>
-        <span className="text-[13px] font-medium leading-[1.45] tracking-[-0.005em] text-zinc-800">
+        <span className="text-[13px] font-medium leading-[1.45] tracking-[-0.005em] text-stone-800">
           {body}
         </span>
       </div>
@@ -1171,13 +1171,13 @@ function NotifCalm({
 function AppStoreButton({ variant }: { variant: "apple" | "google" }) {
   if (variant === "apple") {
     return (
-      <div className="flex items-center gap-3 rounded-xl bg-zinc-900 px-5.5 py-3.5">
-        <div className="flex h-6 w-6 items-center justify-center rounded-md bg-white" />
+      <div className="flex items-center gap-3 rounded-xl bg-stone-900 px-5.5 py-3.5">
+        <div className="flex h-6 w-6 items-center justify-center rounded-md bg-[#F8F5EE]" />
         <div className="flex flex-col">
-          <span className="text-[11px] font-normal tracking-[0.02em] text-zinc-900/60">
+          <span className="text-[11px] font-normal tracking-[0.02em] text-stone-900/60">
             Download on the
           </span>
-          <span className="text-base font-semibold tracking-[-0.01em] text-zinc-900">
+          <span className="text-base font-semibold tracking-[-0.01em] text-stone-900">
             App Store
           </span>
         </div>
@@ -1185,12 +1185,12 @@ function AppStoreButton({ variant }: { variant: "apple" | "google" }) {
     );
   }
   return (
-    <div className="flex items-center gap-3 rounded-xl border border-zinc-200 bg-zinc-100/60 px-5.5 py-3.5">
-      <div className="flex h-6 w-6 items-center justify-center rounded-md bg-zinc-900 text-sm font-semibold text-white">
+    <div className="flex items-center gap-3 rounded-xl border border-stone-300 bg-stone-200/60 px-5.5 py-3.5">
+      <div className="flex h-6 w-6 items-center justify-center rounded-md bg-stone-900 text-sm font-semibold text-white">
         ▶
       </div>
       <div className="flex flex-col">
-        <span className="text-[11px] font-normal tracking-[0.02em] text-zinc-600">
+        <span className="text-[11px] font-normal tracking-[0.02em] text-stone-600">
           Get it on
         </span>
         <span className="text-base font-semibold tracking-[-0.01em]">
@@ -1214,7 +1214,7 @@ function FooterCol({
 }) {
   return (
     <div className="flex flex-col gap-3.5">
-      <span className="text-xs font-medium tracking-[0.06em] text-zinc-600">
+      <span className="text-xs font-medium tracking-[0.06em] text-stone-600">
         {title}
       </span>
       {links.map((l) =>
@@ -1222,8 +1222,8 @@ function FooterCol({
           <Link
             key={l.label}
             href={l.href}
-            className={`text-sm font-medium transition-colors hover:text-zinc-900 ${
-              l.active ? "text-zinc-800" : "text-zinc-9000"
+            className={`text-sm font-medium transition-colors hover:text-stone-900 ${
+              l.active ? "text-stone-800" : "text-stone-500"
             }`}
           >
             {l.label}
@@ -1232,7 +1232,7 @@ function FooterCol({
           <span
             key={l.label}
             className={`text-sm font-medium ${
-              l.active ? "text-zinc-800" : "text-zinc-9000"
+              l.active ? "text-stone-800" : "text-stone-500"
             }`}
           >
             {l.label}
