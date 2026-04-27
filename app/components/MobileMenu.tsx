@@ -47,7 +47,7 @@ export function MobileMenu({
         onClick={() => setOpen(true)}
         aria-label="Open menu"
         aria-expanded={open}
-        className="flex h-9 w-9 items-center justify-center rounded-md border border-white/10 bg-white/[0.03] text-zinc-200 transition-colors hover:bg-white/[0.06] md:hidden"
+        className="flex h-9 w-9 items-center justify-center rounded-md border border-zinc-200 bg-zinc-100/60 text-zinc-800 transition-colors hover:bg-zinc-100/60 md:hidden"
       >
         <svg
           width="14"
@@ -79,7 +79,7 @@ export function MobileMenu({
             aria-modal="true"
           >
           {/* Drawer header — logo on left, X button on right */}
-          <div className="flex items-center justify-between border-b border-white/[0.06] px-6 py-4">
+          <div className="flex items-center justify-between border-b border-zinc-200 px-6 py-4">
             <div className="flex items-center gap-2.5">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -100,7 +100,7 @@ export function MobileMenu({
               type="button"
               onClick={close}
               aria-label="Close menu"
-              className="flex h-9 w-9 items-center justify-center rounded-md border border-white/10 bg-white/[0.03] text-zinc-200 transition-colors hover:bg-white/[0.06]"
+              className="flex h-9 w-9 items-center justify-center rounded-md border border-zinc-200 bg-zinc-100/60 text-zinc-800 transition-colors hover:bg-zinc-100/60"
             >
               <svg
                 width="14"
@@ -141,18 +141,18 @@ export function MobileMenu({
           </nav>
 
           {/* Drawer footer — Log in + primary CTA */}
-          <div className="flex flex-col gap-3 border-t border-white/[0.06] px-6 py-6">
+          <div className="flex flex-col gap-3 border-t border-zinc-200 px-6 py-6">
             <Link
               href="#"
               onClick={close}
-              className="text-center text-sm font-medium text-zinc-400"
+              className="text-center text-sm font-medium text-zinc-600"
             >
               Log in
             </Link>
             <Link
               href={ctaHref}
               onClick={close}
-              className="rounded-lg bg-zinc-50 py-3 text-center text-sm font-medium tracking-[-0.005em] text-[#08090A]"
+              className="rounded-lg bg-zinc-900 py-3 text-center text-sm font-medium tracking-[-0.005em] text-white"
             >
               {ctaLabel}
             </Link>
@@ -183,8 +183,8 @@ function DrawerLink({
     <Link
       href={href}
       onClick={onClick}
-      className={`flex items-center justify-between border-b border-white/[0.06] py-5 text-2xl font-medium tracking-[-0.02em] transition-colors ${
-        active ? "text-zinc-50" : "text-zinc-300"
+      className={`flex items-center justify-between border-b border-zinc-200 py-5 text-2xl font-medium tracking-[-0.02em] transition-colors ${
+        active ? "text-zinc-900" : "text-zinc-700"
       }`}
     >
       <span>{children}</span>
