@@ -107,7 +107,7 @@ export default function MembersPage() {
               href="#cta"
               className="flex items-center gap-2 rounded-[10px] bg-zinc-50 px-5 py-3 text-sm font-medium tracking-[-0.005em] text-[#0E1014]"
             >
-              Sign up free
+              Get the App
               <span className="text-zinc-500">→</span>
             </a>
             <a
