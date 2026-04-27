@@ -1,0 +1,129 @@
+@import "tailwindcss";
+
+/* ===== Theme tokens =====
+   Tailwind v4 reads these from @theme and exposes them as utilities.
+   We're keeping it minimal — relying on Tailwind's built-in zinc scale
+   for most colors and only adding semantic tokens we actually need. */
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), "JetBrains Mono", ui-monospace, monospace;
+}
+
+/* Slight letter-spacing tightening — Linear's signature feel */
+html {
+  letter-spacing: -0.011em;
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+/* ===== Mobile horizontal-scroll guard =====
+   Wide decorative elements (aurora glows, side-padded mockups) can spill
+   past the viewport on small screens. We clip overflow at the document
+   level so users can't accidentally pan the entire page sideways.
+   `overflow-x: clip` is preferred over `hidden` because it doesn't
+   create a scrollable context, which would break sticky positioning
+   inside the page (like our nav). */
+html,
+body {
+  overflow-x: clip;
+}
+
+/* Smooth fade-up animation for entry transitions */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  animation: fadeUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+/* ===== Monochrome aurora =====
+   Used on the /members page hero + final CTA. A soft white halo over
+   the dark ground — same atmospheric idea as the colored aurora, but
+   stripped down for the B&W theme. */
+.aurora-mono {
+  background: radial-gradient(
+    ellipse 60% 50% at 50% 30%,
+    rgba(255, 255, 255, 0.18) 0%,
+    rgba(255, 255, 255, 0.06) 35%,
+    transparent 70%
+  );
+  filter: blur(40px);
+}
+
+/* Smaller, tighter halo for product mockup glows (centered, dimmer) */
+.aurora-mono-tight {
+  background: radial-gradient(
+    ellipse 50% 50% at 50% 50%,
+    rgba(255, 255, 255, 0.12) 0%,
+    rgba(255, 255, 255, 0.05) 40%,
+    transparent 70%
+  );
+  filter: blur(60px);
+}
+
+/* ===== Horizon divider =====
+   A thin dotted line that visually continues the horizon line from the
+   /members2 hero image. Used as a section separator. Fades out toward
+   the edges so it doesn't feel like a hard rule. */
+.horizon-divider {
+  height: 1px;
+  background-image: radial-gradient(
+    ellipse 60% 100% at 50% 50%,
+    rgba(255, 255, 255, 0.35) 0%,
+    rgba(255, 255, 255, 0.12) 40%,
+    transparent 100%
+  );
+  position: relative;
+}
+.horizon-divider::after {
+  content: "";
+  position: absolute;
+  inset: -3px 0 -3px 0;
+  background-image: radial-gradient(
+    ellipse 30% 100% at 50% 50%,
+    rgba(255, 255, 255, 0.18) 0%,
+    transparent 100%
+  );
+  filter: blur(2px);
+  pointer-events: none;
+}
+
+/* ===== Stipple / star-field texture =====
+   Random dot density that mimics the stipple aesthetic of the horizon
+   art. Dots are tiny, sparse, white-on-dark. Used as ambient page
+   texture in /members2 sections. */
+.stipple {
+  background-image:
+    radial-gradient(circle at 17% 13%, rgba(255, 255, 255, 0.6) 0.5px, transparent 0.5px),
+    radial-gradient(circle at 73% 41%, rgba(255, 255, 255, 0.4) 0.5px, transparent 0.5px),
+    radial-gradient(circle at 38% 67%, rgba(255, 255, 255, 0.5) 0.5px, transparent 0.5px),
+    radial-gradient(circle at 89% 84%, rgba(255, 255, 255, 0.3) 0.5px, transparent 0.5px),
+    radial-gradient(circle at 51% 22%, rgba(255, 255, 255, 0.45) 0.5px, transparent 0.5px),
+    radial-gradient(circle at 9% 91%, rgba(255, 255, 255, 0.35) 0.5px, transparent 0.5px),
+    radial-gradient(circle at 62% 76%, rgba(255, 255, 255, 0.5) 0.5px, transparent 0.5px),
+    radial-gradient(circle at 29% 38%, rgba(255, 255, 255, 0.3) 0.5px, transparent 0.5px);
+  background-size: 240px 240px;
+}
+
+/* ===== Dot grid =====
+   Subtle dotted texture behind the hero. Fades out toward the bottom
+   so it doesn't compete with content below. */
+.dot-grid {
+  background-image: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.04) 1px,
+    transparent 1px
+  );
+  background-size: 32px 32px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.6) 0%, transparent 80%);
+}
