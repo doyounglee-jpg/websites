@@ -135,20 +135,10 @@ export function MobileMenu({
             >
               Companies
             </DrawerLink>
-            <DrawerLink href="#" onClick={close}>
-              Get the app
-            </DrawerLink>
           </nav>
 
-          {/* Drawer footer — Log in + primary CTA */}
+          {/* Drawer footer — primary CTA only */}
           <div className="flex flex-col gap-3 border-t border-stone-300 px-6 py-6">
-            <Link
-              href="#"
-              onClick={close}
-              className="text-center text-sm font-medium text-stone-600"
-            >
-              Log in
-            </Link>
             <Link
               href={ctaHref}
               onClick={close}

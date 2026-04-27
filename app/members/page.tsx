@@ -49,11 +49,9 @@ export default function MembersPage() {
               Members
             </NavLink>
             <NavLink href="/companies">Companies</NavLink>
-            <NavLink href="#">Get the app</NavLink>
           </div>
-          {/* Desktop: Log in + Sign up. Hidden on mobile — replaced by hamburger drawer. */}
-          <div className="hidden items-center gap-3 md:flex">
-            <span className="text-sm font-medium text-stone-600">Log in</span>
+          {/* Desktop: single Get the App CTA. Hidden on mobile — hamburger drawer takes over. */}
+          <div className="hidden md:flex">
             <a
               href="#cta"
               className="rounded-lg bg-stone-900 px-3.5 py-2 text-[13px] font-medium tracking-[-0.005em] text-white"
@@ -61,7 +59,7 @@ export default function MembersPage() {
               Sign up
             </a>
           </div>
-          <MobileMenu activePath="members" ctaLabel="Sign up" ctaHref="#cta" />
+          <MobileMenu activePath="members" ctaLabel="Get the App" ctaHref="#cta" />
         </nav>
       </header>
 

@@ -44,11 +44,9 @@ export default function CompaniesPage() {
             <NavLink href="/companies" active>
               Companies
             </NavLink>
-            <NavLink href="#">Get the app</NavLink>
           </div>
-          {/* Desktop: Log in + Request demo. Hidden on mobile — hamburger drawer takes over. */}
-          <div className="hidden items-center gap-3 md:flex">
-            <span className="text-sm font-medium text-zinc-400">Log in</span>
+          {/* Desktop: single Request demo CTA. Hidden on mobile — hamburger drawer takes over. */}
+          <div className="hidden md:flex">
             <a
               href="#cta"
               className="rounded-lg bg-zinc-50 px-3.5 py-2 text-[13px] font-medium tracking-[-0.005em] text-[#08090A]"
