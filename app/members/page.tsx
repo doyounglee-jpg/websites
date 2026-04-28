@@ -19,7 +19,7 @@ import { MobileMenu } from "../components/MobileMenu";
  *   9. Footer
  *
  * Color palette (B&W theme):
- *   - Ground:        #08090A  → bg-[#F3EDE0]
+ *   - Ground:        #08090A  → bg-[#EFEEE9]
  *   - Surface:       rgba(255,255,255,0.03–0.06)  → bg-stone-200/60
  *   - Hairline:      rgba(255,255,255,0.06–0.1)   → border-stone-300
  *   - Text primary:  #F7F8F8                       → text-stone-900
@@ -29,7 +29,7 @@ import { MobileMenu } from "../components/MobileMenu";
 
 export default function MembersPage() {
   return (
-    <main className="min-h-screen bg-[#F3EDE0] text-stone-900">
+    <main className="min-h-screen bg-[#EFEEE9] text-stone-900">
       {/* ============================================================
           1. NAV — hairline border, blurred dark background
          ============================================================ */}
@@ -537,7 +537,7 @@ function Row({ label, value }: { label: string; value: string }) {
 function PhoneMockup() {
   return (
     <div className="relative z-20 flex h-[700px] w-[340px] flex-col rounded-[44px] border border-stone-300 bg-stone-200 p-2 shadow-[0_24px_64px_rgba(0,0,0,0.38)]">
-      <div className="flex flex-1 flex-col gap-5 overflow-hidden rounded-[36px] bg-gradient-to-b from-[#F3EDE0] to-stone-200 px-5 py-7">
+      <div className="flex flex-1 flex-col gap-5 overflow-hidden rounded-[36px] bg-gradient-to-b from-[#EFEEE9] to-stone-200 px-5 py-7">
         {/* Status bar */}
         <div className="flex items-center justify-between px-1">
           <span className="text-[13px] font-semibold">9:41</span>
@@ -1170,7 +1170,7 @@ function AppStoreButton({ variant }: { variant: "apple" | "google" }) {
   if (variant === "apple") {
     return (
       <div className="flex items-center gap-3 rounded-xl bg-stone-900 px-5.5 py-3.5">
-        <div className="flex h-6 w-6 items-center justify-center rounded-md bg-[#F3EDE0]" />
+        <div className="flex h-6 w-6 items-center justify-center rounded-md bg-[#EFEEE9]" />
         <div className="flex flex-col">
           <span className="text-[11px] font-normal tracking-[0.02em] text-stone-900/60">
             Download on the
