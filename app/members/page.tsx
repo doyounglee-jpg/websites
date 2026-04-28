@@ -19,7 +19,7 @@ import { MobileMenu } from "../components/MobileMenu";
  *   9. Footer
  *
  * Color palette (B&W theme):
- *   - Ground:        #08090A  → bg-[#F8F5EE]
+ *   - Ground:        #08090A  → bg-[#F3EDE0]
  *   - Surface:       rgba(255,255,255,0.03–0.06)  → bg-stone-200/60
  *   - Hairline:      rgba(255,255,255,0.06–0.1)   → border-stone-300
  *   - Text primary:  #F7F8F8                       → text-stone-900
@@ -29,7 +29,7 @@ import { MobileMenu } from "../components/MobileMenu";
 
 export default function MembersPage() {
   return (
-    <main className="min-h-screen bg-[#F8F5EE] text-stone-900">
+    <main className="min-h-screen bg-[#F3EDE0] text-stone-900">
       {/* ============================================================
           1. NAV — hairline border, blurred dark background
          ============================================================ */}
@@ -177,11 +177,11 @@ export default function MembersPage() {
               />
             ))}
             {/* Footer (totals) */}
-            <div className="flex items-center border-t border-stone-300 bg-stone-200/60 px-6 py-4">
+            <div className="flex items-center border-t border-stone-300 bg-[#DA4A1B]/[0.06] px-6 py-4">
               <div className="flex w-14 shrink-0 items-center">
                 <span
-                  className="block h-2 w-2 rounded-full bg-stone-900"
-                  style={{ boxShadow: "0 0 12px rgba(255,255,255,0.4)" }}
+                  className="block h-2 w-2 rounded-full bg-[#DA4A1B]"
+                  style={{ boxShadow: "0 0 12px rgba(218,74,27,0.5)" }}
                 />
               </div>
               <span className="flex-1 text-sm font-medium tracking-[-0.005em]">
@@ -193,7 +193,7 @@ export default function MembersPage() {
               <span className="w-[140px] shrink-0 text-right font-mono text-sm text-stone-500">
                 $148,420,602
               </span>
-              <span className="w-40 shrink-0 text-right font-mono text-base font-semibold tracking-[-0.01em]">
+              <span className="w-40 shrink-0 text-right font-mono text-base font-semibold tracking-[-0.01em] text-[#DA4A1B]">
                 $78,649,338
               </span>
             </div>
@@ -461,8 +461,8 @@ export default function MembersPage() {
             </span>
             <div className="flex items-center gap-2">
               <span
-                className="block h-1.5 w-1.5 rounded-full bg-stone-900"
-                style={{ boxShadow: "0 0 10px rgba(255,255,255,0.5)" }}
+                className="block h-1.5 w-1.5 rounded-full bg-[#DA4A1B]"
+                style={{ boxShadow: "0 0 10px rgba(218,74,27,0.6)" }}
               />
               <span className="text-xs font-medium text-stone-600">
                 All systems operational
@@ -502,7 +502,7 @@ function NavLink({
 
 function SectionEyebrow({ children }: { children: React.ReactNode }) {
   return (
-    <span className="text-[13px] font-medium tracking-[0.06em] text-stone-600">
+    <span className="text-[13px] font-medium tracking-[0.06em] text-[#DA4A1B]">
       {children}
     </span>
   );
@@ -537,7 +537,7 @@ function Row({ label, value }: { label: string; value: string }) {
 function PhoneMockup() {
   return (
     <div className="relative z-20 flex h-[700px] w-[340px] flex-col rounded-[44px] border border-stone-300 bg-stone-200 p-2 shadow-[0_24px_64px_rgba(0,0,0,0.38)]">
-      <div className="flex flex-1 flex-col gap-5 overflow-hidden rounded-[36px] bg-gradient-to-b from-[#F8F5EE] to-stone-200 px-5 py-7">
+      <div className="flex flex-1 flex-col gap-5 overflow-hidden rounded-[36px] bg-gradient-to-b from-[#F3EDE0] to-stone-200 px-5 py-7">
         {/* Status bar */}
         <div className="flex items-center justify-between px-1">
           <span className="text-[13px] font-semibold">9:41</span>
@@ -738,8 +738,8 @@ function SavingsRow({
         {original}
       </span>
       <div className="flex w-40 shrink-0 items-center justify-end gap-2">
-        <span className="font-mono text-[15px] font-medium">{saved}</span>
-        <span className="rounded-md bg-stone-200/60 px-1.5 py-0.5 text-[11px] font-medium tracking-[0.02em] text-stone-700">
+        <span className="font-mono text-[15px] font-medium text-[#DA4A1B]">{saved}</span>
+        <span className="rounded-md bg-[#DA4A1B]/10 px-1.5 py-0.5 text-[11px] font-medium tracking-[0.02em] text-[#DA4A1B]">
           {pct}
         </span>
       </div>
@@ -761,9 +761,9 @@ function ChatMockup() {
           <span className="text-[13px] font-semibold tracking-[-0.005em]">
             Clerkie AI
           </span>
-          <span className="flex items-center gap-1.5 rounded-full bg-stone-200/60 px-2 py-0.5">
-            <span className="block h-[5px] w-[5px] rounded-full bg-stone-900" />
-            <span className="text-[10px] font-medium tracking-[0.04em] text-stone-700">
+          <span className="flex items-center gap-1.5 rounded-full bg-[#DA4A1B]/10 px-2 py-0.5">
+            <span className="block h-[5px] w-[5px] rounded-full bg-[#DA4A1B]" />
+            <span className="text-[10px] font-medium tracking-[0.04em] text-[#DA4A1B]">
               ONLINE
             </span>
           </span>
@@ -944,7 +944,7 @@ function CategoryCard({
         <span className="font-mono text-[11px] font-medium tracking-[0.02em] text-stone-500">
           {statLabel}
         </span>
-        <span className="font-mono text-[13px] font-medium">{statValue}</span>
+        <span className="font-mono text-[13px] font-medium text-[#DA4A1B]">{statValue}</span>
       </div>
     </div>
   );
@@ -1096,10 +1096,10 @@ function SafetyStatBlock({
 }) {
   return (
     <div className="relative z-10 flex flex-1 flex-col gap-4.5 rounded-[18px] border border-stone-300 bg-stone-200/60 p-8 backdrop-blur">
-      <span className="text-xs font-medium tracking-[0.04em] text-stone-500">
+      <span className="text-xs font-medium tracking-[0.04em] text-[#DA4A1B]">
         {label}
       </span>
-      <span className="text-[56px] font-semibold leading-none tracking-[-0.04em]">
+      <span className="text-[56px] font-semibold leading-none tracking-[-0.04em] text-[#DA4A1B]">
         {value}
       </span>
       {children}
@@ -1170,7 +1170,7 @@ function AppStoreButton({ variant }: { variant: "apple" | "google" }) {
   if (variant === "apple") {
     return (
       <div className="flex items-center gap-3 rounded-xl bg-stone-900 px-5.5 py-3.5">
-        <div className="flex h-6 w-6 items-center justify-center rounded-md bg-[#F8F5EE]" />
+        <div className="flex h-6 w-6 items-center justify-center rounded-md bg-[#F3EDE0]" />
         <div className="flex flex-col">
           <span className="text-[11px] font-normal tracking-[0.02em] text-stone-900/60">
             Download on the
