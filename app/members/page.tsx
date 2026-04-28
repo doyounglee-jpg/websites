@@ -19,7 +19,7 @@ import { MobileMenu } from "../components/MobileMenu";
  *   9. Footer
  *
  * Color palette (B&W theme):
- *   - Ground:        #000000  → bg-[#000000]
+ *   - Ground:        #0A0A0A  → bg-[#0A0A0A]
  *   - Surface:       rgba(255,255,255,0.03–0.06)  → bg-white/5
  *   - Hairline:      rgba(255,255,255,0.06–0.1)   → border-white/10
  *   - Text primary:  #F7F8F8                       → text-zinc-50
@@ -29,11 +29,11 @@ import { MobileMenu } from "../components/MobileMenu";
 
 export default function MembersPage() {
   return (
-    <main className="min-h-screen bg-[#000000] text-zinc-50">
+    <main className="min-h-screen bg-[#0A0A0A] text-zinc-50">
       {/* ============================================================
           1. NAV — hairline border, blurred dark background
          ============================================================ */}
-      <header className="sticky top-0 z-50 w-full border-b border-white/[0.06] bg-[#000000]/60 backdrop-blur-md">
+      <header className="sticky top-0 z-50 w-full border-b border-white/[0.06] bg-[#0A0A0A]/60 backdrop-blur-md">
         <nav className="mx-auto flex w-full max-w-[1440px] items-center justify-between px-6 py-4 sm:px-10 sm:py-5 md:px-16">
           <div className="flex items-center gap-2.5">
             <LogoMark size={24} />
@@ -54,7 +54,7 @@ export default function MembersPage() {
           <div className="hidden md:flex">
             <a
               href="#cta"
-              className="rounded-lg bg-zinc-50 px-3.5 py-2 text-[13px] font-medium tracking-[-0.005em] text-[#000000]"
+              className="rounded-lg bg-zinc-50 px-3.5 py-2 text-[13px] font-medium tracking-[-0.005em] text-[#0A0A0A]"
             >
               Get the App
             </a>
@@ -105,7 +105,7 @@ export default function MembersPage() {
           <div className="flex items-center gap-3">
             <a
               href="#cta"
-              className="flex items-center gap-2 rounded-[10px] bg-zinc-50 px-5 py-3 text-sm font-medium tracking-[-0.005em] text-[#000000]"
+              className="flex items-center gap-2 rounded-[10px] bg-zinc-50 px-5 py-3 text-sm font-medium tracking-[-0.005em] text-[#0A0A0A]"
             >
               Get the App
               <span className="text-zinc-500">→</span>
@@ -407,7 +407,7 @@ export default function MembersPage() {
       {/* ============================================================
           9. FOOTER
          ============================================================ */}
-      <footer className="border-t border-white/[0.08] bg-[#000000]/60">
+      <footer className="border-t border-white/[0.08] bg-[#0A0A0A]/60">
         <div className="mx-auto flex max-w-[1440px] flex-col gap-12 px-6 pb-12 pt-12 sm:px-10 sm:pt-16 md:px-16 lg:px-24">
           <div className="flex flex-col items-start gap-10 lg:flex-row lg:justify-between lg:gap-20">
             <div className="flex max-w-[320px] flex-col gap-5">
@@ -799,7 +799,7 @@ function ChatMockup() {
           </p>
 
           {/* Reasoning card */}
-          <div className="flex w-full flex-col gap-2.5 rounded-xl border border-white/10 bg-[#000000]/60 px-4 py-3.5">
+          <div className="flex w-full flex-col gap-2.5 rounded-xl border border-white/10 bg-[#0A0A0A]/60 px-4 py-3.5">
             <div className="flex items-center justify-between">
               <span className="text-[11px] font-medium tracking-[0.04em] text-zinc-500">
                 SUGGESTED ORDER
@@ -855,13 +855,13 @@ function ChatMockup() {
       </div>
 
       {/* Input row */}
-      <div className="flex items-center gap-2.5 border-t border-white/[0.06] bg-[#000000]/40 px-4.5 py-3.5">
+      <div className="flex items-center gap-2.5 border-t border-white/[0.06] bg-[#0A0A0A]/40 px-4.5 py-3.5">
         <span className="flex-1 text-sm tracking-[-0.005em] text-zinc-600">
           Ask anything about your money…
         </span>
         <div className="flex items-center gap-2">
           <span className="font-mono text-[11px] text-zinc-600">↵</span>
-          <button className="flex h-7 w-7 items-center justify-center rounded-lg bg-zinc-50 text-sm font-semibold text-[#000000]">
+          <button className="flex h-7 w-7 items-center justify-center rounded-lg bg-zinc-50 text-sm font-semibold text-[#0A0A0A]">
             ↑
           </button>
         </div>
@@ -929,7 +929,7 @@ function CategoryCard({
     <div className="flex min-h-[240px] basis-full flex-col gap-6 bg-[#0C0D0F] px-6 py-7 sm:basis-[calc(50%-1px)] sm:px-8 sm:py-9 lg:basis-[calc(33.333%-1px)]">
       <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5">
         <div className="relative h-4 w-5.5 rounded-[3px] bg-white/40">
-          <div className="absolute left-0 top-1 h-[3px] w-full bg-[#000000]/40" />
+          <div className="absolute left-0 top-1 h-[3px] w-full bg-[#0A0A0A]/40" />
         </div>
       </div>
       <div className="flex flex-1 flex-col gap-2">
@@ -1121,7 +1121,7 @@ function NotifHot() {
         your buffer until your paycheck lands Monday?
       </span>
       <div className="flex gap-2 pt-1">
-        <span className="rounded-lg bg-zinc-50 px-3 py-1.5 text-xs font-medium text-[#000000]">
+        <span className="rounded-lg bg-zinc-50 px-3 py-1.5 text-xs font-medium text-[#0A0A0A]">
           Yes, cover it
         </span>
         <span className="rounded-lg bg-white/[0.06] px-3 py-1.5 text-xs font-medium text-zinc-300">
@@ -1170,12 +1170,12 @@ function AppStoreButton({ variant }: { variant: "apple" | "google" }) {
   if (variant === "apple") {
     return (
       <div className="flex items-center gap-3 rounded-xl bg-zinc-50 px-5.5 py-3.5">
-        <div className="flex h-6 w-6 items-center justify-center rounded-md bg-[#000000]" />
+        <div className="flex h-6 w-6 items-center justify-center rounded-md bg-[#0A0A0A]" />
         <div className="flex flex-col">
-          <span className="text-[11px] font-normal tracking-[0.02em] text-[#000000]/60">
+          <span className="text-[11px] font-normal tracking-[0.02em] text-[#0A0A0A]/60">
             Download on the
           </span>
-          <span className="text-base font-semibold tracking-[-0.01em] text-[#000000]">
+          <span className="text-base font-semibold tracking-[-0.01em] text-[#0A0A0A]">
             App Store
           </span>
         </div>
@@ -1184,7 +1184,7 @@ function AppStoreButton({ variant }: { variant: "apple" | "google" }) {
   }
   return (
     <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.06] px-5.5 py-3.5">
-      <div className="flex h-6 w-6 items-center justify-center rounded-md bg-zinc-50 text-sm font-semibold text-[#000000]">
+      <div className="flex h-6 w-6 items-center justify-center rounded-md bg-zinc-50 text-sm font-semibold text-[#0A0A0A]">
         ▶
       </div>
       <div className="flex flex-col">
