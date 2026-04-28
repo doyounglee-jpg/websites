@@ -19,7 +19,7 @@ import { MobileMenu } from "../components/MobileMenu";
  *   9. Footer
  *
  * Color palette (B&W theme):
- *   - Ground:        #08090A  → bg-[#08090A]
+ *   - Ground:        #000000  → bg-[#000000]
  *   - Surface:       rgba(255,255,255,0.03–0.06)  → bg-white/5
  *   - Hairline:      rgba(255,255,255,0.06–0.1)   → border-white/10
  *   - Text primary:  #F7F8F8                       → text-zinc-50
@@ -29,11 +29,11 @@ import { MobileMenu } from "../components/MobileMenu";
 
 export default function MembersPage() {
   return (
-    <main className="min-h-screen bg-[#08090A] text-zinc-50">
+    <main className="min-h-screen bg-[#000000] text-zinc-50">
       {/* ============================================================
           1. NAV — hairline border, blurred dark background
          ============================================================ */}
-      <header className="sticky top-0 z-50 w-full border-b border-white/[0.06] bg-[#08090A]/60 backdrop-blur-md">
+      <header className="sticky top-0 z-50 w-full border-b border-white/[0.06] bg-[#000000]/60 backdrop-blur-md">
         <nav className="mx-auto flex w-full max-w-[1440px] items-center justify-between px-6 py-4 sm:px-10 sm:py-5 md:px-16">
           <div className="flex items-center gap-2.5">
             <LogoMark size={24} />
@@ -54,7 +54,7 @@ export default function MembersPage() {
           <div className="hidden md:flex">
             <a
               href="#cta"
-              className="rounded-lg bg-zinc-50 px-3.5 py-2 text-[13px] font-medium tracking-[-0.005em] text-[#08090A]"
+              className="rounded-lg bg-zinc-50 px-3.5 py-2 text-[13px] font-medium tracking-[-0.005em] text-[#000000]"
             >
               Get the App
             </a>
@@ -105,7 +105,7 @@ export default function MembersPage() {
           <div className="flex items-center gap-3">
             <a
               href="#cta"
-              className="flex items-center gap-2 rounded-[10px] bg-zinc-50 px-5 py-3 text-sm font-medium tracking-[-0.005em] text-[#08090A]"
+              className="flex items-center gap-2 rounded-[10px] bg-zinc-50 px-5 py-3 text-sm font-medium tracking-[-0.005em] text-[#000000]"
             >
               Get the App
               <span className="text-zinc-500">→</span>
@@ -177,11 +177,11 @@ export default function MembersPage() {
               />
             ))}
             {/* Footer (totals) */}
-            <div className="flex items-center border-t border-white/[0.06] bg-white/[0.02] px-6 py-4">
+            <div className="flex items-center border-t border-white/[0.06] bg-[#D9F558]/[0.04] px-6 py-4">
               <div className="flex w-14 shrink-0 items-center">
                 <span
-                  className="block h-2 w-2 rounded-full bg-zinc-50"
-                  style={{ boxShadow: "0 0 12px rgba(255,255,255,0.4)" }}
+                  className="block h-2 w-2 rounded-full bg-[#D9F558]"
+                  style={{ boxShadow: "0 0 12px rgba(217,245,88,0.6)" }}
                 />
               </div>
               <span className="flex-1 text-sm font-medium tracking-[-0.005em]">
@@ -193,7 +193,7 @@ export default function MembersPage() {
               <span className="w-[140px] shrink-0 text-right font-mono text-sm text-zinc-500">
                 $148,420,602
               </span>
-              <span className="w-40 shrink-0 text-right font-mono text-base font-semibold tracking-[-0.01em]">
+              <span className="w-40 shrink-0 text-right font-mono text-base font-semibold tracking-[-0.01em] text-[#D9F558]">
                 $78,649,338
               </span>
             </div>
@@ -407,7 +407,7 @@ export default function MembersPage() {
       {/* ============================================================
           9. FOOTER
          ============================================================ */}
-      <footer className="border-t border-white/[0.08] bg-[#08090A]/60">
+      <footer className="border-t border-white/[0.08] bg-[#000000]/60">
         <div className="mx-auto flex max-w-[1440px] flex-col gap-12 px-6 pb-12 pt-12 sm:px-10 sm:pt-16 md:px-16 lg:px-24">
           <div className="flex flex-col items-start gap-10 lg:flex-row lg:justify-between lg:gap-20">
             <div className="flex max-w-[320px] flex-col gap-5">
@@ -461,8 +461,8 @@ export default function MembersPage() {
             </span>
             <div className="flex items-center gap-2">
               <span
-                className="block h-1.5 w-1.5 rounded-full bg-zinc-50"
-                style={{ boxShadow: "0 0 10px rgba(255,255,255,0.5)" }}
+                className="block h-1.5 w-1.5 rounded-full bg-[#D9F558]"
+                style={{ boxShadow: "0 0 10px rgba(217,245,88,0.7)" }}
               />
               <span className="text-xs font-medium text-zinc-400">
                 All systems operational
@@ -502,7 +502,7 @@ function NavLink({
 
 function SectionEyebrow({ children }: { children: React.ReactNode }) {
   return (
-    <span className="text-[13px] font-medium tracking-[0.06em] text-zinc-400">
+    <span className="text-[13px] font-medium tracking-[0.06em] text-[#D9F558]">
       {children}
     </span>
   );
@@ -738,8 +738,8 @@ function SavingsRow({
         {original}
       </span>
       <div className="flex w-40 shrink-0 items-center justify-end gap-2">
-        <span className="font-mono text-[15px] font-medium">{saved}</span>
-        <span className="rounded-md bg-white/[0.06] px-1.5 py-0.5 text-[11px] font-medium tracking-[0.02em] text-zinc-300">
+        <span className="font-mono text-[15px] font-medium text-[#D9F558]">{saved}</span>
+        <span className="rounded-md bg-[#D9F558]/10 px-1.5 py-0.5 text-[11px] font-medium tracking-[0.02em] text-[#D9F558]">
           {pct}
         </span>
       </div>
@@ -761,9 +761,9 @@ function ChatMockup() {
           <span className="text-[13px] font-semibold tracking-[-0.005em]">
             Clerkie AI
           </span>
-          <span className="flex items-center gap-1.5 rounded-full bg-white/[0.06] px-2 py-0.5">
-            <span className="block h-[5px] w-[5px] rounded-full bg-zinc-50" />
-            <span className="text-[10px] font-medium tracking-[0.04em] text-zinc-300">
+          <span className="flex items-center gap-1.5 rounded-full bg-[#D9F558]/10 px-2 py-0.5">
+            <span className="block h-[5px] w-[5px] rounded-full bg-[#D9F558]" />
+            <span className="text-[10px] font-medium tracking-[0.04em] text-[#D9F558]">
               ONLINE
             </span>
           </span>
@@ -799,7 +799,7 @@ function ChatMockup() {
           </p>
 
           {/* Reasoning card */}
-          <div className="flex w-full flex-col gap-2.5 rounded-xl border border-white/10 bg-[#08090A]/60 px-4 py-3.5">
+          <div className="flex w-full flex-col gap-2.5 rounded-xl border border-white/10 bg-[#000000]/60 px-4 py-3.5">
             <div className="flex items-center justify-between">
               <span className="text-[11px] font-medium tracking-[0.04em] text-zinc-500">
                 SUGGESTED ORDER
@@ -855,13 +855,13 @@ function ChatMockup() {
       </div>
 
       {/* Input row */}
-      <div className="flex items-center gap-2.5 border-t border-white/[0.06] bg-[#08090A]/40 px-4.5 py-3.5">
+      <div className="flex items-center gap-2.5 border-t border-white/[0.06] bg-[#000000]/40 px-4.5 py-3.5">
         <span className="flex-1 text-sm tracking-[-0.005em] text-zinc-600">
           Ask anything about your money…
         </span>
         <div className="flex items-center gap-2">
           <span className="font-mono text-[11px] text-zinc-600">↵</span>
-          <button className="flex h-7 w-7 items-center justify-center rounded-lg bg-zinc-50 text-sm font-semibold text-[#08090A]">
+          <button className="flex h-7 w-7 items-center justify-center rounded-lg bg-zinc-50 text-sm font-semibold text-[#000000]">
             ↑
           </button>
         </div>
@@ -929,7 +929,7 @@ function CategoryCard({
     <div className="flex min-h-[240px] basis-full flex-col gap-6 bg-[#0C0D0F] px-6 py-7 sm:basis-[calc(50%-1px)] sm:px-8 sm:py-9 lg:basis-[calc(33.333%-1px)]">
       <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5">
         <div className="relative h-4 w-5.5 rounded-[3px] bg-white/40">
-          <div className="absolute left-0 top-1 h-[3px] w-full bg-[#08090A]/40" />
+          <div className="absolute left-0 top-1 h-[3px] w-full bg-[#000000]/40" />
         </div>
       </div>
       <div className="flex flex-1 flex-col gap-2">
@@ -944,7 +944,7 @@ function CategoryCard({
         <span className="font-mono text-[11px] font-medium tracking-[0.02em] text-zinc-500">
           {statLabel}
         </span>
-        <span className="font-mono text-[13px] font-medium">{statValue}</span>
+        <span className="font-mono text-[13px] font-medium text-[#D9F558]">{statValue}</span>
       </div>
     </div>
   );
@@ -1096,10 +1096,10 @@ function SafetyStatBlock({
 }) {
   return (
     <div className="relative z-10 flex flex-1 flex-col gap-4.5 rounded-[18px] border border-white/10 bg-[#101113]/60 p-8 backdrop-blur">
-      <span className="text-xs font-medium tracking-[0.04em] text-zinc-500">
+      <span className="text-xs font-medium tracking-[0.04em] text-[#D9F558]">
         {label}
       </span>
-      <span className="text-[56px] font-semibold leading-none tracking-[-0.04em]">
+      <span className="text-[56px] font-semibold leading-none tracking-[-0.04em] text-[#D9F558]">
         {value}
       </span>
       {children}
@@ -1121,7 +1121,7 @@ function NotifHot() {
         your buffer until your paycheck lands Monday?
       </span>
       <div className="flex gap-2 pt-1">
-        <span className="rounded-lg bg-zinc-50 px-3 py-1.5 text-xs font-medium text-[#08090A]">
+        <span className="rounded-lg bg-zinc-50 px-3 py-1.5 text-xs font-medium text-[#000000]">
           Yes, cover it
         </span>
         <span className="rounded-lg bg-white/[0.06] px-3 py-1.5 text-xs font-medium text-zinc-300">
@@ -1170,12 +1170,12 @@ function AppStoreButton({ variant }: { variant: "apple" | "google" }) {
   if (variant === "apple") {
     return (
       <div className="flex items-center gap-3 rounded-xl bg-zinc-50 px-5.5 py-3.5">
-        <div className="flex h-6 w-6 items-center justify-center rounded-md bg-[#08090A]" />
+        <div className="flex h-6 w-6 items-center justify-center rounded-md bg-[#000000]" />
         <div className="flex flex-col">
-          <span className="text-[11px] font-normal tracking-[0.02em] text-[#08090A]/60">
+          <span className="text-[11px] font-normal tracking-[0.02em] text-[#000000]/60">
             Download on the
           </span>
-          <span className="text-base font-semibold tracking-[-0.01em] text-[#08090A]">
+          <span className="text-base font-semibold tracking-[-0.01em] text-[#000000]">
             App Store
           </span>
         </div>
@@ -1184,7 +1184,7 @@ function AppStoreButton({ variant }: { variant: "apple" | "google" }) {
   }
   return (
     <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.06] px-5.5 py-3.5">
-      <div className="flex h-6 w-6 items-center justify-center rounded-md bg-zinc-50 text-sm font-semibold text-[#08090A]">
+      <div className="flex h-6 w-6 items-center justify-center rounded-md bg-zinc-50 text-sm font-semibold text-[#000000]">
         ▶
       </div>
       <div className="flex flex-col">

@@ -74,7 +74,7 @@ export function MobileMenu({
         createPortal(
           <div
             className="fixed inset-0 z-[60] flex flex-col md:hidden"
-            style={{ backgroundColor: "#08090A" }}
+            style={{ backgroundColor: "#000000" }}
             role="dialog"
             aria-modal="true"
           >
@@ -142,7 +142,7 @@ export function MobileMenu({
             <Link
               href={ctaHref}
               onClick={close}
-              className="rounded-lg bg-zinc-50 py-3 text-center text-sm font-medium tracking-[-0.005em] text-[#08090A]"
+              className="rounded-lg bg-zinc-50 py-3 text-center text-sm font-medium tracking-[-0.005em] text-[#000000]"
             >
               {ctaLabel}
             </Link>
