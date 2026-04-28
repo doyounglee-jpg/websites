@@ -536,8 +536,8 @@ function Row({ label, value }: { label: string; value: string }) {
 
 function PhoneMockup() {
   return (
-    <div className="relative z-20 flex h-[700px] w-[340px] flex-col rounded-[44px] border border-stone-300 bg-stone-200 p-2 shadow-[0_24px_64px_rgba(0,0,0,0.38)]">
-      <div className="flex flex-1 flex-col gap-5 overflow-hidden rounded-[36px] bg-gradient-to-b from-[#EFEEE9] to-stone-200 px-5 py-7">
+    <div className="relative z-20 flex h-[700px] w-[340px] flex-col rounded-[44px] border border-stone-300 bg-stone-50 p-2 shadow-[0_24px_64px_rgba(0,0,0,0.38)]">
+      <div className="flex flex-1 flex-col gap-5 overflow-hidden rounded-[36px] bg-gradient-to-b from-white to-stone-50 px-5 py-7">
         {/* Status bar */}
         <div className="flex items-center justify-between px-1">
           <span className="text-[13px] font-semibold">9:41</span>
