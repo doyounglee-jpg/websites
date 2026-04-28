@@ -39,7 +39,7 @@ export default function MembersPage() {
             <LogoMark size={24} />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/clerkie-wordmark.svg"
+              src="/clerkie-wordmark-light.svg"
               alt="Clerkie"
               className="h-[22px] w-auto"
             />
@@ -119,10 +119,10 @@ export default function MembersPage() {
           </div>
         </div>
 
-        {/* Phone mockup (centered with halo). Wrapper height < phone height + overflow-hidden = hard cut at the hero's bottom edge. */}
-        <div className="relative z-10 flex h-[540px] justify-center overflow-hidden px-6 sm:px-10 md:px-16">
+        {/* Phone mockup (centered with halo). Wrapper height < phone height + overflow-hidden = hard cut at the hero's bottom edge. pt-[60px] reserves room for the phone's top shadow to spread without being clipped. */}
+        <div className="relative z-10 flex h-[600px] justify-center overflow-hidden px-6 pt-[60px] sm:px-10 md:px-16">
           <div
-            className="aurora-mono-tight pointer-events-none absolute left-1/2 top-[60px] h-[600px] w-[1100px] -translate-x-1/2"
+            className="aurora-mono-tight pointer-events-none absolute left-1/2 top-[120px] h-[600px] w-[1100px] -translate-x-1/2"
             aria-hidden="true"
           />
           <PhoneMockup />
@@ -415,7 +415,7 @@ export default function MembersPage() {
                 <LogoMark size={24} />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/clerkie-wordmark.svg"
+                  src="/clerkie-wordmark-light.svg"
                   alt="Clerkie"
                   className="h-[22px] w-auto"
                 />
@@ -512,7 +512,7 @@ function LogoMark({ size = 24 }: { size?: number }) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src="/clerkie-logo.svg"
+      src="/clerkie-logo-light.svg"
       alt="Clerkie"
       width={size}
       height={size}
