@@ -177,11 +177,11 @@ export default function MembersPage() {
               />
             ))}
             {/* Footer (totals) */}
-            <div className="flex items-center border-t border-stone-300 bg-[#DA4A1B]/[0.06] px-6 py-4">
+            <div className="flex items-center border-t border-stone-300 bg-[#0F5F66]/[0.06] px-6 py-4">
               <div className="flex w-14 shrink-0 items-center">
                 <span
-                  className="block h-2 w-2 rounded-full bg-[#DA4A1B]"
-                  style={{ boxShadow: "0 0 12px rgba(218,74,27,0.5)" }}
+                  className="block h-2 w-2 rounded-full bg-[#0F5F66]"
+                  style={{ boxShadow: "0 0 12px rgba(15,95,102,0.5)" }}
                 />
               </div>
               <span className="flex-1 text-sm font-medium tracking-[-0.005em]">
@@ -193,7 +193,7 @@ export default function MembersPage() {
               <span className="w-[140px] shrink-0 text-right font-mono text-sm text-stone-500">
                 $148,420,602
               </span>
-              <span className="w-40 shrink-0 text-right font-mono text-base font-semibold tracking-[-0.01em] text-[#DA4A1B]">
+              <span className="w-40 shrink-0 text-right font-mono text-base font-semibold tracking-[-0.01em] text-[#0F5F66]">
                 $78,649,338
               </span>
             </div>
@@ -461,8 +461,8 @@ export default function MembersPage() {
             </span>
             <div className="flex items-center gap-2">
               <span
-                className="block h-1.5 w-1.5 rounded-full bg-[#DA4A1B]"
-                style={{ boxShadow: "0 0 10px rgba(218,74,27,0.6)" }}
+                className="block h-1.5 w-1.5 rounded-full bg-[#0F5F66]"
+                style={{ boxShadow: "0 0 10px rgba(15,95,102,0.6)" }}
               />
               <span className="text-xs font-medium text-stone-600">
                 All systems operational
@@ -502,7 +502,7 @@ function NavLink({
 
 function SectionEyebrow({ children }: { children: React.ReactNode }) {
   return (
-    <span className="text-[13px] font-medium tracking-[0.06em] text-[#DA4A1B]">
+    <span className="text-[13px] font-medium tracking-[0.06em] text-[#0F5F66]">
       {children}
     </span>
   );
@@ -738,8 +738,8 @@ function SavingsRow({
         {original}
       </span>
       <div className="flex w-40 shrink-0 items-center justify-end gap-2">
-        <span className="font-mono text-[15px] font-medium text-[#DA4A1B]">{saved}</span>
-        <span className="rounded-md bg-[#DA4A1B]/10 px-1.5 py-0.5 text-[11px] font-medium tracking-[0.02em] text-[#DA4A1B]">
+        <span className="font-mono text-[15px] font-medium text-[#0F5F66]">{saved}</span>
+        <span className="rounded-md bg-[#0F5F66]/10 px-1.5 py-0.5 text-[11px] font-medium tracking-[0.02em] text-[#0F5F66]">
           {pct}
         </span>
       </div>
@@ -761,9 +761,9 @@ function ChatMockup() {
           <span className="text-[13px] font-semibold tracking-[-0.005em]">
             Clerkie AI
           </span>
-          <span className="flex items-center gap-1.5 rounded-full bg-[#DA4A1B]/10 px-2 py-0.5">
-            <span className="block h-[5px] w-[5px] rounded-full bg-[#DA4A1B]" />
-            <span className="text-[10px] font-medium tracking-[0.04em] text-[#DA4A1B]">
+          <span className="flex items-center gap-1.5 rounded-full bg-[#0F5F66]/10 px-2 py-0.5">
+            <span className="block h-[5px] w-[5px] rounded-full bg-[#0F5F66]" />
+            <span className="text-[10px] font-medium tracking-[0.04em] text-[#0F5F66]">
               ONLINE
             </span>
           </span>
@@ -944,7 +944,7 @@ function CategoryCard({
         <span className="font-mono text-[11px] font-medium tracking-[0.02em] text-stone-500">
           {statLabel}
         </span>
-        <span className="font-mono text-[13px] font-medium text-[#DA4A1B]">{statValue}</span>
+        <span className="font-mono text-[13px] font-medium text-[#0F5F66]">{statValue}</span>
       </div>
     </div>
   );
@@ -1096,10 +1096,10 @@ function SafetyStatBlock({
 }) {
   return (
     <div className="relative z-10 flex flex-1 flex-col gap-4.5 rounded-[18px] border border-stone-300 bg-stone-200/60 p-8 backdrop-blur">
-      <span className="text-xs font-medium tracking-[0.04em] text-[#DA4A1B]">
+      <span className="text-xs font-medium tracking-[0.04em] text-[#0F5F66]">
         {label}
       </span>
-      <span className="text-[56px] font-semibold leading-none tracking-[-0.04em] text-[#DA4A1B]">
+      <span className="text-[56px] font-semibold leading-none tracking-[-0.04em] text-[#0F5F66]">
         {value}
       </span>
       {children}
