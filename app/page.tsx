@@ -1,63 +1,84 @@
 import Link from "next/link";
 
 /**
- * Split homepage — Clerkie + Fiber, diagonal `/` split.
+ * Split homepage — Clerkie + Fiber.
  *
- * v2 layout change: instead of a vertical | split (left/right halves),
- * the divider is a diagonal `/` running from the bottom-left corner to
- * the top-right corner. Clerkie occupies the upper-left triangle,
- * Fiber occupies the lower-right triangle.
+ * Layout:
+ * - Desktop (≥ 768px): vertical-leaning split. Clerkie left ~half,
+ *   Fiber right ~half, divider tilts slightly diagonal (top boundary
+ *   at 45% width, bottom boundary at 55% width).
+ * - Mobile (< 768px): both halves visible in one screen by stacking
+ *   horizontally — Clerkie occupies the top, Fiber the bottom, divider
+ *   runs horizontally with a slight tilt (top boundary at 45% height
+ *   on the right, 55% on the left). Device mockups are hidden on
+ *   mobile to preserve readability in tight space.
  *
- * Implementation: both cards are absolutely positioned, full viewport,
- * stacked. Each card uses `clip-path: polygon(...)` to render only its
- * triangular region. Content is positioned within each triangle's
- * visual centroid (roughly 1/3 in from the relevant corner) so it
- * doesn't get clipped by the diagonal edge.
- *
- * Source design: Figma file wX2OdcKMUlEwnFjV0idi11, node 5026-72655.
- * Hover behavior: each card reveals its own nav pills on hover.
+ * Source: Figma file wX2OdcKMUlEwnFjV0idi11 (Frame 1618872609).
+ * Hover behavior: each side reveals its own nav pills on hover (desktop only).
  */
 export default function Home() {
   return (
-    <main className="relative min-h-screen w-full overflow-hidden">
-      <ClerkieTriangle />
-      <FiberTriangle />
-      <DiagonalSeam />
-    </main>
+    <>
+      <SplitStyles />
+      <main className="relative min-h-screen w-full overflow-hidden">
+        <ClerkieSide />
+        <FiberSide />
+        <DiagonalSeam />
+      </main>
+    </>
   );
 }
 
 /* ============================================================
-   Decorative seam — a thin highlight along the diagonal edge
+   Responsive clip-paths and seam gradient.
+   Defined as CSS classes so we can vary them per breakpoint
+   (Tailwind doesn't have a clean responsive arbitrary clip-path).
    ============================================================ */
-function DiagonalSeam() {
+function SplitStyles() {
   return (
-    <div
-      aria-hidden="true"
-      className="pointer-events-none absolute inset-0 z-40"
-      style={{
-        background:
-          "linear-gradient(to top right, transparent calc(50% - 0.5px), rgba(255,255,255,0.06) 50%, transparent calc(50% + 0.5px))",
+    <style
+      dangerouslySetInnerHTML={{
+        __html: `
+        /* Mobile: top/bottom stack with a horizontal-ish diagonal (/ slope) */
+        .split-clerkie { clip-path: polygon(0 0, 100% 0, 100% 55%, 0 45%); }
+        .split-fiber   { clip-path: polygon(0 45%, 100% 55%, 100% 100%, 0 100%); }
+        .split-seam    { background: linear-gradient(to bottom left, transparent calc(50% - 0.4px), rgba(255,255,255,0.06) 50%, transparent calc(50% + 0.4px)); }
+
+        /* Desktop: left/right with a vertical-ish diagonal (/ slope) */
+        @media (min-width: 768px) {
+          .split-clerkie { clip-path: polygon(0 0, 55% 0, 45% 100%, 0 100%); }
+          .split-fiber   { clip-path: polygon(55% 0, 100% 0, 100% 100%, 45% 100%); }
+          /* Seam direction is the same as mobile — to-bottom-left produces a / slope */
+        }
+      `,
       }}
     />
   );
 }
 
-/* ============================================================
-   UPPER-LEFT — Clerkie triangle (dark)
-   Triangle vertices: top-left, top-right, bottom-left.
-   ============================================================ */
-function ClerkieTriangle() {
+function DiagonalSeam() {
   return (
     <div
-      className="group absolute inset-0 z-10 text-zinc-50 transition-[filter] duration-300 hover:brightness-110"
+      aria-hidden="true"
+      className="split-seam pointer-events-none absolute inset-0 z-40"
+    />
+  );
+}
+
+/* ============================================================
+   CLERKIE SIDE (dark)
+   - Desktop: left half (polygon top-left, top:45%, bottom:55%, bottom-left)
+   - Mobile: top half (polygon top-left, top-right, right:45%, left:55%)
+   ============================================================ */
+function ClerkieSide() {
+  return (
+    <div
+      className="split-clerkie group absolute inset-0 z-10 text-zinc-50 transition-[filter] duration-300 hover:brightness-110"
       style={{
-        clipPath: "polygon(0 0, 100% 0, 0 100%)",
         background:
-          "linear-gradient(135deg, #1A1A1A 0%, #0F0F0F 60%, #080808 100%)",
+          "radial-gradient(120% 80% at 30% 30%, #1a1a1a 0%, #0F0F0F 60%, #080808 100%)",
       }}
     >
-      {/* Cover link */}
       <Link
         href="/members"
         aria-label="Go to Clerkie members"
@@ -73,8 +94,8 @@ function ClerkieTriangle() {
         }}
       />
 
-      {/* Hover nav pills — positioned near top-left of the triangle */}
-      <div className="pointer-events-none absolute left-[18%] top-10 z-30 flex items-center gap-2 opacity-0 transition-all duration-300 group-hover:pointer-events-auto group-hover:opacity-100">
+      {/* Hover nav pills — desktop only (mobile is too tight) */}
+      <div className="pointer-events-none absolute left-[22%] top-10 z-30 hidden -translate-x-1/2 items-center gap-2 opacity-0 transition-all duration-300 group-hover:pointer-events-auto group-hover:opacity-100 md:flex">
         <span className="text-[13px] font-medium tracking-[-0.005em] text-zinc-500">
           For
         </span>
@@ -83,11 +104,12 @@ function ClerkieTriangle() {
         <DarkPill href="#" label="Lenders" />
       </div>
 
-      {/* Content — anchored to the upper-left ~30% of the viewport,
-          which is the visual centroid of the upper-left triangle */}
-      <div className="pointer-events-none absolute left-[28%] top-[34%] z-20 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center px-6">
+      {/* Content stack
+          Mobile: centered horizontally, ~22% from top (center of top half)
+          Desktop: ~25% from left (center of left half), ~38% from top */}
+      <div className="pointer-events-none absolute left-1/2 top-[22%] z-20 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center px-6 md:left-[25%] md:top-[38%]">
         <div
-          className="mb-7 flex h-[68px] w-[68px] items-center justify-center rounded-[18px] border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.08)]"
+          className="mb-5 flex h-[60px] w-[60px] items-center justify-center rounded-[16px] border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.08)] md:mb-7 md:h-[68px] md:w-[68px] md:rounded-[18px]"
           style={{
             background:
               "radial-gradient(120% 120% at 30% 20%, #2a2a2a 0%, #0d0d0d 100%)",
@@ -97,20 +119,20 @@ function ClerkieTriangle() {
           <img
             src="/clerkie-logo.svg"
             alt="Clerkie"
-            className="h-9 w-9"
+            className="h-8 w-8 md:h-9 md:w-9"
             style={{ filter: "brightness(0) invert(1)" }}
           />
         </div>
 
-        <h1 className="font-serif text-[54px] font-bold leading-none tracking-[-0.02em]">
+        <h1 className="font-serif text-[40px] font-bold leading-none tracking-[-0.02em] md:text-[54px]">
           Clerkie
         </h1>
 
-        <p className="mt-5 max-w-[300px] text-center text-[15px] leading-[1.55] tracking-[-0.005em] text-zinc-400">
+        <p className="mt-4 max-w-[280px] text-center text-[14px] leading-[1.55] tracking-[-0.005em] text-zinc-400 md:mt-5 md:max-w-[300px] md:text-[15px]">
           Laoreet varius enim consequat elementum done.
         </p>
 
-        <div className="mt-8 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-5 py-2.5 text-[13px] font-medium tracking-[-0.005em] text-zinc-100 transition-colors group-hover:border-white/30 group-hover:bg-white/[0.08]">
+        <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-5 py-2.5 text-[13px] font-medium tracking-[-0.005em] text-zinc-100 transition-colors group-hover:border-white/30 group-hover:bg-white/[0.08] md:mt-8">
           Learn More
           <span className="text-zinc-400 transition-transform group-hover:translate-x-0.5">
             →
@@ -118,30 +140,30 @@ function ClerkieTriangle() {
         </div>
       </div>
 
-      {/* iPhone mockup — peeks from the bottom-LEFT corner of the
-          viewport, which is inside the Clerkie triangle */}
-      <div className="pointer-events-none absolute bottom-[-80px] left-[8%] z-20">
-        <PhoneMockupPlaceholder />
+      {/* iPhone mockup — desktop only, peeks from bottom-left of Clerkie */}
+      <div className="pointer-events-none absolute bottom-[-60px] left-[10%] z-20 hidden md:block">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/iphone-mockup.png"
+          alt=""
+          aria-hidden="true"
+          className="h-auto w-[300px] drop-shadow-[0_30px_60px_rgba(0,0,0,0.5)]"
+        />
       </div>
     </div>
   );
 }
 
 /* ============================================================
-   LOWER-RIGHT — Fiber triangle (light)
-   Triangle vertices: top-right, bottom-right, bottom-left.
+   FIBER SIDE (light)
+   - Desktop: right half
+   - Mobile: bottom half
    ============================================================ */
-function FiberTriangle() {
+function FiberSide() {
   return (
     <div
-      className="group absolute inset-0 z-10 text-zinc-900 transition-[filter] duration-300 hover:brightness-[1.02]"
-      style={{
-        clipPath: "polygon(100% 0, 100% 100%, 0 100%)",
-        background:
-          "linear-gradient(135deg, #FBFAF6 0%, #F5F3ED 60%, #EFEDE6 100%)",
-      }}
+      className="split-fiber group absolute inset-0 z-10 bg-white text-zinc-900 transition-[filter] duration-300 hover:brightness-[1.02]"
     >
-      {/* Cover link */}
       <Link
         href="#"
         aria-label="Go to Fiber"
@@ -157,8 +179,8 @@ function FiberTriangle() {
         }}
       />
 
-      {/* Hover nav pills — positioned near top-right of the triangle */}
-      <div className="pointer-events-none absolute right-[18%] top-10 z-30 flex items-center gap-2 opacity-0 transition-all duration-300 group-hover:pointer-events-auto group-hover:opacity-100">
+      {/* Hover nav pills — desktop only */}
+      <div className="pointer-events-none absolute left-[75%] top-10 z-30 hidden -translate-x-1/2 items-center gap-2 opacity-0 transition-all duration-300 group-hover:pointer-events-auto group-hover:opacity-100 md:flex">
         <span className="text-[13px] font-medium tracking-[-0.005em] text-zinc-500">
           For
         </span>
@@ -167,27 +189,28 @@ function FiberTriangle() {
         <LightPill href="#" label="Agencies" />
       </div>
 
-      {/* Content — anchored to the lower-right ~70% of the viewport,
-          which is the visual centroid of the lower-right triangle */}
-      <div className="pointer-events-none absolute right-[28%] bottom-[34%] z-20 flex translate-x-1/2 translate-y-1/2 flex-col items-center px-6">
-        <div className="mb-7 flex h-[68px] w-[68px] items-center justify-center rounded-[18px] border border-zinc-200 bg-white shadow-[0_8px_24px_rgba(0,0,0,0.06),0_2px_6px_rgba(0,0,0,0.04)]">
+      {/* Content stack
+          Mobile: centered horizontally, ~78% from top (center of bottom half)
+          Desktop: ~75% from left (center of right half), ~38% from top */}
+      <div className="pointer-events-none absolute left-1/2 top-[78%] z-20 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center px-6 md:left-[75%] md:top-[38%]">
+        <div className="mb-5 flex h-[60px] w-[60px] items-center justify-center rounded-[16px] border border-zinc-200 bg-white shadow-[0_8px_24px_rgba(0,0,0,0.06),0_2px_6px_rgba(0,0,0,0.04)] md:mb-7 md:h-[68px] md:w-[68px] md:rounded-[18px]">
           <span
-            className="font-serif text-[36px] font-bold leading-none text-[#1c5fff]"
+            className="font-serif text-[32px] font-bold leading-none text-[#1c5fff] md:text-[36px]"
             style={{ letterSpacing: "-0.04em" }}
           >
             F
           </span>
         </div>
 
-        <h1 className="font-serif text-[54px] font-bold leading-none tracking-[-0.02em] text-[#1c5fff]">
+        <h1 className="font-serif text-[40px] font-bold leading-none tracking-[-0.02em] text-[#1c5fff] md:text-[54px]">
           Fiber
         </h1>
 
-        <p className="mt-5 max-w-[300px] text-center text-[15px] leading-[1.55] tracking-[-0.005em] text-zinc-600">
+        <p className="mt-4 max-w-[280px] text-center text-[14px] leading-[1.55] tracking-[-0.005em] text-zinc-600 md:mt-5 md:max-w-[300px] md:text-[15px]">
           Vitae elit sit lectus pellentesque diam massa.
         </p>
 
-        <div className="mt-8 inline-flex items-center gap-2 rounded-full border border-zinc-300 bg-white px-5 py-2.5 text-[13px] font-medium tracking-[-0.005em] text-zinc-900 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-colors group-hover:border-[#1c5fff]/40 group-hover:text-[#1c5fff]">
+        <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-zinc-300 bg-white px-5 py-2.5 text-[13px] font-medium tracking-[-0.005em] text-zinc-900 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-colors group-hover:border-[#1c5fff]/40 group-hover:text-[#1c5fff] md:mt-8">
           Learn More
           <span className="text-zinc-400 transition-transform group-hover:translate-x-0.5 group-hover:text-[#1c5fff]">
             →
@@ -195,9 +218,15 @@ function FiberTriangle() {
         </div>
       </div>
 
-      {/* Laptop mockup — peeks from bottom-RIGHT corner */}
-      <div className="pointer-events-none absolute bottom-[-60px] right-[6%] z-20">
-        <LaptopMockupPlaceholder />
+      {/* Laptop mockup — desktop only, peeks from bottom-right of Fiber */}
+      <div className="pointer-events-none absolute bottom-[-30px] right-[2%] z-20 hidden md:block">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/laptop-mockup.png"
+          alt=""
+          aria-hidden="true"
+          className="h-auto w-[600px] drop-shadow-[0_30px_60px_rgba(0,0,0,0.18)]"
+        />
       </div>
     </div>
   );
@@ -225,61 +254,5 @@ function LightPill({ href, label }: { href: string; label: string }) {
     >
       {label}
     </Link>
-  );
-}
-
-/* ============================================================
-   CSS-only mockup placeholders (replace with real Figma exports)
-   ============================================================ */
-function PhoneMockupPlaceholder() {
-  return (
-    <div
-      className="relative h-[420px] w-[230px] rotate-[-12deg] rounded-[36px] border border-white/[0.08] shadow-[0_30px_80px_rgba(0,0,0,0.5)]"
-      style={{
-        background: "linear-gradient(180deg, #1a1a1a 0%, #080808 100%)",
-      }}
-    >
-      <div className="absolute left-1/2 top-2.5 h-5 w-20 -translate-x-1/2 rounded-full bg-black/80" />
-      <div className="absolute inset-2.5 rounded-[28px] bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] p-4">
-        <div className="mt-7 space-y-3">
-          <div className="h-2 w-1/3 rounded-full bg-white/10" />
-          <div className="h-3 w-3/4 rounded-full bg-white/15" />
-          <div className="h-3 w-1/2 rounded-full bg-white/15" />
-          <div className="mt-6 h-12 rounded-xl bg-white/[0.06]" />
-          <div className="h-12 rounded-xl bg-white/[0.04]" />
-          <div className="h-12 rounded-xl bg-white/[0.04]" />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function LaptopMockupPlaceholder() {
-  return (
-    <div className="relative rotate-[12deg]">
-      <div className="relative h-[260px] w-[440px] rounded-t-[14px] border border-zinc-300 bg-gradient-to-b from-[#FAFAF8] to-[#EAE8E2] shadow-[0_30px_60px_rgba(0,0,0,0.12)] p-3">
-        <div className="h-full rounded-md bg-white p-4 shadow-inner">
-          <div className="flex items-center gap-1.5">
-            <span className="h-2 w-2 rounded-full bg-zinc-300" />
-            <span className="h-2 w-2 rounded-full bg-zinc-300" />
-            <span className="h-2 w-2 rounded-full bg-zinc-300" />
-          </div>
-          <div className="mt-5 space-y-2">
-            <div className="h-2 w-1/4 rounded-full bg-zinc-200" />
-            <div className="h-3 w-3/4 rounded-full bg-zinc-300" />
-            <div className="h-3 w-2/3 rounded-full bg-zinc-200" />
-            <div className="mt-5 grid grid-cols-3 gap-2">
-              <div className="h-14 rounded bg-zinc-100" />
-              <div className="h-14 rounded bg-zinc-100" />
-              <div className="h-14 rounded bg-[#1c5fff]/10" />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="mx-auto h-[6px] w-[480px] rounded-b-[3px] bg-gradient-to-b from-zinc-300 to-zinc-200"
-        style={{ marginTop: "-1px" }}
-      />
-    </div>
   );
 }
