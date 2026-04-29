@@ -39,16 +39,19 @@ function SplitStyles() {
     <style
       dangerouslySetInnerHTML={{
         __html: `
-        /* Mobile: top/bottom stack with a horizontal-ish diagonal (/ slope) */
-        .split-clerkie { clip-path: polygon(0 0, 100% 0, 100% 55%, 0 45%); }
-        .split-fiber   { clip-path: polygon(0 45%, 100% 55%, 100% 100%, 0 100%); }
-        .split-seam    { background: linear-gradient(to bottom left, transparent calc(50% - 0.4px), rgba(255,255,255,0.06) 50%, transparent calc(50% + 0.4px)); }
+        /* Mobile: top/bottom stack with horizontal-ish diagonal (/ slope) */
+        /* Divider rises left-to-right: at left edge it sits at y=55% (lower), at right at y=45% (higher) */
+        .split-clerkie { clip-path: polygon(0 0, 100% 0, 100% 45%, 0 55%); }
+        .split-fiber   { clip-path: polygon(0 55%, 100% 45%, 100% 100%, 0 100%); }
+        /* Seam: linear-gradient(to bottom right) puts the transition stripe perpendicular
+           to the gradient axis, producing a / slope */
+        .split-seam    { background: linear-gradient(to bottom right, transparent calc(50% - 0.4px), rgba(255,255,255,0.06) 50%, transparent calc(50% + 0.4px)); }
 
-        /* Desktop: left/right with a vertical-ish diagonal (/ slope) */
+        /* Desktop: left/right with vertical-ish diagonal (/ slope) */
+        /* Divider tilts top-right to bottom-left: top at x=55%, bottom at x=45% */
         @media (min-width: 768px) {
           .split-clerkie { clip-path: polygon(0 0, 55% 0, 45% 100%, 0 100%); }
           .split-fiber   { clip-path: polygon(55% 0, 100% 0, 100% 100%, 45% 100%); }
-          /* Seam direction is the same as mobile — to-bottom-left produces a / slope */
         }
       `,
       }}
@@ -140,14 +143,15 @@ function ClerkieSide() {
         </div>
       </div>
 
-      {/* iPhone mockup — desktop only, peeks from bottom-left of Clerkie */}
-      <div className="pointer-events-none absolute bottom-[-60px] left-[10%] z-20 hidden md:block">
+      {/* iPhone mockup — desktop only.
+          Horizontally centered at left:25% to align with the Clerkie content stack above it. */}
+      <div className="pointer-events-none absolute bottom-[-60px] left-[25%] z-20 hidden -translate-x-1/2 md:block">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/iphone-mockup.png"
           alt=""
           aria-hidden="true"
-          className="h-auto w-[300px] drop-shadow-[0_30px_60px_rgba(0,0,0,0.5)]"
+          className="h-auto w-[300px] max-w-none drop-shadow-[0_30px_60px_rgba(0,0,0,0.5)]"
         />
       </div>
     </div>
@@ -193,18 +197,23 @@ function FiberSide() {
           Mobile: centered horizontally, ~78% from top (center of bottom half)
           Desktop: ~75% from left (center of right half), ~38% from top */}
       <div className="pointer-events-none absolute left-1/2 top-[78%] z-20 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center px-6 md:left-[75%] md:top-[38%]">
+        {/* Fiber F-badge — real logo SVG */}
         <div className="mb-5 flex h-[60px] w-[60px] items-center justify-center rounded-[16px] border border-zinc-200 bg-white shadow-[0_8px_24px_rgba(0,0,0,0.06),0_2px_6px_rgba(0,0,0,0.04)] md:mb-7 md:h-[68px] md:w-[68px] md:rounded-[18px]">
-          <span
-            className="font-serif text-[32px] font-bold leading-none text-[#1c5fff] md:text-[36px]"
-            style={{ letterSpacing: "-0.04em" }}
-          >
-            F
-          </span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/fiber-logo.svg"
+            alt="Fiber"
+            className="h-9 w-9 md:h-10 md:w-10"
+          />
         </div>
 
-        <h1 className="font-serif text-[40px] font-bold leading-none tracking-[-0.02em] text-[#1c5fff] md:text-[54px]">
-          Fiber
-        </h1>
+        {/* Fiber wordmark — real text logo SVG */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/fiber-logo-text.svg"
+          alt="Fiber"
+          className="h-[28px] w-auto md:h-[40px]"
+        />
 
         <p className="mt-4 max-w-[280px] text-center text-[14px] leading-[1.55] tracking-[-0.005em] text-zinc-600 md:mt-5 md:max-w-[300px] md:text-[15px]">
           Vitae elit sit lectus pellentesque diam massa.
@@ -218,14 +227,15 @@ function FiberSide() {
         </div>
       </div>
 
-      {/* Laptop mockup — desktop only, peeks from bottom-right of Fiber */}
-      <div className="pointer-events-none absolute bottom-[-30px] right-[2%] z-20 hidden md:block">
+      {/* Laptop mockup — desktop only.
+          Horizontally centered at left:75% to align with the Fiber content stack above it. */}
+      <div className="pointer-events-none absolute bottom-[-30px] left-[75%] z-20 hidden -translate-x-1/2 md:block">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/laptop-mockup.png"
           alt=""
           aria-hidden="true"
-          className="h-auto w-[600px] drop-shadow-[0_30px_60px_rgba(0,0,0,0.18)]"
+          className="h-auto w-[600px] max-w-none drop-shadow-[0_30px_60px_rgba(0,0,0,0.18)]"
         />
       </div>
     </div>
