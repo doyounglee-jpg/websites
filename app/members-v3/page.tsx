@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AnimatedChatPanel } from "./AnimatedChatPanel";
 
 /**
  * /members-v3 — DARK Cleo-inspired bento + cinematic photography direction.
@@ -25,9 +26,8 @@ const PHOTOS = {
   // Foggy/dusk mountain — section 1 backdrop
   feature1Backdrop:
     "https://images.unsplash.com/photo-1454496522488-7a8e488e8606?auto=format&fit=crop&w=2400&q=80",
-  // Cool-toned portrait
-  bentoPortrait:
-    "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1600&q=80",
+  // "Get your debt off your mind" portrait — local asset
+  bentoPortrait: "/two-women.png",
   // Night/neon cityscape — section 3
   feature2Portrait:
     "https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=2400&q=80",
@@ -73,54 +73,73 @@ export default function MembersV3Page() {
 
       <div className="flex flex-col gap-3 p-3">
       {/* ============================================================
-          2. HERO — full-bleed aurora/dusk landscape + floating phone
+          2. HERO — eyebrow pill, headline, CTAs, phone (from /members)
          ============================================================ */}
-      <section className="relative h-[100vh] min-h-[820px] w-full overflow-hidden rounded-3xl">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={PHOTOS.heroLandscape}
-          alt=""
-          className="absolute inset-0 h-full w-full object-cover"
+      <section className="relative h-[100vh] min-h-[1000px] w-full overflow-hidden rounded-3xl bg-[#0E1014]">
+        {/* Aurora halo */}
+        <div
+          className="aurora-mono pointer-events-none absolute left-1/2 top-[-200px] h-[900px] w-[1400px] -translate-x-1/2"
+          aria-hidden="true"
         />
-        {/* Heavy dark overlay to keep mood dark */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/0 to-[#0E1014]/80" />
+        {/* Dotted grid texture */}
+        <div
+          className="dot-grid pointer-events-none absolute inset-x-0 top-0 h-[900px]"
+          aria-hidden="true"
+        />
 
-        <div className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2">
+        <div className="relative z-10 mx-auto flex max-w-[1440px] flex-col items-center gap-8 px-6 pb-12 pt-32 sm:gap-10 sm:px-10 sm:pb-16 sm:pt-36 md:px-16 md:pb-20 md:pt-[140px]">
+          {/* Eyebrow pill */}
+          <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] py-1.5 pl-2 pr-3.5">
+            <span className="rounded-full border border-[#5EEAD4]/30 bg-[#5EEAD4]/10 px-2 py-0.5 text-[11px] font-semibold tracking-[0.04em] text-[#5EEAD4]">
+              NEW
+            </span>
+            <span className="text-[13px] font-medium tracking-[-0.005em] text-zinc-300">
+              Negotiate any debt with one tap →
+            </span>
+          </div>
+
+          {/* Headline + subhead */}
+          <div className="flex max-w-[920px] flex-col items-center gap-7">
+            <h1 className="text-center text-[44px] font-semibold leading-[1.05] tracking-[-0.045em] sm:text-[60px] md:text-[72px] lg:leading-[1.0] lg:text-[88px]">
+              Solve your debt and money problems.
+            </h1>
+            <p className="max-w-[580px] text-center text-base leading-[1.55] tracking-[-0.005em] text-zinc-400 sm:text-lg lg:text-[19px]">
+              The easiest way to pay off debt, manage bills, and get
+              personalized financial answers — built for the way real people
+              earn and spend.
+            </p>
+          </div>
+
+          {/* CTAs */}
+          <div className="flex items-center gap-3">
+            <a
+              href="#cta"
+              className="flex items-center gap-2 rounded-[10px] bg-zinc-50 px-5 py-3 text-sm font-medium tracking-[-0.005em] text-[#0E1014]"
+            >
+              Get the App
+              <span className="text-zinc-500">→</span>
+            </a>
+            <a
+              href="#"
+              className="rounded-[10px] border border-white/10 bg-white/5 px-5 py-3 text-sm font-medium tracking-[-0.005em]"
+            >
+              Talk to an advisor
+            </a>
+          </div>
+        </div>
+
+        {/* Phone mockup (centered with halo). Wrapper height < phone height + overflow-hidden = hard cut at the hero's bottom edge. */}
+        <div className="relative z-10 flex h-[540px] justify-center overflow-hidden px-6 sm:px-10 md:px-16">
+          <div
+            className="aurora-mono-tight pointer-events-none absolute left-1/2 top-[60px] h-[600px] w-[1100px] -translate-x-1/2"
+            aria-hidden="true"
+          />
           <PhoneMockup variant="hero" />
         </div>
       </section>
 
       {/* ============================================================
-          3. § 01 — FULL-BLEED FEATURE ("Clerkie gets to know you")
-         ============================================================ */}
-      <section className="relative h-[100vh] min-h-[820px] w-full overflow-hidden rounded-3xl">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={PHOTOS.feature1Backdrop}
-          alt=""
-          className="absolute inset-0 h-full w-full object-cover blur-sm"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0E1014]/60 via-[#0E1014]/40 to-[#0E1014]/80" />
-
-        <div className="relative z-10 mx-auto flex h-full max-w-[1440px] items-center px-10 md:px-16">
-          <div className="flex max-w-[480px] flex-col gap-6">
-            <span className="text-[11px] font-medium tracking-[0.18em] text-[#5EEAD4]">
-              REAL HUMAN HELP
-            </span>
-            <h2 className="text-[56px] font-medium leading-[1.05] tracking-[-0.025em] text-white">
-              Clerkie gets to know you{" "}
-              <span className="text-white/50">(and your debt).</span>
-            </h2>
-          </div>
-
-          <div className="absolute right-10 top-1/2 -translate-y-1/2 md:right-16">
-            <PhoneMockup variant="negotiation" tilt />
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================
-          4. § 02 — BENTO PAIR (cool portrait / dark cyan chat panel)
+          3. § 02 — BENTO PAIR (cool portrait / dark cyan chat panel)
          ============================================================ */}
       <section className="grid h-[100vh] min-h-[760px] w-full grid-cols-1 md:grid-cols-2 gap-3">
         {/* Left: cool-toned portrait with overlay copy */}
@@ -154,28 +173,8 @@ export default function MembersV3Page() {
             }}
           />
           <div className="relative z-10 flex h-full flex-col justify-between p-10 md:p-14">
-            {/* Chat bubble */}
-            <div className="flex flex-1 items-center justify-center">
-              <div className="flex max-w-[420px] flex-col gap-4">
-                <div className="self-end rounded-3xl rounded-br-md border border-[#5EEAD4]/20 bg-[#5EEAD4]/[0.08] px-5 py-3.5 backdrop-blur">
-                  <p className="text-[15px] leading-[1.4] text-white/90">
-                    I&apos;m learning so much about you. Like the $58 weekly
-                    DoorDash spend. Maybe pause auto-renewals?
-                  </p>
-                </div>
-                {/* Voice indicator */}
-                <div className="self-end">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] backdrop-blur">
-                    <div className="flex items-center gap-0.5">
-                      <span className="block h-2 w-0.5 rounded-full bg-[#5EEAD4]" />
-                      <span className="block h-3 w-0.5 rounded-full bg-[#5EEAD4]" />
-                      <span className="block h-2 w-0.5 rounded-full bg-[#5EEAD4]" />
-                      <span className="block h-1.5 w-0.5 rounded-full bg-[#5EEAD4]" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {/* Live chat: looping conversation + animated voice waveform. */}
+            <AnimatedChatPanel />
 
             <div className="flex flex-col gap-3">
               <h3 className="text-[34px] font-medium leading-[1.15] tracking-[-0.02em] text-white">
@@ -400,6 +399,10 @@ function PillNavLink({
 
 /**
  * Phone mockup — dark UI version with cyan accents.
+ *
+ * - "hero" variant: 1:1 copy of the phone from /members (greeting, progress
+ *   card, suggested negotiation, upcoming bills).
+ * - "negotiation" variant: short list of cards used in §01.
  */
 function PhoneMockup({
   variant,
@@ -408,6 +411,86 @@ function PhoneMockup({
   variant: "hero" | "negotiation";
   tilt?: boolean;
 }) {
+  if (variant === "hero") {
+    return (
+      <div
+        className="relative z-20 flex h-[700px] w-[340px] flex-col rounded-[44px] border border-white/10 bg-[#101113] p-2 shadow-[0_30px_80px_rgba(0,0,0,0.5)]"
+        style={tilt ? { transform: "rotate(-4deg)" } : undefined}
+      >
+        <div className="flex flex-1 flex-col gap-5 overflow-hidden rounded-[36px] bg-gradient-to-b from-[#0C0D0F] to-[#16181C] px-5 py-7">
+          {/* Status bar */}
+          <div className="flex items-center justify-between px-1">
+            <span className="text-[13px] font-semibold">9:41</span>
+            <div className="flex items-center gap-1">
+              <span className="block h-2 w-4 rounded-sm bg-zinc-400" />
+              <span className="flex h-[11px] w-[22px] items-center rounded-[3px] border border-zinc-400 p-[1.5px]">
+                <span className="block h-full w-3/4 rounded-[1px] bg-zinc-50" />
+              </span>
+            </div>
+          </div>
+
+          {/* Greeting */}
+          <div className="flex flex-col gap-1.5">
+            <span className="text-xs font-medium tracking-[0.02em] text-zinc-500">
+              GOOD MORNING, MARIA
+            </span>
+            <span className="text-2xl font-semibold leading-[1.15] tracking-[-0.02em]">
+              You&apos;re $2,847 closer to debt-free.
+            </span>
+          </div>
+
+          {/* Progress card */}
+          <div className="flex flex-col gap-3.5 rounded-2xl border border-white/[0.06] bg-white/[0.03] p-4.5">
+            <div className="flex items-baseline justify-between">
+              <span className="text-xs font-medium text-zinc-400">
+                Total debt remaining
+              </span>
+              <span className="font-mono text-[11px] font-medium text-zinc-300">
+                ↓ 18%
+              </span>
+            </div>
+            <span className="text-[32px] font-semibold leading-none tracking-[-0.03em]">
+              $12,946
+            </span>
+            <div className="relative h-1.5 overflow-hidden rounded-[3px] bg-white/[0.06]">
+              <span
+                className="absolute left-0 top-0 h-full rounded-[3px]"
+                style={{
+                  width: "62%",
+                  background:
+                    "linear-gradient(90deg, #F7F8F8 0%, rgba(247,248,248,0.5) 100%)",
+                }}
+              />
+            </div>
+          </div>
+
+          {/* Action card */}
+          <div className="flex flex-col gap-2 rounded-2xl border border-white/10 bg-white/5 p-4">
+            <span className="text-[11px] font-medium tracking-[0.04em] text-zinc-300">
+              SUGGESTED · NEGOTIATION
+            </span>
+            <span className="text-[15px] font-semibold leading-[1.3] tracking-[-0.01em]">
+              We can lower your $4,200 card balance by ~$1,890.
+            </span>
+            <div className="flex items-center justify-between pt-1.5">
+              <span className="text-xs text-zinc-400">Takes ~2 minutes</span>
+              <span className="text-xs font-medium">Start →</span>
+            </div>
+          </div>
+
+          {/* Bills row */}
+          <div className="flex flex-col gap-2.5">
+            <span className="text-xs font-medium tracking-[0.02em] text-zinc-500">
+              UPCOMING THIS WEEK
+            </span>
+            <BillItem code="CL" name="Capital One" amount="$184.00" />
+            <BillItem code="SF" name="Sallie Mae" amount="$262.40" last />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div
       className="relative h-[640px] w-[300px] overflow-hidden rounded-[48px] border-[10px] border-[#1A1A1D] bg-gradient-to-b from-[#16181C] to-[#0E1014] shadow-[0_30px_80px_rgba(0,0,0,0.6)]"
@@ -425,65 +508,66 @@ function PhoneMockup({
       {/* Notch */}
       <div className="absolute left-1/2 top-3 h-[26px] w-[100px] -translate-x-1/2 rounded-full bg-[#0E1014]" />
 
-      {variant === "hero" ? (
-        <div className="flex h-full flex-col gap-5 px-6 pt-12">
-          <h3 className="text-[42px] font-medium leading-[1] tracking-[-0.03em] text-white">
-            Hey you
-          </h3>
-          <div className="self-end rounded-2xl rounded-br-md border border-[#5EEAD4]/20 bg-[#5EEAD4]/[0.08] px-4 py-2.5">
-            <span className="text-[13px] text-white/90">
-              My finances are hot garbage 🔥
-            </span>
-          </div>
-          <p className="text-[14px] leading-[1.4] text-white/80">
-            You say this every Sunday 🙃
-            <br />
-            <br />
-            It&apos;s time to fix this financial broken record. I&apos;ll
-            create a plan.
-          </p>
-          {/* Online indicator */}
-          <div className="absolute bottom-6 left-6 flex items-center gap-1.5 rounded-full bg-[#5EEAD4]/10 px-2 py-0.5">
-            <span className="block h-[5px] w-[5px] rounded-full bg-[#5EEAD4]" />
-            <span className="text-[10px] font-medium tracking-[0.04em] text-[#5EEAD4]">
-              ONLINE
-            </span>
-          </div>
-        </div>
-      ) : (
-        <div className="flex h-full flex-col gap-3 px-5 pt-12">
-          <span className="text-[11px] font-medium tracking-[0.1em] text-[#5EEAD4]">
-            NEGOTIATING NOW
-          </span>
-          <h3 className="text-[26px] font-medium leading-[1.1] tracking-[-0.02em] text-white">
-            Crushing your card debt.
-          </h3>
-          <div className="mt-2 flex flex-col gap-2">
-            {[
-              { name: "Capital One", saved: "$1,820", pct: "−23%" },
-              { name: "Discover", saved: "$2,140", pct: "−18%" },
-              { name: "Chase Sapphire", saved: "$3,420", pct: "−31%" },
-            ].map((row) => (
-              <div
-                key={row.name}
-                className="flex items-center justify-between rounded-xl border border-white/[0.06] bg-white/[0.04] px-3 py-2.5"
-              >
-                <span className="text-[12px] font-medium text-white">
-                  {row.name}
+      <div className="flex h-full flex-col gap-3 px-5 pt-12">
+        <span className="text-[11px] font-medium tracking-[0.1em] text-[#5EEAD4]">
+          NEGOTIATING NOW
+        </span>
+        <h3 className="text-[26px] font-medium leading-[1.1] tracking-[-0.02em] text-white">
+          Crushing your card debt.
+        </h3>
+        <div className="mt-2 flex flex-col gap-2">
+          {[
+            { name: "Capital One", saved: "$1,820", pct: "−23%" },
+            { name: "Discover", saved: "$2,140", pct: "−18%" },
+            { name: "Chase Sapphire", saved: "$3,420", pct: "−31%" },
+          ].map((row) => (
+            <div
+              key={row.name}
+              className="flex items-center justify-between rounded-xl border border-white/[0.06] bg-white/[0.04] px-3 py-2.5"
+            >
+              <span className="text-[12px] font-medium text-white">
+                {row.name}
+              </span>
+              <div className="flex items-center gap-1.5">
+                <span className="font-mono text-[12px] text-[#5EEAD4]">
+                  {row.saved}
                 </span>
-                <div className="flex items-center gap-1.5">
-                  <span className="font-mono text-[12px] text-[#5EEAD4]">
-                    {row.saved}
-                  </span>
-                  <span className="rounded bg-[#5EEAD4]/10 px-1.5 py-0.5 font-mono text-[10px] text-[#5EEAD4]">
-                    {row.pct}
-                  </span>
-                </div>
+                <span className="rounded bg-[#5EEAD4]/10 px-1.5 py-0.5 font-mono text-[10px] text-[#5EEAD4]">
+                  {row.pct}
+                </span>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
-      )}
+      </div>
+    </div>
+  );
+}
+
+function BillItem({
+  code,
+  name,
+  amount,
+  last,
+}: {
+  code: string;
+  name: string;
+  amount: string;
+  last?: boolean;
+}) {
+  return (
+    <div
+      className={`flex items-center justify-between py-2.5 ${
+        last ? "" : "border-b border-white/[0.05]"
+      }`}
+    >
+      <div className="flex items-center gap-2.5">
+        <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-white/[0.06]">
+          <span className="text-[11px] font-semibold">{code}</span>
+        </span>
+        <span className="text-[13px] font-medium">{name}</span>
+      </div>
+      <span className="font-mono text-xs font-medium">{amount}</span>
     </div>
   );
 }
