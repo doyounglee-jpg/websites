@@ -24,11 +24,11 @@ import { MobileMenu } from "../components/MobileMenu";
 
 export default function CompaniesPage() {
   return (
-    <main className="min-h-screen bg-[#08090A] text-zinc-50">
+    <main className="min-h-screen bg-[#0E1014] text-zinc-50">
       {/* ============================================================
           1. NAV — hairline border, blurred dark background
          ============================================================ */}
-      <header className="sticky top-0 z-50 w-full border-b border-white/[0.06] bg-[#08090A]/60 backdrop-blur-md">
+      <header className="sticky top-0 z-50 w-full border-b border-white/[0.06] bg-[#0E1014]/60 backdrop-blur-md">
         <nav className="mx-auto flex w-full max-w-[1440px] items-center justify-between px-6 py-4 sm:px-10 sm:py-5 md:px-16">
           <div className="flex items-center gap-2.5">
             <LogoMark size={24} />
@@ -49,7 +49,7 @@ export default function CompaniesPage() {
           <div className="hidden md:flex">
             <a
               href="#cta"
-              className="rounded-lg bg-zinc-50 px-3.5 py-2 text-[13px] font-medium tracking-[-0.005em] text-[#08090A]"
+              className="rounded-lg bg-zinc-50 px-3.5 py-2 text-[13px] font-medium tracking-[-0.005em] text-[#0E1014]"
             >
               Request demo
             </a>
@@ -104,7 +104,7 @@ export default function CompaniesPage() {
           <div className="flex items-center gap-3">
             <a
               href="#cta"
-              className="flex items-center gap-2 rounded-[10px] bg-zinc-50 px-5 py-3 text-sm font-medium tracking-[-0.005em] text-[#08090A]"
+              className="flex items-center gap-2 rounded-[10px] bg-zinc-50 px-5 py-3 text-sm font-medium tracking-[-0.005em] text-[#0E1014]"
             >
               Request Demo
               <span className="text-zinc-500">→</span>
@@ -220,7 +220,7 @@ export default function CompaniesPage() {
             <div className="pt-2">
               <a
                 href="#cta"
-                className="inline-flex items-center gap-2 rounded-[10px] bg-zinc-50 px-5 py-3 text-sm font-medium tracking-[-0.005em] text-[#08090A]"
+                className="inline-flex items-center gap-2 rounded-[10px] bg-zinc-50 px-5 py-3 text-sm font-medium tracking-[-0.005em] text-[#0E1014]"
               >
                 Request Demo
                 <span className="text-zinc-500">→</span>
@@ -370,7 +370,7 @@ export default function CompaniesPage() {
       {/* ============================================================
           9. FOOTER
          ============================================================ */}
-      <footer className="border-t border-white/[0.08] bg-[#08090A]/60">
+      <footer className="border-t border-white/[0.08] bg-[#0E1014]/60">
         <div className="mx-auto flex max-w-[1440px] flex-col gap-12 px-6 pb-12 pt-12 sm:px-10 sm:pt-16 md:px-16 lg:px-24">
           <div className="flex flex-col items-start gap-10 lg:flex-row lg:justify-between lg:gap-20">
             <div className="flex max-w-[320px] flex-col gap-5">
@@ -424,8 +424,8 @@ export default function CompaniesPage() {
             </span>
             <div className="flex items-center gap-2">
               <span
-                className="block h-1.5 w-1.5 rounded-full bg-zinc-50"
-                style={{ boxShadow: "0 0 10px rgba(255,255,255,0.5)" }}
+                className="block h-1.5 w-1.5 rounded-full bg-[#5EEAD4]"
+                style={{ boxShadow: "0 0 10px rgba(94,234,212,0.7)" }}
               />
               <span className="text-xs font-medium text-zinc-400">
                 All systems operational
@@ -465,7 +465,7 @@ function NavLink({
 
 function SectionEyebrow({ children }: { children: React.ReactNode }) {
   return (
-    <span className="text-[13px] font-medium tracking-[0.06em] text-zinc-400">
+    <span className="text-[13px] font-medium tracking-[0.06em] text-[#5EEAD4]">
       {children}
     </span>
   );
@@ -639,7 +639,7 @@ function MemberWinRow({ name, action, amount }: (typeof MEMBER_WINS)[number]) {
         <span className="font-medium text-zinc-50">{name}</span>{" "}
         <span className="text-zinc-500">· {action}</span>
       </span>
-      <span className="font-mono text-[12px] font-medium">{amount}</span>
+      <span className="font-mono text-[12px] font-medium text-[#5EEAD4]">{amount}</span>
     </div>
   );
 }
@@ -673,7 +673,7 @@ const IMPACT_STATS: Array<{
 function ImpactStatCard({ pct, copy }: (typeof IMPACT_STATS)[number]) {
   return (
     <div className="flex min-h-[260px] flex-col justify-between gap-6 bg-[#0C0D0F] px-8 py-9">
-      <span className="text-[64px] font-semibold leading-none tracking-[-0.04em]">
+      <span className="text-[64px] font-semibold leading-none tracking-[-0.04em] text-[#5EEAD4]">
         {pct}
       </span>
       <span className="text-[15px] leading-[1.4] tracking-[-0.005em] text-zinc-400">
@@ -742,7 +742,7 @@ function BenefitCard({
         <span className="font-mono text-[11px] font-medium tracking-[0.04em] text-zinc-500">
           {statLabel}
         </span>
-        <span className="font-mono text-[14px] font-medium">{statValue}</span>
+        <span className="font-mono text-[14px] font-medium text-[#5EEAD4]">{statValue}</span>
       </div>
     </div>
   );
@@ -813,10 +813,10 @@ function RoiMockup() {
       {/* Two big stats */}
       <div className="grid grid-cols-2 gap-4">
         <div className="flex flex-col gap-1.5 rounded-2xl border border-white/[0.06] bg-white/[0.03] p-5">
-          <span className="text-xs font-medium tracking-[0.04em] text-zinc-500">
+          <span className="text-xs font-medium tracking-[0.04em] text-[#5EEAD4]">
             RETENTION LIFT
           </span>
-          <span className="text-[40px] font-semibold leading-none tracking-[-0.04em]">
+          <span className="text-[40px] font-semibold leading-none tracking-[-0.04em] text-[#5EEAD4]">
             +14<span className="text-zinc-500">.2%</span>
           </span>
           <span className="text-[12px] text-zinc-400">
@@ -824,10 +824,10 @@ function RoiMockup() {
           </span>
         </div>
         <div className="flex flex-col gap-1.5 rounded-2xl border border-white/[0.06] bg-white/[0.03] p-5">
-          <span className="text-xs font-medium tracking-[0.04em] text-zinc-500">
+          <span className="text-xs font-medium tracking-[0.04em] text-[#5EEAD4]">
             STRESS REDUCTION
           </span>
-          <span className="text-[40px] font-semibold leading-none tracking-[-0.04em]">
+          <span className="text-[40px] font-semibold leading-none tracking-[-0.04em] text-[#5EEAD4]">
             −32<span className="text-zinc-500">%</span>
           </span>
           <span className="text-[12px] text-zinc-400">
@@ -1059,7 +1059,7 @@ function ContactForm() {
         <span className="text-[12px] text-zinc-500">
           We&apos;ll get back to you within one business day.
         </span>
-        <button className="flex items-center gap-2 rounded-[10px] bg-zinc-50 px-5 py-2.5 text-sm font-medium tracking-[-0.005em] text-[#08090A]">
+        <button className="flex items-center gap-2 rounded-[10px] bg-zinc-50 px-5 py-2.5 text-sm font-medium tracking-[-0.005em] text-[#0E1014]">
           Send
           <span className="text-zinc-500">→</span>
         </button>
