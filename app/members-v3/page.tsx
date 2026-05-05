@@ -248,6 +248,37 @@ export default function MembersV3Page() {
       </section>
 
       {/* ============================================================
+          6.5 § 05 — COVERAGE (categories grid, ported from /members)
+         ============================================================ */}
+      <section className="w-full overflow-hidden rounded-3xl bg-[#0E1014]">
+        <div className="px-6 pb-20 pt-20 sm:px-10 sm:pb-24 sm:pt-24 md:px-16 md:pb-28 md:pt-28">
+          <div className="mb-10 flex max-w-[720px] flex-col gap-4 sm:gap-6 lg:mb-16">
+            <span className="text-[13px] font-medium tracking-[0.06em] text-[#5EEAD4]">
+              03 — COVERAGE
+            </span>
+            <h2 className="text-4xl font-semibold leading-[1.05] tracking-[-0.04em] text-white sm:text-5xl md:text-[52px] lg:text-[56px]">
+              Every kind of debt.{" "}
+              <span className="text-white/50">One quiet app.</span>
+            </h2>
+            <p className="max-w-[540px] text-base leading-[1.55] tracking-[-0.005em] text-white/60 lg:text-[17px]">
+              Whether it&apos;s a hospital bill, a car payment, or a maxed-out
+              card, Clerkie handles the negotiation, the paperwork, and the
+              follow-through.
+            </p>
+          </div>
+
+          {/* 2x3 grid with hairline gridlines (made of background bleed) */}
+          <div className="overflow-hidden rounded-[18px] border border-white/[0.06] bg-white/[0.06]">
+            <div className="flex flex-wrap gap-px">
+              {CATEGORIES.map((cat) => (
+                <CategoryCard key={cat.title} {...cat} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================
           7. CTA — full-bleed dark photo + signup
          ============================================================ */}
       <section
@@ -589,6 +620,82 @@ function BillsMockup() {
             ON TRACK
           </span>
         </div>
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================
+   CATEGORIES GRID — § 03 (ported from /members)
+   ============================================================ */
+
+const CATEGORIES = [
+  {
+    title: "Credit Cards",
+    desc: "Lower your APR, consolidate balances, and stop interest from eating your paycheck.",
+    statLabel: "AVG. SAVED",
+    statValue: "$3,820",
+  },
+  {
+    title: "Student Loans",
+    desc: "Federal, private, refinance — we walk you through every payoff path with the math up front.",
+    statLabel: "AVG. SAVED",
+    statValue: "$9,420",
+  },
+  {
+    title: "Personal Loans",
+    desc: "Negotiate rates, prepay strategically, or fold them into a smarter consolidation plan.",
+    statLabel: "AVG. SAVED",
+    statValue: "$2,140",
+  },
+  {
+    title: "Medical Debt",
+    desc: "Hospital and dental bills are negotiable. We dispute charges and settle for less.",
+    statLabel: "AVG. SAVED",
+    statValue: "$4,260",
+  },
+  {
+    title: "Auto Loans",
+    desc: "Refinance for a lower rate or restructure when payments are squeezing your budget.",
+    statLabel: "AVG. SAVED",
+    statValue: "$2,890",
+  },
+  {
+    title: "Boost Your Credit",
+    desc: "Dispute errors, build positive history, and add tradelines that move your score quickly.",
+    statLabel: "AVG. LIFT",
+    statValue: "+84 pts",
+  },
+];
+
+function CategoryCard({
+  title,
+  desc,
+  statLabel,
+  statValue,
+}: (typeof CATEGORIES)[number]) {
+  return (
+    <div className="flex min-h-[240px] basis-full flex-col gap-6 bg-[#0C0D0F] px-6 py-7 sm:basis-[calc(50%-1px)] sm:px-8 sm:py-9 lg:basis-[calc(33.333%-1px)]">
+      <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5">
+        <div className="relative h-4 w-5.5 rounded-[3px] bg-white/40">
+          <div className="absolute left-0 top-1 h-[3px] w-full bg-[#0E1014]/40" />
+        </div>
+      </div>
+      <div className="flex flex-1 flex-col gap-2">
+        <span className="text-[22px] font-semibold leading-[1.2] tracking-[-0.02em] text-white">
+          {title}
+        </span>
+        <span className="text-sm leading-[1.55] tracking-[-0.005em] text-white/60">
+          {desc}
+        </span>
+      </div>
+      <div className="flex items-center gap-2 pt-1">
+        <span className="font-mono text-[11px] font-medium tracking-[0.02em] text-white/50">
+          {statLabel}
+        </span>
+        <span className="font-mono text-[13px] font-medium text-[#5EEAD4]">
+          {statValue}
+        </span>
       </div>
     </div>
   );
