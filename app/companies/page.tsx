@@ -283,11 +283,11 @@ export default function CompaniesPage() {
               />
             ))}
             {/* Footer (totals) */}
-            <div className="flex items-center border-t border-white/[0.06] bg-white/[0.02] px-6 py-4">
+            <div className="flex items-center border-t border-white/[0.06] bg-[#5EEAD4]/[0.04] px-6 py-4">
               <div className="flex w-14 shrink-0 items-center">
                 <span
-                  className="block h-2 w-2 rounded-full bg-zinc-50"
-                  style={{ boxShadow: "0 0 12px rgba(255,255,255,0.4)" }}
+                  className="block h-2 w-2 rounded-full bg-[#5EEAD4]"
+                  style={{ boxShadow: "0 0 12px rgba(94,234,212,0.6)" }}
                 />
               </div>
               <span className="flex-1 text-sm font-medium tracking-[-0.005em]">
@@ -299,7 +299,7 @@ export default function CompaniesPage() {
               <span className="w-[160px] shrink-0 text-[13px] text-zinc-500">
                 All categories
               </span>
-              <span className="w-40 shrink-0 text-right font-mono text-base font-semibold tracking-[-0.01em]">
+              <span className="w-40 shrink-0 text-right font-mono text-base font-semibold tracking-[-0.01em] text-[#5EEAD4]">
                 $4,820
               </span>
             </div>
@@ -613,8 +613,11 @@ function IntegrationRow({
         <span className="text-[11px] text-zinc-500">{meta}</span>
       </div>
       <div className="flex items-center gap-1.5">
-        <span className="block h-1.5 w-1.5 rounded-full bg-zinc-50" />
-        <span className="font-mono text-[10px] text-zinc-400">{status}</span>
+        <span
+          className="block h-1.5 w-1.5 rounded-full bg-[#5EEAD4]"
+          style={{ boxShadow: "0 0 8px rgba(94,234,212,0.6)" }}
+        />
+        <span className="font-mono text-[10px] text-[#5EEAD4]">{status}</span>
       </div>
     </div>
   );
@@ -839,10 +842,10 @@ function RoiMockup() {
       {/* Sparkline / trend strip */}
       <div className="flex flex-col gap-2.5 rounded-2xl border border-white/10 bg-white/[0.03] p-5">
         <div className="flex items-baseline justify-between">
-          <span className="text-xs font-medium tracking-[0.04em] text-zinc-500">
+          <span className="text-xs font-medium tracking-[0.04em] text-[#5EEAD4]">
             ENROLLMENT GROWTH
           </span>
-          <span className="font-mono text-[11px] text-zinc-300">↑ 28% MoM</span>
+          <span className="font-mono text-[11px] text-[#5EEAD4]">↑ 28% MoM</span>
         </div>
         <Sparkline />
         <div className="flex items-center justify-between font-mono text-[10px] text-zinc-500">
@@ -994,7 +997,7 @@ function MemberSavingsRow({
         {category}
       </span>
       <div className="flex w-40 shrink-0 items-center justify-end gap-2">
-        <span className="font-mono text-[15px] font-medium">{saved}</span>
+        <span className="font-mono text-[15px] font-medium text-[#5EEAD4]">{saved}</span>
       </div>
     </div>
   );
