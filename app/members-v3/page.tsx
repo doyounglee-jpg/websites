@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { AnimatedChatPanel } from "./AnimatedChatPanel";
+import { LiveSavingsTicker } from "./LiveSavingsTicker";
 
 /**
  * /members-v3 — DARK Cleo-inspired bento + cinematic photography direction.
@@ -27,15 +28,13 @@ const PHOTOS = {
   feature1Backdrop:
     "https://images.unsplash.com/photo-1454496522488-7a8e488e8606?auto=format&fit=crop&w=2400&q=80",
   // "Get your debt off your mind" portrait — local asset
-  bentoPortrait: "/two-women.png",
-  // Night/neon cityscape — section 3
-  feature2Portrait:
-    "https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=2400&q=80",
+  bentoPortrait: "/elders.png",
+  // "Crush your debt by 70%" backdrop — local asset
+  feature2Portrait: "/woman-on-mountain.png",
   // Warm intimate family portrait — testimonial (local asset)
   testimonialPortrait: "/testimonial-warm.png",
-  // Misty forest — CTA
-  ctaBackdrop:
-    "https://images.unsplash.com/photo-1418065460487-3e41a6c84dc5?auto=format&fit=crop&w=2400&q=80",
+  // "Solve your debt. Get back to living." CTA backdrop — local asset
+  ctaBackdrop: "/picnic.png",
 };
 
 export default function MembersV3Page() {
@@ -190,38 +189,9 @@ export default function MembersV3Page() {
       </section>
 
       {/* ============================================================
-          5. § 03 — FULL-BLEED FEATURE ("Introducing one-tap negotiation")
+          5. § 03 — LIVE TICKER (replaces the static "Crush your debt 70%")
          ============================================================ */}
-      <section className="relative h-[100vh] min-h-[820px] w-full overflow-hidden rounded-3xl">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={PHOTOS.feature2Portrait}
-          alt=""
-          className="absolute inset-0 h-full w-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0E1014] via-[#0E1014]/60 to-[#0E1014]/0" />
-
-        <div className="relative z-10 mx-auto flex h-full max-w-[1440px] flex-col justify-center gap-6 px-10 md:px-16">
-          <div className="flex items-center gap-2">
-            <span className="block h-2 w-2 rounded-full bg-[#5EEAD4]" />
-            <span className="text-[11px] font-medium tracking-[0.18em] text-[#5EEAD4]">
-              INTRODUCING ONE-TAP NEGOTIATION
-            </span>
-          </div>
-          <h2 className="max-w-[760px] text-[64px] font-medium leading-[1.02] tracking-[-0.03em] text-white md:text-[80px]">
-            Crush your debt by up to{" "}
-            <span className="text-[#5EEAD4]">70%.</span>
-          </h2>
-          <div className="pt-4">
-            <a
-              href="#cta"
-              className="inline-flex items-center rounded-full bg-zinc-50 px-7 py-3.5 text-sm font-medium text-[#0E1014]"
-            >
-              Learn more
-            </a>
-          </div>
-        </div>
-      </section>
+      <LiveSavingsTicker />
 
       {/* ============================================================
           6. § 04 — BENTO PAIR (bills dashboard / dark testimonial)
