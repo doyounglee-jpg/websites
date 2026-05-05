@@ -32,7 +32,7 @@ const PHOTOS = {
   // "Crush your debt by 70%" backdrop — local asset
   feature2Portrait: "/woman-on-mountain.png",
   // Warm intimate family portrait — testimonial (local asset)
-  testimonialPortrait: "/testimonial-warm.png",
+  testimonialPortrait: "/testimonial-warm-two.png",
   // "Solve your debt. Get back to living." CTA backdrop — local asset
   ctaBackdrop: "/picnic.png",
 };
@@ -93,7 +93,7 @@ export default function MembersV3Page() {
               NEW
             </span>
             <span className="text-[13px] font-medium tracking-[-0.005em] text-zinc-300">
-              Negotiate any debt with one tap →
+              Negotiate any debt with one tap
             </span>
           </div>
 
