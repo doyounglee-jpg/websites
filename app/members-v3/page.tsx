@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AnimatedBillsChatPanel } from "./AnimatedBillsChatPanel";
 import { AnimatedChatPanel } from "./AnimatedChatPanel";
 import { LiveSavingsTicker } from "./LiveSavingsTicker";
 
@@ -28,7 +29,7 @@ const PHOTOS = {
   feature1Backdrop:
     "https://images.unsplash.com/photo-1454496522488-7a8e488e8606?auto=format&fit=crop&w=2400&q=80",
   // "Get your debt off your mind" portrait — local asset
-  bentoPortrait: "/elders.png",
+  bentoPortrait: "/happy-two.png",
   // "Crush your debt by 70%" backdrop — local asset
   feature2Portrait: "/woman-on-mountain.png",
   // Warm intimate family portrait — testimonial (local asset)
@@ -209,7 +210,7 @@ export default function MembersV3Page() {
           />
           <div className="relative z-10 flex h-full flex-col justify-between p-10 md:p-14">
             <div className="flex flex-1 items-center justify-center">
-              <BillsMockup />
+              <AnimatedBillsChatPanel />
             </div>
 
             <div className="flex flex-col gap-3">
@@ -573,60 +574,8 @@ function BillItem({
   );
 }
 
-/**
- * Bills mockup — dark surface version.
- */
-function BillsMockup() {
-  return (
-    <div className="flex w-full max-w-[420px] flex-col gap-3 rounded-2xl border border-white/[0.08] bg-white/[0.03] p-5 shadow-[0_20px_60px_rgba(0,0,0,0.4)] backdrop-blur">
-      <div className="flex items-center justify-between">
-        <span className="text-[11px] font-medium tracking-[0.1em] text-zinc-500">
-          UPCOMING THIS WEEK
-        </span>
-        <span className="font-mono text-[11px] text-zinc-500">3 of 7</span>
-      </div>
-      <div className="flex flex-col gap-2">
-        {[
-          { name: "Capital One", due: "Tue", amount: "$184" },
-          { name: "Spotify", due: "Wed", amount: "$11" },
-          { name: "Pacific Gas & Electric", due: "Fri", amount: "$72" },
-        ].map((b) => (
-          <div
-            key={b.name}
-            className="flex items-center justify-between rounded-xl border border-white/[0.06] bg-white/[0.04] px-3.5 py-3"
-          >
-            <div className="flex items-center gap-3">
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#5EEAD4]/10 font-mono text-[10px] font-semibold text-[#5EEAD4]">
-                {b.due.toUpperCase()}
-              </span>
-              <span className="text-[13px] font-medium text-white">
-                {b.name}
-              </span>
-            </div>
-            <span className="font-mono text-[13px] font-medium text-white">
-              {b.amount}
-            </span>
-          </div>
-        ))}
-      </div>
-      <div className="flex items-center justify-between border-t border-white/[0.06] pt-3">
-        <span className="text-[11px] text-zinc-500">All on autopay</span>
-        <div className="flex items-center gap-1.5">
-          <span
-            className="block h-1.5 w-1.5 rounded-full bg-[#5EEAD4]"
-            style={{ boxShadow: "0 0 8px rgba(94,234,212,0.6)" }}
-          />
-          <span className="font-mono text-[10px] tracking-[0.06em] text-[#5EEAD4]">
-            ON TRACK
-          </span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 /* ============================================================
-   CATEGORIES GRID — § 03 (ported from /members)
+   CATEGORIES GRID — § 05 (ported from /members)
    ============================================================ */
 
 const CATEGORIES = [
