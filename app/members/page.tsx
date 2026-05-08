@@ -11,6 +11,7 @@ import {
 import { AnimatedBillsChatPanel } from "./AnimatedBillsChatPanel";
 import { AnimatedChatPanel } from "./AnimatedChatPanel";
 import { LiveSavingsTicker } from "./LiveSavingsTicker";
+import { MobileMenu } from "./MobileMenu";
 
 /**
  * /members — DARK Cleo-inspired bento + cinematic photography direction.
@@ -53,39 +54,52 @@ export default function MembersV3Page() {
     <main className="min-h-screen bg-[#0E1014] text-zinc-50">
       {/* ============================================================
           1. FLOATING PILL NAV — glassy on dark
+          (centered pill hidden on mobile to avoid overlap with logo + CTA)
          ============================================================ */}
-      <header className="fixed top-5 left-1/2 z-50 -translate-x-1/2">
+      <header className="fixed top-5 left-1/2 z-50 hidden -translate-x-1/2 md:block">
         <nav className="flex items-center gap-1 rounded-full border border-white/15 bg-black/30 px-2 py-1.5 backdrop-blur-md">
           <PillNavLink href="/members" active>
             Members
           </PillNavLink>
           <PillNavLink href="/companies">Companies</PillNavLink>
-          <PillNavLink href="#">About</PillNavLink>
         </nav>
       </header>
 
-      <div className="fixed top-5 left-5 z-50 flex items-center gap-2 rounded-full border border-white/15 bg-black/30 px-4 py-2 backdrop-blur-md">
+      <Link
+        href="/members"
+        aria-label="Clerkie home"
+        className="fixed top-5 left-4 z-50 flex h-9 items-center sm:left-5"
+      >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/clerkie-wordmark.svg"
           alt="Clerkie"
           className="h-[18px] w-auto"
         />
-      </div>
-      <div className="fixed top-5 right-5 z-50">
+      </Link>
+
+      {/* Top-right cluster.
+          Mobile (< md): "Get the App" + hamburger menu (hamburger furthest
+          right for thumb reach, CTA next to it stays prominent).
+          Desktop (md+): just "Get the App" — the centered pill nav handles
+          page navigation. */}
+      <div className="fixed top-4 right-4 z-50 flex items-center gap-2 sm:top-5 sm:right-5">
         <a
           href="#cta"
-          className="flex items-center rounded-full border border-white/15 bg-black/30 px-5 py-2.5 text-sm font-medium text-white backdrop-blur-md"
+          className="flex items-center rounded-full border border-white/15 bg-black/30 px-3.5 py-1.5 text-[13px] font-medium text-white backdrop-blur-md sm:px-5 sm:py-2.5 sm:text-sm"
         >
           Get the App
         </a>
+        <div className="md:hidden">
+          <MobileMenu />
+        </div>
       </div>
 
       <div className="flex flex-col gap-3 p-3">
       {/* ============================================================
           2. HERO — eyebrow pill, headline, CTAs, phone (from /members)
          ============================================================ */}
-      <section className="relative h-[100vh] min-h-[1000px] w-full overflow-hidden rounded-3xl bg-[#0E1014]">
+      <section className="relative h-[100vh] min-h-[820px] w-full overflow-hidden rounded-3xl bg-[#0E1014] md:min-h-[1000px]">
         {/* Aurora halo */}
         <div
           className="aurora-mono pointer-events-none absolute left-1/2 top-[-200px] h-[900px] w-[1400px] -translate-x-1/2"
@@ -139,7 +153,7 @@ export default function MembersV3Page() {
         </div>
 
         {/* Phone mockup (centered with halo). Wrapper height < phone height + overflow-hidden = hard cut at the hero's bottom edge. */}
-        <div className="relative z-10 flex h-[540px] justify-center overflow-hidden px-6 sm:px-10 md:px-16">
+        <div className="relative z-10 flex h-[540px] justify-center overflow-hidden px-0 sm:px-10 md:px-16">
           <div
             className="aurora-mono-tight pointer-events-none absolute left-1/2 top-[60px] h-[600px] w-[1100px] -translate-x-1/2"
             aria-hidden="true"
@@ -151,9 +165,9 @@ export default function MembersV3Page() {
       {/* ============================================================
           3. § 02 — BENTO PAIR (cool portrait / dark cyan chat panel)
          ============================================================ */}
-      <section className="grid h-[100vh] min-h-[760px] w-full grid-cols-1 md:grid-cols-2 gap-3">
+      <section className="grid h-auto min-h-[640px] w-full grid-cols-1 gap-3 md:h-[100vh] md:min-h-[760px] md:grid-cols-2">
         {/* Left: cool-toned portrait with overlay copy */}
-        <div className="relative overflow-hidden rounded-3xl">
+        <div className="relative aspect-[4/5] overflow-hidden rounded-3xl md:aspect-auto">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={PHOTOS.bentoPortrait}
@@ -161,11 +175,11 @@ export default function MembersV3Page() {
             className="absolute inset-0 h-full w-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/10" />
-          <div className="relative z-10 flex h-full flex-col justify-end gap-4 p-10 md:p-14">
-            <h3 className="text-[34px] font-medium leading-[1.15] tracking-[-0.02em] text-white">
+          <div className="relative z-10 flex h-full flex-col justify-end gap-4 p-6 sm:p-10 md:p-14">
+            <h3 className="text-[28px] font-medium leading-[1.15] tracking-[-0.02em] text-white sm:text-[34px]">
               Get your debt off your mind.
             </h3>
-            <p className="max-w-[420px] text-[15px] leading-[1.55] text-white/70">
+            <p className="max-w-[420px] text-[14px] leading-[1.55] text-white/70 sm:text-[15px]">
               Clerkie negotiates and tracks your payoff plan, adjusting as life
               moves. No more anxiety or mental math.
             </p>
@@ -182,15 +196,15 @@ export default function MembersV3Page() {
                 "radial-gradient(circle, rgba(94,234,212,0.12) 0%, rgba(94,234,212,0) 70%)",
             }}
           />
-          <div className="relative z-10 flex h-full flex-col justify-between p-10 md:p-14">
+          <div className="relative z-10 flex h-full flex-col justify-between gap-8 p-6 sm:p-10 md:p-14">
             {/* Live chat: looping conversation + animated voice waveform. */}
             <AnimatedChatPanel />
 
             <div className="flex flex-col gap-3">
-              <h3 className="text-[34px] font-medium leading-[1.15] tracking-[-0.02em] text-white">
+              <h3 className="text-[28px] font-medium leading-[1.15] tracking-[-0.02em] text-white sm:text-[34px]">
                 More personalized than most apps.
               </h3>
-              <p className="max-w-[420px] text-[15px] leading-[1.55] text-white/60">
+              <p className="max-w-[420px] text-[14px] leading-[1.55] text-white/60 sm:text-[15px]">
                 Clerkie&apos;s always learning about you and your spending — so
                 money conversations feel personal (with real personality).
               </p>
@@ -207,7 +221,7 @@ export default function MembersV3Page() {
       {/* ============================================================
           6. § 04 — BENTO PAIR (bills dashboard / dark testimonial)
          ============================================================ */}
-      <section className="grid h-[100vh] min-h-[760px] w-full grid-cols-1 md:grid-cols-2 gap-3">
+      <section className="grid h-auto min-h-[640px] w-full grid-cols-1 gap-3 md:h-[100vh] md:min-h-[760px] md:grid-cols-2">
         {/* Left: dark bills dashboard panel */}
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#15171B] via-[#101216] to-[#0E1014]">
           {/* Subtle cyan glow corner */}
@@ -218,16 +232,16 @@ export default function MembersV3Page() {
                 "radial-gradient(circle, rgba(94,234,212,0.08) 0%, rgba(94,234,212,0) 70%)",
             }}
           />
-          <div className="relative z-10 flex h-full flex-col justify-between p-10 md:p-14">
+          <div className="relative z-10 flex h-full flex-col justify-between gap-8 p-6 sm:p-10 md:p-14">
             <div className="flex flex-1 items-center justify-center">
               <AnimatedBillsChatPanel />
             </div>
 
             <div className="flex flex-col gap-3">
-              <h3 className="text-[34px] font-medium leading-[1.15] tracking-[-0.02em] text-white">
+              <h3 className="text-[28px] font-medium leading-[1.15] tracking-[-0.02em] text-white sm:text-[34px]">
                 Every bill, paid on time.
               </h3>
-              <p className="max-w-[420px] text-[15px] leading-[1.55] text-white/60">
+              <p className="max-w-[420px] text-[14px] leading-[1.55] text-white/60 sm:text-[15px]">
                 Clerkie watches your bills, due dates, and balances — and gives
                 you a heads-up before anything slips.
               </p>
@@ -236,7 +250,7 @@ export default function MembersV3Page() {
         </div>
 
         {/* Right: dark testimonial portrait */}
-        <div className="relative overflow-hidden rounded-3xl">
+        <div className="relative aspect-[4/5] overflow-hidden rounded-3xl md:aspect-auto">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={PHOTOS.testimonialPortrait}
@@ -244,14 +258,14 @@ export default function MembersV3Page() {
             className="absolute inset-0 h-full w-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/0" />
-          <div className="relative z-10 flex h-full flex-col justify-end gap-5 p-10 md:p-14">
-            <p className="max-w-[480px] text-[24px] leading-[1.3] tracking-[-0.01em] text-white">
+          <div className="relative z-10 flex h-full flex-col justify-end gap-5 p-6 sm:p-10 md:p-14">
+            <p className="max-w-[480px] text-[20px] leading-[1.3] tracking-[-0.01em] text-white sm:text-[24px]">
               &ldquo;Clerkie cleared{" "}
               <span className="text-[#5EEAD4]">$14,000</span> in student loans
               I&apos;d been dragging for six years. I didn&apos;t even have to
               call.&rdquo;
             </p>
-            <span className="text-[13px] tracking-[0.04em] text-white/60">
+            <span className="text-[12px] tracking-[0.04em] text-white/60 sm:text-[13px]">
               — M. ALVAREZ, MEMBER SINCE 2024
             </span>
           </div>
@@ -294,7 +308,7 @@ export default function MembersV3Page() {
          ============================================================ */}
       <section
         id="cta"
-        className="relative h-[80vh] min-h-[640px] w-full overflow-hidden rounded-3xl"
+        className="relative h-[80vh] min-h-[560px] w-full overflow-hidden rounded-3xl md:min-h-[640px]"
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -304,18 +318,18 @@ export default function MembersV3Page() {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#0E1014]/40 via-[#0E1014]/60 to-[#0E1014]/90" />
 
-        <div className="relative z-10 mx-auto flex h-full max-w-[1440px] flex-col items-center justify-center gap-8 px-10 text-center md:px-16">
-          <h2 className="max-w-[820px] text-[64px] font-medium leading-[1.05] tracking-[-0.03em] text-white md:text-[80px]">
+        <div className="relative z-10 mx-auto flex h-full max-w-[1440px] flex-col items-center justify-center gap-6 px-6 text-center sm:gap-8 sm:px-10 md:px-16">
+          <h2 className="max-w-[820px] text-[40px] font-medium leading-[1.05] tracking-[-0.03em] text-white sm:text-[64px] md:text-[80px]">
             Solve your debt.{" "}
             <span className="text-white/50">Get back to living.</span>
           </h2>
-          <p className="max-w-[520px] text-[17px] leading-[1.55] text-white/70">
+          <p className="max-w-[520px] text-[15px] leading-[1.55] text-white/70 sm:text-[17px]">
             The easiest way to pay off debt, manage bills, and get personalized
             financial answers.
           </p>
           <a
             href="#"
-            className="flex items-center rounded-full bg-zinc-50 px-8 py-4 text-base font-medium tracking-[-0.005em] text-[#0E1014]"
+            className="flex items-center rounded-full bg-zinc-50 px-7 py-3.5 text-[15px] font-medium tracking-[-0.005em] text-[#0E1014] sm:px-8 sm:py-4 sm:text-base"
           >
             Get the App
           </a>
@@ -327,8 +341,8 @@ export default function MembersV3Page() {
           8. FOOTER
          ============================================================ */}
       <footer className="border-t border-white/[0.08] bg-[#0E1014]">
-        <div className="mx-auto flex max-w-[1440px] flex-col gap-12 px-10 py-16 md:px-16">
-          <div className="flex flex-col items-start justify-between gap-10 md:flex-row md:items-end">
+        <div className="mx-auto flex max-w-[1440px] flex-col gap-10 px-6 py-12 sm:gap-12 sm:px-10 sm:py-16 md:px-16">
+          <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-end md:gap-10">
             <div className="flex max-w-[320px] flex-col gap-5">
               <div className="flex items-center gap-2.5">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -343,7 +357,7 @@ export default function MembersV3Page() {
                 people, not credit-card algorithms.
               </p>
             </div>
-            <div className="flex items-center gap-8">
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-3 sm:gap-x-8">
               <Link
                 href="/members-archived"
                 className="text-sm text-zinc-500 hover:text-zinc-50"
@@ -364,7 +378,7 @@ export default function MembersV3Page() {
               </Link>
             </div>
           </div>
-          <div className="flex items-center justify-between border-t border-white/[0.06] pt-6">
+          <div className="flex flex-col items-start justify-between gap-3 border-t border-white/[0.06] pt-6 sm:flex-row sm:items-center sm:gap-0">
             <span className="font-mono text-xs text-zinc-600">
               © 2025 Henry Labs Inc. · /members
             </span>

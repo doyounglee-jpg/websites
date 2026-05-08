@@ -139,7 +139,7 @@ export function LiveSavingsTicker() {
   const total = baseline + sessionDelta;
 
   return (
-    <section className="relative h-[100vh] min-h-[820px] w-full overflow-hidden rounded-3xl bg-gradient-to-br from-[#15171B] via-[#101216] to-[#0E1014]">
+    <section className="relative h-auto min-h-[680px] w-full overflow-hidden rounded-3xl bg-gradient-to-br from-[#15171B] via-[#101216] to-[#0E1014] py-16 md:h-[100vh] md:min-h-[820px] md:py-0">
       <style>{KEYFRAMES}</style>
 
       {/* Cyan radial glow centered behind the number */}
@@ -151,7 +151,7 @@ export function LiveSavingsTicker() {
         }}
       />
 
-      <div className="relative z-10 mx-auto flex h-full max-w-[1100px] flex-col items-center justify-center gap-10 px-10 py-16 md:gap-12 md:px-16">
+      <div className="relative z-10 mx-auto flex h-full max-w-[1100px] flex-col items-center justify-center gap-8 px-5 sm:gap-10 sm:px-10 sm:py-16 md:gap-12 md:px-16">
         {/* Eyebrow — quiet credibility, no live cues */}
         <div className="rounded-full border border-[#5EEAD4]/25 bg-[#5EEAD4]/[0.08] px-3 py-1.5">
           <span className="text-[11px] font-medium tracking-[0.18em] text-[#5EEAD4]">
@@ -160,11 +160,11 @@ export function LiveSavingsTicker() {
         </div>
 
         {/* Big counter with slot-machine digit scroll */}
-        <div className="flex flex-col items-center gap-4 text-center">
-          <h2 className="text-[64px] font-medium leading-none tracking-[-0.04em] text-white md:text-[110px]">
+        <div className="flex w-full flex-col items-center gap-4 text-center">
+          <h2 className="text-[40px] font-medium leading-none tracking-[-0.04em] text-white sm:text-[64px] md:text-[110px]">
             <ScrollingNumber value={total} />
           </h2>
-          <p className="max-w-[520px] text-[16px] leading-[1.55] text-white/65 md:text-[18px]">
+          <p className="max-w-[520px] text-[15px] leading-[1.55] text-white/65 sm:text-[16px] md:text-[18px]">
             negotiated down for Clerkie members.
           </p>
         </div>
