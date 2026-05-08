@@ -1,4 +1,13 @@
 import Link from "next/link";
+import { HugeiconsIcon } from "@hugeicons/react";
+import {
+  Car01Icon,
+  ChartUpIcon,
+  CreditCardIcon,
+  MoneyBag01Icon,
+  Mortarboard01Icon,
+  StethoscopeIcon,
+} from "@hugeicons-pro/core-stroke-standard";
 import { AnimatedBillsChatPanel } from "./AnimatedBillsChatPanel";
 import { AnimatedChatPanel } from "./AnimatedChatPanel";
 import { LiveSavingsTicker } from "./LiveSavingsTicker";
@@ -585,36 +594,42 @@ const CATEGORIES = [
     desc: "Lower your APR, consolidate balances, and stop interest from eating your paycheck.",
     statLabel: "AVG. SAVED",
     statValue: "$3,820",
+    icon: CreditCardIcon,
   },
   {
     title: "Student Loans",
     desc: "Federal, private, refinance — we walk you through every payoff path with the math up front.",
     statLabel: "AVG. SAVED",
     statValue: "$9,420",
+    icon: Mortarboard01Icon,
   },
   {
     title: "Personal Loans",
     desc: "Negotiate rates, prepay strategically, or fold them into a smarter consolidation plan.",
     statLabel: "AVG. SAVED",
     statValue: "$2,140",
+    icon: MoneyBag01Icon,
   },
   {
     title: "Medical Debt",
     desc: "Hospital and dental bills are negotiable. We dispute charges and settle for less.",
     statLabel: "AVG. SAVED",
     statValue: "$4,260",
+    icon: StethoscopeIcon,
   },
   {
     title: "Auto Loans",
     desc: "Refinance for a lower rate or restructure when payments are squeezing your budget.",
     statLabel: "AVG. SAVED",
     statValue: "$2,890",
+    icon: Car01Icon,
   },
   {
     title: "Boost Your Credit",
     desc: "Dispute errors, build positive history, and add tradelines that move your score quickly.",
     statLabel: "AVG. LIFT",
     statValue: "+84 pts",
+    icon: ChartUpIcon,
   },
 ];
 
@@ -623,13 +638,19 @@ function CategoryCard({
   desc,
   statLabel,
   statValue,
+  icon,
 }: (typeof CATEGORIES)[number]) {
   return (
     <div className="flex min-h-[240px] basis-full flex-col gap-6 bg-[#0C0D0F] px-6 py-7 sm:basis-[calc(50%-1px)] sm:px-8 sm:py-9 lg:basis-[calc(33.333%-1px)]">
+      {/* Icon bubble — Hugeicons stroke icon, white at 80% opacity. */}
       <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5">
-        <div className="relative h-4 w-5.5 rounded-[3px] bg-white/40">
-          <div className="absolute left-0 top-1 h-[3px] w-full bg-[#0E1014]/40" />
-        </div>
+        <HugeiconsIcon
+          icon={icon}
+          size={22}
+          color="currentColor"
+          strokeWidth={1.5}
+          className="text-white/80"
+        />
       </div>
       <div className="flex flex-1 flex-col gap-2">
         <span className="text-[22px] font-semibold leading-[1.2] tracking-[-0.02em] text-white">
