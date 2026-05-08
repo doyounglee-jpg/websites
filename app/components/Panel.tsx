@@ -26,12 +26,12 @@ type PanelProps = {
 
 const COPY = {
   clerkie: {
-    label: "CLERKIE",
+    label: "CONSUMER",
     title: "Clerkie",
     subtitle: "For consumers and benefit providers",
   },
   fiber: {
-    label: "FIBER",
+    label: "ENTERPRISE",
     title: "Fiber",
     subtitle: "For financial institutions and agencies",
   },
