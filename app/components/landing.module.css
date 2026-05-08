@@ -1,0 +1,348 @@
+/* ===== Clerkie / Fiber landing — scoped tokens + full styles =====
+   This is a CSS Module: every class name is scoped to whichever component
+   imports it. The custom properties (--clerkie-*, --fiber-*) live on
+   .stage so they only resolve inside the landing page.
+
+   THEME-SWAPPED VERSION:
+   - Clerkie now uses the DARK institutional palette (previously Fiber's)
+   - Fiber now uses the WARM soft palette (previously Clerkie's)
+   - Typography pairings unchanged: Clerkie title remains serif, Fiber sans. */
+
+.stage {
+  /* Fonts — system stack for sans, generic serif for the Clerkie display
+     type. Not reusing Inter from layout.tsx because the prototype calls
+     for these specifically. */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-serif: ui-serif, Georgia, "Times New Roman", serif;
+
+  /* Clerkie palette — DARK institutional (post-swap). */
+  --clerkie-bg: #0C1117;
+  --clerkie-bg-hover: #161C24;
+  --clerkie-text: #FFFFFF;
+  --clerkie-text-muted: #B4B2A9;
+  --clerkie-text-label: #888780;
+  --clerkie-accent-members: #378ADD;
+  --clerkie-accent-members-text: #378ADD;
+  --clerkie-accent-companies: #5DCAA5;
+  --clerkie-accent-companies-text: #5DCAA5;
+  --clerkie-divider: rgba(255, 255, 255, 0.08);
+
+  /* Fiber palette — WARM soft (post-swap). */
+  --fiber-bg: #F1EFE8;
+  --fiber-bg-hover: #E8E5DC;
+  --fiber-text: #2C2C2A;
+  --fiber-text-muted: #5F5E5A;
+  --fiber-accent-crm: #D85A30;
+  --fiber-accent-crm-text: #993C1D;
+  --fiber-accent-ims: #639922;
+  --fiber-accent-ims-text: #3B6D11;
+  --fiber-accent-agent: #7C6FB8;
+  --fiber-accent-agent-text: #4A3F8C;
+  --fiber-divider: rgba(0, 0, 0, 0.08);
+
+  /* Animation curves */
+  --ease-expand: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-overshoot: cubic-bezier(0.34, 1.2, 0.64, 1);
+
+  /* Layout — full viewport, side-by-side panels.
+     `100dvh` = dynamic viewport height. On mobile Safari the URL bar
+     expands/collapses as you scroll, which makes plain `100vh` either
+     too tall (overflows) or too short (gap at bottom). `100dvh` tracks
+     the actual current viewport. The `100vh` line stays as a fallback
+     for older browsers that don't support `dvh` units. */
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  font-family: var(--font-sans);
+  /* Reset any inherited text color from <body> (which sets text-zinc-100
+     globally) — each panel sets its own. */
+  color: initial;
+}
+
+/* ===== Panel (one side of the split) ===== */
+.panel {
+  flex: 1;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  min-width: 0;
+  display: flex;
+  /* `flex` transition is what drives the expand/collapse motion. */
+  transition: flex 0.7s var(--ease-expand), opacity 0.5s ease;
+}
+
+/* Visual states applied during interaction */
+.isExpanded { flex: 1; }
+.isCollapsed { flex: 0; opacity: 0; }
+
+/* ===== Initial title block (label + brand name + subtitle) ===== */
+.panelInitial {
+  flex: 1;
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* Applied to the EXPANDED panel's initial block — fades it out so the
+   sub-columns can take over. */
+.isHidden {
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+}
+
+.panelLabel {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  font-weight: 500;
+}
+
+.panelTitle {
+  font-size: 64px;
+  margin: 0 0 8px 0;
+  line-height: 1;
+  font-weight: 500;
+}
+
+.panelSubtitle {
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Clerkie variant — DARK bg, serif title (editorial/premium dark). */
+.clerkie {
+  background: var(--clerkie-bg);
+}
+.clerkie .panelLabel { color: var(--clerkie-text-label); }
+.clerkie .panelTitle {
+  font-family: var(--font-serif);
+  color: var(--clerkie-text);
+}
+.clerkie .panelSubtitle { color: var(--clerkie-text-muted); }
+
+/* Fiber variant — WARM bg, sans title (approachable institutional). */
+.fiber {
+  background: var(--fiber-bg);
+}
+.fiber .panelLabel { color: var(--fiber-text-muted); }
+.fiber .panelTitle { color: var(--fiber-text); }
+.fiber .panelSubtitle { color: var(--fiber-text-muted); }
+
+/* ===== Sub-columns =====
+   Always present in the DOM, but hidden via opacity + translateX until
+   the JS toggles `.isActive` on them after a stagger. */
+.col {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  padding: 48px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  opacity: 0;
+  transform: translateX(-30px);
+  /* The overshoot easing gives a slight "pop past, then settle" feel. */
+  transition:
+    opacity 0.5s ease,
+    transform 0.6s var(--ease-overshoot),
+    background 0.3s ease;
+  pointer-events: none;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+.isActive {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.colLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  font-weight: 500;
+}
+
+.dot {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 999px;
+}
+
+.colTitle {
+  font-size: 40px;
+  margin: 0 0 8px 0;
+  line-height: 1.1;
+  font-weight: 500;
+}
+
+.colSubtitle {
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.learnMore {
+  margin-top: 16px;
+  font-size: 13px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Clerkie sub-cols — DARK bg, serif title */
+.colClerkie {
+  background: var(--clerkie-bg);
+  border-right: 0.5px solid var(--clerkie-divider);
+}
+.colClerkie:last-child { border-right: none; }
+.colClerkie .colLabel { color: var(--clerkie-text-muted); }
+.colClerkie .colTitle {
+  font-family: var(--font-serif);
+  color: var(--clerkie-text);
+}
+.colClerkie .colSubtitle { color: var(--clerkie-text-muted); }
+
+/* Fiber sub-cols — WARM bg, sans title */
+.colFiber {
+  background: var(--fiber-bg);
+  border-right: 0.5px solid var(--fiber-divider);
+}
+.colFiber:last-child { border-right: none; }
+.colFiber .colLabel { color: var(--fiber-text-muted); }
+.colFiber .colTitle { color: var(--fiber-text); }
+.colFiber .colSubtitle { color: var(--fiber-text-muted); }
+
+/* Hover effects ONLY on devices that actually have a hover capability.
+   Without this gate, tapping a sub-column on a touch device leaves the
+   `:hover` state stuck until the user taps elsewhere — which makes it
+   look like a "pressed" state that won't release. The (hover: hover)
+   query is true for mouse-driven UAs, false for touch. */
+@media (hover: hover) {
+  .colClerkie:hover { background: var(--clerkie-bg-hover); }
+  .colClerkie:hover .learnMore { opacity: 1; }
+  .colFiber:hover { background: var(--fiber-bg-hover); }
+  .colFiber:hover .learnMore { opacity: 1; }
+}
+
+/* On touch devices, "Learn more →" is shown always — there's no hover
+   to trigger it, and we still want the affordance visible. */
+@media (hover: none) {
+  .learnMore { opacity: 1; }
+}
+
+/* Position classes for cols. We only use 2-col (Clerkie) and 3-col (Fiber)
+   layouts, so we hardcode those exact positions. The class name encodes
+   "position {n} of {total}" for clarity. */
+.pos2_0 { left: 0;       width: 50%; }
+.pos2_1 { left: 50%;     width: 50%; }
+.pos3_0 { left: 0;       width: 33.333%; }
+.pos3_1 { left: 33.333%; width: 33.333%; }
+.pos3_2 { left: 66.666%; width: 33.334%; }
+
+/* ===== Back button =====
+   Absolute-positioned in the panel's top-right. Hidden by default; the
+   `.isVisible` class fades it in. The JS controls WHEN the class is
+   added (timed to the col stagger rhythm in LandingStage), so the CSS
+   transition itself has no delay — visual fade tracks JS exactly. */
+.backBtn {
+  position: absolute;
+  top: 32px;
+  right: 32px;
+  font-size: 13px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 10;
+  background: transparent;
+  border: none;
+  padding: 8px 12px;
+  font-family: inherit;
+}
+
+.isVisible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.clerkie .backBtn { color: var(--clerkie-text-muted); }
+.fiber .backBtn { color: var(--fiber-text-muted); }
+
+/* ===== Focus styles =====
+   `:focus-visible` shows the outline only on keyboard nav, never on
+   mouse click — so sighted mouse users don't see "ugly" focus rings,
+   but keyboard users get clear targeting. Outline color uses each
+   panel's text color so contrast is right on dark and warm bgs alike.
+   Outline-offset is negative for full-bleed elements (panels, cols)
+   so the ring appears inset; positive for the small back button. */
+.clerkie:focus-visible,
+.colClerkie:focus-visible {
+  outline: 2px solid var(--clerkie-text);
+  outline-offset: -4px;
+}
+.fiber:focus-visible,
+.colFiber:focus-visible {
+  outline: 2px solid var(--fiber-text);
+  outline-offset: -4px;
+}
+.clerkie .backBtn:focus-visible {
+  outline: 2px solid var(--clerkie-text);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+.fiber .backBtn:focus-visible {
+  outline: 2px solid var(--fiber-text);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ===== Reduced motion =====
+   Respect users who've asked the OS to dial down animation. Transitions
+   become near-instant (0.01s instead of being removed entirely so state
+   changes still complete cleanly). */
+@media (prefers-reduced-motion: reduce) {
+  .panel,
+  .panelInitial,
+  .col,
+  .backBtn {
+    transition-duration: 0.01s !important;
+  }
+}
+
+/* ===== Mobile (≤768px) =====
+   Panels stack vertically. When expanded, sub-columns stack too. */
+@media (max-width: 768px) {
+  .stage { flex-direction: column; }
+  .panelInitial { padding: 32px; }
+  .panelTitle { font-size: 48px; }
+  .col { padding: 32px 24px; }
+  .colTitle { font-size: 28px; }
+
+  /* Sub-column positions become full-width / stacked rows. */
+  .pos2_0 { top: 0;       left: 0; width: 100%; height: 50%; }
+  .pos2_1 { top: 50%;     left: 0; width: 100%; height: 50%; }
+  .pos3_0 { top: 0;       left: 0; width: 100%; height: 33.333%; }
+  .pos3_1 { top: 33.333%; left: 0; width: 100%; height: 33.333%; }
+  .pos3_2 { top: 66.666%; left: 0; width: 100%; height: 33.334%; }
+
+  /* Move dividers from right to top on stacked cols, except the first. */
+  .colClerkie {
+    border-right: none;
+  }
+  .colFiber {
+    border-right: none;
+  }
+  .pos2_1.colClerkie { border-top: 0.5px solid var(--clerkie-divider); }
+  .pos3_1.colFiber,
+  .pos3_2.colFiber { border-top: 0.5px solid var(--fiber-divider); }
+}
