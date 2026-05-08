@@ -1,73 +1,82 @@
 import Link from "next/link";
-import { MobileMenu } from "../components/MobileMenu";
+import { AnimatedBillsChatPanel } from "./AnimatedBillsChatPanel";
+import { AnimatedChatPanel } from "./AnimatedChatPanel";
+import { LiveSavingsTicker } from "./LiveSavingsTicker";
 
 /**
- * Clerkie /members — Linear-style monochrome redesign.
+ * /members — DARK Cleo-inspired bento + cinematic photography direction.
  *
- * This is a 1:1 translation of the Paper design at:
- *   app.paper.design/file/01KQ7GJ645FE0CVZRNQ1YDX8GR
+ * (Promoted from /members-v3 → /members. The previous v1 lives at
+ * /members-archived for reference.) Same structural moves as the now-
+ * archived layout (full-bleed photo hero, alternating bento + features,
+ * glassy pill nav) with dark-cyan accents shared across the site.
  *
- * Sections are in the same order as clerkie.io/members:
- *   1. Nav
- *   2. Hero (headline + phone mockup)
- *   3. § 01 — Negotiation table ("Crush your debt by up to 70%")
- *   4. § 02 — AI Q&A chat ("Real answers. Anytime. Anywhere.")
- *   5. § 03 — Categories grid ("Every kind of debt. One quiet app.")
- *   6. § 04 — Bills dashboard ("Every bill, paid on time")
- *   7. § 05 — Safety net ("When the month is hard, we've got you")
- *   8. CTA ("Try it out.") + App Store / Play Store
- *   9. Footer
+ * Photos: Unsplash hot-linked CDN URLs (prototype-only). Photos chosen
+ * for moodier dusk/night/cool-toned cinematic mood.
  *
- * Color palette (dark-cyan theme):
- *   - Ground:        #0E1014  → bg-[#0E1014]
- *   - Accent (cyan): #5EEAD4 — eyebrows, key $ values, status dots, stats
- *   - Surface:       rgba(255,255,255,0.03–0.06)  → bg-white/5
- *   - Hairline:      rgba(255,255,255,0.06–0.1)   → border-white/10
- *   - Text primary:  #F7F8F8                       → text-zinc-50
- *   - Text muted:    rgba(247,248,248,0.55)        → text-zinc-400
- *   - Text dim:      rgba(247,248,248,0.4)         → text-zinc-500
+ * Color palette:
+ *   - Page bg:       #0E1014  (matches /members and /companies)
+ *   - Surface:       #15171B  (slightly lifted dark surface)
+ *   - Text primary:  #F7F8F8
+ *   - Text muted:    rgba(247,248,248,0.6)
+ *   - Accent:        #5EEAD4  (cyan — same as /members)
  */
 
-export default function MembersPage() {
+const PHOTOS = {
+  // Aurora / northern lights — moody hero
+  heroLandscape:
+    "https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?auto=format&fit=crop&w=2400&q=80",
+  // Foggy/dusk mountain — section 1 backdrop
+  feature1Backdrop:
+    "https://images.unsplash.com/photo-1454496522488-7a8e488e8606?auto=format&fit=crop&w=2400&q=80",
+  // "Get your debt off your mind" portrait — local asset
+  bentoPortrait: "/happy-two.png",
+  // "Crush your debt by 70%" backdrop — local asset
+  feature2Portrait: "/woman-on-mountain.png",
+  // Warm intimate family portrait — testimonial (local asset)
+  testimonialPortrait: "/testimonial-warm-two.png",
+  // "Solve your debt. Get back to living." CTA backdrop — local asset
+  ctaBackdrop: "/picnic.png",
+};
+
+export default function MembersV3Page() {
   return (
     <main className="min-h-screen bg-[#0E1014] text-zinc-50">
       {/* ============================================================
-          1. NAV — hairline border, blurred dark background
+          1. FLOATING PILL NAV — glassy on dark
          ============================================================ */}
-      <header className="sticky top-0 z-50 w-full border-b border-white/[0.06] bg-[#0E1014]/60 backdrop-blur-md">
-        <nav className="mx-auto flex w-full max-w-[1440px] items-center justify-between px-6 py-4 sm:px-10 sm:py-5 md:px-16">
-          <div className="flex items-center gap-2.5">
-            <LogoMark size={24} />
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/clerkie-wordmark.svg"
-              alt="Clerkie"
-              className="h-[22px] w-auto"
-            />
-          </div>
-          <div className="hidden items-center gap-9 md:flex">
-            <NavLink href="/members" active>
-              Members
-            </NavLink>
-            <NavLink href="/companies">Companies</NavLink>
-          </div>
-          {/* Desktop: single Get the App CTA. Hidden on mobile — hamburger drawer takes over. */}
-          <div className="hidden md:flex">
-            <a
-              href="#cta"
-              className="rounded-lg bg-zinc-50 px-3.5 py-2 text-[13px] font-medium tracking-[-0.005em] text-[#0E1014]"
-            >
-              Get the App
-            </a>
-          </div>
-          <MobileMenu activePath="members" ctaLabel="Get the App" ctaHref="#cta" />
+      <header className="fixed top-5 left-1/2 z-50 -translate-x-1/2">
+        <nav className="flex items-center gap-1 rounded-full border border-white/15 bg-black/30 px-2 py-1.5 backdrop-blur-md">
+          <PillNavLink href="/members" active>
+            Members
+          </PillNavLink>
+          <PillNavLink href="/companies">Companies</PillNavLink>
+          <PillNavLink href="#">About</PillNavLink>
         </nav>
       </header>
 
+      <div className="fixed top-5 left-5 z-50 flex items-center gap-2 rounded-full border border-white/15 bg-black/30 px-4 py-2 backdrop-blur-md">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/clerkie-wordmark.svg"
+          alt="Clerkie"
+          className="h-[18px] w-auto"
+        />
+      </div>
+      <div className="fixed top-5 right-5 z-50">
+        <a
+          href="#cta"
+          className="flex items-center rounded-full border border-white/15 bg-black/30 px-5 py-2.5 text-sm font-medium text-white backdrop-blur-md"
+        >
+          Get the App
+        </a>
+      </div>
+
+      <div className="flex flex-col gap-3 p-3">
       {/* ============================================================
-          2. HERO — eyebrow pill, big headline, CTAs, phone mockup
+          2. HERO — eyebrow pill, headline, CTAs, phone (from /members)
          ============================================================ */}
-      <section className="relative overflow-hidden">
+      <section className="relative h-[100vh] min-h-[1000px] w-full overflow-hidden rounded-3xl bg-[#0E1014]">
         {/* Aurora halo */}
         <div
           className="aurora-mono pointer-events-none absolute left-1/2 top-[-200px] h-[900px] w-[1400px] -translate-x-1/2"
@@ -79,14 +88,14 @@ export default function MembersPage() {
           aria-hidden="true"
         />
 
-        <div className="relative z-10 mx-auto flex max-w-[1440px] flex-col items-center gap-8 px-6 pb-12 pt-20 sm:gap-10 sm:px-10 sm:pb-16 sm:pt-28 md:px-16 md:pb-20 md:pt-[120px]">
+        <div className="relative z-10 mx-auto flex max-w-[1440px] flex-col items-center gap-8 px-6 pb-12 pt-32 sm:gap-10 sm:px-10 sm:pb-16 sm:pt-36 md:px-16 md:pb-20 md:pt-[140px]">
           {/* Eyebrow pill */}
           <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] py-1.5 pl-2 pr-3.5">
-            <span className="rounded-full border border-white/20 bg-white/[0.08] px-2 py-0.5 text-[11px] font-semibold tracking-[0.04em]">
+            <span className="rounded-full border border-[#5EEAD4]/30 bg-[#5EEAD4]/10 px-2 py-0.5 text-[11px] font-semibold tracking-[0.04em] text-[#5EEAD4]">
               NEW
             </span>
             <span className="text-[13px] font-medium tracking-[-0.005em] text-zinc-300">
-              Negotiate any debt with one tap →
+              Negotiate any debt with one tap
             </span>
           </div>
 
@@ -126,132 +135,134 @@ export default function MembersPage() {
             className="aurora-mono-tight pointer-events-none absolute left-1/2 top-[60px] h-[600px] w-[1100px] -translate-x-1/2"
             aria-hidden="true"
           />
-          <PhoneMockup />
+          <PhoneMockup variant="hero" />
         </div>
       </section>
 
       {/* ============================================================
-          3. § 01 — NEGOTIATION TABLE
+          3. § 02 — BENTO PAIR (cool portrait / dark cyan chat panel)
          ============================================================ */}
-      <section className="border-t border-white/[0.06]">
-        <div className="mx-auto max-w-[1440px] px-6 pb-20 pt-24 sm:px-10 sm:pb-24 sm:pt-28 md:px-16 md:pb-28 md:pt-32 lg:px-24 lg:pb-32 lg:pt-40">
-          {/* Asymmetric header — stacks on mobile, side-by-side on desktop */}
-          <div className="mb-12 flex flex-col gap-6 lg:mb-20 lg:flex-row lg:items-end lg:justify-between lg:gap-20">
-            <div className="flex max-w-[720px] flex-col gap-4 lg:gap-6">
-              <SectionEyebrow>01 — NEGOTIATION</SectionEyebrow>
-              <h2 className="text-4xl font-semibold leading-[1.05] tracking-[-0.04em] sm:text-5xl md:text-[56px] lg:text-[64px] lg:leading-[1.02]">
-                Crush your debt by up to{" "}
-                <span className="text-zinc-500">70%.</span>
-              </h2>
-            </div>
-            <p className="max-w-[420px] text-base leading-[1.55] tracking-[-0.005em] text-zinc-400 lg:max-w-[360px] lg:text-[17px]">
-              Our team negotiates directly with your lenders, on your behalf,
-              to lower what you owe — fast and without the paperwork.
+      <section className="grid h-[100vh] min-h-[760px] w-full grid-cols-1 md:grid-cols-2 gap-3">
+        {/* Left: cool-toned portrait with overlay copy */}
+        <div className="relative overflow-hidden rounded-3xl">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={PHOTOS.bentoPortrait}
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/10" />
+          <div className="relative z-10 flex h-full flex-col justify-end gap-4 p-10 md:p-14">
+            <h3 className="text-[34px] font-medium leading-[1.15] tracking-[-0.02em] text-white">
+              Get your debt off your mind.
+            </h3>
+            <p className="max-w-[420px] text-[15px] leading-[1.55] text-white/70">
+              Clerkie negotiates and tracks your payoff plan, adjusting as life
+              moves. No more anxiety or mental math.
             </p>
           </div>
+        </div>
 
-          {/* Savings table — horizontal scroll on small viewports */}
-          <div className="overflow-x-auto rounded-2xl border border-white/[0.06] bg-white/[0.02]">
-            <div className="min-w-[820px]">
-            {/* Table header */}
-            <div className="flex items-center border-b border-white/[0.06] bg-white/[0.015] px-6 py-3.5">
-              <div className="w-14 shrink-0" />
-              <span className="flex-1 text-xs font-medium tracking-[0.04em] text-zinc-500">
-                DEBT TYPE
-              </span>
-              <span className="w-[220px] shrink-0 text-xs font-medium tracking-[0.04em] text-zinc-500">
-                LENDER
-              </span>
-              <span className="w-[140px] shrink-0 text-right text-xs font-medium tracking-[0.04em] text-zinc-500">
-                ORIGINAL
-              </span>
-              <span className="w-40 shrink-0 text-right text-xs font-medium tracking-[0.04em] text-zinc-500">
-                SAVED
-              </span>
-            </div>
-            {/* Rows */}
-            {SAVINGS_ROWS.map((row, i) => (
-              <SavingsRow
-                key={row.id}
-                {...row}
-                isLast={i === SAVINGS_ROWS.length - 1}
-              />
-            ))}
-            {/* Footer (totals) */}
-            <div className="flex items-center border-t border-white/[0.06] bg-[#5EEAD4]/[0.04] px-6 py-4">
-              <div className="flex w-14 shrink-0 items-center">
-                <span
-                  className="block h-2 w-2 rounded-full bg-[#5EEAD4]"
-                  style={{ boxShadow: "0 0 12px rgba(94,234,212,0.6)" }}
-                />
-              </div>
-              <span className="flex-1 text-sm font-medium tracking-[-0.005em]">
-                Total saved across all members this quarter
-              </span>
-              <span className="w-[220px] shrink-0 text-[13px] text-zinc-500">
-                62,418 negotiations
-              </span>
-              <span className="w-[140px] shrink-0 text-right font-mono text-sm text-zinc-500">
-                $148,420,602
-              </span>
-              <span className="w-40 shrink-0 text-right font-mono text-base font-semibold tracking-[-0.01em] text-[#5EEAD4]">
-                $78,649,338
-              </span>
-            </div>
+        {/* Right: dark surface panel with cyan-accented chat */}
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#15171B] via-[#101216] to-[#0E1014]">
+          {/* Subtle cyan glow */}
+          <div
+            className="pointer-events-none absolute right-[-20%] top-[-20%] h-[600px] w-[600px] rounded-full"
+            style={{
+              background:
+                "radial-gradient(circle, rgba(94,234,212,0.12) 0%, rgba(94,234,212,0) 70%)",
+            }}
+          />
+          <div className="relative z-10 flex h-full flex-col justify-between p-10 md:p-14">
+            {/* Live chat: looping conversation + animated voice waveform. */}
+            <AnimatedChatPanel />
+
+            <div className="flex flex-col gap-3">
+              <h3 className="text-[34px] font-medium leading-[1.15] tracking-[-0.02em] text-white">
+                More personalized than most apps.
+              </h3>
+              <p className="max-w-[420px] text-[15px] leading-[1.55] text-white/60">
+                Clerkie&apos;s always learning about you and your spending — so
+                money conversations feel personal (with real personality).
+              </p>
             </div>
           </div>
         </div>
       </section>
 
       {/* ============================================================
-          4. § 02 — AI Q&A
+          5. § 03 — LIVE TICKER (replaces the static "Crush your debt 70%")
          ============================================================ */}
-      <section className="border-t border-white/[0.06]">
-        <div className="mx-auto flex max-w-[1440px] flex-col items-stretch gap-12 px-6 pb-20 pt-24 sm:px-10 sm:pb-24 sm:pt-28 md:px-16 md:pb-28 md:pt-32 lg:flex-row lg:gap-20 lg:px-24 lg:pb-32 lg:pt-40">
-          {/* Left: copy */}
-          <div className="flex flex-col gap-6 pt-0 sm:gap-8 lg:max-w-[460px] lg:shrink-0 lg:pt-6">
-            <SectionEyebrow>02 — INTELLIGENCE</SectionEyebrow>
-            <h2 className="text-4xl font-semibold leading-[1.05] tracking-[-0.04em] sm:text-5xl md:text-[52px] lg:text-[56px]">
-              Real answers. Anytime. Anywhere.
-            </h2>
-            <p className="text-base leading-[1.55] tracking-[-0.005em] text-zinc-400 lg:text-[17px]">
-              Clerkie pairs your full financial picture with a private AI
-              advisor. Ask anything — debt, credit, budgeting, big-purchase
-              decisions — and get an answer grounded in your actual numbers.
+      <LiveSavingsTicker />
+
+      {/* ============================================================
+          6. § 04 — BENTO PAIR (bills dashboard / dark testimonial)
+         ============================================================ */}
+      <section className="grid h-[100vh] min-h-[760px] w-full grid-cols-1 md:grid-cols-2 gap-3">
+        {/* Left: dark bills dashboard panel */}
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#15171B] via-[#101216] to-[#0E1014]">
+          {/* Subtle cyan glow corner */}
+          <div
+            className="pointer-events-none absolute left-[-20%] bottom-[-20%] h-[500px] w-[500px] rounded-full"
+            style={{
+              background:
+                "radial-gradient(circle, rgba(94,234,212,0.08) 0%, rgba(94,234,212,0) 70%)",
+            }}
+          />
+          <div className="relative z-10 flex h-full flex-col justify-between p-10 md:p-14">
+            <div className="flex flex-1 items-center justify-center">
+              <AnimatedBillsChatPanel />
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <h3 className="text-[34px] font-medium leading-[1.15] tracking-[-0.02em] text-white">
+                Every bill, paid on time.
+              </h3>
+              <p className="max-w-[420px] text-[15px] leading-[1.55] text-white/60">
+                Clerkie watches your bills, due dates, and balances — and gives
+                you a heads-up before anything slips.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Right: dark testimonial portrait */}
+        <div className="relative overflow-hidden rounded-3xl">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={PHOTOS.testimonialPortrait}
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/0" />
+          <div className="relative z-10 flex h-full flex-col justify-end gap-5 p-10 md:p-14">
+            <p className="max-w-[480px] text-[24px] leading-[1.3] tracking-[-0.01em] text-white">
+              &ldquo;Clerkie cleared{" "}
+              <span className="text-[#5EEAD4]">$14,000</span> in student loans
+              I&apos;d been dragging for six years. I didn&apos;t even have to
+              call.&rdquo;
             </p>
-            <ul className="flex flex-col gap-3.5 pt-2">
-              {[
-                "Trained on your accounts, not strangers'.",
-                "Routes to a human specialist when stakes are high.",
-                "No upselling, no commissions, no jargon.",
-              ].map((item) => (
-                <li key={item} className="flex items-center gap-3">
-                  <span className="block h-1 w-1 rounded-full bg-zinc-50" />
-                  <span className="text-sm font-medium text-zinc-300">
-                    {item}
-                  </span>
-                </li>
-              ))}
-            </ul>
+            <span className="text-[13px] tracking-[0.04em] text-white/60">
+              — M. ALVAREZ, MEMBER SINCE 2024
+            </span>
           </div>
-
-          {/* Right: chat mockup */}
-          <ChatMockup />
         </div>
       </section>
 
       {/* ============================================================
-          5. § 03 — CATEGORIES GRID
+          6.5 § 05 — COVERAGE (categories grid, ported from /members)
          ============================================================ */}
-      <section className="border-t border-white/[0.06]">
-        <div className="mx-auto max-w-[1440px] px-6 pb-20 pt-24 sm:px-10 sm:pb-24 sm:pt-28 md:px-16 md:pb-28 md:pt-32 lg:px-24 lg:pb-32 lg:pt-40">
+      <section className="w-full overflow-hidden rounded-3xl bg-[#0E1014]">
+        <div className="px-6 pb-20 pt-20 sm:px-10 sm:pb-24 sm:pt-24 md:px-16 md:pb-28 md:pt-28">
           <div className="mb-10 flex max-w-[720px] flex-col gap-4 sm:gap-6 lg:mb-16">
-            <SectionEyebrow>03 — COVERAGE</SectionEyebrow>
-            <h2 className="text-4xl font-semibold leading-[1.05] tracking-[-0.04em] sm:text-5xl md:text-[52px] lg:text-[56px]">
+            <span className="text-[13px] font-medium tracking-[0.06em] text-[#5EEAD4]">
+              03 — COVERAGE
+            </span>
+            <h2 className="text-4xl font-semibold leading-[1.05] tracking-[-0.04em] text-white sm:text-5xl md:text-[52px] lg:text-[56px]">
               Every kind of debt.{" "}
-              <span className="text-zinc-500">One quiet app.</span>
+              <span className="text-white/50">One quiet app.</span>
             </h2>
-            <p className="max-w-[540px] text-base leading-[1.55] tracking-[-0.005em] text-zinc-400 lg:text-[17px]">
+            <p className="max-w-[540px] text-base leading-[1.55] tracking-[-0.005em] text-white/60 lg:text-[17px]">
               Whether it&apos;s a hospital bill, a car payment, or a maxed-out
               card, Clerkie handles the negotiation, the paperwork, and the
               follow-through.
@@ -270,150 +281,47 @@ export default function MembersPage() {
       </section>
 
       {/* ============================================================
-          6. § 04 — BILLS DASHBOARD
-         ============================================================ */}
-      <section className="border-t border-white/[0.06]">
-        <div className="mx-auto flex max-w-[1440px] flex-col items-stretch gap-12 px-6 pb-20 pt-24 sm:px-10 sm:pb-24 sm:pt-28 md:px-16 md:pb-28 md:pt-32 lg:flex-row lg:gap-20 lg:px-24 lg:pb-32 lg:pt-40">
-          <BillsMockup />
-          <div className="flex flex-col gap-6 pt-0 sm:gap-8 lg:max-w-[460px] lg:shrink-0 lg:pt-6">
-            <SectionEyebrow>04 — BILL CONTROL</SectionEyebrow>
-            <h2 className="text-4xl font-semibold leading-[1.05] tracking-[-0.04em] sm:text-5xl md:text-[52px] lg:text-[56px]">
-              Every bill, paid on time. Without thinking about it.
-            </h2>
-            <p className="text-base leading-[1.55] tracking-[-0.005em] text-zinc-400 lg:text-[17px]">
-              Connect your accounts once. Clerkie keeps track of due dates,
-              builds your credit with on-time payments, and tells you the
-              moment something feels off.
-            </p>
-            <div className="flex flex-col gap-4 pt-2">
-              {[
-                "Auto-pay across every account",
-                "On-time history reported to bureaus",
-                "Anomaly alerts before you overdraft",
-              ].map((item, i) => (
-                <div
-                  key={item}
-                  className={`flex items-center justify-between border-t border-white/[0.06] py-3.5 ${
-                    i === 2 ? "border-b" : ""
-                  }`}
-                >
-                  <span className="text-sm font-medium text-zinc-300">
-                    {item}
-                  </span>
-                  <span className="font-mono text-xs text-zinc-500">
-                    0{i + 1}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================
-          7. § 05 — SAFETY NET
-         ============================================================ */}
-      <section className="border-t border-white/[0.06]">
-        <div className="mx-auto max-w-[1440px] px-6 pb-20 pt-24 sm:px-10 sm:pb-24 sm:pt-28 md:px-16 md:pb-28 md:pt-32 lg:px-24 lg:pb-32 lg:pt-40">
-          <div className="mb-10 flex flex-col gap-6 lg:mb-16 lg:flex-row lg:items-end lg:justify-between lg:gap-20">
-            <div className="flex max-w-[720px] flex-col gap-4 lg:gap-6">
-              <SectionEyebrow>05 — SAFETY NET</SectionEyebrow>
-              <h2 className="text-4xl font-semibold leading-[1.05] tracking-[-0.04em] sm:text-5xl md:text-[56px] lg:text-[64px] lg:leading-[1.02]">
-                When the month is hard,{" "}
-                <span className="text-zinc-500">we&apos;ve got you.</span>
-              </h2>
-            </div>
-            <p className="max-w-[420px] text-base leading-[1.55] tracking-[-0.005em] text-zinc-400 lg:max-w-[360px] lg:text-[17px]">
-              Borrow up to your verified buffer instantly — no credit pull, no
-              spiraling fees. Pay it back on your next deposit.
-            </p>
-          </div>
-
-          {/* Two columns: stat block (left) + notification stack (right).
-              Stacks on mobile. The notif column gets ~1.5x weight so the
-              richer content area dominates while the stat stays readable. */}
-          <div className="relative flex flex-col items-stretch gap-6 py-8 lg:flex-row lg:gap-10 lg:py-15">
-            <div
-              className="aurora-mono-tight pointer-events-none absolute left-1/2 top-[30px] h-[380px] w-[800px] -translate-x-1/2"
-              aria-hidden="true"
-            />
-            <SafetyStatBlock label="YOUR INSTANT BUFFER" value="$1,200">
-              <div className="h-px bg-white/[0.06]" />
-              <dl className="flex flex-col gap-2.5 text-[13px]">
-                <Row label="Repayment" value="Next paycheck" />
-                <Row label="Fee" value="$0" />
-                <Row label="Credit pull" value="None" />
-              </dl>
-              <p className="pt-2 text-[13px] leading-[1.55] tracking-[-0.005em] text-zinc-400">
-                The average advance is $342, fully repaid within 17 days — no
-                spiral into payday debt.
-              </p>
-            </SafetyStatBlock>
-
-            <div className="relative z-10 flex flex-col gap-3 lg:flex-[1.5]">
-              <NotifHot />
-              <NotifCalm
-                eyebrow="REPAID FROM PAYCHECK"
-                meta="2d ago"
-                body="$84.00 buffer repaid automatically. Your buffer is fully restored."
-              />
-              <NotifCalm
-                eyebrow="BUFFER GREW"
-                meta="1w ago"
-                body="Two on-time months of payments unlocked an extra $200. You can now borrow up to $1,200."
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================
-          8. CTA — Try it out + App Store / Play Store
+          7. CTA — full-bleed dark photo + signup
          ============================================================ */}
       <section
         id="cta"
-        className="relative overflow-hidden border-t border-white/[0.06]"
+        className="relative h-[80vh] min-h-[640px] w-full overflow-hidden rounded-3xl"
       >
-        <div
-          className="aurora-mono pointer-events-none absolute left-1/2 top-20 h-[500px] w-[1100px] -translate-x-1/2"
-          aria-hidden="true"
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={PHOTOS.ctaBackdrop}
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover"
         />
-        <div className="relative z-10 mx-auto flex max-w-[760px] flex-col items-center gap-6 px-6 pb-24 pt-28 text-center sm:gap-8 sm:px-10 sm:pb-32 sm:pt-36 md:px-16 md:pb-40 md:pt-48 lg:px-24">
-          <h2 className="text-[44px] font-semibold leading-none tracking-[-0.045em] sm:text-6xl md:text-7xl lg:text-[80px]">
-            Try it out.
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0E1014]/40 via-[#0E1014]/60 to-[#0E1014]/90" />
+
+        <div className="relative z-10 mx-auto flex h-full max-w-[1440px] flex-col items-center justify-center gap-8 px-10 text-center md:px-16">
+          <h2 className="max-w-[820px] text-[64px] font-medium leading-[1.05] tracking-[-0.03em] text-white md:text-[80px]">
+            Solve your debt.{" "}
+            <span className="text-white/50">Get back to living.</span>
           </h2>
-          <p className="max-w-[480px] text-base leading-[1.55] tracking-[-0.005em] text-zinc-400 sm:text-lg lg:text-[19px]">
-            Free to start. No credit pull. Cancel anytime. Two minutes to your
-            first plan.
+          <p className="max-w-[520px] text-[17px] leading-[1.55] text-white/70">
+            The easiest way to pay off debt, manage bills, and get personalized
+            financial answers.
           </p>
-          <div className="flex flex-col gap-3 pt-2 sm:flex-row">
-            <AppStoreButton variant="apple" />
-            <AppStoreButton variant="google" />
-          </div>
-          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 pt-4 sm:pt-6">
-            {["FDIC partners", "SOC 2 Type II", "256-bit encryption"].map(
-              (label) => (
-                <div key={label} className="flex items-center gap-2">
-                  <span className="block h-1 w-1 rounded-full bg-zinc-50" />
-                  <span className="text-[13px] font-medium text-zinc-400">
-                    {label}
-                  </span>
-                </div>
-              ),
-            )}
-          </div>
+          <a
+            href="#"
+            className="flex items-center rounded-full bg-zinc-50 px-8 py-4 text-base font-medium tracking-[-0.005em] text-[#0E1014]"
+          >
+            Get the App
+          </a>
         </div>
       </section>
+      </div>
 
       {/* ============================================================
-          9. FOOTER
+          8. FOOTER
          ============================================================ */}
-      <footer className="border-t border-white/[0.08] bg-[#0E1014]/60">
-        <div className="mx-auto flex max-w-[1440px] flex-col gap-12 px-6 pb-12 pt-12 sm:px-10 sm:pt-16 md:px-16 lg:px-24">
-          <div className="flex flex-col items-start gap-10 lg:flex-row lg:justify-between lg:gap-20">
+      <footer className="border-t border-white/[0.08] bg-[#0E1014]">
+        <div className="mx-auto flex max-w-[1440px] flex-col gap-12 px-10 py-16 md:px-16">
+          <div className="flex flex-col items-start justify-between gap-10 md:flex-row md:items-end">
             <div className="flex max-w-[320px] flex-col gap-5">
               <div className="flex items-center gap-2.5">
-                <LogoMark size={24} />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/clerkie-wordmark.svg"
@@ -421,51 +329,42 @@ export default function MembersPage() {
                   className="h-[22px] w-auto"
                 />
               </div>
-              <p className="text-sm leading-[1.55] tracking-[-0.005em] text-zinc-500">
+              <p className="text-sm leading-[1.55] text-zinc-500">
                 A quieter way to handle the money side of life. Built for
                 people, not credit-card algorithms.
               </p>
             </div>
-            <div className="grid w-full grid-cols-2 gap-8 sm:grid-cols-3 sm:gap-12 lg:flex lg:w-auto lg:gap-20">
-              <FooterCol
-                title="PRODUCT"
-                links={[
-                  { label: "For members", href: "/members", active: true },
-                  { label: "For lenders" },
-                  { label: "For companies", href: "/companies" },
-                  { label: "Get the app" },
-                ]}
-              />
-              <FooterCol
-                title="COMPANY"
-                links={[
-                  { label: "About" },
-                  { label: "Press" },
-                  { label: "Careers" },
-                  { label: "Support" },
-                ]}
-              />
-              <FooterCol
-                title="LEGAL"
-                links={[
-                  { label: "Privacy" },
-                  { label: "Terms of Service" },
-                  { label: "Do not sell my info" },
-                  { label: "Disclosures" },
-                ]}
-              />
+            <div className="flex items-center gap-8">
+              <Link
+                href="/members-archived"
+                className="text-sm text-zinc-500 hover:text-zinc-50"
+              >
+                /members-archived (v1)
+              </Link>
+              <Link
+                href="/members-v2"
+                className="text-sm text-zinc-500 hover:text-zinc-50"
+              >
+                /members-v2
+              </Link>
+              <Link
+                href="/companies"
+                className="text-sm text-zinc-500 hover:text-zinc-50"
+              >
+                /companies
+              </Link>
             </div>
           </div>
-          <div className="flex flex-col items-start justify-between gap-4 border-t border-white/[0.06] pt-6 sm:flex-row sm:items-center sm:gap-0 sm:pt-8">
-            <span className="font-mono text-xs text-zinc-500">
-              © 2025 Henry Labs Inc. · All rights reserved
+          <div className="flex items-center justify-between border-t border-white/[0.06] pt-6">
+            <span className="font-mono text-xs text-zinc-600">
+              © 2025 Henry Labs Inc. · /members
             </span>
             <div className="flex items-center gap-2">
               <span
                 className="block h-1.5 w-1.5 rounded-full bg-[#5EEAD4]"
                 style={{ boxShadow: "0 0 10px rgba(94,234,212,0.7)" }}
               />
-              <span className="text-xs font-medium text-zinc-400">
+              <span className="text-xs font-medium text-zinc-500">
                 All systems operational
               </span>
             </div>
@@ -477,23 +376,23 @@ export default function MembersPage() {
 }
 
 /* ============================================================
-   HELPERS — small primitives reused across sections
+   SUB-COMPONENTS
    ============================================================ */
 
-function NavLink({
-  href = "#",
+function PillNavLink({
+  href,
   children,
   active,
 }: {
-  href?: string;
+  href: string;
   children: React.ReactNode;
   active?: boolean;
 }) {
   return (
     <Link
       href={href}
-      className={`text-sm font-medium transition-colors hover:text-zinc-50 ${
-        active ? "text-zinc-200" : "text-zinc-400"
+      className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
+        active ? "bg-white/15 text-white" : "text-white/70 hover:text-white"
       }`}
     >
       {children}
@@ -501,111 +400,147 @@ function NavLink({
   );
 }
 
-function SectionEyebrow({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="text-[13px] font-medium tracking-[0.06em] text-[#5EEAD4]">
-      {children}
-    </span>
-  );
-}
+/**
+ * Phone mockup — dark UI version with cyan accents.
+ *
+ * - "hero" variant: 1:1 copy of the phone from /members (greeting, progress
+ *   card, suggested negotiation, upcoming bills).
+ * - "negotiation" variant: short list of cards used in §01.
+ */
+function PhoneMockup({
+  variant,
+  tilt,
+}: {
+  variant: "hero" | "negotiation";
+  tilt?: boolean;
+}) {
+  if (variant === "hero") {
+    return (
+      <div
+        className="relative z-20 flex h-[700px] w-[340px] flex-col rounded-[44px] border border-white/10 bg-[#101113] p-2 shadow-[0_30px_80px_rgba(0,0,0,0.5)]"
+        style={tilt ? { transform: "rotate(-4deg)" } : undefined}
+      >
+        <div className="flex flex-1 flex-col gap-5 overflow-hidden rounded-[36px] bg-gradient-to-b from-[#0C0D0F] to-[#16181C] px-5 py-7">
+          {/* Status bar */}
+          <div className="flex items-center justify-between px-1">
+            <span className="text-[13px] font-semibold">9:41</span>
+            <div className="flex items-center gap-1">
+              <span className="block h-2 w-4 rounded-sm bg-zinc-400" />
+              <span className="flex h-[11px] w-[22px] items-center rounded-[3px] border border-zinc-400 p-[1.5px]">
+                <span className="block h-full w-3/4 rounded-[1px] bg-zinc-50" />
+              </span>
+            </div>
+          </div>
 
-function LogoMark({ size = 24 }: { size?: number }) {
-  return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      src="/clerkie-logo.svg"
-      alt="Clerkie"
-      width={size}
-      height={size}
-      style={{ width: size, height: size }}
-    />
-  );
-}
-
-function Row({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="flex justify-between">
-      <dt className="text-zinc-400">{label}</dt>
-      <dd className="font-medium text-zinc-100">{value}</dd>
-    </div>
-  );
-}
-
-/* ============================================================
-   PHONE MOCKUP (hero)
-   ============================================================ */
-
-function PhoneMockup() {
-  return (
-    <div className="relative z-20 flex h-[700px] w-[340px] flex-col rounded-[44px] border border-white/10 bg-[#101113] p-2 shadow-[0_30px_80px_rgba(0,0,0,0.5)]">
-      <div className="flex flex-1 flex-col gap-5 overflow-hidden rounded-[36px] bg-gradient-to-b from-[#0C0D0F] to-[#16181C] px-5 py-7">
-        {/* Status bar */}
-        <div className="flex items-center justify-between px-1">
-          <span className="text-[13px] font-semibold">9:41</span>
-          <div className="flex items-center gap-1">
-            <span className="block h-2 w-4 rounded-sm bg-zinc-400" />
-            <span className="flex h-[11px] w-[22px] items-center rounded-[3px] border border-zinc-400 p-[1.5px]">
-              <span className="block h-full w-3/4 rounded-[1px] bg-zinc-50" />
+          {/* Greeting */}
+          <div className="flex flex-col gap-1.5">
+            <span className="text-xs font-medium tracking-[0.02em] text-zinc-500">
+              GOOD MORNING, MARIA
+            </span>
+            <span className="text-2xl font-semibold leading-[1.15] tracking-[-0.02em]">
+              You&apos;re $2,847 closer to debt-free.
             </span>
           </div>
-        </div>
 
-        {/* Greeting */}
-        <div className="flex flex-col gap-1.5">
-          <span className="text-xs font-medium tracking-[0.02em] text-zinc-500">
-            GOOD MORNING, MARIA
-          </span>
-          <span className="text-2xl font-semibold leading-[1.15] tracking-[-0.02em]">
-            You&apos;re $2,847 closer to debt-free.
-          </span>
-        </div>
-
-        {/* Progress card */}
-        <div className="flex flex-col gap-3.5 rounded-2xl border border-white/[0.06] bg-white/[0.03] p-4.5">
-          <div className="flex items-baseline justify-between">
-            <span className="text-xs font-medium text-zinc-400">
-              Total debt remaining
+          {/* Progress card */}
+          <div className="flex flex-col gap-3.5 rounded-2xl border border-white/[0.06] bg-white/[0.03] p-4.5">
+            <div className="flex items-baseline justify-between">
+              <span className="text-xs font-medium text-zinc-400">
+                Total debt remaining
+              </span>
+              <span className="font-mono text-[11px] font-medium text-zinc-300">
+                ↓ 18%
+              </span>
+            </div>
+            <span className="text-[32px] font-semibold leading-none tracking-[-0.03em]">
+              $12,946
             </span>
-            <span className="font-mono text-[11px] font-medium text-zinc-300">
-              ↓ 18%
+            <div className="relative h-1.5 overflow-hidden rounded-[3px] bg-white/[0.06]">
+              <span
+                className="absolute left-0 top-0 h-full rounded-[3px]"
+                style={{
+                  width: "62%",
+                  background:
+                    "linear-gradient(90deg, #F7F8F8 0%, rgba(247,248,248,0.5) 100%)",
+                }}
+              />
+            </div>
+          </div>
+
+          {/* Action card */}
+          <div className="flex flex-col gap-2 rounded-2xl border border-white/10 bg-white/5 p-4">
+            <span className="text-[11px] font-medium tracking-[0.04em] text-zinc-300">
+              SUGGESTED · NEGOTIATION
             </span>
+            <span className="text-[15px] font-semibold leading-[1.3] tracking-[-0.01em]">
+              We can lower your $4,200 card balance by ~$1,890.
+            </span>
+            <div className="flex items-center justify-between pt-1.5">
+              <span className="text-xs text-zinc-400">Takes ~2 minutes</span>
+              <span className="text-xs font-medium">Start →</span>
+            </div>
           </div>
-          <span className="text-[32px] font-semibold leading-none tracking-[-0.03em]">
-            $12,946
-          </span>
-          <div className="relative h-1.5 overflow-hidden rounded-[3px] bg-white/[0.06]">
-            <span
-              className="absolute left-0 top-0 h-full rounded-[3px]"
-              style={{
-                width: "62%",
-                background:
-                  "linear-gradient(90deg, #F7F8F8 0%, rgba(247,248,248,0.5) 100%)",
-              }}
-            />
+
+          {/* Bills row */}
+          <div className="flex flex-col gap-2.5">
+            <span className="text-xs font-medium tracking-[0.02em] text-zinc-500">
+              UPCOMING THIS WEEK
+            </span>
+            <BillItem code="CL" name="Capital One" amount="$184.00" />
+            <BillItem code="SF" name="Sallie Mae" amount="$262.40" last />
           </div>
         </div>
+      </div>
+    );
+  }
 
-        {/* Action card */}
-        <div className="flex flex-col gap-2 rounded-2xl border border-white/10 bg-white/5 p-4">
-          <span className="text-[11px] font-medium tracking-[0.04em] text-zinc-300">
-            SUGGESTED · NEGOTIATION
-          </span>
-          <span className="text-[15px] font-semibold leading-[1.3] tracking-[-0.01em]">
-            We can lower your $4,200 card balance by ~$1,890.
-          </span>
-          <div className="flex items-center justify-between pt-1.5">
-            <span className="text-xs text-zinc-400">Takes ~2 minutes</span>
-            <span className="text-xs font-medium">Start →</span>
-          </div>
+  return (
+    <div
+      className="relative h-[640px] w-[300px] overflow-hidden rounded-[48px] border-[10px] border-[#1A1A1D] bg-gradient-to-b from-[#16181C] to-[#0E1014] shadow-[0_30px_80px_rgba(0,0,0,0.6)]"
+      style={tilt ? { transform: "rotate(-4deg)" } : undefined}
+    >
+      {/* Status bar */}
+      <div className="flex items-center justify-between px-6 pt-3.5">
+        <span className="text-[13px] font-semibold text-white">9:41</span>
+        <div className="flex items-center gap-1">
+          <span className="block h-2 w-2 rounded-full bg-white/40" />
+          <span className="block h-2.5 w-3.5 rounded-sm bg-white/40" />
         </div>
+      </div>
 
-        {/* Bills row */}
-        <div className="flex flex-col gap-2.5">
-          <span className="text-xs font-medium tracking-[0.02em] text-zinc-500">
-            UPCOMING THIS WEEK
-          </span>
-          <BillItem code="CL" name="Capital One" amount="$184.00" />
-          <BillItem code="SF" name="Sallie Mae" amount="$262.40" last />
+      {/* Notch */}
+      <div className="absolute left-1/2 top-3 h-[26px] w-[100px] -translate-x-1/2 rounded-full bg-[#0E1014]" />
+
+      <div className="flex h-full flex-col gap-3 px-5 pt-12">
+        <span className="text-[11px] font-medium tracking-[0.1em] text-[#5EEAD4]">
+          NEGOTIATING NOW
+        </span>
+        <h3 className="text-[26px] font-medium leading-[1.1] tracking-[-0.02em] text-white">
+          Crushing your card debt.
+        </h3>
+        <div className="mt-2 flex flex-col gap-2">
+          {[
+            { name: "Capital One", saved: "$1,820", pct: "−23%" },
+            { name: "Discover", saved: "$2,140", pct: "−18%" },
+            { name: "Chase Sapphire", saved: "$3,420", pct: "−31%" },
+          ].map((row) => (
+            <div
+              key={row.name}
+              className="flex items-center justify-between rounded-xl border border-white/[0.06] bg-white/[0.04] px-3 py-2.5"
+            >
+              <span className="text-[12px] font-medium text-white">
+                {row.name}
+              </span>
+              <div className="flex items-center gap-1.5">
+                <span className="font-mono text-[12px] text-[#5EEAD4]">
+                  {row.saved}
+                </span>
+                <span className="rounded bg-[#5EEAD4]/10 px-1.5 py-0.5 font-mono text-[10px] text-[#5EEAD4]">
+                  {row.pct}
+                </span>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
@@ -641,244 +576,7 @@ function BillItem({
 }
 
 /* ============================================================
-   SAVINGS TABLE — § 01
-   ============================================================ */
-
-const SAVINGS_ROWS = [
-  {
-    id: "sl",
-    code: "SL",
-    type: "Student Loans",
-    lender: "Sallie Mae · Federal",
-    original: "$58,402",
-    saved: "$40,558",
-    pct: "−69%",
-  },
-  {
-    id: "cc1",
-    code: "CC",
-    type: "Credit Cards",
-    lender: "Capital One · Discover",
-    original: "$16,203",
-    saved: "$11,250",
-    pct: "−31%",
-  },
-  {
-    id: "pl",
-    code: "PL",
-    type: "Personal Loan",
-    lender: "LendingClub",
-    original: "$7,940",
-    saved: "$5,464",
-    pct: "−31%",
-  },
-  {
-    id: "md",
-    code: "MD",
-    type: "Medical Debt",
-    lender: "Mt Sinai Hospital",
-    original: "$9,160",
-    saved: "$7,253",
-    pct: "−21%",
-  },
-  {
-    id: "al",
-    code: "AL",
-    type: "Auto Loan",
-    lender: "Ally Bank",
-    original: "$4,840",
-    saved: "$3,724",
-    pct: "−23%",
-  },
-  {
-    id: "cc2",
-    code: "CC",
-    type: "Credit Cards",
-    lender: "Chase Sapphire",
-    original: "$14,820",
-    saved: "$10,390",
-    pct: "−30%",
-  },
-];
-
-function SavingsRow({
-  code,
-  type,
-  lender,
-  original,
-  saved,
-  pct,
-  isLast,
-}: {
-  code: string;
-  type: string;
-  lender: string;
-  original: string;
-  saved: string;
-  pct: string;
-  isLast: boolean;
-}) {
-  return (
-    <div
-      className={`flex items-center px-6 py-4.5 ${
-        isLast ? "" : "border-b border-white/[0.05]"
-      }`}
-    >
-      <div className="w-14 shrink-0">
-        <span className="flex h-9 w-9 items-center justify-center rounded-[10px] border border-white/10 bg-white/[0.05]">
-          <span className="text-[13px] font-semibold">{code}</span>
-        </span>
-      </div>
-      <span className="flex-1 text-[15px] font-medium tracking-[-0.01em]">
-        {type}
-      </span>
-      <span className="w-[220px] shrink-0 text-sm text-zinc-400">
-        {lender}
-      </span>
-      <span className="w-[140px] shrink-0 text-right font-mono text-sm text-zinc-400">
-        {original}
-      </span>
-      <div className="flex w-40 shrink-0 items-center justify-end gap-2">
-        <span className="font-mono text-[15px] font-medium text-[#5EEAD4]">{saved}</span>
-        <span className="rounded-md bg-[#5EEAD4]/10 px-1.5 py-0.5 text-[11px] font-medium tracking-[0.02em] text-[#5EEAD4]">
-          {pct}
-        </span>
-      </div>
-    </div>
-  );
-}
-
-/* ============================================================
-   CHAT MOCKUP — § 02
-   ============================================================ */
-
-function ChatMockup() {
-  return (
-    <div className="flex flex-1 flex-col overflow-hidden rounded-[18px] border border-white/10 bg-[#101113]/60 backdrop-blur">
-      {/* Header */}
-      <div className="flex items-center justify-between border-b border-white/[0.06] px-4.5 py-3.5">
-        <div className="flex items-center gap-2">
-          <LogoMark size={24} />
-          <span className="text-[13px] font-semibold tracking-[-0.005em]">
-            Clerkie AI
-          </span>
-          <span className="flex items-center gap-1.5 rounded-full bg-[#5EEAD4]/10 px-2 py-0.5">
-            <span className="block h-[5px] w-[5px] rounded-full bg-[#5EEAD4]" />
-            <span className="text-[10px] font-medium tracking-[0.04em] text-[#5EEAD4]">
-              ONLINE
-            </span>
-          </span>
-        </div>
-        <span className="font-mono text-[11px] text-zinc-500">⌘K</span>
-      </div>
-
-      {/* Body */}
-      <div className="flex flex-col gap-4 px-6 py-6">
-        {/* User message */}
-        <div className="flex justify-end pl-20">
-          <div className="rounded-[16px_16px_4px_16px] border border-white/[0.06] bg-white/[0.06] px-4 py-3">
-            <span className="text-sm leading-[1.5] tracking-[-0.005em]">
-              What&apos;s the fastest way for me to get out of debt?
-            </span>
-          </div>
-        </div>
-
-        {/* AI message */}
-        <div className="flex flex-col items-start gap-2.5 pr-15">
-          <div className="flex items-center gap-2">
-            <LogoMark size={22} />
-            <span className="text-xs font-medium tracking-[0.02em] text-zinc-500">
-              CLERKIE · ANALYZED 4 ACCOUNTS
-            </span>
-          </div>
-          <p className="text-sm leading-[1.55] tracking-[-0.005em]">
-            Based on your balances, the avalanche method saves you the most:{" "}
-            <span className="font-medium text-zinc-50">
-              $2,118 in interest
-            </span>{" "}
-            over 24 months.
-          </p>
-
-          {/* Reasoning card */}
-          <div className="flex w-full flex-col gap-2.5 rounded-xl border border-white/10 bg-[#0E1014]/60 px-4 py-3.5">
-            <div className="flex items-center justify-between">
-              <span className="text-[11px] font-medium tracking-[0.04em] text-zinc-500">
-                SUGGESTED ORDER
-              </span>
-              <span className="font-mono text-[11px] text-zinc-500">
-                payoff plan · v2
-              </span>
-            </div>
-            {STEP_ROWS.map((step, i) => (
-              <div key={step.label} className="flex items-center gap-3">
-                <span className="w-5 font-mono text-[11px] font-medium text-zinc-500">
-                  {i + 1}.
-                </span>
-                <div className="flex flex-1 items-center gap-2.5">
-                  <span className="text-[13px] font-medium">{step.label}</span>
-                  <span className="rounded bg-white/[0.06] px-1.5 py-px font-mono text-[10px] font-medium text-zinc-300">
-                    {step.apr}
-                  </span>
-                </div>
-                <span className="font-mono text-[13px] text-zinc-400">
-                  {step.balance}
-                </span>
-              </div>
-            ))}
-          </div>
-
-          {/* Action buttons */}
-          <div className="flex items-center gap-2 pt-1">
-            <span className="rounded-lg border border-white/[0.06] bg-white/[0.06] px-3 py-1.5 text-xs font-medium">
-              Apply this plan
-            </span>
-            <span className="px-3 py-1.5 text-xs font-medium text-zinc-400">
-              Show snowball instead
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {/* Suggestion chips */}
-      <div className="flex flex-wrap gap-2 px-6 pb-4">
-        {[
-          "How do I improve my credit to buy a house?",
-          "Negotiate my medical debt?",
-          "Pay off my student loans",
-        ].map((s) => (
-          <span
-            key={s}
-            className="rounded-full border border-white/10 bg-white/[0.02] px-3 py-1.5 text-xs font-medium text-zinc-300"
-          >
-            {s}
-          </span>
-        ))}
-      </div>
-
-      {/* Input row */}
-      <div className="flex items-center gap-2.5 border-t border-white/[0.06] bg-[#0E1014]/40 px-4.5 py-3.5">
-        <span className="flex-1 text-sm tracking-[-0.005em] text-zinc-600">
-          Ask anything about your money…
-        </span>
-        <div className="flex items-center gap-2">
-          <span className="font-mono text-[11px] text-zinc-600">↵</span>
-          <button className="flex h-7 w-7 items-center justify-center rounded-lg bg-zinc-50 text-sm font-semibold text-[#0E1014]">
-            ↑
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-const STEP_ROWS = [
-  { label: "Capital One", apr: "24.9% APR", balance: "$4,200" },
-  { label: "Personal loan", apr: "14.2% APR", balance: "$5,464" },
-  { label: "Sallie Mae", apr: "5.8% APR", balance: "$40,558" },
-];
-
-/* ============================================================
-   CATEGORIES GRID — § 03
+   CATEGORIES GRID — § 05 (ported from /members)
    ============================================================ */
 
 const CATEGORIES = [
@@ -934,310 +632,21 @@ function CategoryCard({
         </div>
       </div>
       <div className="flex flex-1 flex-col gap-2">
-        <span className="text-[22px] font-semibold leading-[1.2] tracking-[-0.02em]">
+        <span className="text-[22px] font-semibold leading-[1.2] tracking-[-0.02em] text-white">
           {title}
         </span>
-        <span className="text-sm leading-[1.55] tracking-[-0.005em] text-zinc-400">
+        <span className="text-sm leading-[1.55] tracking-[-0.005em] text-white/60">
           {desc}
         </span>
       </div>
       <div className="flex items-center gap-2 pt-1">
-        <span className="font-mono text-[11px] font-medium tracking-[0.02em] text-zinc-500">
+        <span className="font-mono text-[11px] font-medium tracking-[0.02em] text-white/50">
           {statLabel}
         </span>
-        <span className="font-mono text-[13px] font-medium text-[#5EEAD4]">{statValue}</span>
-      </div>
-    </div>
-  );
-}
-
-/* ============================================================
-   BILLS DASHBOARD — § 04
-   ============================================================ */
-
-function BillsMockup() {
-  return (
-    <div className="flex flex-1 flex-col gap-5 overflow-hidden rounded-[18px] border border-white/10 bg-[#0C0D0F] p-7">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2.5">
-          <span className="text-[15px] font-semibold tracking-[-0.01em]">
-            This month&apos;s bills
-          </span>
-          <span className="rounded-md bg-white/[0.06] px-2 py-0.5 font-mono text-[10px] font-medium tracking-[0.04em] text-zinc-300">
-            8 PAID · 3 SCHEDULED
-          </span>
-        </div>
-        <div className="flex items-center gap-1.5">
-          <span className="rounded-md border border-white/[0.06] bg-white/[0.06] px-2.5 py-1 text-[11px] font-medium">
-            Apr
-          </span>
-          <span className="rounded-md px-2.5 py-1 text-[11px] font-medium text-zinc-500">
-            May
-          </span>
-          <span className="rounded-md px-2.5 py-1 text-[11px] font-medium text-zinc-500">
-            Jun
-          </span>
-        </div>
-      </div>
-
-      {/* List — horizontal scroll on small viewports preserves alignment */}
-      <div className="-mx-3 overflow-x-auto px-3 sm:-mx-7 sm:px-7">
-        <div className="flex min-w-[560px] flex-col">
-          {BILL_ROWS.map((row) => (
-            <BillRow key={row.code + row.name} {...row} />
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-const BILL_ROWS: Array<{
-  code: string;
-  name: string;
-  meta: string;
-  status: string;
-  amount: string;
-  alert?: boolean;
-  alertNote?: string;
-  faded?: boolean;
-}> = [
-  {
-    code: "PG&E",
-    name: "Pacific Gas & Electric",
-    meta: "Utilities · Auto-pay",
-    status: "Paid Apr 12",
-    amount: "$142.80",
-  },
-  {
-    code: "VZ",
-    name: "Verizon Wireless",
-    meta: "Phone · Auto-pay",
-    status: "Paid Apr 14",
-    amount: "$84.00",
-  },
-  {
-    code: "RT",
-    name: "Rent · 245 Mission St",
-    meta: "⚠ Up 6.4% from March — review?",
-    status: "Due May 1",
-    amount: "$2,450.00",
-    alert: true,
-  },
-  {
-    code: "SF",
-    name: "Sallie Mae",
-    meta: "Student Loan · Auto-pay",
-    status: "Scheduled May 5",
-    amount: "$262.40",
-    faded: true,
-  },
-  {
-    code: "CL",
-    name: "Capital One",
-    meta: "Credit Card · Min payment",
-    status: "Scheduled May 9",
-    amount: "$184.00",
-    faded: true,
-  },
-];
-
-function BillRow({
-  code,
-  name,
-  meta,
-  status,
-  amount,
-  alert,
-  faded,
-}: (typeof BILL_ROWS)[number]) {
-  return (
-    <div
-      className={`flex items-center border-b border-white/[0.06] py-3.5 ${
-        alert ? "rounded-lg bg-white/[0.04] px-2" : ""
-      }`}
-    >
-      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[9px] border border-white/10 bg-white/5">
-        <span className="text-[11px] font-semibold">{code}</span>
-      </span>
-      <div className="flex flex-1 flex-col gap-0.5 pl-3.5">
-        <span className="text-sm font-medium">{name}</span>
-        <span className={`text-xs ${alert ? "text-zinc-300" : "text-zinc-500"}`}>
-          {meta}
+        <span className="font-mono text-[13px] font-medium text-[#5EEAD4]">
+          {statValue}
         </span>
       </div>
-      <div className="flex w-[110px] shrink-0 items-center gap-1.5">
-        <span
-          className={`block h-1.5 w-1.5 rounded-full ${
-            faded ? "bg-zinc-600" : "bg-zinc-50"
-          }`}
-        />
-        <span className="text-xs font-medium text-zinc-300">{status}</span>
-      </div>
-      <span className="w-[90px] shrink-0 text-right font-mono text-[13px] font-medium">
-        {amount}
-      </span>
-    </div>
-  );
-}
-
-/* ============================================================
-   SAFETY NET — § 05
-   ============================================================ */
-
-function SafetyStatBlock({
-  label,
-  value,
-  children,
-}: {
-  label: string;
-  value: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="relative z-10 flex flex-1 flex-col gap-4.5 rounded-[18px] border border-white/10 bg-[#101113]/60 p-8 backdrop-blur">
-      <span className="text-xs font-medium tracking-[0.04em] text-[#5EEAD4]">
-        {label}
-      </span>
-      <span className="text-[56px] font-semibold leading-none tracking-[-0.04em] text-[#5EEAD4]">
-        {value}
-      </span>
-      {children}
-    </div>
-  );
-}
-
-function NotifHot() {
-  return (
-    <div className="flex flex-col gap-2.5 rounded-[14px] border border-white/10 bg-white/[0.04] p-4.5">
-      <div className="flex items-center gap-2">
-        <LogoMark size={22} />
-        <span className="text-[11px] font-medium tracking-[0.04em] text-zinc-300">
-          CLERKIE · NOW
-        </span>
-      </div>
-      <span className="text-sm font-medium leading-[1.45] tracking-[-0.005em]">
-        Your rent payment is $84 short on Friday. Want me to cover it from
-        your buffer until your paycheck lands Monday?
-      </span>
-      <div className="flex gap-2 pt-1">
-        <span className="rounded-lg bg-zinc-50 px-3 py-1.5 text-xs font-medium text-[#0E1014]">
-          Yes, cover it
-        </span>
-        <span className="rounded-lg bg-white/[0.06] px-3 py-1.5 text-xs font-medium text-zinc-300">
-          Not now
-        </span>
-      </div>
-    </div>
-  );
-}
-
-function NotifCalm({
-  eyebrow,
-  meta,
-  body,
-}: {
-  eyebrow: string;
-  meta: string;
-  body: string;
-}) {
-  return (
-    <div className="flex items-start gap-3 rounded-[14px] border border-white/[0.06] bg-white/[0.03] px-4.5 py-4">
-      {/* Past notification — dim the logo so it reads as quieter than NotifHot */}
-      <span className="shrink-0 opacity-60">
-        <LogoMark size={22} />
-      </span>
-      <div className="flex flex-1 flex-col gap-1">
-        <div className="flex justify-between">
-          <span className="text-xs font-medium tracking-[0.02em] text-zinc-500">
-            {eyebrow}
-          </span>
-          <span className="font-mono text-[11px] text-zinc-500">{meta}</span>
-        </div>
-        <span className="text-[13px] font-medium leading-[1.45] tracking-[-0.005em] text-zinc-200">
-          {body}
-        </span>
-      </div>
-    </div>
-  );
-}
-
-/* ============================================================
-   APP STORE BUTTONS
-   ============================================================ */
-
-function AppStoreButton({ variant }: { variant: "apple" | "google" }) {
-  if (variant === "apple") {
-    return (
-      <div className="flex items-center gap-3 rounded-xl bg-zinc-50 px-5.5 py-3.5">
-        <div className="flex h-6 w-6 items-center justify-center rounded-md bg-[#0E1014]" />
-        <div className="flex flex-col">
-          <span className="text-[11px] font-normal tracking-[0.02em] text-[#0E1014]/60">
-            Download on the
-          </span>
-          <span className="text-base font-semibold tracking-[-0.01em] text-[#0E1014]">
-            App Store
-          </span>
-        </div>
-      </div>
-    );
-  }
-  return (
-    <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.06] px-5.5 py-3.5">
-      <div className="flex h-6 w-6 items-center justify-center rounded-md bg-zinc-50 text-sm font-semibold text-[#0E1014]">
-        ▶
-      </div>
-      <div className="flex flex-col">
-        <span className="text-[11px] font-normal tracking-[0.02em] text-zinc-400">
-          Get it on
-        </span>
-        <span className="text-base font-semibold tracking-[-0.01em]">
-          Google Play
-        </span>
-      </div>
-    </div>
-  );
-}
-
-/* ============================================================
-   FOOTER COLUMN
-   ============================================================ */
-
-function FooterCol({
-  title,
-  links,
-}: {
-  title: string;
-  links: Array<{ label: string; active?: boolean; href?: string }>;
-}) {
-  return (
-    <div className="flex flex-col gap-3.5">
-      <span className="text-xs font-medium tracking-[0.06em] text-zinc-600">
-        {title}
-      </span>
-      {links.map((l) =>
-        l.href ? (
-          <Link
-            key={l.label}
-            href={l.href}
-            className={`text-sm font-medium transition-colors hover:text-zinc-50 ${
-              l.active ? "text-zinc-200" : "text-zinc-500"
-            }`}
-          >
-            {l.label}
-          </Link>
-        ) : (
-          <span
-            key={l.label}
-            className={`text-sm font-medium ${
-              l.active ? "text-zinc-200" : "text-zinc-500"
-            }`}
-          >
-            {l.label}
-          </span>
-        ),
-      )}
     </div>
   );
 }

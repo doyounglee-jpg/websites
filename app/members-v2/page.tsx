@@ -327,8 +327,8 @@ export default function MembersV2Page() {
               </p>
             </div>
             <div className="flex items-center gap-8">
-              <Link href="/members" className="text-sm text-white/60 hover:text-white">
-                /members (v1)
+              <Link href="/members-archived" className="text-sm text-white/60 hover:text-white">
+                /members-archived (v1)
               </Link>
               <Link href="/companies" className="text-sm text-white/60 hover:text-white">
                 /companies

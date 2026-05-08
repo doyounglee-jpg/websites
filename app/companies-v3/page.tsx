@@ -3,7 +3,7 @@ import Link from "next/link";
 /**
  * /companies-v3 — DARK Cleo-inspired bento + cinematic photography for B2B.
  *
- * Sibling to /members-v3. Same structural moves (full-bleed photo hero,
+ * Sibling to /members. Same structural moves (full-bleed photo hero,
  * alternating bento + features, glassy pill nav, gaps + rounded cards),
  * but content and mockups adapted for the employer / benefits-leader audience.
  *
@@ -46,7 +46,7 @@ export default function CompaniesV3Page() {
          ============================================================ */}
       <header className="fixed top-5 left-1/2 z-50 -translate-x-1/2">
         <nav className="flex items-center gap-1 rounded-full border border-white/15 bg-black/30 px-2 py-1.5 backdrop-blur-md">
-          <PillNavLink href="/members-v3">Members</PillNavLink>
+          <PillNavLink href="/members">Members</PillNavLink>
           <PillNavLink href="/companies-v3" active>
             Companies
           </PillNavLink>
@@ -365,16 +365,16 @@ export default function CompaniesV3Page() {
             </div>
             <div className="flex items-center gap-8">
               <Link
+                href="/members-archived"
+                className="text-sm text-zinc-500 hover:text-zinc-50"
+              >
+                /members-archived
+              </Link>
+              <Link
                 href="/members"
                 className="text-sm text-zinc-500 hover:text-zinc-50"
               >
                 /members
-              </Link>
-              <Link
-                href="/members-v3"
-                className="text-sm text-zinc-500 hover:text-zinc-50"
-              >
-                /members-v3
               </Link>
               <Link
                 href="/companies"
