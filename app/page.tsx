@@ -1,7 +1,8 @@
-import { redirect } from "next/navigation";
+import LandingStage from "./components/LandingStage";
 
-// Root URL ("/") sends visitors to /members. The site has two designed
-// landing pages — /members and /companies — and /members is the default.
+// Root URL ("/") shows the new Clerkie / Fiber landing — a two-panel
+// split where each side expands into its sub-products on click.
+// Previously this redirected to /members; that route still works directly.
 export default function Home() {
-  redirect("/members");
+  return <LandingStage />;
 }
