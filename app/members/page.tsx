@@ -57,9 +57,9 @@ export default function MembersV3Page() {
 
       <div className="flex flex-col gap-3 p-3">
       {/* ============================================================
-          2. HERO — eyebrow pill, headline, CTAs, phone (from /members)
+          2. HERO — Cash App-style 3-col: headline · video · body + CTA
          ============================================================ */}
-      <section className="relative h-[100vh] min-h-[1000px] w-full overflow-hidden rounded-3xl bg-[#0E1014]">
+      <section className="relative flex min-h-svh w-full items-center overflow-hidden rounded-3xl bg-[#0E1014] lg:min-h-screen">
         {/* Aurora halo */}
         <div
           className="aurora-mono pointer-events-none absolute left-1/2 top-[-200px] h-[900px] w-[1400px] -translate-x-1/2"
@@ -71,54 +71,64 @@ export default function MembersV3Page() {
           aria-hidden="true"
         />
 
-        <div className="relative z-10 mx-auto flex max-w-[1440px] flex-col items-center gap-8 px-6 pb-12 pt-32 sm:gap-10 sm:px-10 sm:pb-16 sm:pt-36 md:px-16 md:pb-20 md:pt-[140px]">
-          {/* Eyebrow pill */}
-          <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] py-1.5 pl-2 pr-3.5">
-            <span className="rounded-full border border-[#5EEAD4]/30 bg-[#5EEAD4]/10 px-2 py-0.5 text-[11px] font-semibold tracking-[0.04em] text-[#5EEAD4]">
-              NEW
-            </span>
-            <span className="text-[13px] font-medium tracking-[-0.005em] text-zinc-300">
-              Negotiate any debt with one tap
-            </span>
-          </div>
+        {/*
+          12-col grid on lg+: headline (cols 1-3) · gap · video (cols 5-8) · gap · body+CTA (cols 10-12).
+          Stacks on mobile; video pulled to top via `order-1` to match Cash App's mobile pattern.
+          Section uses `items-center` so the grid is vertically centered in the viewport.
+        */}
+        <div className="relative z-10 mx-auto w-full max-w-[1440px] px-6 py-24 sm:px-10 md:px-16">
+          <div className="flex w-full flex-col items-center gap-8 lg:grid lg:grid-cols-12 lg:items-center lg:gap-6">
+            {/* LEFT — Headline (cols 1-3) */}
+            <div className="order-2 w-full text-center lg:order-1 lg:col-span-3 lg:col-start-1 lg:text-left">
+              <h1 className="text-[36px] font-normal leading-[0.95] tracking-[-0.03em] sm:text-[44px] lg:text-[44px] xl:text-[52px]">
+                Solve your debt and money problems.
+              </h1>
+            </div>
 
-          {/* Headline + subhead */}
-          <div className="flex max-w-[920px] flex-col items-center gap-7">
-            <h1 className="text-center text-[44px] font-semibold leading-[1.05] tracking-[-0.045em] sm:text-[60px] md:text-[72px] lg:leading-[1.0] lg:text-[88px]">
-              Solve your debt and money problems.
-            </h1>
-            <p className="max-w-[580px] text-center text-base leading-[1.55] tracking-[-0.005em] text-zinc-400 sm:text-lg lg:text-[19px]">
-              The easiest way to pay off debt, manage bills, and get
-              personalized financial answers — built for the way real people
-              earn and spend.
-            </p>
-          </div>
+            {/*
+              CENTER — Video (cols 5-8). aspect 9:19.5 = 0.462 (iPhone), per Cash App spec.
+              Height capped at small viewport on mobile and 68vh on desktop so the video
+              never overflows the section.
+            */}
+            <div className="relative order-1 flex w-full justify-center lg:order-2 lg:col-span-4 lg:col-start-5">
+              {/* Soft halo behind the video */}
+              <div
+                className="aurora-mono-tight pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[680px] w-[900px] -translate-x-1/2 -translate-y-1/2"
+                aria-hidden="true"
+              />
+              <div className="relative aspect-[9/19.5] h-[55svh] max-h-[600px] overflow-hidden rounded-[28px] border border-white/10 bg-gradient-to-br from-zinc-800 to-zinc-900 shadow-[0_30px_80px_rgba(0,0,0,0.5)] lg:h-[68vh] lg:max-h-[760px]">
+                {/* TODO: drop a real file into /public and set src to /hero-video.mp4 */}
+                <video
+                  className="absolute inset-0 h-full w-full object-cover"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                >
+                  {/* <source src="/hero-video.mp4" type="video/mp4" /> */}
+                </video>
+                <div className="absolute inset-0 flex items-center justify-center text-[11px] font-mono uppercase tracking-[0.1em] text-white/30">
+                  video placeholder
+                </div>
+              </div>
+            </div>
 
-          {/* CTAs */}
-          <div className="flex items-center gap-3">
-            <a
-              href="#cta"
-              className="flex items-center gap-2 rounded-[10px] bg-zinc-50 px-5 py-3 text-sm font-medium tracking-[-0.005em] text-[#0E1014]"
-            >
-              Get the App
-              <span className="text-zinc-500">→</span>
-            </a>
-            <a
-              href="#"
-              className="rounded-[10px] border border-white/10 bg-white/5 px-5 py-3 text-sm font-medium tracking-[-0.005em]"
-            >
-              Talk to an advisor
-            </a>
+            {/* RIGHT — Body + CTA (cols 10-12) */}
+            <div className="order-3 flex w-full flex-col items-center gap-6 text-center lg:order-3 lg:col-span-3 lg:col-start-10 lg:items-start lg:text-left">
+              <p className="text-[16px] font-normal leading-[1.4] text-zinc-400 lg:text-[17px] xl:text-[18px]">
+                The easiest way to pay off debt, manage bills, and get
+                personalized financial answers — built for the way real people
+                earn and spend.
+              </p>
+              <a
+                href="#cta"
+                className="inline-flex items-center gap-2 rounded-[10px] bg-zinc-50 px-5 py-3 text-[14px] font-normal text-[#0E1014]"
+              >
+                Get the App
+                <span className="text-zinc-500">→</span>
+              </a>
+            </div>
           </div>
-        </div>
-
-        {/* Phone mockup (centered with halo). Wrapper height < phone height + overflow-hidden = hard cut at the hero's bottom edge. */}
-        <div className="relative z-10 flex h-[540px] justify-center overflow-hidden px-6 sm:px-10 md:px-16">
-          <div
-            className="aurora-mono-tight pointer-events-none absolute left-1/2 top-[60px] h-[600px] w-[1100px] -translate-x-1/2"
-            aria-hidden="true"
-          />
-          <PhoneMockup variant="hero" />
         </div>
       </section>
 
@@ -364,181 +374,6 @@ export default function MembersV3Page() {
 /* ============================================================
    SUB-COMPONENTS
    ============================================================ */
-
-/**
- * Phone mockup — dark UI version with cyan accents.
- *
- * - "hero" variant: 1:1 copy of the phone from /members (greeting, progress
- *   card, suggested negotiation, upcoming bills).
- * - "negotiation" variant: short list of cards used in §01.
- */
-function PhoneMockup({
-  variant,
-  tilt,
-}: {
-  variant: "hero" | "negotiation";
-  tilt?: boolean;
-}) {
-  if (variant === "hero") {
-    return (
-      <div
-        className="relative z-20 flex h-[700px] w-[340px] flex-col rounded-[44px] border border-white/10 bg-[#101113] p-2 shadow-[0_30px_80px_rgba(0,0,0,0.5)]"
-        style={tilt ? { transform: "rotate(-4deg)" } : undefined}
-      >
-        <div className="flex flex-1 flex-col gap-5 overflow-hidden rounded-[36px] bg-gradient-to-b from-[#0C0D0F] to-[#16181C] px-5 py-7">
-          {/* Status bar */}
-          <div className="flex items-center justify-between px-1">
-            <span className="text-[13px] font-semibold">9:41</span>
-            <div className="flex items-center gap-1">
-              <span className="block h-2 w-4 rounded-sm bg-zinc-400" />
-              <span className="flex h-[11px] w-[22px] items-center rounded-[3px] border border-zinc-400 p-[1.5px]">
-                <span className="block h-full w-3/4 rounded-[1px] bg-zinc-50" />
-              </span>
-            </div>
-          </div>
-
-          {/* Greeting */}
-          <div className="flex flex-col gap-1.5">
-            <span className="text-xs font-medium tracking-[0.02em] text-zinc-500">
-              GOOD MORNING, MARIA
-            </span>
-            <span className="text-2xl font-semibold leading-[1.15] tracking-[-0.02em]">
-              You&apos;re $2,847 closer to debt-free.
-            </span>
-          </div>
-
-          {/* Progress card */}
-          <div className="flex flex-col gap-3.5 rounded-2xl border border-white/[0.06] bg-white/[0.03] p-4.5">
-            <div className="flex items-baseline justify-between">
-              <span className="text-xs font-medium text-zinc-400">
-                Total debt remaining
-              </span>
-              <span className="font-mono text-[11px] font-medium text-zinc-300">
-                ↓ 18%
-              </span>
-            </div>
-            <span className="text-[32px] font-semibold leading-none tracking-[-0.03em]">
-              $12,946
-            </span>
-            <div className="relative h-1.5 overflow-hidden rounded-[3px] bg-white/[0.06]">
-              <span
-                className="absolute left-0 top-0 h-full rounded-[3px]"
-                style={{
-                  width: "62%",
-                  background:
-                    "linear-gradient(90deg, #F7F8F8 0%, rgba(247,248,248,0.5) 100%)",
-                }}
-              />
-            </div>
-          </div>
-
-          {/* Action card */}
-          <div className="flex flex-col gap-2 rounded-2xl border border-white/10 bg-white/5 p-4">
-            <span className="text-[11px] font-medium tracking-[0.04em] text-zinc-300">
-              SUGGESTED · NEGOTIATION
-            </span>
-            <span className="text-[15px] font-semibold leading-[1.3] tracking-[-0.01em]">
-              We can lower your $4,200 card balance by ~$1,890.
-            </span>
-            <div className="flex items-center justify-between pt-1.5">
-              <span className="text-xs text-zinc-400">Takes ~2 minutes</span>
-              <span className="text-xs font-medium">Start →</span>
-            </div>
-          </div>
-
-          {/* Bills row */}
-          <div className="flex flex-col gap-2.5">
-            <span className="text-xs font-medium tracking-[0.02em] text-zinc-500">
-              UPCOMING THIS WEEK
-            </span>
-            <BillItem code="CL" name="Capital One" amount="$184.00" />
-            <BillItem code="SF" name="Sallie Mae" amount="$262.40" last />
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div
-      className="relative h-[640px] w-[300px] overflow-hidden rounded-[48px] border-[10px] border-[#1A1A1D] bg-gradient-to-b from-[#16181C] to-[#0E1014] shadow-[0_30px_80px_rgba(0,0,0,0.6)]"
-      style={tilt ? { transform: "rotate(-4deg)" } : undefined}
-    >
-      {/* Status bar */}
-      <div className="flex items-center justify-between px-6 pt-3.5">
-        <span className="text-[13px] font-semibold text-white">9:41</span>
-        <div className="flex items-center gap-1">
-          <span className="block h-2 w-2 rounded-full bg-white/40" />
-          <span className="block h-2.5 w-3.5 rounded-sm bg-white/40" />
-        </div>
-      </div>
-
-      {/* Notch */}
-      <div className="absolute left-1/2 top-3 h-[26px] w-[100px] -translate-x-1/2 rounded-full bg-[#0E1014]" />
-
-      <div className="flex h-full flex-col gap-3 px-5 pt-12">
-        <span className="text-[11px] font-medium tracking-[0.1em] text-[#5EEAD4]">
-          NEGOTIATING NOW
-        </span>
-        <h3 className="text-[26px] font-medium leading-[1.1] tracking-[-0.02em] text-white">
-          Crushing your card debt.
-        </h3>
-        <div className="mt-2 flex flex-col gap-2">
-          {[
-            { name: "Capital One", saved: "$1,820", pct: "−23%" },
-            { name: "Discover", saved: "$2,140", pct: "−18%" },
-            { name: "Chase Sapphire", saved: "$3,420", pct: "−31%" },
-          ].map((row) => (
-            <div
-              key={row.name}
-              className="flex items-center justify-between rounded-xl border border-white/[0.06] bg-white/[0.04] px-3 py-2.5"
-            >
-              <span className="text-[12px] font-medium text-white">
-                {row.name}
-              </span>
-              <div className="flex items-center gap-1.5">
-                <span className="font-mono text-[12px] text-[#5EEAD4]">
-                  {row.saved}
-                </span>
-                <span className="rounded bg-[#5EEAD4]/10 px-1.5 py-0.5 font-mono text-[10px] text-[#5EEAD4]">
-                  {row.pct}
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function BillItem({
-  code,
-  name,
-  amount,
-  last,
-}: {
-  code: string;
-  name: string;
-  amount: string;
-  last?: boolean;
-}) {
-  return (
-    <div
-      className={`flex items-center justify-between py-2.5 ${
-        last ? "" : "border-b border-white/[0.05]"
-      }`}
-    >
-      <div className="flex items-center gap-2.5">
-        <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-white/[0.06]">
-          <span className="text-[11px] font-semibold">{code}</span>
-        </span>
-        <span className="text-[13px] font-medium">{name}</span>
-      </div>
-      <span className="font-mono text-xs font-medium">{amount}</span>
-    </div>
-  );
-}
 
 /* ============================================================
    CATEGORIES GRID — § 05 (ported from /members)
