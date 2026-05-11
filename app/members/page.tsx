@@ -11,6 +11,7 @@ import {
 import { TopNav } from "../components/TopNav";
 import { AnimatedBillsChatPanel } from "./AnimatedBillsChatPanel";
 import { AnimatedChatPanel } from "./AnimatedChatPanel";
+import { HeroPhoneVideo } from "./HeroPhoneVideo";
 import { LiveSavingsTicker } from "./LiveSavingsTicker";
 
 /**
@@ -55,16 +56,12 @@ export default function MembersV3Page() {
       {/* Shared marketing top nav - wordmark, center pill nav, CTA / hamburger. */}
       <TopNav active="members" ctaLabel="Get the App" ctaHref="#cta" />
 
-      <div className="flex flex-col gap-3 p-3">
       {/* ============================================================
-          2. HERO - Cash App-style 3-col: headline · video · body + CTA
+          2. HERO - Full-bleed, no rounded corners. Lives outside the
+          padded bento wrapper below so it spans edge-to-edge.
          ============================================================ */}
-      <section className="relative flex min-h-svh w-full items-center overflow-hidden rounded-3xl bg-[#0E1014] lg:min-h-screen">
-        {/* Aurora halo */}
-        <div
-          className="aurora-mono pointer-events-none absolute left-1/2 top-[-200px] h-[900px] w-[1400px] -translate-x-1/2"
-          aria-hidden="true"
-        />
+      <section className="relative flex min-h-svh w-full items-center overflow-hidden bg-gradient-to-b from-[#15171B] via-[#101216] to-[#0E1014] lg:min-h-screen">
+        {/* Cash App-style 3-col: headline · video · body + CTA */}
         {/* Dotted grid texture */}
         <div
           className="dot-grid pointer-events-none absolute inset-x-0 top-0 h-[900px]"
@@ -78,9 +75,12 @@ export default function MembersV3Page() {
         */}
         <div className="relative z-10 mx-auto w-full max-w-[1440px] px-6 py-24 sm:px-10 md:px-16">
           <div className="flex w-full flex-col items-center gap-8 lg:grid lg:grid-cols-12 lg:items-center lg:gap-6">
-            {/* LEFT - Headline (cols 1-3) */}
-            <div className="order-2 w-full text-center lg:order-1 lg:col-span-3 lg:col-start-1 lg:text-left">
-              <h1 className="text-[36px] font-normal leading-[0.95] tracking-[-0.03em] sm:text-[44px] lg:text-[44px] xl:text-[52px]">
+            {/* LEFT - Headline (spans cols 1-4 = full left half, content
+                block constrained to ~280px and centered within the half so
+                it visually sits in the middle of the left side, not hugging
+                the page edge or the phone). */}
+            <div className="order-2 w-full text-center lg:order-1 lg:col-span-4 lg:col-start-1 lg:max-w-[280px] lg:justify-self-center lg:text-left">
+              <h1 className="text-[32px] font-medium leading-[0.95] tracking-[-0.03em] sm:text-[40px] sm:font-normal xl:text-[48px]">
                 Solve your debt and money problems.
               </h1>
             </div>
@@ -96,25 +96,17 @@ export default function MembersV3Page() {
                 className="aurora-mono-tight pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[680px] w-[900px] -translate-x-1/2 -translate-y-1/2"
                 aria-hidden="true"
               />
-              <div className="relative aspect-[9/19.5] h-[55svh] max-h-[600px] overflow-hidden rounded-[28px] border border-white/10 bg-gradient-to-br from-zinc-800 to-zinc-900 shadow-[0_30px_80px_rgba(0,0,0,0.5)] lg:h-[68vh] lg:max-h-[760px]">
-                {/* TODO: drop a real file into /public and set src to /hero-video.mp4 */}
-                <video
-                  className="absolute inset-0 h-full w-full object-cover"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                >
-                  {/* <source src="/hero-video.mp4" type="video/mp4" /> */}
-                </video>
-                <div className="absolute inset-0 flex items-center justify-center text-[11px] font-mono uppercase tracking-[0.1em] text-white/30">
-                  video placeholder
-                </div>
-              </div>
+              <HeroPhoneVideo
+                src="/v-t3.mp4"
+                notificationStart={2.2}
+                notificationDuration={3}
+              />
             </div>
 
-            {/* RIGHT - Body + CTA (cols 10-12) */}
-            <div className="order-3 flex w-full flex-col items-center gap-6 text-center lg:order-3 lg:col-span-3 lg:col-start-10 lg:items-start lg:text-left">
+            {/* RIGHT - Body + CTA (spans cols 9-12 = full right half, content
+                block constrained to ~280px and centered within the half so
+                it mirrors the headline placement on the left). */}
+            <div className="order-3 flex w-full flex-col items-center gap-6 text-center lg:order-3 lg:col-span-4 lg:col-start-9 lg:max-w-[280px] lg:items-start lg:justify-self-center lg:text-left">
               <p className="text-[16px] font-normal leading-[1.4] text-zinc-400 lg:text-[17px] xl:text-[18px]">
                 The easiest way to pay off debt, manage bills, and get
                 personalized financial answers - built for the way real people
@@ -132,6 +124,7 @@ export default function MembersV3Page() {
         </div>
       </section>
 
+      <div className="flex flex-col gap-3 p-3">
       {/* ============================================================
           3. § 02 - BENTO PAIR (cool portrait / monochrome chat panel)
          ============================================================ */}
