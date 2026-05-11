@@ -89,7 +89,7 @@ export default function CompaniesPage() {
         <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-4 sm:grid-cols-3">
 
           {/* Card 1 — Smart Debt Paydown */}
-          <div className="group relative flex min-h-[600px] flex-col overflow-hidden rounded-[22px] border border-white/[0.10] transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-white/[0.20] hover:shadow-[0_20px_60px_rgba(0,0,0,0.7)]">
+          <div className="group relative flex min-h-[520px] flex-col overflow-hidden rounded-[22px] border border-white/[0.10] transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-white/[0.20] hover:shadow-[0_20px_60px_rgba(0,0,0,0.7)] sm:min-h-[600px]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=800&q=80" alt="" className="absolute inset-0 h-full w-full object-cover object-top" />
             <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom,rgba(0,0,0,0.04) 0%,rgba(0,0,0,0.22) 45%,rgba(0,0,0,0.65) 100%)" }} />
@@ -97,13 +97,13 @@ export default function CompaniesPage() {
               <DebtPaydownPanel />
             </div>
             <div className="relative z-10 px-6 pb-7 pt-4">
-              <p className="text-[17px] font-semibold leading-snug tracking-[-0.015em]">Smart Debt Paydown</p>
-              <p className="mt-2 text-[13px] leading-[1.6] text-white/55">Automatically lower your balances faster with optimized payment strategies.</p>
+              <p className="text-[20px] font-semibold leading-snug tracking-[-0.015em]">Smart Debt Paydown</p>
+              <p className="mt-2 text-[14px] leading-[1.6] text-white/55">Automatically lower your balances faster with optimized payment strategies.</p>
             </div>
           </div>
 
           {/* Card 2 — Adaptive Budgeting */}
-          <div className="group relative flex min-h-[600px] flex-col overflow-hidden rounded-[22px] border border-white/[0.10] transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-white/[0.20] hover:shadow-[0_20px_60px_rgba(0,0,0,0.7)]">
+          <div className="group relative flex min-h-[460px] flex-col overflow-hidden rounded-[22px] border border-white/[0.10] transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-white/[0.20] hover:shadow-[0_20px_60px_rgba(0,0,0,0.7)] sm:min-h-[600px]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/sunrise-landscape.png" alt="" className="absolute inset-0 h-full w-full object-cover object-top" />
             <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom,rgba(0,0,0,0.0) 0%,rgba(4,2,0,0.20) 40%,rgba(14,7,0,0.68) 100%)" }} />
@@ -111,13 +111,13 @@ export default function CompaniesPage() {
               <BudgetMockPanel />
             </div>
             <div className="relative z-10 px-6 pb-7 pt-4">
-              <p className="text-[17px] font-semibold leading-snug tracking-[-0.015em]">Adaptive Budgeting</p>
-              <p className="mt-2 text-[13px] leading-[1.6] text-white/55">Stay on track with a budget that updates as your life changes.</p>
+              <p className="text-[20px] font-semibold leading-snug tracking-[-0.015em]">Adaptive Budgeting</p>
+              <p className="mt-2 text-[14px] leading-[1.6] text-white/55">Stay on track with a budget that updates as your life changes.</p>
             </div>
           </div>
 
           {/* Card 3 — Upcoming Payments */}
-          <div className="group relative flex min-h-[600px] flex-col overflow-hidden rounded-[22px] border border-white/[0.10] transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-white/[0.20] hover:shadow-[0_20px_60px_rgba(0,0,0,0.7)]">
+          <div className="group relative flex min-h-[520px] flex-col overflow-hidden rounded-[22px] border border-white/[0.10] transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-white/[0.20] hover:shadow-[0_20px_60px_rgba(0,0,0,0.7)] sm:min-h-[600px]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/lake.avif" alt="" className="absolute inset-0 h-full w-full object-cover object-top" />
             <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom,rgba(0,0,0,0.04) 0%,rgba(0,0,0,0.22) 45%,rgba(0,0,0,0.65) 100%)" }} />
@@ -125,8 +125,8 @@ export default function CompaniesPage() {
               <UpcomingPaymentsPanel />
             </div>
             <div className="relative z-10 px-6 pb-7 pt-4">
-              <p className="text-[17px] font-semibold leading-snug tracking-[-0.015em]">Upcoming Payments, Simplified</p>
-              <p className="mt-2 text-[13px] leading-[1.6] text-white/55">See what&apos;s coming and stay ahead of every due date.</p>
+              <p className="text-[20px] font-semibold leading-snug tracking-[-0.015em]">Upcoming Payments, Simplified</p>
+              <p className="mt-2 text-[14px] leading-[1.6] text-white/55">See what&apos;s coming and stay ahead of every due date.</p>
             </div>
           </div>
 
@@ -153,8 +153,8 @@ export default function CompaniesPage() {
           </div>
 
           <div className="overflow-x-auto rounded-2xl border border-white/[0.06] bg-white/[0.02]">
-            <div className="min-w-[840px]">
-              <div className="flex items-center border-b border-white/[0.06] bg-white/[0.015] px-6 py-3.5">
+            <div className="sm:min-w-[840px]">
+              <div className="hidden items-center border-b border-white/[0.06] bg-white/[0.015] px-6 py-3.5 sm:flex">
                 <div className="w-14 shrink-0" />
                 <span className="flex-1 text-xs font-medium tracking-[0.04em] text-zinc-500">MEMBER</span>
                 <span className="w-[220px] shrink-0 text-xs font-medium tracking-[0.04em] text-zinc-500">EMPLOYER</span>
@@ -164,7 +164,17 @@ export default function CompaniesPage() {
               {MEMBER_SAVINGS.map((row, i) => (
                 <MemberSavingsRow key={row.id} {...row} isLast={i === MEMBER_SAVINGS.length - 1} />
               ))}
-              <div className="flex items-center border-t border-white/[0.06] bg-white/[0.02] px-6 py-4">
+              {/* Mobile footer summary */}
+              <div className="flex flex-col gap-1.5 border-t border-white/[0.06] bg-white/[0.02] px-5 py-4 sm:hidden">
+                <div className="flex items-center gap-3">
+                  <span className="block h-2 w-2 shrink-0 rounded-full bg-zinc-50" style={{ boxShadow: "0 0 12px rgba(255,255,255,0.4)" }} />
+                  <span className="flex-1 text-sm font-medium tracking-[-0.005em]">Average saved per enrolled employee</span>
+                  <span className="font-mono text-base font-semibold tracking-[-0.01em]">$4,820</span>
+                </div>
+                <p className="pl-[20px] text-[13px] text-zinc-500">Across 240+ employer partners · All categories</p>
+              </div>
+              {/* Desktop footer summary */}
+              <div className="hidden items-center border-t border-white/[0.06] bg-white/[0.02] px-6 py-4 sm:flex">
                 <div className="flex w-14 shrink-0 items-center">
                   <span className="block h-2 w-2 rounded-full bg-zinc-50" style={{ boxShadow: "0 0 12px rgba(255,255,255,0.4)" }} />
                 </div>
@@ -391,7 +401,7 @@ function LogoMark({ size = 24 }: { size?: number }) {
 function RoiMockup() {
   return (
     <div className="flex flex-1 flex-col gap-5 overflow-hidden rounded-[18px] border border-white/[0.06] bg-white/[0.02] p-7">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-2.5">
           <span className="text-[15px] font-semibold tracking-[-0.01em]">Employer ROI · last 12 months</span>
           <span className="rounded-md bg-white/[0.04] px-2 py-0.5 font-mono text-[10px] font-medium tracking-[0.04em] text-zinc-400">
@@ -405,17 +415,17 @@ function RoiMockup() {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div className="flex flex-col gap-1.5 rounded-2xl border border-white/[0.06] bg-white/[0.015] p-5">
           <span className="text-xs font-medium tracking-[0.04em] text-white/40">RETENTION LIFT</span>
-          <span className="text-[40px] font-semibold leading-none tracking-[-0.04em] text-white/90">
+          <span className="whitespace-nowrap text-[32px] font-semibold leading-none tracking-[-0.04em] text-white/90 sm:text-[40px]">
             +14<span className="text-white/30">.2%</span>
           </span>
           <span className="text-[12px] text-zinc-500">vs. control cohort, year 1</span>
         </div>
         <div className="flex flex-col gap-1.5 rounded-2xl border border-white/[0.06] bg-white/[0.015] p-5">
           <span className="text-xs font-medium tracking-[0.04em] text-white/40">STRESS REDUCTION</span>
-          <span className="text-[40px] font-semibold leading-none tracking-[-0.04em] text-white/90">
+          <span className="whitespace-nowrap text-[32px] font-semibold leading-none tracking-[-0.04em] text-white/90 sm:text-[40px]">
             −32<span className="text-white/30">%</span>
           </span>
           <span className="text-[12px] text-zinc-500">self-reported, 6-month survey</span>
@@ -878,18 +888,33 @@ const MEMBER_SAVINGS: Array<{ id: string; initials: string; name: string; employ
 ];
 
 function MemberSavingsRow({ initials, name, employer, category, saved, isLast }: (typeof MEMBER_SAVINGS)[number] & { isLast: boolean }) {
+  const borderCls = isLast ? "" : "border-b border-white/[0.05]";
   return (
-    <div className={`flex items-center px-6 py-4 ${isLast ? "" : "border-b border-white/[0.05]"}`}>
-      <div className="w-14 shrink-0">
-        <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.05]">
-          <span className="text-[11px] font-semibold">{initials}</span>
-        </span>
+    <>
+      {/* Mobile — card layout */}
+      <div className={`flex flex-col gap-1.5 px-5 py-4 sm:hidden ${borderCls}`}>
+        <div className="flex items-center gap-3">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/[0.05]">
+            <span className="text-[11px] font-semibold">{initials}</span>
+          </span>
+          <span className="flex-1 text-[15px] font-medium tracking-[-0.01em]">{name}</span>
+          <span className="font-mono text-[15px] font-medium">{saved}</span>
+        </div>
+        <p className="pl-[48px] text-[13px] text-zinc-400">{employer} · {category}</p>
       </div>
-      <span className="flex-1 text-[15px] font-medium tracking-[-0.01em]">{name}</span>
-      <span className="w-[220px] shrink-0 text-sm text-zinc-400">{employer}</span>
-      <span className="w-[160px] shrink-0 text-sm text-zinc-400">{category}</span>
-      <span className="w-40 shrink-0 text-right font-mono text-[15px] font-medium">{saved}</span>
-    </div>
+      {/* Desktop — table row */}
+      <div className={`hidden items-center px-6 py-4 sm:flex ${borderCls}`}>
+        <div className="w-14 shrink-0">
+          <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.05]">
+            <span className="text-[11px] font-semibold">{initials}</span>
+          </span>
+        </div>
+        <span className="flex-1 text-[15px] font-medium tracking-[-0.01em]">{name}</span>
+        <span className="w-[220px] shrink-0 text-sm text-zinc-400">{employer}</span>
+        <span className="w-[160px] shrink-0 text-sm text-zinc-400">{category}</span>
+        <span className="w-40 shrink-0 text-right font-mono text-[15px] font-medium">{saved}</span>
+      </div>
+    </>
   );
 }
 
