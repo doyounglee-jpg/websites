@@ -3,17 +3,17 @@ import { TopNav } from "../components/TopNav";
 import FeatureCardsSection from "./FeatureCardsSection";
 
 /**
- * /companies — Origin-style visual language.
+ * /companies - Origin-style visual language.
  * Two key patterns from the reference images:
- *   Image #11 — atmospheric photo fills card background, frosted UI panel floats on top
- *   Image #12 — blue gradient section with centered italic-serif heading + wide chart panel
+ *   Image #11 - atmospheric photo fills card background, frosted UI panel floats on top
+ *   Image #12 - blue gradient section with centered italic-serif heading + wide chart panel
  */
 
 export default function CompaniesPage() {
   return (
     <main className="min-h-screen bg-[#0E1014] text-zinc-50">
 
-      {/* Shared marketing top nav — wordmark, center pill nav, CTA / hamburger. */}
+      {/* Shared marketing top nav - wordmark, center pill nav, CTA / hamburger. */}
       <TopNav active="companies" ctaLabel="Request demo" ctaHref="#cta" />
 
       {/* ── HERO ─────────────────────────────────────────────────────── */}
@@ -64,18 +64,18 @@ export default function CompaniesPage() {
         </div>
       </section>
 
-      {/* ── § LOGOS — TICKER ─────────────────────────────────────────── */}
+      {/* ── § LOGOS - TICKER ─────────────────────────────────────────── */}
       <LogoTicker />
 
-      {/* ── § 01 — PHOTO CARDS (Image #11 style) ────────────────────── */}
+      {/* ── § 01 - PHOTO CARDS (Image #11 style) ────────────────────── */}
       <section id="features" className="bg-[#0E1014] px-6 py-24 sm:px-10 md:px-16 md:py-32 lg:px-24 lg:py-40">
         <div className="mx-auto mb-16 max-w-[1440px] text-center md:mb-20">
-          <SectionEyebrow>02 — PLATFORM</SectionEyebrow>
+          <SectionEyebrow>02 - PLATFORM</SectionEyebrow>
           <h2 className="mt-5 text-4xl font-semibold leading-[1.05] tracking-[-0.04em] sm:text-5xl md:text-[56px] lg:text-[64px] lg:leading-[1.02]">
             Everything they need, handled.
           </h2>
           <p className="mx-auto mt-5 max-w-[500px] text-base leading-[1.55] text-zinc-400 sm:text-[18px]">
-            Clerkie gives every employee a personal debt advisor — AI-powered plans,
+            Clerkie gives every employee a personal debt advisor - AI-powered plans,
             live lender negotiations, and real-time progress tracking.
           </p>
           <a
@@ -88,7 +88,7 @@ export default function CompaniesPage() {
 
         <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-4 sm:grid-cols-3">
 
-          {/* Card 1 — Smart Debt Paydown */}
+          {/* Card 1 - Smart Debt Paydown */}
           <div className="group relative flex min-h-[520px] flex-col overflow-hidden rounded-[22px] border border-white/[0.10] transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-white/[0.20] hover:shadow-[0_20px_60px_rgba(0,0,0,0.7)] sm:min-h-[600px]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=800&q=80" alt="" className="absolute inset-0 h-full w-full object-cover object-top" />
@@ -102,7 +102,7 @@ export default function CompaniesPage() {
             </div>
           </div>
 
-          {/* Card 2 — Adaptive Budgeting */}
+          {/* Card 2 - Adaptive Budgeting */}
           <div className="group relative flex min-h-[460px] flex-col overflow-hidden rounded-[22px] border border-white/[0.10] transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-white/[0.20] hover:shadow-[0_20px_60px_rgba(0,0,0,0.7)] sm:min-h-[600px]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/sunrise-landscape.png" alt="" className="absolute inset-0 h-full w-full object-cover object-top" />
@@ -116,7 +116,7 @@ export default function CompaniesPage() {
             </div>
           </div>
 
-          {/* Card 3 — Upcoming Payments */}
+          {/* Card 3 - Upcoming Payments */}
           <div className="group relative flex min-h-[520px] flex-col overflow-hidden rounded-[22px] border border-white/[0.10] transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-white/[0.20] hover:shadow-[0_20px_60px_rgba(0,0,0,0.7)] sm:min-h-[600px]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/lake.avif" alt="" className="absolute inset-0 h-full w-full object-cover object-top" />
@@ -133,12 +133,12 @@ export default function CompaniesPage() {
         </div>
       </section>
 
-      {/* ── § 03 — CONTEXT ───────────────────────────────────────────── */}
+      {/* ── § 03 - CONTEXT ───────────────────────────────────────────── */}
       <section className="border-t border-white/[0.06] bg-[#0E1014]">
         <div className="mx-auto max-w-[1440px] px-6 pb-20 pt-24 sm:px-10 sm:pb-24 sm:pt-28 md:px-16 md:pb-28 md:pt-32 lg:px-24 lg:pb-32 lg:pt-40">
           <div className="mb-12 flex flex-col gap-6 lg:mb-20 lg:flex-row lg:items-end lg:justify-between lg:gap-20">
             <div className="flex max-w-[760px] flex-col gap-4 lg:gap-6">
-              <SectionEyebrow>03 — CONTEXT</SectionEyebrow>
+              <SectionEyebrow>03 - CONTEXT</SectionEyebrow>
               <h2 className="text-4xl font-semibold leading-[1.05] tracking-[-0.04em] sm:text-5xl md:text-[56px] lg:text-[64px] lg:leading-[1.02]">
                 Consumer debt has{" "}
                 <span className="text-zinc-500">more than tripled</span>{" "}
@@ -190,11 +190,11 @@ export default function CompaniesPage() {
 
       <FeatureCardsSection />
 
-      {/* ── § 04 — RETURN ───────────────────────────────────────────── */}
+      {/* ── § 04 - RETURN ───────────────────────────────────────────── */}
       <section className="border-t border-white/[0.06] bg-[#0E1014]">
         <div className="mx-auto flex max-w-[1440px] flex-col items-stretch gap-12 px-6 pb-20 pt-24 sm:px-10 sm:pb-24 sm:pt-28 md:px-16 md:pb-28 md:pt-32 lg:flex-row lg:gap-20 lg:px-24 lg:pb-32 lg:pt-40">
           <div className="flex flex-col gap-6 pt-0 sm:gap-8 lg:max-w-[480px] lg:shrink-0 lg:pt-6">
-            <SectionEyebrow>03 — RETURN</SectionEyebrow>
+            <SectionEyebrow>03 - RETURN</SectionEyebrow>
             <h2 className="text-4xl font-semibold leading-[1.05] tracking-[-0.04em] sm:text-5xl md:text-[52px] lg:text-[56px]">
               Good for employees.{" "}
               <span className="text-zinc-500">Great for employers.</span>
@@ -206,7 +206,7 @@ export default function CompaniesPage() {
             <ul className="flex flex-col gap-3.5 pt-2">
               {[
                 "Single point of contact for HR and benefits leads.",
-                "Rolls out in days — not quarters.",
+                "Rolls out in days - not quarters.",
                 "Plugs into the HRIS and payroll stack you already run.",
               ].map((item) => (
                 <li key={item} className="flex items-center gap-3">
@@ -361,7 +361,7 @@ function LogoTicker() {
           {/* Fade masks */}
           <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-32 bg-gradient-to-r from-[#0E1014] to-transparent" />
           <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-32 bg-gradient-to-l from-[#0E1014] to-transparent" />
-          {/* Track — duplicated for seamless loop */}
+          {/* Track - duplicated for seamless loop */}
           <div className="ticker-inner flex w-max items-center gap-[96px]">
             {[0, 1].map((copy) => (
               <div key={copy} className="flex items-center gap-[96px]">
@@ -395,7 +395,7 @@ function LogoMark({ size = 24 }: { size?: number }) {
 }
 
 /* ================================================================
-   ROI MOCKUP — § 03 RETURN
+   ROI MOCKUP - § 03 RETURN
    ================================================================ */
 
 function RoiMockup() {
@@ -506,7 +506,7 @@ function Sparkline() {
 }
 
 /* ================================================================
-   § 01 — ROI CHART PANEL (Image #12 style)
+   § 01 - ROI CHART PANEL (Image #12 style)
    Wide floating panel on gradient background
    ================================================================ */
 
@@ -582,10 +582,10 @@ function RoiChartPanel() {
 }
 
 /* ================================================================
-   § 02 — PHOTO CARD UI PANELS (Image #11 style)
+   § 02 - PHOTO CARD UI PANELS (Image #11 style)
    ================================================================ */
 
-/* Panel 1 — Payment schedule calendar (Image #11 Card 1 style) */
+/* Panel 1 - Payment schedule calendar (Image #11 Card 1 style) */
 function DebtPaydownPanel() {
   const accounts = [
     { label: "Credit Cards", balance: "$8,200",  pct: 72 },
@@ -877,7 +877,7 @@ function MemberWinRow({ name, action, amount }: (typeof MEMBER_WINS)[number]) {
 }
 
 /* ================================================================
-   § 03 — MEMBER SAVINGS TABLE
+   § 03 - MEMBER SAVINGS TABLE
    ================================================================ */
 
 const MEMBER_SAVINGS: Array<{ id: string; initials: string; name: string; employer: string; category: string; saved: string }> = [
@@ -891,7 +891,7 @@ function MemberSavingsRow({ initials, name, employer, category, saved, isLast }:
   const borderCls = isLast ? "" : "border-b border-white/[0.05]";
   return (
     <>
-      {/* Mobile — card layout */}
+      {/* Mobile - card layout */}
       <div className={`flex flex-col gap-1.5 px-5 py-4 sm:hidden ${borderCls}`}>
         <div className="flex items-center gap-3">
           <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/[0.05]">
@@ -902,7 +902,7 @@ function MemberSavingsRow({ initials, name, employer, category, saved, isLast }:
         </div>
         <p className="pl-[48px] text-[13px] text-zinc-400">{employer} · {category}</p>
       </div>
-      {/* Desktop — table row */}
+      {/* Desktop - table row */}
       <div className={`hidden items-center px-6 py-4 sm:flex ${borderCls}`}>
         <div className="w-14 shrink-0">
           <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.05]">
