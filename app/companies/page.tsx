@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { TopNav } from "../components/TopNav";
 import FeatureCardsSection from "./FeatureCardsSection";
 
 /**
@@ -12,31 +13,8 @@ export default function CompaniesPage() {
   return (
     <main className="min-h-screen bg-[#0E1014] text-zinc-50">
 
-      {/* ── NAV ─────────────────────────────────────────────────────── */}
-      {/* Logo — fixed top-left */}
-      <div className="fixed left-5 top-5 z-50 flex items-center gap-2 rounded-full border border-white/15 bg-black/30 px-4 py-2 backdrop-blur-md">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/clerkie-wordmark.svg" alt="Clerkie" className="h-[18px] w-auto" />
-      </div>
-
-      {/* Center nav pill */}
-      <header className="fixed left-1/2 top-5 z-50 -translate-x-1/2">
-        <nav className="flex items-center gap-1 rounded-full border border-white/15 bg-black/30 px-2 py-1.5 backdrop-blur-md">
-          <PillNavLink href="/members">Members</PillNavLink>
-          <PillNavLink href="/companies" active>Companies</PillNavLink>
-          <PillNavLink href="#">About</PillNavLink>
-        </nav>
-      </header>
-
-      {/* CTA — fixed top-right */}
-      <div className="fixed right-5 top-5 z-50">
-        <a
-          href="#cta"
-          className="flex items-center rounded-full border border-white/15 bg-black/30 px-5 py-2.5 text-sm font-medium text-white backdrop-blur-md"
-        >
-          Request demo
-        </a>
-      </div>
+      {/* Shared marketing top nav — wordmark, center pill nav, CTA / hamburger. */}
+      <TopNav active="companies" ctaLabel="Request demo" ctaHref="#cta" />
 
       {/* ── HERO ─────────────────────────────────────────────────────── */}
       <section className="relative overflow-hidden">
@@ -45,11 +23,11 @@ export default function CompaniesPage() {
 
         <div className="relative z-10 mx-auto flex max-w-[1440px] flex-col items-center gap-8 px-6 pb-12 pt-20 sm:gap-10 sm:px-10 sm:pb-16 sm:pt-28 md:px-16 md:pb-20 md:pt-[120px]">
           <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] py-1.5 pl-2 pr-3.5">
-            <span className="rounded-full border border-white/20 bg-white/[0.08] px-2 py-0.5 text-[11px] font-semibold tracking-[0.04em]">
+            <span className="rounded-full border border-[#5EEAD4]/30 bg-[#5EEAD4]/10 px-2 py-0.5 text-[11px] font-semibold tracking-[0.04em] text-[#5EEAD4]">
               FOR COMPANIES
             </span>
             <span className="text-[13px] font-medium tracking-[-0.005em] text-zinc-300">
-              An employee benefit your team will actually use →
+              An employee benefit your team will actually use
             </span>
           </div>
 
@@ -394,19 +372,6 @@ function LogoTicker() {
 /* ================================================================
    HELPERS
    ================================================================ */
-
-function PillNavLink({ href = "#", children, active }: { href?: string; children: React.ReactNode; active?: boolean }) {
-  return (
-    <Link
-      href={href}
-      className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
-        active ? "bg-white/15 text-white" : "text-white/70 hover:text-white"
-      }`}
-    >
-      {children}
-    </Link>
-  );
-}
 
 function SectionEyebrow({ children }: { children: React.ReactNode }) {
   return <span className="text-[13px] font-medium tracking-[0.06em] text-[#5EEAD4]">{children}</span>;
