@@ -162,7 +162,8 @@ export default function MembersV3Page() {
             {/* Live chat: looping conversation + animated voice waveform. */}
             <AnimatedChatPanel />
 
-            <div className="flex flex-col gap-3">
+            {/* 16px buffer from waveform pill (mobile compresses justify-between to 0). */}
+            <div className="mt-4 flex flex-col gap-3">
               <h3 className="text-[34px] font-medium leading-[1.15] tracking-[-0.02em] text-white">
                 More personalized than most apps.
               </h3>
@@ -185,8 +186,10 @@ export default function MembersV3Page() {
          ============================================================ */}
       {/* Same pattern as § 02: panels get tall min-heights on mobile, share viewport on md+ */}
       <section className="grid w-full grid-cols-1 gap-3 md:h-[100vh] md:min-h-[760px] md:grid-cols-2">
-        {/* Left: dark bills dashboard panel */}
-        <div className="relative min-h-[600px] overflow-hidden rounded-3xl bg-gradient-to-br from-[#15171B] via-[#101216] to-[#0E1014] md:min-h-0">
+        {/* Left: dark bills dashboard panel. Taller min-h on mobile so the
+            bills chat card (header + 380px body + input row) fits without
+            being clipped above the headline. */}
+        <div className="relative min-h-[760px] overflow-hidden rounded-3xl bg-gradient-to-br from-[#15171B] via-[#101216] to-[#0E1014] md:min-h-0">
           {/* Subtle cyan glow corner */}
           <div
             className="pointer-events-none absolute left-[-20%] bottom-[-20%] h-[500px] w-[500px] rounded-full"
@@ -200,7 +203,8 @@ export default function MembersV3Page() {
               <AnimatedBillsChatPanel />
             </div>
 
-            <div className="flex flex-col gap-3">
+            {/* 16px buffer below the bills UI on mobile (justify-between collapses). */}
+            <div className="mt-4 flex flex-col gap-3">
               <h3 className="text-[34px] font-medium leading-[1.15] tracking-[-0.02em] text-white">
                 Every bill, paid on time.
               </h3>

@@ -181,18 +181,6 @@ export function AnimatedBillsChatPanel() {
           )}
         </div>
 
-        {/* Suggestion chips — always visible, hint at follow-ups */}
-        <div className="flex flex-wrap gap-1.5 px-5 pb-3">
-          {SUGGESTIONS.map((s) => (
-            <span
-              key={s}
-              className="rounded-full border border-white/10 bg-white/[0.02] px-2.5 py-1 text-[11px] font-medium text-zinc-300"
-            >
-              {s}
-            </span>
-          ))}
-        </div>
-
         {/* Input row — always visible */}
         <div className="flex items-center gap-2 border-t border-white/[0.06] bg-[#0E1014]/60 px-4 py-3">
           <span className="flex-1 text-[12px] tracking-[-0.005em] text-zinc-600">
@@ -216,12 +204,6 @@ const BILLS = [
   { label: "PG&E", due: "Mon", amount: "$72" },
   { label: "Spotify", due: "Wed", amount: "$11" },
   { label: "Capital One", due: "Fri", amount: "$184" },
-];
-
-const SUGGESTIONS = [
-  "Pause Spotify?",
-  "Move Capital One earlier",
-  "Check next month",
 ];
 
 /* --- Sub-components ------------------------------------------------- */
