@@ -36,7 +36,7 @@ function AutomationFlow() {
   ];
 
   return (
-    <div className="rounded-[14px] border border-white/[0.06] bg-white/[0.01] p-5">
+    <div>
       {/* Steps row */}
       <div className="mb-5 flex items-start">
         {steps.map((s, i) => (
@@ -72,7 +72,7 @@ function AdaptivePlanPanel() {
   ];
 
   return (
-    <div className="rounded-[14px] border border-white/[0.06] bg-white/[0.01] p-5">
+    <div>
       <div className="mb-4 flex items-center justify-between">
         <span className="text-[10px] font-semibold tracking-[0.07em] text-white/35">PERSONALIZED PLAN</span>
         <div className="flex items-center gap-1.5 rounded-full border border-white/[0.08] bg-white/[0.03] px-2.5 py-0.5">
@@ -124,7 +124,7 @@ function MilestoneProgress() {
   ];
 
   return (
-    <div className="rounded-[14px] border border-white/[0.06] bg-white/[0.01] p-5">
+    <div>
       <div className="mb-3 flex items-center justify-between">
         <span className="text-[10px] font-semibold tracking-[0.07em] text-white/35">PROGRESS</span>
         <span className="text-[10px] font-medium text-white/35">{BAR}% complete</span>
@@ -181,7 +181,7 @@ function MilestoneProgress() {
 /* ── Card 4 UI — Coaching message ────────────────────────────── */
 function CoachingCardUI() {
   return (
-    <div className="rounded-[14px] border border-white/[0.06] bg-white/[0.01] p-5">
+    <div>
       {/* Coach header */}
       <div className="mb-4 flex items-center gap-3">
         <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/[0.10] bg-white/[0.03]">

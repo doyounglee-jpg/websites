@@ -15,7 +15,7 @@ import { HeroPhoneVideo } from "./HeroPhoneVideo";
 import { LiveSavingsTicker } from "./LiveSavingsTicker";
 
 /**
- * /members — DARK Cleo-inspired bento + cinematic photography direction.
+ * /members - DARK Cleo-inspired bento + cinematic photography direction.
  *
  * (Promoted from /members-v3 → /members. The previous v1 lives at
  * /members-archived for reference.) Same structural moves as the now-
@@ -34,30 +34,30 @@ import { LiveSavingsTicker } from "./LiveSavingsTicker";
  */
 
 const PHOTOS = {
-  // Aurora / northern lights — moody hero
+  // Aurora / northern lights - moody hero
   heroLandscape:
     "https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?auto=format&fit=crop&w=2400&q=80",
-  // Foggy/dusk mountain — section 1 backdrop
+  // Foggy/dusk mountain - section 1 backdrop
   feature1Backdrop:
     "https://images.unsplash.com/photo-1454496522488-7a8e488e8606?auto=format&fit=crop&w=2400&q=80",
-  // "Get your debt off your mind" portrait — local asset
+  // "Get your debt off your mind" portrait - local asset
   bentoPortrait: "/dancing-woman.png",
-  // "Crush your debt by 70%" backdrop — local asset
+  // "Crush your debt by 70%" backdrop - local asset
   feature2Portrait: "/woman-on-mountain.png",
-  // Warm intimate family portrait — testimonial (local asset)
+  // Warm intimate family portrait - testimonial (local asset)
   testimonialPortrait: "/testimonial-warm-two.png",
-  // "Solve your debt. Get back to living." CTA backdrop — local asset
+  // "Solve your debt. Get back to living." CTA backdrop - local asset
   ctaBackdrop: "/picnic.png",
 };
 
 export default function MembersV3Page() {
   return (
     <main className="min-h-screen bg-[#0E1014] text-zinc-50">
-      {/* Shared marketing top nav — wordmark, center pill nav, CTA / hamburger. */}
+      {/* Shared marketing top nav - wordmark, center pill nav, CTA / hamburger. */}
       <TopNav active="members" ctaLabel="Get the App" ctaHref="#cta" />
 
       {/* ============================================================
-          2. HERO — Full-bleed, no rounded corners. Lives outside the
+          2. HERO - Full-bleed, no rounded corners. Lives outside the
           padded bento wrapper below so it spans edge-to-edge.
          ============================================================ */}
       <section className="relative flex min-h-svh w-full items-center overflow-hidden bg-gradient-to-b from-[#15171B] via-[#101216] to-[#0E1014] lg:min-h-screen">
@@ -75,7 +75,7 @@ export default function MembersV3Page() {
         */}
         <div className="relative z-10 mx-auto w-full max-w-[1440px] px-6 py-24 sm:px-10 md:px-16">
           <div className="flex w-full flex-col items-center gap-8 lg:grid lg:grid-cols-12 lg:items-center lg:gap-6">
-            {/* LEFT — Headline (spans cols 1-4 = full left half, content
+            {/* LEFT - Headline (spans cols 1-4 = full left half, content
                 block constrained to ~280px and centered within the half so
                 it visually sits in the middle of the left side, not hugging
                 the page edge or the phone). */}
@@ -86,7 +86,7 @@ export default function MembersV3Page() {
             </div>
 
             {/*
-              CENTER — Video (cols 5-8). aspect 9:19.5 = 0.462 (iPhone), per Cash App spec.
+              CENTER - Video (cols 5-8). aspect 9:19.5 = 0.462 (iPhone), per Cash App spec.
               Height capped at small viewport on mobile and 68vh on desktop so the video
               never overflows the section.
             */}
@@ -103,13 +103,13 @@ export default function MembersV3Page() {
               />
             </div>
 
-            {/* RIGHT — Body + CTA (spans cols 9-12 = full right half, content
+            {/* RIGHT - Body + CTA (spans cols 9-12 = full right half, content
                 block constrained to ~280px and centered within the half so
                 it mirrors the headline placement on the left). */}
             <div className="order-3 flex w-full flex-col items-center gap-6 text-center lg:order-3 lg:col-span-4 lg:col-start-9 lg:max-w-[280px] lg:items-start lg:justify-self-center lg:text-left">
               <p className="text-[16px] font-normal leading-[1.4] text-zinc-400 lg:text-[17px] xl:text-[18px]">
                 The easiest way to pay off debt, manage bills, and get
-                personalized financial answers — built for the way real people
+                personalized financial answers - built for the way real people
                 earn and spend.
               </p>
               <a
@@ -126,7 +126,7 @@ export default function MembersV3Page() {
 
       <div className="flex flex-col gap-3 p-3">
       {/* ============================================================
-          3. § 02 — BENTO PAIR (cool portrait / monochrome chat panel)
+          3. § 02 - BENTO PAIR (cool portrait / monochrome chat panel)
          ============================================================ */}
       {/* Mobile: panels stack and each gets its own min-height (via children below).
           md+: section is locked to viewport height so the two columns share it. */}
@@ -171,7 +171,7 @@ export default function MembersV3Page() {
                 More personalized than most apps.
               </h3>
               <p className="max-w-[420px] text-[15px] leading-[1.55] text-white/60">
-                Clerkie&apos;s always learning about you and your spending — so
+                Clerkie&apos;s always learning about you and your spending - so
                 money conversations feel personal (with real personality).
               </p>
             </div>
@@ -180,12 +180,12 @@ export default function MembersV3Page() {
       </section>
 
       {/* ============================================================
-          5. § 03 — LIVE TICKER (replaces the static "Crush your debt 70%")
+          5. § 03 - LIVE TICKER (replaces the static "Crush your debt 70%")
          ============================================================ */}
       <LiveSavingsTicker />
 
       {/* ============================================================
-          6. § 04 — BENTO PAIR (bills dashboard / dark testimonial)
+          6. § 04 - BENTO PAIR (bills dashboard / dark testimonial)
          ============================================================ */}
       {/* Same pattern as § 02: panels get tall min-heights on mobile, share viewport on md+ */}
       <section className="grid w-full grid-cols-1 gap-3 md:h-[100vh] md:min-h-[760px] md:grid-cols-2">
@@ -213,7 +213,7 @@ export default function MembersV3Page() {
                 Every bill, paid on time.
               </h3>
               <p className="max-w-[420px] text-[15px] leading-[1.55] text-white/60">
-                Clerkie watches your bills, due dates, and balances — and gives
+                Clerkie watches your bills, due dates, and balances - and gives
                 you a heads-up before anything slips.
               </p>
             </div>
@@ -238,20 +238,20 @@ export default function MembersV3Page() {
               call.&rdquo;
             </p>
             <span className="text-[13px] tracking-[0.04em] text-white/60">
-              — M. ALVAREZ, MEMBER SINCE 2024
+              - M. ALVAREZ, MEMBER SINCE 2024
             </span>
           </div>
         </div>
       </section>
 
       {/* ============================================================
-          6.5 § 05 — COVERAGE (categories grid, ported from /members)
+          6.5 § 05 - COVERAGE (categories grid, ported from /members)
          ============================================================ */}
       <section className="w-full overflow-hidden rounded-3xl bg-[#0E1014]">
         <div className="px-6 pb-20 pt-20 sm:px-10 sm:pb-24 sm:pt-24 md:px-16 md:pb-28 md:pt-28">
           <div className="mb-10 flex max-w-[720px] flex-col gap-4 sm:gap-6 lg:mb-16">
             <span className="text-[13px] font-medium tracking-[0.06em] text-[#5EEAD4]">
-              03 — COVERAGE
+              03 - COVERAGE
             </span>
             <h2 className="text-4xl font-semibold leading-[1.05] tracking-[-0.04em] text-white sm:text-5xl md:text-[52px] lg:text-[56px]">
               Every kind of debt.{" "}
@@ -276,7 +276,7 @@ export default function MembersV3Page() {
       </section>
 
       {/* ============================================================
-          7. CTA — full-bleed dark photo + signup
+          7. CTA - full-bleed dark photo + signup
          ============================================================ */}
       <section
         id="cta"
@@ -375,7 +375,7 @@ export default function MembersV3Page() {
    ============================================================ */
 
 /* ============================================================
-   CATEGORIES GRID — § 05 (ported from /members)
+   CATEGORIES GRID - § 05 (ported from /members)
    ============================================================ */
 
 const CATEGORIES = [
@@ -388,7 +388,7 @@ const CATEGORIES = [
   },
   {
     title: "Student Loans",
-    desc: "Federal, private, refinance — we walk you through every payoff path with the math up front.",
+    desc: "Federal, private, refinance - we walk you through every payoff path with the math up front.",
     statLabel: "AVG. SAVED",
     statValue: "$9,420",
     icon: Mortarboard01Icon,
@@ -432,7 +432,7 @@ function CategoryCard({
 }: (typeof CATEGORIES)[number]) {
   return (
     <div className="flex min-h-[240px] basis-full flex-col gap-6 bg-[#0C0D0F] px-6 py-7 sm:basis-[calc(50%-1px)] sm:px-8 sm:py-9 lg:basis-[calc(33.333%-1px)]">
-      {/* Icon bubble — Hugeicons stroke icon, white at 80% opacity. */}
+      {/* Icon bubble - Hugeicons stroke icon, white at 80% opacity. */}
       <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5">
         <HugeiconsIcon
           icon={icon}
