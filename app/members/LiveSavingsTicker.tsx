@@ -154,14 +154,14 @@ export function LiveSavingsTicker() {
       <div className="relative z-10 mx-auto flex h-full max-w-[1100px] flex-col items-center justify-center gap-6 px-5 py-10 md:gap-12 md:px-16 md:py-16">
         {/* Eyebrow — quiet credibility, no live cues */}
         <div className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1">
-          <span className="text-[9px] font-medium tracking-[0.16em] text-white/70">
+          <span className="text-[11px] font-medium tracking-[0.16em] text-white/70 md:text-[14px]">
             MEMBERS&apos; SAVINGS
           </span>
         </div>
 
         {/* Big counter with slot-machine digit scroll */}
         <div className="flex flex-col items-center gap-4 text-center">
-          <h2 className="text-[32px] font-medium leading-none tracking-[-0.04em] text-white sm:text-[48px] md:text-[110px]">
+          <h2 className="text-[40px] font-medium leading-none tracking-[-0.04em] text-white sm:text-[56px] md:text-[110px]">
             <ScrollingNumber value={total} />
           </h2>
           <p className="max-w-[520px] text-[16px] leading-[1.55] text-white/65 md:text-[18px]">
