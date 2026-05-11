@@ -40,7 +40,7 @@ const PHOTOS = {
   feature1Backdrop:
     "https://images.unsplash.com/photo-1454496522488-7a8e488e8606?auto=format&fit=crop&w=2400&q=80",
   // "Get your debt off your mind" portrait — local asset
-  bentoPortrait: "/happy-two.png",
+  bentoPortrait: "/dancing-woman.png",
   // "Crush your debt by 70%" backdrop — local asset
   feature2Portrait: "/woman-on-mountain.png",
   // Warm intimate family portrait — testimonial (local asset)
@@ -199,7 +199,8 @@ export default function MembersV3Page() {
         {/* Left: dark bills dashboard panel. Taller min-h on mobile so the
             bills chat card (header + 380px body + input row) fits without
             being clipped above the headline. */}
-        <div className="relative min-h-[760px] overflow-hidden rounded-3xl bg-gradient-to-br from-[#15171B] via-[#101216] to-[#0E1014] md:min-h-0">
+        {/* order-2 on mobile so the testimonial stacks first; reverts to source order on md+ */}
+        <div className="relative order-2 min-h-[760px] overflow-hidden rounded-3xl bg-gradient-to-br from-[#15171B] via-[#101216] to-[#0E1014] md:order-none md:min-h-0">
           {/* Subtle cyan glow corner */}
           <div
             className="pointer-events-none absolute left-[-20%] bottom-[-20%] h-[500px] w-[500px] rounded-full"
@@ -227,7 +228,8 @@ export default function MembersV3Page() {
         </div>
 
         {/* Right: dark testimonial portrait */}
-        <div className="relative min-h-[600px] overflow-hidden rounded-3xl md:min-h-0">
+        {/* order-1 on mobile so it appears above the bills panel; reverts on md+ */}
+        <div className="relative order-1 min-h-[600px] overflow-hidden rounded-3xl md:order-none md:min-h-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={PHOTOS.testimonialPortrait}
