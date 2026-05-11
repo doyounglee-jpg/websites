@@ -8,6 +8,7 @@ import {
   Mortarboard01Icon,
   StethoscopeIcon,
 } from "@hugeicons-pro/core-stroke-standard";
+import { TopNav } from "../components/TopNav";
 import { AnimatedBillsChatPanel } from "./AnimatedBillsChatPanel";
 import { AnimatedChatPanel } from "./AnimatedChatPanel";
 import { LiveSavingsTicker } from "./LiveSavingsTicker";
@@ -51,35 +52,8 @@ const PHOTOS = {
 export default function MembersV3Page() {
   return (
     <main className="min-h-screen bg-[#0E1014] text-zinc-50">
-      {/* ============================================================
-          1. FLOATING PILL NAV — glassy on dark
-         ============================================================ */}
-      <header className="fixed top-5 left-1/2 z-50 -translate-x-1/2">
-        <nav className="flex items-center gap-1 rounded-full border border-white/15 bg-black/30 px-2 py-1.5 backdrop-blur-md">
-          <PillNavLink href="/members" active>
-            Members
-          </PillNavLink>
-          <PillNavLink href="/companies">Companies</PillNavLink>
-          <PillNavLink href="#">About</PillNavLink>
-        </nav>
-      </header>
-
-      <div className="fixed top-5 left-5 z-50 flex items-center gap-2 rounded-full border border-white/15 bg-black/30 px-4 py-2 backdrop-blur-md">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/clerkie-wordmark.svg"
-          alt="Clerkie"
-          className="h-[18px] w-auto"
-        />
-      </div>
-      <div className="fixed top-5 right-5 z-50">
-        <a
-          href="#cta"
-          className="flex items-center rounded-full border border-white/15 bg-black/30 px-5 py-2.5 text-sm font-medium text-white backdrop-blur-md"
-        >
-          Get the App
-        </a>
-      </div>
+      {/* Shared marketing top nav — wordmark, center pill nav, CTA / hamburger. */}
+      <TopNav active="members" ctaLabel="Get the App" ctaHref="#cta" />
 
       <div className="flex flex-col gap-3 p-3">
       {/* ============================================================
@@ -151,9 +125,11 @@ export default function MembersV3Page() {
       {/* ============================================================
           3. § 02 — BENTO PAIR (cool portrait / monochrome chat panel)
          ============================================================ */}
-      <section className="grid h-[100vh] min-h-[760px] w-full grid-cols-1 md:grid-cols-2 gap-3">
+      {/* Mobile: panels stack and each gets its own min-height (via children below).
+          md+: section is locked to viewport height so the two columns share it. */}
+      <section className="grid w-full grid-cols-1 gap-3 md:h-[100vh] md:min-h-[760px] md:grid-cols-2">
         {/* Left: cool-toned portrait with overlay copy */}
-        <div className="relative overflow-hidden rounded-3xl">
+        <div className="relative min-h-[600px] overflow-hidden rounded-3xl md:min-h-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={PHOTOS.bentoPortrait}
@@ -173,7 +149,7 @@ export default function MembersV3Page() {
         </div>
 
         {/* Right: dark surface panel with restrained cyan-accented chat */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#15171B] via-[#101216] to-[#0E1014]">
+        <div className="relative min-h-[600px] overflow-hidden rounded-3xl bg-gradient-to-br from-[#15171B] via-[#101216] to-[#0E1014] md:min-h-0">
           {/* Subtle neutral-cyan glow */}
           <div
             className="pointer-events-none absolute right-[-20%] top-[-20%] h-[600px] w-[600px] rounded-full"
@@ -207,9 +183,10 @@ export default function MembersV3Page() {
       {/* ============================================================
           6. § 04 — BENTO PAIR (bills dashboard / dark testimonial)
          ============================================================ */}
-      <section className="grid h-[100vh] min-h-[760px] w-full grid-cols-1 md:grid-cols-2 gap-3">
+      {/* Same pattern as § 02: panels get tall min-heights on mobile, share viewport on md+ */}
+      <section className="grid w-full grid-cols-1 gap-3 md:h-[100vh] md:min-h-[760px] md:grid-cols-2">
         {/* Left: dark bills dashboard panel */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#15171B] via-[#101216] to-[#0E1014]">
+        <div className="relative min-h-[600px] overflow-hidden rounded-3xl bg-gradient-to-br from-[#15171B] via-[#101216] to-[#0E1014] md:min-h-0">
           {/* Subtle cyan glow corner */}
           <div
             className="pointer-events-none absolute left-[-20%] bottom-[-20%] h-[500px] w-[500px] rounded-full"
@@ -236,7 +213,7 @@ export default function MembersV3Page() {
         </div>
 
         {/* Right: dark testimonial portrait */}
-        <div className="relative overflow-hidden rounded-3xl">
+        <div className="relative min-h-[600px] overflow-hidden rounded-3xl md:min-h-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={PHOTOS.testimonialPortrait}
@@ -387,27 +364,6 @@ export default function MembersV3Page() {
 /* ============================================================
    SUB-COMPONENTS
    ============================================================ */
-
-function PillNavLink({
-  href,
-  children,
-  active,
-}: {
-  href: string;
-  children: React.ReactNode;
-  active?: boolean;
-}) {
-  return (
-    <Link
-      href={href}
-      className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
-        active ? "bg-white/15 text-white" : "text-white/70 hover:text-white"
-      }`}
-    >
-      {children}
-    </Link>
-  );
-}
 
 /**
  * Phone mockup — dark UI version with cyan accents.
