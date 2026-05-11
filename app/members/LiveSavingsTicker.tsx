@@ -139,7 +139,7 @@ export function LiveSavingsTicker() {
   const total = baseline + sessionDelta;
 
   return (
-    <section className="relative h-[100vh] min-h-[820px] w-full overflow-hidden rounded-3xl bg-gradient-to-br from-[#15171B] via-[#101216] to-[#0E1014]">
+    <section className="relative w-full overflow-hidden rounded-3xl bg-gradient-to-br from-[#15171B] via-[#101216] to-[#0E1014] md:h-[100vh] md:min-h-[820px]">
       <style>{KEYFRAMES}</style>
 
       {/* Soft near-monochrome glow centered behind the number */}
@@ -151,17 +151,17 @@ export function LiveSavingsTicker() {
         }}
       />
 
-      <div className="relative z-10 mx-auto flex h-full max-w-[1100px] flex-col items-center justify-center gap-10 px-10 py-16 md:gap-12 md:px-16">
+      <div className="relative z-10 mx-auto flex h-full max-w-[1100px] flex-col items-center justify-center gap-6 px-5 py-10 md:gap-12 md:px-16 md:py-16">
         {/* Eyebrow — quiet credibility, no live cues */}
-        <div className="rounded-full border border-[#5EEAD4]/16 bg-[#5EEAD4]/[0.045] px-3 py-1.5">
-          <span className="text-[11px] font-medium tracking-[0.18em] text-[#B9FFF6]">
+        <div className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1">
+          <span className="text-[9px] font-medium tracking-[0.16em] text-white/70">
             MEMBERS&apos; SAVINGS
           </span>
         </div>
 
         {/* Big counter with slot-machine digit scroll */}
         <div className="flex flex-col items-center gap-4 text-center">
-          <h2 className="text-[64px] font-medium leading-none tracking-[-0.04em] text-white md:text-[110px]">
+          <h2 className="text-[32px] font-medium leading-none tracking-[-0.04em] text-white sm:text-[48px] md:text-[110px]">
             <ScrollingNumber value={total} />
           </h2>
           <p className="max-w-[520px] text-[16px] leading-[1.55] text-white/65 md:text-[18px]">
