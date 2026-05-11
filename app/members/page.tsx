@@ -18,7 +18,7 @@ import { LiveSavingsTicker } from "./LiveSavingsTicker";
  * (Promoted from /members-v3 → /members. The previous v1 lives at
  * /members-archived for reference.) Same structural moves as the now-
  * archived layout (full-bleed photo hero, alternating bento + features,
- * glassy pill nav) with dark-cyan accents shared across the site.
+ * glassy pill nav) with restrained cyan over mostly monochrome surfaces.
  *
  * Photos: Unsplash hot-linked CDN URLs (prototype-only). Photos chosen
  * for moodier dusk/night/cool-toned cinematic mood.
@@ -28,7 +28,7 @@ import { LiveSavingsTicker } from "./LiveSavingsTicker";
  *   - Surface:       #15171B  (slightly lifted dark surface)
  *   - Text primary:  #F7F8F8
  *   - Text muted:    rgba(247,248,248,0.6)
- *   - Accent:        #5EEAD4  (cyan — same as /members)
+ *   - Accent:        restrained cyan over mostly monochrome surfaces
  */
 
 const PHOTOS = {
@@ -149,7 +149,7 @@ export default function MembersV3Page() {
       </section>
 
       {/* ============================================================
-          3. § 02 — BENTO PAIR (cool portrait / dark cyan chat panel)
+          3. § 02 — BENTO PAIR (cool portrait / monochrome chat panel)
          ============================================================ */}
       <section className="grid h-[100vh] min-h-[760px] w-full grid-cols-1 md:grid-cols-2 gap-3">
         {/* Left: cool-toned portrait with overlay copy */}
@@ -172,14 +172,14 @@ export default function MembersV3Page() {
           </div>
         </div>
 
-        {/* Right: dark surface panel with cyan-accented chat */}
+        {/* Right: dark surface panel with restrained cyan-accented chat */}
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#15171B] via-[#101216] to-[#0E1014]">
-          {/* Subtle cyan glow */}
+          {/* Subtle neutral-cyan glow */}
           <div
             className="pointer-events-none absolute right-[-20%] top-[-20%] h-[600px] w-[600px] rounded-full"
             style={{
               background:
-                "radial-gradient(circle, rgba(94,234,212,0.12) 0%, rgba(94,234,212,0) 70%)",
+                "radial-gradient(circle, rgba(94,234,212,0.055) 0%, rgba(255,255,255,0.035) 38%, rgba(255,255,255,0) 70%)",
             }}
           />
           <div className="relative z-10 flex h-full flex-col justify-between p-10 md:p-14">

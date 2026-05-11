@@ -90,7 +90,7 @@ function UserBubble({ children }: { children: React.ReactNode }) {
 
 function AiBubble({ children }: { children: React.ReactNode }) {
   return (
-    <div className="anim-bubble-in max-w-[85%] self-start rounded-3xl rounded-bl-md border border-[#5EEAD4]/20 bg-[#5EEAD4]/[0.08] px-5 py-3 backdrop-blur">
+    <div className="anim-bubble-in max-w-[85%] self-start rounded-3xl rounded-bl-md border border-[#5EEAD4]/12 bg-[#5EEAD4]/[0.04] px-5 py-3 backdrop-blur">
       <p className="text-[14px] leading-[1.4] text-white/90">{children}</p>
     </div>
   );
@@ -98,18 +98,18 @@ function AiBubble({ children }: { children: React.ReactNode }) {
 
 function TypingBubble() {
   return (
-    <div className="anim-bubble-in self-start rounded-3xl rounded-bl-md border border-[#5EEAD4]/20 bg-[#5EEAD4]/[0.08] px-4 py-3.5 backdrop-blur">
+    <div className="anim-bubble-in self-start rounded-3xl rounded-bl-md border border-[#5EEAD4]/12 bg-[#5EEAD4]/[0.04] px-4 py-3.5 backdrop-blur">
       <div className="flex items-center gap-1">
         <span
-          className="anim-typing-dot block h-1.5 w-1.5 rounded-full bg-[#5EEAD4]"
+          className="anim-typing-dot block h-1.5 w-1.5 rounded-full bg-[#5EEAD4]/70"
           style={{ animationDelay: "0s" }}
         />
         <span
-          className="anim-typing-dot block h-1.5 w-1.5 rounded-full bg-[#5EEAD4]"
+          className="anim-typing-dot block h-1.5 w-1.5 rounded-full bg-[#5EEAD4]/70"
           style={{ animationDelay: "0.15s" }}
         />
         <span
-          className="anim-typing-dot block h-1.5 w-1.5 rounded-full bg-[#5EEAD4]"
+          className="anim-typing-dot block h-1.5 w-1.5 rounded-full bg-[#5EEAD4]/70"
           style={{ animationDelay: "0.3s" }}
         />
       </div>
@@ -123,19 +123,19 @@ function VoiceWaveformPill() {
       <div className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] backdrop-blur">
         <div className="flex items-center gap-0.5">
           <span
-            className="anim-wave block w-0.5 rounded-full bg-[#5EEAD4]"
+            className="anim-wave block w-0.5 rounded-full bg-[#5EEAD4]/70"
             style={{ animationDelay: "0s" }}
           />
           <span
-            className="anim-wave block w-0.5 rounded-full bg-[#5EEAD4]"
+            className="anim-wave block w-0.5 rounded-full bg-[#5EEAD4]/70"
             style={{ animationDelay: "0.18s" }}
           />
           <span
-            className="anim-wave block w-0.5 rounded-full bg-[#5EEAD4]"
+            className="anim-wave block w-0.5 rounded-full bg-[#5EEAD4]/70"
             style={{ animationDelay: "0.36s" }}
           />
           <span
-            className="anim-wave block w-0.5 rounded-full bg-[#5EEAD4]"
+            className="anim-wave block w-0.5 rounded-full bg-[#5EEAD4]/70"
             style={{ animationDelay: "0.12s" }}
           />
         </div>

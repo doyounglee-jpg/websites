@@ -377,10 +377,10 @@ export default function CompaniesV3Page() {
                 /members
               </Link>
               <Link
-                href="/companies"
+                href="/companies-archived"
                 className="text-sm text-zinc-500 hover:text-zinc-50"
               >
-                /companies (v1)
+                /companies-archived (v1)
               </Link>
             </div>
           </div>

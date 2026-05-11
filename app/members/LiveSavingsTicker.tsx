@@ -142,19 +142,19 @@ export function LiveSavingsTicker() {
     <section className="relative h-[100vh] min-h-[820px] w-full overflow-hidden rounded-3xl bg-gradient-to-br from-[#15171B] via-[#101216] to-[#0E1014]">
       <style>{KEYFRAMES}</style>
 
-      {/* Cyan radial glow centered behind the number */}
+      {/* Soft near-monochrome glow centered behind the number */}
       <div
         className="pointer-events-none absolute left-1/2 top-1/2 h-[900px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full"
         style={{
           background:
-            "radial-gradient(circle, rgba(94,234,212,0.12) 0%, rgba(94,234,212,0) 60%)",
+            "radial-gradient(circle, rgba(94,234,212,0.055) 0%, rgba(255,255,255,0.035) 36%, rgba(255,255,255,0) 60%)",
         }}
       />
 
       <div className="relative z-10 mx-auto flex h-full max-w-[1100px] flex-col items-center justify-center gap-10 px-10 py-16 md:gap-12 md:px-16">
         {/* Eyebrow — quiet credibility, no live cues */}
-        <div className="rounded-full border border-[#5EEAD4]/25 bg-[#5EEAD4]/[0.08] px-3 py-1.5">
-          <span className="text-[11px] font-medium tracking-[0.18em] text-[#5EEAD4]">
+        <div className="rounded-full border border-[#5EEAD4]/16 bg-[#5EEAD4]/[0.045] px-3 py-1.5">
+          <span className="text-[11px] font-medium tracking-[0.18em] text-[#B9FFF6]">
             MEMBERS&apos; SAVINGS
           </span>
         </div>
@@ -243,12 +243,12 @@ function FeedRow({ item, index }: { item: FeedItem; index: number }) {
       className="anim-feed-in flex items-center gap-3 rounded-2xl border border-white/[0.06] bg-white/[0.03] px-4 py-3 backdrop-blur transition-opacity duration-500"
       style={{ opacity: Math.max(0.3, 1 - index * 0.2) }}
     >
-      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#5EEAD4]/15 text-[10px] font-semibold tracking-[0.02em] text-[#5EEAD4]">
+      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#5EEAD4]/10 text-[10px] font-semibold tracking-[0.02em] text-[#B9FFF6]">
         {item.initial}
       </span>
       <span className="flex-1 text-[13px] leading-[1.4] text-white/85">
         <span className="font-medium">{item.initial}</span> saved{" "}
-        <span className="font-medium text-[#5EEAD4]">
+        <span className="font-medium text-[#B9FFF6]">
           ${item.amount.toLocaleString()}
         </span>{" "}
         negotiating <span className="text-white/65">{item.lender}</span>
