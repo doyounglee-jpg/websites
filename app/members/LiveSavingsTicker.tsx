@@ -147,7 +147,7 @@ export function LiveSavingsTicker() {
         className="pointer-events-none absolute left-1/2 top-1/2 h-[900px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full"
         style={{
           background:
-            "radial-gradient(circle, rgba(94,234,212,0.055) 0%, rgba(255,255,255,0.035) 36%, rgba(255,255,255,0) 60%)",
+            "radial-gradient(circle, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.025) 36%, rgba(255,255,255,0) 60%)",
         }}
       />
 
@@ -243,7 +243,7 @@ function FeedRow({ item, index }: { item: FeedItem; index: number }) {
       className="anim-feed-in flex items-center gap-3 rounded-2xl border border-white/[0.06] bg-white/[0.03] px-4 py-3 backdrop-blur transition-opacity duration-500"
       style={{ opacity: Math.max(0.3, 1 - index * 0.2) }}
     >
-      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#5EEAD4]/10 text-[10px] font-semibold tracking-[0.02em] text-[#B9FFF6]">
+      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/[0.06] text-[10px] font-semibold tracking-[0.02em] text-white/80">
         {item.initial}
       </span>
       <span className="flex-1 text-[13px] leading-[1.4] text-white/85">

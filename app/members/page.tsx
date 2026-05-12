@@ -153,12 +153,12 @@ export default function MembersV3Page() {
 
         {/* Right: dark surface panel with restrained cyan-accented chat */}
         <div className="relative min-h-[600px] overflow-hidden rounded-3xl bg-gradient-to-br from-[#15171B] via-[#101216] to-[#0E1014] md:min-h-0">
-          {/* Subtle neutral-cyan glow */}
+          {/* Subtle neutral-white glow */}
           <div
             className="pointer-events-none absolute right-[-20%] top-[-20%] h-[600px] w-[600px] rounded-full"
             style={{
               background:
-                "radial-gradient(circle, rgba(94,234,212,0.055) 0%, rgba(255,255,255,0.035) 38%, rgba(255,255,255,0) 70%)",
+                "radial-gradient(circle, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.025) 38%, rgba(255,255,255,0) 70%)",
             }}
           />
           <div className="relative z-10 flex h-full flex-col justify-between p-10 md:p-14">
@@ -194,12 +194,12 @@ export default function MembersV3Page() {
             being clipped above the headline. */}
         {/* order-2 on mobile so the testimonial stacks first; reverts to source order on md+ */}
         <div className="relative order-2 min-h-[760px] overflow-hidden rounded-3xl bg-gradient-to-br from-[#15171B] via-[#101216] to-[#0E1014] md:order-none md:min-h-0">
-          {/* Subtle cyan glow corner */}
+          {/* Subtle white glow corner */}
           <div
             className="pointer-events-none absolute left-[-20%] bottom-[-20%] h-[500px] w-[500px] rounded-full"
             style={{
               background:
-                "radial-gradient(circle, rgba(94,234,212,0.08) 0%, rgba(94,234,212,0) 70%)",
+                "radial-gradient(circle, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0) 70%)",
             }}
           />
           <div className="relative z-10 flex h-full flex-col justify-between p-10 md:p-14">
@@ -356,8 +356,8 @@ export default function MembersV3Page() {
             </span>
             <div className="flex items-center gap-2">
               <span
-                className="block h-1.5 w-1.5 rounded-full bg-[#5EEAD4]"
-                style={{ boxShadow: "0 0 10px rgba(94,234,212,0.7)" }}
+                className="block h-1.5 w-1.5 rounded-full bg-white/70"
+                style={{ boxShadow: "0 0 10px rgba(255,255,255,0.35)" }}
               />
               <span className="text-xs font-medium text-zinc-500">
                 All systems operational
@@ -454,7 +454,7 @@ function CategoryCard({
         <span className="font-mono text-[11px] font-medium tracking-[0.02em] text-white/50">
           {statLabel}
         </span>
-        <span className="font-mono text-[13px] font-medium text-[#5EEAD4]">
+        <span className="font-mono text-[13px] font-medium text-white">
           {statValue}
         </span>
       </div>
