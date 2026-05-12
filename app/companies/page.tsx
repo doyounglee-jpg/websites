@@ -17,9 +17,15 @@ export default function CompaniesPage() {
       <TopNav active="companies" ctaLabel="Request demo" ctaHref="#cta" />
 
       {/* ── HERO ─────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden">
-        <div className="aurora-mono pointer-events-none absolute left-1/2 top-[-200px] h-[900px] w-[1400px] -translate-x-1/2" aria-hidden="true" />
-        <div className="dot-grid pointer-events-none absolute inset-x-0 top-0 h-[900px]" aria-hidden="true" />
+      {/* overflow-hidden removed so the bottom of IntegrationMockup can
+          extend below this section and get covered by LogoTicker. The
+          aurora/dot-grid effects are now wrapped in their own bounded,
+          overflow-hidden div so they don't bleed into the next section. */}
+      <section className="relative">
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <div className="aurora-mono absolute left-1/2 top-[-200px] h-[900px] w-[1400px] -translate-x-1/2" aria-hidden="true" />
+          <div className="dot-grid absolute inset-x-0 top-0 h-[900px]" aria-hidden="true" />
+        </div>
 
         <div className="relative z-10 mx-auto flex max-w-[1440px] flex-col items-center gap-8 px-6 pb-12 pt-20 sm:gap-10 sm:px-10 sm:pb-16 sm:pt-28 md:px-16 md:pb-20 md:pt-[120px]">
           <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] py-1.5 pl-2 pr-3.5">
@@ -49,23 +55,24 @@ export default function CompaniesPage() {
               Request Demo
               <span className="text-zinc-500">→</span>
             </a>
-            <a
-              href="#gradient"
-              className="rounded-[10px] border border-white/10 bg-white/5 px-5 py-3 text-sm font-medium tracking-[-0.005em]"
-            >
-              Learn More
-            </a>
           </div>
         </div>
 
-        <div className="relative z-10 flex justify-center px-6 pb-20 sm:px-10 sm:pb-24 md:px-16 md:pb-32">
+        {/* Mockup container — no bottom padding, small negative-mb pushes
+            the mockup down so it overflows below the hero by ~5-7%. The
+            LogoTicker below (z-30) paints over that overflowed sliver. */}
+        <div className="relative z-10 -mb-5 flex justify-center px-6 sm:-mb-6 sm:px-10 md:-mb-8 md:px-16">
           <div className="aurora-mono-tight pointer-events-none absolute left-1/2 top-[40px] h-[600px] w-[1100px] -translate-x-1/2" aria-hidden="true" />
           <IntegrationMockup />
         </div>
       </section>
 
       {/* ── § LOGOS - TICKER ─────────────────────────────────────────── */}
-      <LogoTicker />
+      {/* relative + z-30 so the solid LogoTicker bg paints OVER the bottom
+          slice of the mockup that overflowed past the hero section above. */}
+      <div className="relative z-30">
+        <LogoTicker />
+      </div>
 
       {/* ── § 01 - PHOTO CARDS (Image #11 style) ────────────────────── */}
       <section id="features" className="bg-[#0E1014] px-6 py-24 sm:px-10 md:px-16 md:py-32 lg:px-24 lg:py-40">
@@ -164,19 +171,28 @@ export default function CompaniesPage() {
               {MEMBER_SAVINGS.map((row, i) => (
                 <MemberSavingsRow key={row.id} {...row} isLast={i === MEMBER_SAVINGS.length - 1} />
               ))}
-              {/* Mobile footer summary */}
+              {/* Mobile footer summary.
+                  Dot wrapped in a 36×36 (h-9 w-9) flex-centered container so
+                  its center aligns horizontally with the 36×36 avatar badges
+                  in the rows above. */}
               <div className="flex flex-col gap-1.5 border-t border-white/[0.06] bg-white/[0.02] px-5 py-4 sm:hidden">
                 <div className="flex items-center gap-3">
-                  <span className="block h-2 w-2 shrink-0 rounded-full bg-zinc-50" style={{ boxShadow: "0 0 12px rgba(255,255,255,0.4)" }} />
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center">
+                    <span className="block h-2 w-2 rounded-full bg-zinc-50" style={{ boxShadow: "0 0 12px rgba(255,255,255,0.4)" }} />
+                  </span>
                   <span className="flex-1 text-sm font-medium tracking-[-0.005em]">Average saved per enrolled employee</span>
                   <span className="font-mono text-base font-semibold tracking-[-0.01em]">$4,820</span>
                 </div>
-                <p className="pl-[20px] text-[13px] text-zinc-500">Across 240+ employer partners · All categories</p>
+                <p className="pl-[48px] text-[13px] text-zinc-500">Across 240+ employer partners · All categories</p>
               </div>
-              {/* Desktop footer summary */}
+              {/* Desktop footer summary.
+                  Same 36×36 wrapper so the dot's center sits on the same
+                  vertical line as the avatar badges in rows above. */}
               <div className="hidden items-center border-t border-white/[0.06] bg-white/[0.02] px-6 py-4 sm:flex">
-                <div className="flex w-14 shrink-0 items-center">
-                  <span className="block h-2 w-2 rounded-full bg-zinc-50" style={{ boxShadow: "0 0 12px rgba(255,255,255,0.4)" }} />
+                <div className="w-14 shrink-0">
+                  <span className="flex h-9 w-9 items-center justify-center">
+                    <span className="block h-2 w-2 rounded-full bg-zinc-50" style={{ boxShadow: "0 0 12px rgba(255,255,255,0.4)" }} />
+                  </span>
                 </div>
                 <span className="flex-1 text-sm font-medium tracking-[-0.005em]">Average saved per enrolled employee</span>
                 <span className="w-[220px] shrink-0 text-[13px] text-zinc-500">Across 240+ employer partners</span>
