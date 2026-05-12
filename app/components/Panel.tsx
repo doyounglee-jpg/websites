@@ -109,6 +109,16 @@ export default function Panel({
         <div>
           <h1 className={styles.panelTitle}>{copy.title}</h1>
           <p className={styles.panelSubtitle}>{copy.subtitle}</p>
+          {/* Hover-only product chips — previews what's behind the click.
+              Each product is a glass pill. Hidden by default; the row
+              fades + slides up via .panel:hover .panelProducts. */}
+          <div className={styles.panelProducts} aria-hidden="true">
+            {cols.map((c) => (
+              <span key={c.key} className={styles.panelProductChip}>
+                {c.title}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
 
