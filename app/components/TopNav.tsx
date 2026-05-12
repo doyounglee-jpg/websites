@@ -34,7 +34,7 @@ export function TopNav({
   return (
     <header className="fixed inset-x-0 top-5 z-50 flex items-center justify-between px-5">
       {/* Left: Clerkie wordmark. Links to the root "/" split landing page.
-          Nudged down 2px to optically center against the pill nav / CTA —
+          Nudged down 2px to optically center against the pill nav / CTA -
           the SVG's letters sit higher inside its bounding box (top pad
           2.25u vs bottom pad 10.65u of viewBox=200). */}
       <div className="flex flex-1 items-center justify-start">
