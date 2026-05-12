@@ -18,102 +18,222 @@ export type SubColumnData = {
 };
 
 /**
- * MidAnimation — a tiny CSS-only "UI moment" that lives between the
- * label and title block of each sub-product card. Each one telegraphs
- * the product's actual feature set by mimicking a real UI event:
+ * MidAnimation — multi-step UI vignettes for each sub-product card.
+ * Each tells a 4-5 step story mimicking a real product moment:
  *
- *   members  → payment confirmation toast (debt payoff)
- *   companies → team enrollment notification (avatars + count)
- *   crm      → new-case notification card (status pill + record)
- *   ims      → file upload progress (icon + filename + bar fill)
- *   agent    → chat: typing dots → response message
+ *   members   → pay-then-celebrate chat (7s)
+ *               Pay btn → user msg → typing → Clerkie msg → 🏆 chip
+ *   companies → live KPI dashboard (6s)
+ *               3 KPI tiles cascade in
+ *   crm       → case pipeline movement (7s)
+ *               Card moves left→right through New / Active / Recovered
+ *   ims       → file upload + AI categorize (6s)
+ *               File row + filling bar → "Analyzing..." → "Filed" tag
+ *   agent     → chat exchange + actions (7s)
+ *               User Q → typing → AI A → [ Yes ] [ Skip ]
  *
- * All pointer-events:none, aria-hidden, CSS-only loops. The icons are
- * inline SVGs so we don't pay for any extra requests. */
+ * All auto-play (continuous loop) so users see the full story without
+ * needing to hover. Reduced-motion respected in the CSS module. */
 function MidAnimation({ kind }: { kind: string }) {
   switch (kind) {
     case "members":
-      // Payment confirmation toast slides up + fades, then resets.
+      // Wireframe chat: outlined bubbles drawing in left-to-right via
+      // clip-path, no fills. Pure black-and-white-on-dark vibe.
       return (
-        <div className={styles.animMembers} aria-hidden>
-          <div className={styles.animMembersToast}>
-            <div className={styles.animMembersCheck}>
-              <svg viewBox="0 0 16 16" width="10" height="10" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M3 8l3 3 7-7" />
-              </svg>
-            </div>
-            <div className={styles.animMembersText}>
-              <div className={styles.animMembersAmount}>$487 paid</div>
-              <div className={styles.animMembersSubtext}>Visa ending 4831</div>
-            </div>
-          </div>
-        </div>
-      );
-
-    case "companies":
-      // Avatars cascade in one by one, then "+ 12 enrolled" appears.
-      return (
-        <div className={styles.animCompanies} aria-hidden>
-          <span className={`${styles.animCompaniesAvatar} ${styles.animCompaniesAvatar1}`} />
-          <span className={`${styles.animCompaniesAvatar} ${styles.animCompaniesAvatar2}`} />
-          <span className={`${styles.animCompaniesAvatar} ${styles.animCompaniesAvatar3}`} />
-          <span className={styles.animCompaniesCount}>+ 12 enrolled</span>
-        </div>
-      );
-
-    case "crm":
-      // New-case notification card slides in. Status dot pulses to
-      // suggest "live / active".
-      return (
-        <div className={styles.animCrm} aria-hidden>
-          <div className={styles.animCrmCard}>
-            <div className={styles.animCrmHeader}>
-              <span className={styles.animCrmId}>Case #4827</span>
-              <span className={styles.animCrmStatus}>
-                <span className={styles.animCrmStatusDot} />
-                Active
+        <>
+          <div className={styles.animMembers} aria-hidden>
+            <div className={styles.animMembersPayBtn}>
+              <span className={styles.animMembersPayBtnLabel}>Pay $487</span>
+              <span className={styles.animMembersPayBtnLoading} aria-hidden>
+                <span /><span /><span />
               </span>
+              <span className={styles.animMembersPayBtnDone}>✓ Paid</span>
             </div>
-            <div className={styles.animCrmName}>J. Smith · $2,341</div>
-          </div>
-        </div>
-      );
-
-    case "ims":
-      // File upload row: doc icon + filename + progress bar that fills
-      // 0 → 100, holds at "Uploaded ✓", resets.
-      return (
-        <div className={styles.animIms} aria-hidden>
-          <div className={styles.animImsFile}>
-            <div className={styles.animImsIcon}>
-              <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M3 1.5h6l4 4v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-12a1 1 0 0 1 1-1z" />
-                <path d="M9 1.5v4h4" />
-              </svg>
+            <div className={styles.animMembersUserMsg}>
+              Made final payment 💪
             </div>
-            <div className={styles.animImsInfo}>
-              <div className={styles.animImsFilename}>invoice-2401.pdf</div>
-              <div className={styles.animImsTrack}>
-                <div className={styles.animImsFill} />
+            <div className={styles.animMembersTyping}>
+              <span /><span /><span />
+            </div>
+            <div className={styles.animMembersClerkieMsg}>
+              🎉 You did it!
+            </div>
+            <div className={styles.animMembersAchievement}>
+              <div className={styles.animMembersAchievementMain}>
+                💳 Credit Card · $4,287
+              </div>
+              <div className={styles.animMembersAchievementSub}>
+                PAID OFF in 14 months
               </div>
             </div>
           </div>
-        </div>
+          <div className={styles.animMembersMobile} aria-hidden>
+            <div className={styles.animMembersMobileTrack}>
+              <div className={styles.animMembersMobileFill} />
+            </div>
+            <div className={styles.animMembersMobileLabel}>73% paid off</div>
+          </div>
+        </>
+      );
+
+    case "companies":
+      // Duna-style 2-panel flow:
+      //   Panel A (top): new enrollment notification
+      //   Curved arrow drawing in
+      //   Panel B (bottom): aggregated dashboard stat updated
+      return (
+        <>
+          <div className={styles.animCompanies} aria-hidden>
+            {/* Panel A — new enrollment */}
+            <div className={`${styles.flowCard} ${styles.flowCardA} ${styles.flowCardDark}`}>
+              <div className={styles.flowCardRow}>
+                <span className={styles.flowAvatar}>S</span>
+                <div className={styles.flowCardText}>
+                  <div className={styles.flowCardTitle}>Sarah K.</div>
+                  <div className={styles.flowCardSub}>Engineering · Just enrolled</div>
+                </div>
+                <span className={styles.flowCheck}>✓</span>
+              </div>
+            </div>
+            {/* Curved connector arrow drawing in */}
+            <svg className={styles.flowArrow} viewBox="0 0 32 36" fill="none" aria-hidden>
+              <path className={styles.flowArrowPath} d="M 16,2 C 8,12 24,20 16,32" />
+              <path className={styles.flowArrowHead} d="M 12,28 L 16,32 L 20,28" />
+            </svg>
+            {/* Panel B — dashboard stat */}
+            <div className={`${styles.flowCard} ${styles.flowCardB} ${styles.flowCardDark}`}>
+              <div className={styles.flowKpiLabel}>Total enrolled this quarter</div>
+              <div className={styles.flowKpiRow}>
+                <span className={styles.flowKpiValue}>127</span>
+                <span className={styles.flowKpiDelta}>+1 today</span>
+              </div>
+            </div>
+          </div>
+          <div className={styles.animCompaniesMobile} aria-hidden>
+            <div className={styles.animCompaniesMobileDot} />
+            <div className={styles.animCompaniesMobileRing} />
+            <div
+              className={`${styles.animCompaniesMobileRing} ${styles.animCompaniesMobileRingDelay}`}
+            />
+          </div>
+        </>
+      );
+
+    case "crm":
+      // Duna-style 2-panel flow:
+      //   Panel A (top): new case with NEW status (yellow pill)
+      //   Curved arrow
+      //   Panel B (bottom): SAME case now RECOVERED (green pill)
+      return (
+        <>
+          <div className={styles.animCrm} aria-hidden>
+            <div className={`${styles.flowCard} ${styles.flowCardA} ${styles.flowCardLight}`}>
+              <div className={styles.flowCardRow}>
+                <div className={styles.flowCardText}>
+                  <div className={styles.flowCardTitle}>Case #4827 · J. Smith</div>
+                  <div className={styles.flowCardSub}>$2,341 · Auto loan</div>
+                </div>
+                <span className={`${styles.flowStatusPill} ${styles.flowStatusNew}`}>NEW</span>
+              </div>
+            </div>
+            <svg className={styles.flowArrow} viewBox="0 0 32 36" fill="none" aria-hidden>
+              <path className={styles.flowArrowPath} d="M 16,2 C 8,12 24,20 16,32" />
+              <path className={styles.flowArrowHead} d="M 12,28 L 16,32 L 20,28" />
+            </svg>
+            <div className={`${styles.flowCard} ${styles.flowCardB} ${styles.flowCardLight}`}>
+              <div className={styles.flowCardRow}>
+                <div className={styles.flowCardText}>
+                  <div className={styles.flowCardTitle}>Case #4827 · J. Smith</div>
+                  <div className={styles.flowCardSub}>$2,341 collected in 38 days</div>
+                </div>
+                <span className={`${styles.flowStatusPill} ${styles.flowStatusResolved}`}>✓ RECOVERED</span>
+              </div>
+            </div>
+          </div>
+          <div className={styles.animCrmMobile} aria-hidden>
+            <div className={styles.animCrmMobileBar} />
+            <div className={styles.animCrmMobileBar} />
+            <div className={styles.animCrmMobileBar} />
+          </div>
+        </>
+      );
+
+    case "ims":
+      // Duna-style 2-panel flow:
+      //   Panel A (top): file uploading with progress bar
+      //   Curved arrow
+      //   Panel B (bottom): same file FILED with category tag
+      return (
+        <>
+          <div className={styles.animIms} aria-hidden>
+            <div className={`${styles.flowCard} ${styles.flowCardA} ${styles.flowCardLight}`}>
+              <div className={styles.flowCardRow}>
+                <div className={styles.flowFileIcon}>
+                  <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M3 1.5h6l4 4v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-12a1 1 0 0 1 1-1z" />
+                    <path d="M9 1.5v4h4" />
+                  </svg>
+                </div>
+                <div className={styles.flowCardText}>
+                  <div className={styles.flowCardTitle}>invoice-2401.pdf</div>
+                  <div className={styles.flowImsProgressTrack}>
+                    <div className={styles.flowImsProgressFill} />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <svg className={styles.flowArrow} viewBox="0 0 32 36" fill="none" aria-hidden>
+              <path className={styles.flowArrowPath} d="M 16,2 C 8,12 24,20 16,32" />
+              <path className={styles.flowArrowHead} d="M 12,28 L 16,32 L 20,28" />
+            </svg>
+            <div className={`${styles.flowCard} ${styles.flowCardB} ${styles.flowCardLight}`}>
+              <div className={styles.flowCardRow}>
+                <div className={styles.flowFileIcon}>📁</div>
+                <div className={styles.flowCardText}>
+                  <div className={styles.flowCardTitle}>invoice-2401.pdf</div>
+                  <div className={styles.flowCardSub}>Filed · Accounts Receivable</div>
+                </div>
+                <span className={styles.flowCheck}>✓</span>
+              </div>
+            </div>
+          </div>
+          <div className={styles.animImsMobile} aria-hidden>
+            <div className={styles.animImsMobileBar} />
+            <div className={styles.animImsMobileBar} />
+            <div className={styles.animImsMobileBar} />
+            <div className={styles.animImsMobileBar} />
+          </div>
+        </>
       );
 
     case "agent":
-      // Chat bubble: shows 3 typing dots, then morphs to a message.
-      // Two children (typing, msg) overlap in the bubble; opacity
-      // transitions hand off between them.
+      // Wireframe chat with AI twinkle/sparkle on the AI bubble.
       return (
-        <div className={styles.animAgent} aria-hidden>
-          <div className={styles.animAgentBubble}>
+        <>
+          <div className={styles.animAgent} aria-hidden>
+            <div className={styles.animAgentUserMsg}>
+              When&apos;s my next payment?
+            </div>
             <div className={styles.animAgentTyping}>
               <span /><span /><span />
             </div>
-            <div className={styles.animAgentMsg}>Payment plan sent ✓</div>
+            <div className={styles.animAgentAiMsg}>
+              <span className={`${styles.animAgentSparkle} ${styles.animAgentSparkle1}`}>✦</span>
+              <span className={`${styles.animAgentSparkle} ${styles.animAgentSparkle2}`}>✦</span>
+              <span className={`${styles.animAgentSparkle} ${styles.animAgentSparkle3}`}>✦</span>
+              Apr 15. Want auto-pay?
+            </div>
+            <div className={styles.animAgentActions}>
+              <span className={styles.animAgentActionPrimary}>Yes</span>
+              <span className={styles.animAgentActionSecondary}>Skip</span>
+            </div>
           </div>
-        </div>
+          <div className={styles.animAgentMobile} aria-hidden>
+            <div className={styles.animAgentMobileDot} />
+            <div className={styles.animAgentMobileDot} />
+            <div className={styles.animAgentMobileDot} />
+          </div>
+        </>
       );
 
     default:
@@ -173,10 +293,11 @@ export default function SubColumn({
         {data.label}
       </div>
 
-      {/* Middle slot — a tiny product-character animation. Sits between
-          the label (top) and the title block (bottom) — the parent's
-          flex justify-content: space-between handles vertical placement. */}
-      <MidAnimation kind={data.key} />
+      {/* Mid-card animations removed — keeping the sub-cards clean
+          with just label + title + subtitle + "Learn more →".
+          The MidAnimation function and its CSS are kept in this file
+          and landing.module.css for potential future reuse, but not
+          rendered. */}
 
       <div>
         <h2 className={styles.colTitle}>{data.title}</h2>
