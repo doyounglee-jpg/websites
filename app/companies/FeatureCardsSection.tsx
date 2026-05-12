@@ -112,10 +112,14 @@ function AdaptivePlanPanel() {
 /* ── Card 3 UI — Milestone progress ──────────────────────────── */
 function MilestoneProgress() {
   const BAR = 68;
+  /* Evenly spaced (15 / 50 / 85, 35% gaps) so the dots read as a clean
+     three-step progression. Labels are positioned absolutely at the same
+     percentages and -translate-x-1/2 so each label's CENTER lines up with
+     its dot's CENTER. */
   const milestones = [
-    { label: "$250 saved",   pct: 20 },
-    { label: "Debt reduced", pct: 52 },
-    { label: "On track",     pct: 88 },
+    { label: "$250 saved",   pct: 15 },
+    { label: "Debt reduced", pct: 50 },
+    { label: "On track",     pct: 85 },
   ];
   const stats = [
     { label: "Saved",    value: "$1,840" },
@@ -156,10 +160,15 @@ function MilestoneProgress() {
         ))}
       </div>
 
-      {/* Labels */}
-      <div className="mb-5 flex justify-between pl-[2%] pr-[5%]">
+      {/* Labels — absolutely positioned so each label's center sits directly
+          under the matching dot's center (same pct values, same translate). */}
+      <div className="relative mb-5 h-4">
         {milestones.map((m) => (
-          <span key={m.label} className="text-[9px] font-medium text-white/32">
+          <span
+            key={m.label}
+            className="absolute top-0 -translate-x-1/2 whitespace-nowrap text-[9px] font-medium text-white/32"
+            style={{ left: `${m.pct}%` }}
+          >
             {m.label}
           </span>
         ))}
