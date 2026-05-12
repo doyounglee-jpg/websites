@@ -41,12 +41,30 @@ export function HeroPhoneVideo({
   }, [notificationStart, notificationDuration]);
 
   return (
-    /* Phone-shaped video container — overflow-hidden serves double duty:
-       it clips the video to the rounded corners AND clips the notification
-       card while it sits above its target position, so the card slides in
-       from above as a fully-opaque object instead of fading. This keeps
-       the glass effect at full strength throughout the animation. */
-    <div className="relative z-10 aspect-[4/5] w-full max-w-[420px] overflow-hidden rounded-[28px] border border-white/10 bg-gradient-to-br from-zinc-800 to-zinc-900 shadow-[0_30px_80px_rgba(0,0,0,0.5)] lg:aspect-[9/19.5] lg:h-[68vh] lg:w-auto lg:max-w-none lg:max-h-[760px]">
+    <>
+      {/* Ambient-mode halo — YouTube-style. The same video plays here
+          scaled up, heavily blurred, and at low opacity, so the area
+          around the phone takes on the dominant tones of the current
+          frame. -z-10 places it below the phone within the flex parent's
+          stacking context but still above the section gradient bg. */}
+      <video
+        className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-full w-[122%] max-w-none -translate-x-1/2 -translate-y-1/2 object-cover opacity-15"
+        style={{ filter: "blur(90px) saturate(1.2)" }}
+        autoPlay
+        muted
+        loop
+        playsInline
+        aria-hidden="true"
+      >
+        <source src={src} type="video/mp4" />
+      </video>
+
+      {/* Phone-shaped video container — overflow-hidden serves double duty:
+         it clips the video to the rounded corners AND clips the notification
+         card while it sits above its target position, so the card slides in
+         from above as a fully-opaque object instead of fading. This keeps
+         the glass effect at full strength throughout the animation. */}
+      <div className="relative z-10 aspect-[4/5] w-full max-w-[420px] overflow-hidden rounded-[28px] border border-white/10 bg-gradient-to-br from-zinc-800 to-zinc-900 shadow-[0_30px_80px_rgba(0,0,0,0.5)] lg:aspect-[10/19.5] lg:h-[68vh] lg:w-auto lg:max-w-none lg:max-h-[760px]">
       <video
         ref={videoRef}
         className="absolute inset-0 h-full w-full object-cover"
@@ -83,5 +101,6 @@ export function HeroPhoneVideo({
         </div>
       </div>
     </div>
+    </>
   );
 }
