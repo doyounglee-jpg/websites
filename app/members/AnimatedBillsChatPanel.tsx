@@ -58,7 +58,6 @@ export function AnimatedBillsChatPanel() {
         {/* Header — Clerkie AI · ONLINE · ⌘K (always visible) */}
         <div className="flex items-center justify-between border-b border-white/[0.06] px-4 py-3">
           <div className="flex items-center gap-2">
-            <LogoBadge />
             <span className="text-[13px] font-semibold tracking-[-0.005em] text-white">
               Clerkie AI
             </span>
@@ -89,18 +88,18 @@ export function AnimatedBillsChatPanel() {
           {/* Typing indicator (only while step === 2) */}
           {step === 2 && (
             <div className="anim-bills-in flex">
-              <div className="rounded-[14px_14px_14px_4px] border border-[#5EEAD4]/20 bg-[#5EEAD4]/[0.08] px-3.5 py-3 backdrop-blur">
+              <div className="rounded-[14px_14px_14px_4px] border border-white/15 bg-white/[0.07] px-3.5 py-3 backdrop-blur">
                 <div className="flex items-center gap-1">
                   <span
-                    className="anim-bills-dot block h-1.5 w-1.5 rounded-full bg-[#5EEAD4]"
+                    className="anim-bills-dot block h-1.5 w-1.5 rounded-full bg-white/80"
                     style={{ animationDelay: "0s" }}
                   />
                   <span
-                    className="anim-bills-dot block h-1.5 w-1.5 rounded-full bg-[#5EEAD4]"
+                    className="anim-bills-dot block h-1.5 w-1.5 rounded-full bg-white/80"
                     style={{ animationDelay: "0.15s" }}
                   />
                   <span
-                    className="anim-bills-dot block h-1.5 w-1.5 rounded-full bg-[#5EEAD4]"
+                    className="anim-bills-dot block h-1.5 w-1.5 rounded-full bg-white/80"
                     style={{ animationDelay: "0.3s" }}
                   />
                 </div>
@@ -113,7 +112,6 @@ export function AnimatedBillsChatPanel() {
             <div className="anim-bills-in flex flex-col items-start gap-2 pr-6">
               {/* Meta line ("CLERKIE · ANALYZED 3 ACCOUNTS") */}
               <div className="flex items-center gap-2">
-                <LogoBadge size={4} />
                 <span className="text-[10px] font-medium tracking-[0.04em] text-zinc-500">
                   CLERKIE · ANALYZED 3 ACCOUNTS
                 </span>
@@ -205,25 +203,6 @@ const BILLS = [
   { label: "Spotify", due: "Wed", amount: "$11" },
   { label: "Capital One", due: "Fri", amount: "$184" },
 ];
-
-/* --- Sub-components ------------------------------------------------- */
-
-/**
- * Small cyan badge that stands in for the Clerkie logo. Two sizes:
- *   default (size 5) for the chat header
- *   compact (size 4) for the inline AI meta line
- */
-function LogoBadge({ size = 5 }: { size?: 4 | 5 }) {
-  const outer = size === 5 ? "h-5 w-5" : "h-4 w-4";
-  const inner = size === 5 ? "h-2 w-2" : "h-1.5 w-1.5";
-  return (
-    <div
-      className={`flex ${outer} items-center justify-center rounded-md bg-[#5EEAD4]/15`}
-    >
-      <span className={`block ${inner} rounded-full bg-[#5EEAD4]`} />
-    </div>
-  );
-}
 
 /* --- Keyframes ------------------------------------------------------ */
 /* Distinct class names from AnimatedChatPanel so the two components
