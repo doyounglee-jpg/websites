@@ -73,7 +73,7 @@ export default function MembersV3Page() {
           Stacks on mobile; video pulled to top via `order-1` to match Cash App's mobile pattern.
           Section uses `items-center` so the grid is vertically centered in the viewport.
         */}
-        <div className="relative z-10 mx-auto w-full max-w-[1440px] px-6 py-24 sm:px-10 md:px-16">
+        <div className="relative z-10 mx-auto w-full max-w-[1440px] px-6 py-20 sm:px-10 sm:py-24 md:px-16">
           <div className="flex w-full flex-col items-center gap-8 lg:grid lg:grid-cols-12 lg:items-center lg:gap-6">
             {/* LEFT - Headline (spans cols 1-4 = full left half, content
                 block constrained to ~280px and centered within the half so

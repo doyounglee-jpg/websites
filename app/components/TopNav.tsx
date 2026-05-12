@@ -27,23 +27,29 @@ export function TopNav({
   ctaLabel?: string;
   ctaHref?: string;
 }) {
+  /* Single flex row: three equal-width slots (logo / pill / CTA) so all
+     three are vertically centered with each other via `items-center`. The
+     middle slot uses `justify-center` to keep the pill at viewport center
+     regardless of the logo or CTA widths. */
   return (
-    <>
-      {/* Clerkie wordmark — left side, all sizes. No pill wrapper. */}
-      <div className="fixed left-5 top-5 z-50">
-        <Link href="/members" aria-label="Clerkie home" className="block">
+    <header className="fixed inset-x-0 top-5 z-50 flex items-center justify-between px-5">
+      {/* Left: Clerkie wordmark. Nudged down 2px to optically center against
+          the pill nav / CTA — the SVG's letters sit higher inside its
+          bounding box (top pad 2.25u vs bottom pad 10.65u of viewBox=200). */}
+      <div className="flex flex-1 items-center justify-start">
+        <Link href="/members" aria-label="Clerkie home" className="inline-block">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/clerkie-wordmark.svg"
             alt="Clerkie"
-            className="h-[20px] w-auto"
+            className="h-[20px] w-auto translate-y-[2px]"
           />
         </Link>
       </div>
 
-      {/* Center pill nav — desktop only (md+). */}
-      <header className="fixed left-1/2 top-5 z-50 hidden -translate-x-1/2 md:block">
-        <nav className="flex items-center gap-1 rounded-full border border-white/15 bg-black/30 px-2 py-1.5 backdrop-blur-md">
+      {/* Center: pill nav (desktop only) */}
+      <div className="flex flex-1 items-center justify-center">
+        <nav className="hidden items-center gap-1 rounded-full border border-white/15 bg-black/30 px-2 py-1.5 backdrop-blur-md md:flex">
           <NavLink href="/members" active={active === "members"}>
             Members
           </NavLink>
@@ -51,10 +57,10 @@ export function TopNav({
             Companies
           </NavLink>
         </nav>
-      </header>
+      </div>
 
-      {/* Right side — desktop CTA pill, mobile hamburger. */}
-      <div className="fixed right-5 top-5 z-50">
+      {/* Right: CTA pill (desktop) or hamburger (mobile) */}
+      <div className="flex flex-1 items-center justify-end">
         <a
           href={ctaHref}
           className="hidden items-center rounded-full border border-white/15 bg-black/30 px-5 py-2.5 text-sm font-medium text-white backdrop-blur-md md:flex"
@@ -69,7 +75,7 @@ export function TopNav({
           />
         </div>
       </div>
-    </>
+    </header>
   );
 }
 
