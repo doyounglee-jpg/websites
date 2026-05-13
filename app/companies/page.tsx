@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { TopNav } from "../components/TopNav";
-import Reveal from "../components/Reveal";
 import RevealStack from "../components/RevealStack";
 import DebtScrollStory from "./DebtScrollStory";
 import FeatureCardsSection from "./FeatureCardsSection";
@@ -91,20 +90,23 @@ export default function CompaniesPage() {
       </div>
 
       {/* ── § 01 - PHOTO CARDS (Image #11 style) ────────────────────── */}
-      <Reveal>
+      {/* RevealStack cascade applies the same hero-style staggered
+          reveal to this section's pieces: header text first, then the
+          three cards in sequence. Order in DOM = order in cascade. */}
+      <RevealStack>
       <section id="features" className="bg-[#0E1014] px-6 py-24 sm:px-10 md:px-16 md:py-32 lg:px-24 lg:py-40">
         <div className="mx-auto mb-16 max-w-[1440px] text-center md:mb-20">
-          <SectionEyebrow>02 - PLATFORM</SectionEyebrow>
-          <h2 className="mt-5 text-4xl font-semibold leading-[1.05] tracking-[-0.04em] sm:text-5xl md:text-[56px] lg:text-[64px] lg:leading-[1.02]">
+          <SectionEyebrow className="reveal-item">02 - PLATFORM</SectionEyebrow>
+          <h2 className="reveal-item mt-5 text-4xl font-semibold leading-[1.05] tracking-[-0.04em] sm:text-5xl md:text-[56px] lg:text-[64px] lg:leading-[1.02]">
             Everything they need, handled.
           </h2>
-          <p className="mx-auto mt-5 max-w-[500px] text-base leading-[1.55] text-zinc-400 sm:text-[18px]">
+          <p className="reveal-item mx-auto mt-5 max-w-[500px] text-base leading-[1.55] text-zinc-400 sm:text-[18px]">
             Clerkie gives every employee a personal debt advisor - AI-powered plans,
             live lender negotiations, and real-time progress tracking.
           </p>
           <a
             href="#cta"
-            className="mt-8 inline-flex items-center rounded-[10px] border border-white/15 bg-white/5 px-6 py-2.5 text-[12px] font-semibold tracking-[0.06em] uppercase"
+            className="reveal-item mt-8 inline-flex items-center rounded-[10px] border border-white/15 bg-white/5 px-6 py-2.5 text-[12px] font-semibold tracking-[0.06em] uppercase"
           >
             More about the platform
           </a>
@@ -113,7 +115,7 @@ export default function CompaniesPage() {
         <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-4 sm:grid-cols-3">
 
           {/* Card 1 - Smart Debt Paydown */}
-          <div className="group relative flex min-h-[520px] flex-col overflow-hidden rounded-[22px] border border-white/[0.10] transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-white/[0.20] hover:shadow-[0_20px_60px_rgba(0,0,0,0.7)] sm:min-h-[600px]">
+          <div className="reveal-item group relative flex min-h-[520px] flex-col overflow-hidden rounded-[22px] border border-white/[0.10] transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-white/[0.20] hover:shadow-[0_20px_60px_rgba(0,0,0,0.7)] sm:min-h-[600px]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=800&q=80" alt="" className="absolute inset-0 h-full w-full object-cover object-top" />
             <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom,rgba(0,0,0,0.04) 0%,rgba(0,0,0,0.22) 45%,rgba(0,0,0,0.65) 100%)" }} />
@@ -127,7 +129,7 @@ export default function CompaniesPage() {
           </div>
 
           {/* Card 2 - Adaptive Budgeting */}
-          <div className="group relative flex min-h-[460px] flex-col overflow-hidden rounded-[22px] border border-white/[0.10] transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-white/[0.20] hover:shadow-[0_20px_60px_rgba(0,0,0,0.7)] sm:min-h-[600px]">
+          <div className="reveal-item group relative flex min-h-[460px] flex-col overflow-hidden rounded-[22px] border border-white/[0.10] transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-white/[0.20] hover:shadow-[0_20px_60px_rgba(0,0,0,0.7)] sm:min-h-[600px]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/sunrise-landscape.png" alt="" className="absolute inset-0 h-full w-full object-cover object-top" />
             <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom,rgba(0,0,0,0.0) 0%,rgba(4,2,0,0.20) 40%,rgba(14,7,0,0.68) 100%)" }} />
@@ -141,7 +143,7 @@ export default function CompaniesPage() {
           </div>
 
           {/* Card 3 - Upcoming Payments */}
-          <div className="group relative flex min-h-[520px] flex-col overflow-hidden rounded-[22px] border border-white/[0.10] transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-white/[0.20] hover:shadow-[0_20px_60px_rgba(0,0,0,0.7)] sm:min-h-[600px]">
+          <div className="reveal-item group relative flex min-h-[520px] flex-col overflow-hidden rounded-[22px] border border-white/[0.10] transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-white/[0.20] hover:shadow-[0_20px_60px_rgba(0,0,0,0.7)] sm:min-h-[600px]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/lake.avif" alt="" className="absolute inset-0 h-full w-full object-cover object-top" />
             <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom,rgba(0,0,0,0.04) 0%,rgba(0,0,0,0.22) 45%,rgba(0,0,0,0.65) 100%)" }} />
@@ -156,7 +158,7 @@ export default function CompaniesPage() {
 
         </div>
       </section>
-      </Reveal>
+      </RevealStack>
 
       {/* ── § 03 - CONTEXT ───────────────────────────────────────────── */}
       {/* INTENTIONALLY NOT wrapped in <Reveal>: the inner DebtScrollStory
@@ -169,25 +171,25 @@ export default function CompaniesPage() {
         <DebtScrollStory />
       </section>
 
-      <Reveal>
+      <RevealStack>
         <FeatureCardsSection />
-      </Reveal>
+      </RevealStack>
 
       {/* ── § 04 - RETURN ───────────────────────────────────────────── */}
-      <Reveal>
+      <RevealStack>
       <section className="border-t border-white/[0.06] bg-[#0E1014]">
         <div className="mx-auto flex max-w-[1440px] flex-col items-stretch gap-12 px-6 pb-20 pt-24 sm:px-10 sm:pb-24 sm:pt-28 md:px-16 md:pb-28 md:pt-32 lg:flex-row lg:gap-20 lg:px-24 lg:pb-32 lg:pt-40">
           <div className="flex flex-col gap-6 pt-0 sm:gap-8 lg:max-w-[480px] lg:shrink-0 lg:pt-6">
-            <SectionEyebrow>05 - RETURN</SectionEyebrow>
-            <h2 className="text-4xl font-semibold leading-[1.05] tracking-[-0.04em] sm:text-5xl md:text-[52px] lg:text-[56px]">
+            <SectionEyebrow className="reveal-item">05 - RETURN</SectionEyebrow>
+            <h2 className="reveal-item text-4xl font-semibold leading-[1.05] tracking-[-0.04em] sm:text-5xl md:text-[52px] lg:text-[56px]">
               Good for employees.{" "}
               <span className="text-zinc-500">Great for employers.</span>
             </h2>
-            <p className="text-base leading-[1.55] tracking-[-0.005em] text-zinc-400 lg:text-[17px]">
+            <p className="reveal-item text-base leading-[1.55] tracking-[-0.005em] text-zinc-400 lg:text-[17px]">
               Reduce employee financial stress and increase retention and
               productivity in your business.
             </p>
-            <ul className="flex flex-col gap-3.5 pt-2">
+            <ul className="reveal-item flex flex-col gap-3.5 pt-2">
               {[
                 "Single point of contact for HR and benefits leads.",
                 "Rolls out in days - not quarters.",
@@ -199,7 +201,7 @@ export default function CompaniesPage() {
                 </li>
               ))}
             </ul>
-            <div className="pt-2">
+            <div className="reveal-item pt-2">
               <a
                 href="#cta"
                 className="inline-flex items-center gap-2 rounded-[10px] bg-zinc-50 px-5 py-3 text-sm font-medium tracking-[-0.005em] text-[#050507]"
@@ -210,13 +212,15 @@ export default function CompaniesPage() {
             </div>
           </div>
 
-          <RoiMockup />
+          <div className="reveal-item">
+            <RoiMockup />
+          </div>
         </div>
       </section>
-      </Reveal>
+      </RevealStack>
 
       {/* ── CTA ──────────────────────────────────────────────────────── */}
-      <Reveal>
+      <RevealStack>
       <section
         id="cta"
         className="relative h-[80vh] min-h-[640px] w-full overflow-hidden rounded-3xl"
@@ -230,23 +234,23 @@ export default function CompaniesPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-[#0E1014]/40 via-[#0E1014]/60 to-[#0E1014]/90" />
 
         <div className="relative z-10 mx-auto flex h-full max-w-[1440px] flex-col items-center justify-center gap-8 px-10 text-center md:px-16">
-          <h2 className="max-w-[820px] text-[64px] font-medium leading-[1.05] tracking-[-0.03em] text-white md:text-[80px]">
+          <h2 className="reveal-item max-w-[820px] text-[64px] font-medium leading-[1.05] tracking-[-0.03em] text-white md:text-[80px]">
             Solve your debt.{" "}
             <span className="text-white/50">Get back to living.</span>
           </h2>
-          <p className="max-w-[520px] text-[17px] leading-[1.55] text-white/70">
+          <p className="reveal-item max-w-[520px] text-[17px] leading-[1.55] text-white/70">
             The easiest way to pay off debt, manage bills, and get personalized
             financial answers.
           </p>
           <a
             href="#"
-            className="flex items-center rounded-full bg-zinc-50 px-8 py-4 text-base font-medium tracking-[-0.005em] text-[#0E1014]"
+            className="reveal-item flex items-center rounded-full bg-zinc-50 px-8 py-4 text-base font-medium tracking-[-0.005em] text-[#0E1014]"
           >
             Get the App
           </a>
         </div>
       </section>
-      </Reveal>
+      </RevealStack>
 
       {/* ── FOOTER ───────────────────────────────────────────────────── */}
       <footer className="border-t border-white/[0.08] bg-[#0E1014]">
@@ -369,8 +373,20 @@ function LogoTicker() {
    HELPERS
    ================================================================ */
 
-function SectionEyebrow({ children }: { children: React.ReactNode }) {
-  return <span className="text-[13px] font-medium tracking-[0.06em] text-[#5EEAD4]">{children}</span>;
+function SectionEyebrow({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <span
+      className={`text-[13px] font-medium tracking-[0.06em] text-[#5EEAD4] ${className}`.trim()}
+    >
+      {children}
+    </span>
+  );
 }
 
 function LogoMark({ size = 24 }: { size?: number }) {

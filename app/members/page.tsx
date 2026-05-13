@@ -9,7 +9,6 @@ import {
   StethoscopeIcon,
 } from "@hugeicons-pro/core-stroke-standard";
 import { TopNav } from "../components/TopNav";
-import Reveal from "../components/Reveal";
 import RevealStack from "../components/RevealStack";
 import { AnimatedBillsChatPanel } from "./AnimatedBillsChatPanel";
 import { AnimatedChatPanel } from "./AnimatedChatPanel";
@@ -152,10 +151,10 @@ export default function MembersV3Page() {
          ============================================================ */}
       {/* Mobile: panels stack and each gets its own min-height (via children below).
           md+: section is locked to viewport height so the two columns share it. */}
-      <Reveal>
+      <RevealStack>
       <section className="grid w-full grid-cols-1 gap-3 md:h-[100vh] md:min-h-[760px] md:grid-cols-2">
         {/* Left: cool-toned portrait with overlay copy */}
-        <div className="relative min-h-[600px] overflow-hidden rounded-3xl md:min-h-0">
+        <div className="reveal-item relative min-h-[600px] overflow-hidden rounded-3xl md:min-h-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={PHOTOS.bentoPortrait}
@@ -175,7 +174,7 @@ export default function MembersV3Page() {
         </div>
 
         {/* Right: dark surface panel with restrained cyan-accented chat */}
-        <div className="relative min-h-[600px] overflow-hidden rounded-3xl bg-gradient-to-br from-[#15171B] via-[#101216] to-[#0E1014] md:min-h-0">
+        <div className="reveal-item relative min-h-[600px] overflow-hidden rounded-3xl bg-gradient-to-br from-[#15171B] via-[#101216] to-[#0E1014] md:min-h-0">
           {/* Subtle neutral-white glow */}
           <div
             className="pointer-events-none absolute right-[-20%] top-[-20%] h-[600px] w-[600px] rounded-full"
@@ -201,7 +200,7 @@ export default function MembersV3Page() {
           </div>
         </div>
       </section>
-      </Reveal>
+      </RevealStack>
 
       {/* ============================================================
           5. § 03 - LIVE TICKER (replaces the static "Crush your debt 70%")
@@ -218,13 +217,13 @@ export default function MembersV3Page() {
           6. § 04 - BENTO PAIR (bills dashboard / dark testimonial)
          ============================================================ */}
       {/* Same pattern as § 02: panels get tall min-heights on mobile, share viewport on md+ */}
-      <Reveal>
+      <RevealStack>
       <section className="grid w-full grid-cols-1 gap-3 md:h-[100vh] md:min-h-[760px] md:grid-cols-2">
         {/* Left: dark bills dashboard panel. Taller min-h on mobile so the
             bills chat card (header + 380px body + input row) fits without
             being clipped above the headline. */}
         {/* order-2 on mobile so the testimonial stacks first; reverts to source order on md+ */}
-        <div className="relative order-2 min-h-[760px] overflow-hidden rounded-3xl bg-gradient-to-br from-[#15171B] via-[#101216] to-[#0E1014] md:order-none md:min-h-0">
+        <div className="reveal-item relative order-2 min-h-[760px] overflow-hidden rounded-3xl bg-gradient-to-br from-[#15171B] via-[#101216] to-[#0E1014] md:order-none md:min-h-0">
           {/* Subtle white glow corner */}
           <div
             className="pointer-events-none absolute left-[-20%] bottom-[-20%] h-[500px] w-[500px] rounded-full"
@@ -253,7 +252,7 @@ export default function MembersV3Page() {
 
         {/* Right: dark testimonial portrait */}
         {/* order-1 on mobile so it appears above the bills panel; reverts on md+ */}
-        <div className="relative order-1 min-h-[600px] overflow-hidden rounded-3xl md:order-none md:min-h-0">
+        <div className="reveal-item relative order-1 min-h-[600px] overflow-hidden rounded-3xl md:order-none md:min-h-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={PHOTOS.testimonialPortrait}
@@ -274,31 +273,33 @@ export default function MembersV3Page() {
           </div>
         </div>
       </section>
-      </Reveal>
+      </RevealStack>
 
       {/* ============================================================
           6.5 § 05 - COVERAGE (categories grid, ported from /members)
          ============================================================ */}
-      <Reveal>
+      <RevealStack>
       <section className="w-full overflow-hidden rounded-3xl bg-[#0E1014]">
         <div className="px-6 pb-20 pt-20 sm:px-10 sm:pb-24 sm:pt-24 md:px-16 md:pb-28 md:pt-28">
           <div className="mb-10 flex max-w-[720px] flex-col gap-4 sm:gap-6 lg:mb-16">
-            <span className="text-[13px] font-medium tracking-[0.06em] text-[#5EEAD4]">
+            <span className="reveal-item text-[13px] font-medium tracking-[0.06em] text-[#5EEAD4]">
               03 - COVERAGE
             </span>
-            <h2 className="text-4xl font-semibold leading-[1.05] tracking-[-0.04em] text-white sm:text-5xl md:text-[52px] lg:text-[56px]">
+            <h2 className="reveal-item text-4xl font-semibold leading-[1.05] tracking-[-0.04em] text-white sm:text-5xl md:text-[52px] lg:text-[56px]">
               Every kind of debt.{" "}
               <span className="text-white/50">One quiet app.</span>
             </h2>
-            <p className="max-w-[540px] text-base leading-[1.55] tracking-[-0.005em] text-white/60 lg:text-[17px]">
+            <p className="reveal-item max-w-[540px] text-base leading-[1.55] tracking-[-0.005em] text-white/60 lg:text-[17px]">
               Whether it&apos;s a hospital bill, a car payment, or a maxed-out
               card, Clerkie handles the negotiation, the paperwork, and the
               follow-through.
             </p>
           </div>
 
-          {/* 2x3 grid with hairline gridlines (made of background bleed) */}
-          <div className="overflow-hidden rounded-[18px] border border-white/[0.06] bg-white/[0.06]">
+          {/* 2x3 grid — wrap the whole grid as one reveal-item so the
+              cards land together (they're tightly clustered, cascading
+              each one individually felt fussy on the 6-card grid). */}
+          <div className="reveal-item overflow-hidden rounded-[18px] border border-white/[0.06] bg-white/[0.06]">
             <div className="flex flex-wrap gap-px">
               {CATEGORIES.map((cat) => (
                 <CategoryCard key={cat.title} {...cat} />
@@ -307,12 +308,12 @@ export default function MembersV3Page() {
           </div>
         </div>
       </section>
-      </Reveal>
+      </RevealStack>
 
       {/* ============================================================
           7. CTA - full-bleed dark photo + signup
          ============================================================ */}
-      <Reveal>
+      <RevealStack>
       <section
         id="cta"
         className="relative h-[80vh] min-h-[640px] w-full overflow-hidden rounded-3xl"
@@ -326,23 +327,23 @@ export default function MembersV3Page() {
         <div className="absolute inset-0 bg-gradient-to-b from-[#0E1014]/40 via-[#0E1014]/60 to-[#0E1014]/90" />
 
         <div className="relative z-10 mx-auto flex h-full max-w-[1440px] flex-col items-center justify-center gap-8 px-10 text-center md:px-16">
-          <h2 className="max-w-[820px] text-[64px] font-medium leading-[1.05] tracking-[-0.03em] text-white md:text-[80px]">
+          <h2 className="reveal-item max-w-[820px] text-[64px] font-medium leading-[1.05] tracking-[-0.03em] text-white md:text-[80px]">
             Solve your debt.{" "}
             <span className="text-white/50">Get back to living.</span>
           </h2>
-          <p className="max-w-[520px] text-[17px] leading-[1.55] text-white/70">
+          <p className="reveal-item max-w-[520px] text-[17px] leading-[1.55] text-white/70">
             The easiest way to pay off debt, manage bills, and get personalized
             financial answers.
           </p>
           <a
             href="#"
-            className="flex items-center rounded-full bg-zinc-50 px-8 py-4 text-base font-medium tracking-[-0.005em] text-[#0E1014]"
+            className="reveal-item flex items-center rounded-full bg-zinc-50 px-8 py-4 text-base font-medium tracking-[-0.005em] text-[#0E1014]"
           >
             Get the App
           </a>
         </div>
       </section>
-      </Reveal>
+      </RevealStack>
       </div>
 
       {/* ============================================================
