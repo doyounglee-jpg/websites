@@ -152,11 +152,14 @@ export function LiveSavingsTicker() {
       />
 
       <div className="relative z-10 mx-auto flex h-full max-w-[1100px] flex-col items-center justify-center gap-6 px-5 py-10 md:gap-12 md:px-16 md:py-16">
-        {/* Eyebrow — same chip pattern used by the homepage landing's
-            hover-revealed product chips (.panelProductChip). Glass pill:
-            white-tinted bg, 1px white border, backdrop blur, 11px caps. */}
-        <div className="inline-flex items-center rounded-full border border-white/[0.18] bg-white/[0.08] px-3 py-1.5 backdrop-blur-[8px]">
-          <span className="text-[11px] font-medium uppercase tracking-[1.2px] text-white/95 md:text-[13px]">
+        {/* Eyebrow — same chip pattern as the landing's hover-revealed
+            product chips, but tinted with the Members cyan accent
+            (#67E8F9 / cyan-300, the signature on /members) so the
+            eyebrow nods to the brand color instead of staying neutral
+            white. cyan-200 (#A5F3FC) on the text for legibility against
+            the dark section bg. */}
+        <div className="inline-flex items-center rounded-full border border-[#67E8F9]/[0.30] bg-[#67E8F9]/[0.10] px-3 py-1.5 backdrop-blur-[8px]">
+          <span className="text-[11px] font-medium uppercase tracking-[1.2px] text-[#A5F3FC] md:text-[13px]">
             MEMBERS&apos; SAVINGS
           </span>
         </div>
