@@ -107,6 +107,13 @@ export function LiveSavingsTicker() {
   const [feed, setFeed] = useState<FeedItem[]>(() =>
     FEED_POOL.slice(0, 4).map((item, i) => ({ id: i + 1, ...item })),
   );
+  // When true, digit columns animate transitions. Starts false so the
+  // initial baseline jump from SSR_BASELINE to the live calculated
+  // value snaps in place instead of running a ~3M-dollar scroll
+  // animation on mount — that long animation is the main thing that
+  // makes the savings ticker feel laggy on mobile when the section
+  // enters the viewport.
+  const [digitTransitions, setDigitTransitions] = useState(false);
   const idRef = useRef(4);
 
   // After mount, snap baseline to current Unix-time-derived value AND
@@ -115,6 +122,16 @@ export function LiveSavingsTicker() {
   useEffect(() => {
     setBaseline(calculateBaseline());
     setSessionDelta(readStoredDelta());
+    // Enable transitions on the second frame — by then the baseline
+    // state update has rendered (so the digits have already snapped
+    // to current values) and subsequent feed-driven ticks will scroll
+    // normally with the 0.7s slot-machine animation.
+    const r1 = requestAnimationFrame(() => {
+      const r2 = requestAnimationFrame(() => setDigitTransitions(true));
+      // store inner id on outer to allow cleanup
+      (r1 as unknown as { inner: number }).inner = r2;
+    });
+    return () => cancelAnimationFrame(r1);
   }, []);
 
   // Every 2s: one new negotiation. The feed item's amount is added to the
@@ -164,7 +181,7 @@ export function LiveSavingsTicker() {
         {/* Big counter with slot-machine digit scroll */}
         <div className="flex flex-col items-center gap-4 text-center">
           <h2 className="text-[40px] font-medium leading-none tracking-[-0.04em] text-white sm:text-[56px] md:text-[110px]">
-            <ScrollingNumber value={total} />
+            <ScrollingNumber value={total} animated={digitTransitions} />
           </h2>
           <p className="max-w-[520px] text-[16px] leading-[1.55] text-white/65 md:text-[18px]">
             negotiated down for Clerkie members.
@@ -189,12 +206,18 @@ export function LiveSavingsTicker() {
  * Renders a number with each digit on its own vertical scroller.
  * Non-digit chars (commas, $) render statically.
  */
-function ScrollingNumber({ value }: { value: number }) {
+function ScrollingNumber({
+  value,
+  animated,
+}: {
+  value: number;
+  animated: boolean;
+}) {
   const formatted = `$${value.toLocaleString("en-US")}`;
   return (
     <span className="inline-flex tabular-nums" style={{ lineHeight: 1 }}>
       {Array.from(formatted).map((char, i) => (
-        <ScrollingChar key={i} char={char} />
+        <ScrollingChar key={i} char={char} animated={animated} />
       ))}
     </span>
   );
@@ -211,7 +234,13 @@ function ScrollingNumber({ value }: { value: number }) {
  * forward-only slot-machine we'd extend the track + snap back on every
  * rollover, which adds non-trivial state.
  */
-function ScrollingChar({ char }: { char: string }) {
+function ScrollingChar({
+  char,
+  animated,
+}: {
+  char: string;
+  animated: boolean;
+}) {
   const isDigit = /[0-9]/.test(char);
   if (!isDigit) {
     return <span>{char}</span>;
@@ -226,7 +255,13 @@ function ScrollingChar({ char }: { char: string }) {
         className="flex flex-col"
         style={{
           transform: `translateY(-${target}em)`,
-          transition: "transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)",
+          // Skip the transition before mount finishes so the initial
+          // jump from SSR_BASELINE to the current calculated baseline
+          // snaps instantly — animating that gap is what made the
+          // ticker feel laggy on first scroll-into-view on mobile.
+          transition: animated
+            ? "transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)"
+            : "none",
         }}
       >
         {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((d) => (
