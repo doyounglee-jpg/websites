@@ -315,53 +315,34 @@ export default function MembersV3Page() {
       <footer className="border-t border-white/[0.08] bg-[#0E1014]">
         <div className="mx-auto flex max-w-[1440px] flex-col gap-12 px-10 py-16 md:px-16">
           <div className="flex flex-col items-start justify-between gap-10 md:flex-row md:items-end">
-            <div className="flex max-w-[320px] flex-col gap-5">
-              <div className="flex items-center gap-2.5">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/clerkie-wordmark.svg"
-                  alt="Clerkie"
-                  className="h-[22px] w-auto"
-                />
-              </div>
+            <div className="flex max-w-[320px] flex-col items-start gap-5">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/clerkie-wordmark.svg" alt="Clerkie" className="h-[22px] w-auto" />
               <p className="text-sm leading-[1.55] text-zinc-500">
-                A quieter way to handle the money side of life. Built for
-                people, not credit-card algorithms.
+                A quieter way to handle the money side of life. Built for people,
+                not credit-card algorithms.
               </p>
             </div>
-            <div className="flex items-center gap-8">
-              <Link
-                href="/members-archived"
-                className="text-sm text-zinc-500 hover:text-zinc-50"
-              >
-                /members-archived (v1)
-              </Link>
-              <Link
-                href="/members-v2"
-                className="text-sm text-zinc-500 hover:text-zinc-50"
-              >
-                /members-v2
-              </Link>
-              <Link
-                href="/companies"
-                className="text-sm text-zinc-500 hover:text-zinc-50"
-              >
-                /companies
-              </Link>
+            <div className="grid w-full grid-cols-2 gap-10 sm:grid-cols-3 md:w-auto md:gap-20">
+              <FooterCol title="PRODUCT" links={[
+                { label: "For members", href: "/members", active: true },
+                { label: "For companies", href: "/companies" },
+                { label: "Get the app" },
+              ]} />
+              <FooterCol title="COMPANY" links={[
+                { label: "About" },{ label: "Press" },{ label: "Careers" },{ label: "Support" },
+              ]} />
+              <FooterCol title="LEGAL" links={[
+                { label: "Privacy" },{ label: "Terms of Service" },
+                { label: "Do not sell my info" },{ label: "Disclosures" },
+              ]} />
             </div>
           </div>
           <div className="flex items-center justify-between border-t border-white/[0.06] pt-6">
-            <span className="font-mono text-xs text-zinc-600">
-              © 2025 Henry Labs Inc. · /members
-            </span>
+            <span className="font-mono text-xs text-zinc-600">© 2025 Henry Labs Inc. · /members</span>
             <div className="flex items-center gap-2">
-              <span
-                className="block h-1.5 w-1.5 rounded-full bg-white/70"
-                style={{ boxShadow: "0 0 10px rgba(255,255,255,0.35)" }}
-              />
-              <span className="text-xs font-medium text-zinc-500">
-                All systems operational
-              </span>
+              <span className="block h-1.5 w-1.5 rounded-full bg-[#5EEAD4]" style={{ boxShadow: "0 0 10px rgba(94,234,212,0.7)" }} />
+              <span className="text-xs font-medium text-zinc-500">All systems operational</span>
             </div>
           </div>
         </div>
@@ -458,6 +439,23 @@ function CategoryCard({
           {statValue}
         </span>
       </div>
+    </div>
+  );
+}
+
+function FooterCol({ title, links }: { title: string; links: Array<{ label: string; active?: boolean; href?: string }> }) {
+  return (
+    <div className="flex flex-col gap-5">
+      <span className="text-[11px] font-semibold tracking-[0.08em] text-zinc-600">{title}</span>
+      {links.map((l) =>
+        l.href ? (
+          <Link key={l.label} href={l.href} className={`text-[15px] transition-colors hover:text-zinc-50 ${l.active ? "font-semibold text-zinc-100" : "font-normal text-zinc-500"}`}>
+            {l.label}
+          </Link>
+        ) : (
+          <span key={l.label} className={`text-[15px] ${l.active ? "font-semibold text-zinc-100" : "font-normal text-zinc-500"}`}>{l.label}</span>
+        )
+      )}
     </div>
   );
 }
