@@ -232,7 +232,7 @@ export default function CompaniesPage() {
       <section className="border-t border-white/[0.06] bg-[#0E1014]">
         <div className="mx-auto flex max-w-[1440px] flex-col items-stretch gap-12 px-6 pb-20 pt-24 sm:px-10 sm:pb-24 sm:pt-28 md:px-16 md:pb-28 md:pt-32 lg:flex-row lg:gap-20 lg:px-24 lg:pb-32 lg:pt-40">
           <div className="flex flex-col gap-6 pt-0 sm:gap-8 lg:max-w-[480px] lg:shrink-0 lg:pt-6">
-            <SectionEyebrow>03 - RETURN</SectionEyebrow>
+            <SectionEyebrow>05 - RETURN</SectionEyebrow>
             <h2 className="text-4xl font-semibold leading-[1.05] tracking-[-0.04em] sm:text-5xl md:text-[52px] lg:text-[56px]">
               Good for employees.{" "}
               <span className="text-zinc-500">Great for employers.</span>
@@ -849,14 +849,24 @@ function IntegrationMockup() {
           </div>
         </div>
 
-        {/* Col 3: Member wins */}
+        {/* Col 3: Savings by debt type
+            Replaced the old "Member Wins · TODAY" panel which surfaced
+            individual employee names + their savings — employers should
+            never see PII like that. Aggregating by debt category is both
+            privacy-correct AND a stronger pitch (it shows the breadth of
+            debt types Clerkie handles). */}
         <div className="flex flex-col gap-3.5 bg-[#0C0D0F] p-6">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-medium tracking-[0.04em] text-zinc-500">MEMBER WINS · TODAY</span>
-            <span className="font-mono text-[11px] text-zinc-500">04:21 PM</span>
+            <span className="text-xs font-medium tracking-[0.04em] text-zinc-500">SAVINGS · BY DEBT TYPE</span>
+            {/* Visual-only filter chip — sells the "filterable" idea without
+                wiring up state. Mimics the look of a real picker. */}
+            <span className="flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.04] px-2 py-0.5 font-mono text-[10px] tracking-[0.02em] text-zinc-400">
+              THIS QUARTER
+              <span className="text-zinc-500">▾</span>
+            </span>
           </div>
           <div className="flex flex-col gap-2">
-            {MEMBER_WINS.map((w) => <MemberWinRow key={w.name} {...w} />)}
+            {SAVINGS_BY_DEBT_TYPE.map((s) => <SavingsByDebtTypeRow key={s.category} {...s} />)}
           </div>
           <div className="mt-auto flex items-center justify-between border-t border-white/[0.06] pt-3.5">
             <span className="text-xs text-zinc-400">Saved this quarter</span>
@@ -894,22 +904,41 @@ function IntegrationRow({ code, name, meta, status }: (typeof INTEGRATIONS)[numb
   );
 }
 
-const MEMBER_WINS: Array<{ name: string; action: string; amount: string }> = [
-  { name: "M. Alvarez", action: "Negotiated card",   amount: "+ $1,820" },
-  { name: "J. Park",    action: "Refi student loan",  amount: "+ $4,260" },
-  { name: "S. Cooper",  action: "Settled medical",    amount: "+ $740"   },
-  { name: "R. Singh",   action: "Lowered APR",        amount: "+ $2,140" },
+// Aggregated savings rolled up by debt category. Numbers are mockup-grade
+// (sum is close to but not exactly $1,184,602 in the footer — reads as
+// more honest than a tidy mockup). Deltas are vs the prior quarter.
+const SAVINGS_BY_DEBT_TYPE: Array<{
+  category: string;
+  icon: string;
+  delta: string;
+  amount: string;
+}> = [
+  { category: "Student Loans", icon: "🎓", delta: "+ 18%", amount: "$487,210" },
+  { category: "Credit Cards",  icon: "💳", delta: "+ 12%", amount: "$312,840" },
+  { category: "Auto",          icon: "🚗", delta: "+ 7%",  amount: "$214,560" },
+  { category: "Medical",       icon: "🏥", delta: "+ 23%", amount: "$169,992" },
 ];
 
-function MemberWinRow({ name, action, amount }: (typeof MEMBER_WINS)[number]) {
+function SavingsByDebtTypeRow({
+  category,
+  icon,
+  delta,
+  amount,
+}: (typeof SAVINGS_BY_DEBT_TYPE)[number]) {
   return (
     <div className="flex items-center gap-3 py-1.5">
-      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/[0.04]">
-        <span className="text-[9px] font-semibold">{name.split(" ").map((p) => p[0]).join("")}</span>
+      {/* Rounded-square icon — replaces the avatar circle in the old
+          per-member version. Same 24px footprint so the row height
+          stays identical. */}
+      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md border border-white/10 bg-white/[0.04]">
+        <span className="text-[11px] leading-none">{icon}</span>
       </span>
       <span className="flex-1 text-[12px] text-zinc-300">
-        <span className="font-medium text-zinc-50">{name}</span>{" "}
-        <span className="text-zinc-500">· {action}</span>
+        <span className="font-medium text-zinc-50">{category}</span>{" "}
+        {/* Tiny green delta pill — sells "trend" without a chart. */}
+        <span className="ml-1 inline-flex items-center rounded-full bg-emerald-400/10 px-1.5 py-px font-mono text-[10px] font-medium text-emerald-300">
+          {delta}
+        </span>
       </span>
       <span className="font-mono text-[12px] font-medium text-white/80">{amount}</span>
     </div>

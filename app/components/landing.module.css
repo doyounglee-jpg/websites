@@ -28,12 +28,14 @@
   --clerkie-text-label: rgba(247, 248, 248, 0.9);
   /* Per-card accents — each card has its own hue.
      Members:   cyan-300, /members signature.
-     Companies: sky-300, slightly bluer than the cyan so the sibling
-                cards read as related but distinct. */
+     Companies: sky-300 for the dot (slightly bluer so the sibling cards
+                still read as related-but-distinct), but the "Learn more →"
+                text uses the SAME cyan as Members so the CTAs read as a
+                unified pair across the two cards. */
   --clerkie-accent-members: #67E8F9;
   --clerkie-accent-members-text: #67E8F9;
   --clerkie-accent-companies: #7DD3FC;
-  --clerkie-accent-companies-text: #7DD3FC;
+  --clerkie-accent-companies-text: #67E8F9;
   --clerkie-divider: rgba(255, 255, 255, 0.08);
 
   /* ===== Fiber palette =====
