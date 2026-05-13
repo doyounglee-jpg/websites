@@ -242,7 +242,12 @@ function ScrollingChar({ char }: { char: string }) {
 function FeedRow({ item, index }: { item: FeedItem; index: number }) {
   return (
     <div
-      className="anim-feed-in flex items-center gap-3 rounded-2xl border border-white/[0.06] bg-white/[0.03] px-4 py-3 backdrop-blur transition-opacity duration-500"
+      // min-h locks each row to the height of a 2-line entry so a row
+      // with a short lender name ("Citi") doesn't shrink and cause the
+      // whole feed (and the section below it) to reflow as items
+      // rotate. The text is vertically centered within the slot, so
+      // 1-line entries just sit centered with whitespace above/below.
+      className="anim-feed-in flex min-h-[68px] items-center gap-3 rounded-2xl border border-white/[0.06] bg-white/[0.03] px-4 py-3 backdrop-blur transition-opacity duration-500"
       style={{ opacity: Math.max(0.3, 1 - index * 0.2) }}
     >
       <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/[0.06] text-[10px] font-semibold tracking-[0.02em] text-white/80">
