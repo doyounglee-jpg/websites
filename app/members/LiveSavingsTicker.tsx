@@ -152,14 +152,14 @@ export function LiveSavingsTicker() {
       />
 
       <div className="relative z-10 mx-auto flex h-full max-w-[1100px] flex-col items-center justify-center gap-6 px-5 py-10 md:gap-12 md:px-16 md:py-16">
-        {/* Eyebrow — matches the /companies hero badge inner chip
-            pattern: rounded-full pill, brand-tinted bg + border + text
-            (cyan-300 here, since this is the /members section), tight
-            tracking, semibold weight. Compact padding so it reads as
-            a kicker not a button. */}
-        <span className="inline-flex items-center rounded-full border border-[#67E8F9]/30 bg-[#67E8F9]/10 px-2 py-0.5 text-[11px] font-semibold tracking-[0.04em] text-[#67E8F9] md:text-[13px]">
-          MEMBERS&apos; SAVINGS
-        </span>
+        {/* Eyebrow — same chip pattern used by the homepage landing's
+            hover-revealed product chips (.panelProductChip). Glass pill:
+            white-tinted bg, 1px white border, backdrop blur, 11px caps. */}
+        <div className="inline-flex items-center rounded-full border border-white/[0.18] bg-white/[0.08] px-3 py-1.5 backdrop-blur-[8px]">
+          <span className="text-[11px] font-medium uppercase tracking-[1.2px] text-white/95 md:text-[13px]">
+            MEMBERS&apos; SAVINGS
+          </span>
+        </div>
 
         {/* Big counter with slot-machine digit scroll */}
         <div className="flex flex-col items-center gap-4 text-center">
