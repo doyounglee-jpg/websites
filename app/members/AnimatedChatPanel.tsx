@@ -52,30 +52,29 @@ export function AnimatedChatPanel() {
     <>
       <style>{KEYFRAMES}</style>
       <div className="flex flex-1 items-center justify-center">
-        {/* Fixed height — set to comfortably fit the FULL conversation
-            (step 6) so the panel never reflows as bubbles reveal. Using
-            `h-` instead of `min-h-` so subtle line-wrap variations in
-            longer bubbles can't push the container even a few pixels
-            taller mid-animation. justify-end anchors items at the
-            bottom so new bubbles enter there and shove older ones up. */}
+        {/* Fixed-height stack — every bubble is ALWAYS rendered in the
+            DOM, with `visible` driving opacity only. This means the
+            flex layout never reflows when a new bubble "arrives": the
+            invisible slots already reserve the right amount of space,
+            so existing bubbles don't shift, and the section below
+            never feels jittery. The conversation reads its final
+            layout from step 0; bubbles just fade in at their
+            permanent positions on cue. */}
         <div className="flex h-[360px] w-full max-w-[420px] flex-col justify-end gap-5">
-          {step >= 1 && (
-            <UserBubble key="u1">
-              Why am I always broke on Fridays?
-            </UserBubble>
-          )}
-          {step === 2 && <TypingBubble key="t1" />}
-          {step >= 3 && (
-            <AiBubble key="a1">
-              You averaged $147 in DoorDash + Uber the last 3 Fridays. Want a
-              $50 Friday cap?
-            </AiBubble>
-          )}
-          {step >= 4 && <UserBubble key="u2">Yeah, do it.</UserBubble>}
-          {step === 5 && <TypingBubble key="t2" />}
-          {step >= 6 && (
-            <AiBubble key="a2">Done. Starts tomorrow.</AiBubble>
-          )}
+          <UserBubble visible={step >= 1}>
+            Why am I always broke on Fridays?
+          </UserBubble>
+          {/* AI bubble slot 1 — shows typing dots at step 2, full text
+              from step 3 onward. The bubble's height is anchored by
+              the full text so swapping content doesn't resize it. */}
+          <AiBubble visible={step >= 2} typing={step === 2}>
+            You averaged $147 in DoorDash + Uber the last 3 Fridays. Want a
+            $50 Friday cap?
+          </AiBubble>
+          <UserBubble visible={step >= 4}>Yeah, do it.</UserBubble>
+          <AiBubble visible={step >= 5} typing={step === 5}>
+            Done. Starts tomorrow.
+          </AiBubble>
           <VoiceWaveformPill />
         </div>
       </div>
@@ -83,41 +82,70 @@ export function AnimatedChatPanel() {
   );
 }
 
-function UserBubble({ children }: { children: React.ReactNode }) {
+function UserBubble({
+  visible,
+  children,
+}: {
+  visible: boolean;
+  children: React.ReactNode;
+}) {
   // User (right): outline-only ghost — visually quieter, reads as "prompt".
+  // Opacity-only reveal — keeps the bubble's layout slot at the
+  // same position whether visible or not.
   return (
-    <div className="anim-bubble-in max-w-[85%] self-end rounded-3xl rounded-br-md border border-white/15 px-5 py-3">
+    <div
+      className="max-w-[85%] self-end rounded-3xl rounded-br-md border border-white/15 px-5 py-3 transition-opacity duration-300"
+      style={{ opacity: visible ? 1 : 0 }}
+      aria-hidden={!visible}
+    >
       <p className="text-[14px] leading-[1.4] text-white/75">{children}</p>
     </div>
   );
 }
 
-function AiBubble({ children }: { children: React.ReactNode }) {
+function AiBubble({
+  visible,
+  typing,
+  children,
+}: {
+  visible: boolean;
+  typing: boolean;
+  children: React.ReactNode;
+}) {
   // AI (left): filled — visually heavier, reads as "the focus / response".
+  // The full text is always laid out (driving the slot height), but
+  // hidden behind opacity while typing dots overlay on top. This keeps
+  // the bubble the same size whether it's showing typing or text.
   return (
-    <div className="anim-bubble-in max-w-[85%] self-start rounded-3xl rounded-bl-md bg-white/[0.10] px-5 py-3 backdrop-blur">
-      <p className="text-[14px] leading-[1.4] text-white/95">{children}</p>
-    </div>
-  );
-}
-
-function TypingBubble() {
-  return (
-    <div className="anim-bubble-in self-start rounded-3xl rounded-bl-md bg-white/[0.10] px-4 py-3.5 backdrop-blur">
-      <div className="flex items-center gap-1">
-        <span
-          className="anim-typing-dot block h-1.5 w-1.5 rounded-full bg-white/60"
-          style={{ animationDelay: "0s" }}
-        />
-        <span
-          className="anim-typing-dot block h-1.5 w-1.5 rounded-full bg-white/60"
-          style={{ animationDelay: "0.15s" }}
-        />
-        <span
-          className="anim-typing-dot block h-1.5 w-1.5 rounded-full bg-white/60"
-          style={{ animationDelay: "0.3s" }}
-        />
-      </div>
+    <div
+      className="relative max-w-[85%] self-start rounded-3xl rounded-bl-md bg-white/[0.10] px-5 py-3 backdrop-blur transition-opacity duration-300"
+      style={{ opacity: visible ? 1 : 0 }}
+      aria-hidden={!visible}
+    >
+      <p
+        className="text-[14px] leading-[1.4] text-white/95 transition-opacity duration-200"
+        style={{ opacity: typing ? 0 : 1 }}
+      >
+        {children}
+      </p>
+      {typing && (
+        <div className="absolute inset-0 flex items-center px-5">
+          <div className="flex items-center gap-1">
+            <span
+              className="anim-typing-dot block h-1.5 w-1.5 rounded-full bg-white/60"
+              style={{ animationDelay: "0s" }}
+            />
+            <span
+              className="anim-typing-dot block h-1.5 w-1.5 rounded-full bg-white/60"
+              style={{ animationDelay: "0.15s" }}
+            />
+            <span
+              className="anim-typing-dot block h-1.5 w-1.5 rounded-full bg-white/60"
+              style={{ animationDelay: "0.3s" }}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -150,12 +178,6 @@ function VoiceWaveformPill() {
 }
 
 const KEYFRAMES = `
-@keyframes chat-bubble-in {
-  from { opacity: 0; transform: translateY(10px) scale(0.97); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-.anim-bubble-in { animation: chat-bubble-in 0.34s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
-
 @keyframes chat-wave {
   0%, 100% { height: 4px; }
   50% { height: 14px; }
