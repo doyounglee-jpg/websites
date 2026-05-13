@@ -2,6 +2,7 @@ import Link from "next/link";
 import { TopNav } from "../components/TopNav";
 import Reveal from "../components/Reveal";
 import RevealStack from "../components/RevealStack";
+import DebtScrollStory from "./DebtScrollStory";
 import FeatureCardsSection from "./FeatureCardsSection";
 
 /**
@@ -158,70 +159,15 @@ export default function CompaniesPage() {
       </Reveal>
 
       {/* ── § 03 - CONTEXT ───────────────────────────────────────────── */}
-      <Reveal>
+      {/* INTENTIONALLY NOT wrapped in <Reveal>: the inner DebtScrollStory
+          uses position: sticky. <Reveal>'s filter:blur() would create a
+          containing block that breaks sticky positioning.
+          DebtScrollStory owns its own headline + paragraph copy now
+          (laid out beside the animating counter inside the sticky pin),
+          so the section here is just a thin shell. */}
       <section className="border-t border-white/[0.06] bg-[#0E1014]">
-        <div className="mx-auto max-w-[1440px] px-6 pb-20 pt-24 sm:px-10 sm:pb-24 sm:pt-28 md:px-16 md:pb-28 md:pt-32 lg:px-24 lg:pb-32 lg:pt-40">
-          <div className="mb-12 flex flex-col gap-6 lg:mb-20 lg:flex-row lg:items-end lg:justify-between lg:gap-20">
-            <div className="flex max-w-[760px] flex-col gap-4 lg:gap-6">
-              <SectionEyebrow>03 - CONTEXT</SectionEyebrow>
-              <h2 className="text-4xl font-semibold leading-[1.05] tracking-[-0.04em] sm:text-5xl md:text-[56px] lg:text-[64px] lg:leading-[1.02]">
-                Consumer debt has{" "}
-                <span className="text-zinc-500">more than tripled</span>{" "}
-                over the past decade.
-              </h2>
-            </div>
-            <p className="max-w-[420px] text-base leading-[1.55] tracking-[-0.005em] text-zinc-400 lg:max-w-[380px] lg:text-[17px]">
-              Crippling nearly every facet of borrowers&apos; lives. Many overwhelmed
-              by credit card debt don&apos;t know their options, causing them to
-              overpay and default. We&apos;re here to help.
-            </p>
-          </div>
-
-          <div className="overflow-x-auto rounded-2xl border border-white/[0.06] bg-white/[0.02]">
-            <div className="sm:min-w-[840px]">
-              <div className="hidden items-center border-b border-white/[0.06] bg-white/[0.015] px-6 py-3.5 sm:flex">
-                <div className="w-14 shrink-0" />
-                <span className="flex-1 text-xs font-medium tracking-[0.04em] text-zinc-500">MEMBER</span>
-                <span className="w-[220px] shrink-0 text-xs font-medium tracking-[0.04em] text-zinc-500">EMPLOYER</span>
-                <span className="w-[160px] shrink-0 text-xs font-medium tracking-[0.04em] text-zinc-500">DEBT TYPE</span>
-                <span className="w-40 shrink-0 text-right text-xs font-medium tracking-[0.04em] text-zinc-500">SAVED</span>
-              </div>
-              {MEMBER_SAVINGS.map((row, i) => (
-                <MemberSavingsRow key={row.id} {...row} isLast={i === MEMBER_SAVINGS.length - 1} />
-              ))}
-              {/* Mobile footer summary.
-                  Dot wrapped in a 36×36 (h-9 w-9) flex-centered container so
-                  its center aligns horizontally with the 36×36 avatar badges
-                  in the rows above. */}
-              <div className="flex flex-col gap-1.5 border-t border-white/[0.06] bg-white/[0.02] px-5 py-4 sm:hidden">
-                <div className="flex items-center gap-3">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center">
-                    <span className="block h-2 w-2 rounded-full bg-zinc-50" style={{ boxShadow: "0 0 12px rgba(255,255,255,0.4)" }} />
-                  </span>
-                  <span className="flex-1 text-sm font-medium tracking-[-0.005em]">Average saved per enrolled employee</span>
-                  <span className="font-mono text-base font-semibold tracking-[-0.01em]">$4,820</span>
-                </div>
-                <p className="pl-[48px] text-[13px] text-zinc-500">Across 240+ employer partners · All categories</p>
-              </div>
-              {/* Desktop footer summary.
-                  Same 36×36 wrapper so the dot's center sits on the same
-                  vertical line as the avatar badges in rows above. */}
-              <div className="hidden items-center border-t border-white/[0.06] bg-white/[0.02] px-6 py-4 sm:flex">
-                <div className="w-14 shrink-0">
-                  <span className="flex h-9 w-9 items-center justify-center">
-                    <span className="block h-2 w-2 rounded-full bg-zinc-50" style={{ boxShadow: "0 0 12px rgba(255,255,255,0.4)" }} />
-                  </span>
-                </div>
-                <span className="flex-1 text-sm font-medium tracking-[-0.005em]">Average saved per enrolled employee</span>
-                <span className="w-[220px] shrink-0 text-[13px] text-zinc-500">Across 240+ employer partners</span>
-                <span className="w-[160px] shrink-0 text-[13px] text-zinc-500">All categories</span>
-                <span className="w-40 shrink-0 text-right font-mono text-base font-semibold tracking-[-0.01em]">$4,820</span>
-              </div>
-            </div>
-          </div>
-        </div>
+        <DebtScrollStory />
       </section>
-      </Reveal>
 
       <Reveal>
         <FeatureCardsSection />
