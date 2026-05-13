@@ -52,10 +52,13 @@ export function AnimatedChatPanel() {
     <>
       <style>{KEYFRAMES}</style>
       <div className="flex flex-1 items-center justify-center">
-        {/* min-h reserves space for the full conversation so the headline
-            below never reflows. justify-end anchors items at the bottom so
-            new bubbles enter at the bottom and shove older ones up. */}
-        <div className="flex w-full max-w-[420px] flex-col justify-end gap-5 min-h-[332px]">
+        {/* Fixed height — set to comfortably fit the FULL conversation
+            (step 6) so the panel never reflows as bubbles reveal. Using
+            `h-` instead of `min-h-` so subtle line-wrap variations in
+            longer bubbles can't push the container even a few pixels
+            taller mid-animation. justify-end anchors items at the
+            bottom so new bubbles enter there and shove older ones up. */}
+        <div className="flex h-[360px] w-full max-w-[420px] flex-col justify-end gap-5">
           {step >= 1 && (
             <UserBubble key="u1">
               Why am I always broke on Fridays?
