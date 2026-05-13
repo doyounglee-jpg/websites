@@ -209,8 +209,12 @@ export default function DebtScrollStory() {
           {/* LEFT — context copy. Constrained width on desktop so it
               doesn't crowd the counter card; full width on mobile. */}
           <div className="flex flex-col gap-4 lg:max-w-[420px] lg:gap-6 lg:flex-shrink-0">
-            <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-zinc-500">
-              03 · CONTEXT
+            {/* Section eyebrow — matches the inline <SectionEyebrow>
+                helper in page.tsx (text-[13px] font-medium tracking-[0.06em]
+                text-[#5EEAD4]) so it visually pairs with §02 PLATFORM /
+                §05 RETURN / etc. Format is "NN - LABEL". */}
+            <span className="text-[13px] font-medium tracking-[0.06em] text-[#5EEAD4]">
+              03 - CONTEXT
             </span>
             <h2 className="text-3xl font-semibold leading-[1.05] tracking-[-0.04em] sm:text-4xl md:text-[44px] lg:text-[52px] lg:leading-[1.02]">
               Consumer debt has{" "}
