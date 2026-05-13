@@ -205,7 +205,10 @@ export default function DebtScrollStory() {
           sees the "why" and the "what" together — the headline frames
           the number throughout, not just before it. */}
       <div className="sticky top-0 flex h-screen items-center">
-        <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-8 px-6 sm:px-10 md:px-16 lg:flex-row lg:items-center lg:gap-16 lg:px-24">
+        {/* gap-16 on mobile (was gap-8) for more breathing room between
+            the text block and the counter; lg:gap-16 keeps the
+            desktop side-by-side gap unchanged. */}
+        <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-16 px-6 sm:px-10 md:px-16 lg:flex-row lg:items-center lg:gap-16 lg:px-24">
           {/* LEFT — context copy. Constrained width on desktop so it
               doesn't crowd the counter card; full width on mobile. */}
           <div className="flex flex-col gap-4 lg:max-w-[420px] lg:gap-6 lg:flex-shrink-0">
@@ -236,9 +239,10 @@ export default function DebtScrollStory() {
           <div className="flex-1 min-w-0">
             <DebtScrollVisual value={interpolated} label={label} clerkieIntensity={clerkieIntensity} />
             {/* Mobile-only progress bar — flows right below the
-                counter visual. Hidden on desktop where the absolute
-                bottom-of-viewport bar takes over. */}
-            <div className="mt-8 px-2 lg:hidden">
+                counter visual. mt-16 (was mt-8) gives more breathing
+                room between the caption and the bar. Hidden on desktop
+                where the absolute bottom-of-viewport bar takes over. */}
+            <div className="mt-16 px-2 lg:hidden">
               <ProgressBar progress={progress} clerkieIntensity={clerkieIntensity} />
             </div>
           </div>
