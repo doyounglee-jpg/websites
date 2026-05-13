@@ -24,6 +24,9 @@ type SubColumnProps = {
   data: SubColumnData;
   // True when this col has slid in. False means it's invisible & inert.
   active: boolean;
+  // Hooks the click into the parent's leave-fade flow instead of letting
+  // <Link> snap the page over immediately.
+  onNavigate: (href: string) => void;
 };
 
 export default function SubColumn({
@@ -32,6 +35,7 @@ export default function SubColumn({
   totalCols,
   data,
   active,
+  onNavigate,
 }: SubColumnProps) {
   // Position class encodes "n of total" (e.g., pos2_0 = first of two,
   // pos3_2 = third of three). The CSS handles the actual left/width.
@@ -47,10 +51,32 @@ export default function SubColumn({
     .filter(Boolean)
     .join(" ");
 
+  // Intercept the click so the parent can fade the landing to dark
+  // before navigation. We still keep <Link href> so middle-click /
+  // cmd-click ("open in new tab") and the link's native semantics
+  // (right-click → Copy Link Address, hover preview) continue to work
+  // — they don't go through onClick and thus skip the fade.
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    // Don't hijack modifier-clicks — let the browser open in a new tab
+    // / window normally.
+    if (
+      e.metaKey ||
+      e.ctrlKey ||
+      e.shiftKey ||
+      e.altKey ||
+      e.button !== 0
+    ) {
+      return;
+    }
+    e.preventDefault();
+    onNavigate(data.href);
+  };
+
   return (
     <Link
       href={data.href}
       className={className}
+      onClick={handleClick}
       // When the col hasn't slid in yet (active=false), it's visually
       // invisible and pointer-events:none — but `<a>` is naturally in
       // the tab order, so without these two attributes a keyboard user

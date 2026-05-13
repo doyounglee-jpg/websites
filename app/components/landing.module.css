@@ -77,6 +77,23 @@
   /* Reset any inherited text color from <body> (which sets text-zinc-100
      globally) — each panel sets its own. */
   color: initial;
+  /* Stage owns the dark backdrop. Matches /members & /companies bg
+     (#0E1014) so when the panels fade out on navigation the visual
+     "lands" on the same color the destination renders in — no flash. */
+  background-color: #0E1014;
+  /* Opacity transition is the leave-fade: when .isLeaving is added the
+     stage fades to 0 over 320ms (kept in sync with TIMING.leaveDuration
+     in LandingStage.tsx) before router.push fires. */
+  transition: opacity 320ms ease-out;
+}
+
+/* Triggered when the user clicks a sub-card. Fades the whole landing
+   to dark; once the fade lands, the parent calls router.push so the
+   destination page mounts under a now-invisible stage. */
+.stage.isLeaving {
+  opacity: 0;
+  /* No more clicks during the fade — prevents accidental double-nav. */
+  pointer-events: none;
 }
 
 /* ===== Panel (one side of the split) ===== */

@@ -22,6 +22,9 @@ type PanelProps = {
   onExpand: () => void;
   // Back button click triggers this.
   onCollapse: () => void;
+  // Sub-card click triggers this — replaces the raw <Link> nav so the
+  // landing can fade out before the route changes.
+  onNavigate: (href: string) => void;
 };
 
 const COPY = {
@@ -47,6 +50,7 @@ export default function Panel({
   backVisible,
   onExpand,
   onCollapse,
+  onNavigate,
 }: PanelProps) {
   const copy = COPY[side];
 
@@ -133,6 +137,7 @@ export default function Panel({
           totalCols={cols.length}
           data={col}
           active={activeCols.includes(i)}
+          onNavigate={onNavigate}
         />
       ))}
 
