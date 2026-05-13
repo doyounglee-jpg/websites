@@ -158,7 +158,12 @@ export default function Panel({
         tabIndex={backVisible ? 0 : -1}
         aria-hidden={!backVisible}
       >
-        ← Back
+        {/* Arrow + label in separate spans so flex align-items:center
+            on the button vertically centers them as glyph boxes (the
+            ← character renders at a slightly different vertical offset
+            than alphabetic letters in most fonts). */}
+        <span aria-hidden>←</span>
+        <span>Back</span>
       </button>
     </div>
   );
