@@ -48,7 +48,7 @@ export function HeroPhoneVideo({
           frame. -z-10 places it below the phone within the flex parent's
           stacking context but still above the section gradient bg. */}
       <video
-        className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-full w-[122%] max-w-none -translate-x-1/2 -translate-y-1/2 object-cover opacity-15"
+        className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[140%] w-[122%] max-w-none -translate-x-1/2 -translate-y-1/2 object-cover opacity-25 lg:h-full lg:opacity-15"
         style={{ filter: "blur(90px) saturate(1.2)" }}
         autoPlay
         muted

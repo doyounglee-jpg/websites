@@ -25,7 +25,7 @@
   --clerkie-bg-hover: #15171B;       /* /members "surface" — lifted dark */
   --clerkie-text: #F7F8F8;           /* /members text-zinc-50 equiv */
   --clerkie-text-muted: rgba(247, 248, 248, 0.6);
-  --clerkie-text-label: rgba(247, 248, 248, 0.5);
+  --clerkie-text-label: rgba(247, 248, 248, 0.9);
   /* Per-card accents — each card has its own hue.
      Members:   cyan-300, /members signature.
      Companies: sky-300, slightly bluer than the cyan so the sibling
@@ -48,7 +48,7 @@
   --fiber-bg-hover: #15171B;         /* dark hover surface */
   --fiber-text: #F7F8F8;             /* light text on dark */
   --fiber-text-muted: rgba(247, 248, 248, 0.6);
-  --fiber-text-label: rgba(247, 248, 248, 0.5);
+  --fiber-text-label: rgba(247, 248, 248, 0.9);
   --fiber-accent-crm: #1B5FFD;       /* signature electric blue */
   --fiber-accent-crm-text: #0020CB;  /* deeper for "Learn more →" contrast */
   --fiber-accent-ims: #7C3AED;       /* violet-600 */
@@ -114,9 +114,9 @@
 }
 
 .panelLabel {
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 1.5px;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .panelTitle {
@@ -134,6 +134,50 @@
 .panelSubtitle {
   font-size: 14px;
   margin: 0;
+}
+
+/* Hover-only product chip row — sits under the subtitle and previews
+   the sub-products as glass pills. At baseline the row takes ZERO
+   layout space (max-height: 0, margin-top: 0) so the title/subtitle
+   sit at their original position. On hover the row expands and the
+   title block slides up naturally (panelInitial is space-between, so
+   growing the bottom block pushes title upward smoothly). */
+.panelProducts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  /* All transitions share the same duration + easing so chips fade in
+     in lock-step with the title's upward slide — no perceived lag.
+     The title moves because max-height grows the title block, which
+     pushes the block upward (panelInitial is space-between). Matching
+     opacity to the same 350ms curve makes chips reach full visibility
+     exactly when the title reaches its top position. */
+  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              margin-top 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Glass pill — matches the bubble glassmorphism pattern used in
+   /members hero. Subtle white-tinted bg + 1px border, backdrop blur
+   so the photo softens behind the chip but text stays crisp. */
+.panelProductChip {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 1.2px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: rgba(247, 248, 248, 0.95);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 /* ===== Panel photo + overlay system =====
@@ -278,6 +322,15 @@
        snaps to 1 (vignette goes full strength). Net: hovering DARKENS
        the text-zone vignettes by ~25%, making title/label easier to
        read mid-interaction. */
+    opacity: 1;
+  }
+  /* Product chips reveal on panel hover (baseline state only).
+     max-height grows to a value larger than the natural row height so
+     the row can wrap onto a second line if needed; margin-top grows
+     to its target spacing so title/subtitle slide up smoothly. */
+  .panel:not(.isExpanded):not(.isCollapsed):hover .panelProducts {
+    max-height: 120px;
+    margin-top: 20px;
     opacity: 1;
   }
 }
@@ -516,6 +569,15 @@
   .panelTitle { font-size: 48px; }
   .col { padding: 32px 24px; }
   .colTitle { font-size: 28px; }
+
+  /* On mobile there's no hover state, so the product chips are shown
+     by default on both panels. No transition needed — they're just part
+     of the resting layout here. */
+  .panel:not(.isExpanded):not(.isCollapsed) .panelProducts {
+    max-height: none;
+    margin-top: 16px;
+    opacity: 1;
+  }
 
 
   /* Sub-column positions become full-width / stacked rows. */
