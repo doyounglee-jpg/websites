@@ -80,15 +80,7 @@ export function MobileMenu({
           >
           {/* Drawer header — logo on left, X button on right */}
           <div className="flex items-center justify-between border-b border-white/[0.06] px-6 py-4">
-            <div className="flex items-center gap-2.5">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/clerkie-logo.svg"
-                alt="Clerkie"
-                width={24}
-                height={24}
-                style={{ width: 24, height: 24 }}
-              />
+            <div className="flex items-center">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/clerkie-wordmark.svg"
@@ -156,7 +148,7 @@ export function MobileMenu({
 
 /**
  * A single tappable row inside the drawer. Big tap target, hairline
- * separator below, right-arrow affordance, active page gets brighter.
+ * separator below, active page gets brighter.
  */
 function DrawerLink({
   href,
@@ -173,12 +165,11 @@ function DrawerLink({
     <Link
       href={href}
       onClick={onClick}
-      className={`flex items-center justify-between border-b border-white/[0.06] py-5 text-2xl font-medium tracking-[-0.02em] transition-colors ${
+      className={`flex items-center border-b border-white/[0.06] py-5 text-xl font-medium tracking-[-0.02em] transition-colors ${
         active ? "text-zinc-50" : "text-zinc-300"
       }`}
     >
-      <span>{children}</span>
-      <span className="text-zinc-600">→</span>
+      {children}
     </Link>
   );
 }
