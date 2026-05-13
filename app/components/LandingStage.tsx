@@ -51,7 +51,10 @@ const CLERKIE_COLS: SubColumnData[] = [
 const FIBER_COLS: SubColumnData[] = [
   {
     key: "crm",
-    label: "COLLECTORS · AGENCIES · BUYERS",
+    // Non-breaking space between DEBT and BUYERS so the two words
+    // never split — when the label has to wrap on narrow viewports,
+    // the only legal break point is the space before "DEBT BUYERS".
+    label: "COLLECTORS · AGENCIES · DEBT BUYERS",
     title: "CRM",
     subtitle: "A modern recovery management platform.",
     href: "/fiber/crm",
@@ -69,7 +72,10 @@ const FIBER_COLS: SubColumnData[] = [
   },
   {
     key: "agent",
-    label: "COLLECTORS · AGENCIES · BUYERS",
+    // Non-breaking space between DEBT and BUYERS so the two words
+    // never split — when the label has to wrap on narrow viewports,
+    // the only legal break point is the space before "DEBT BUYERS".
+    label: "COLLECTORS · AGENCIES · DEBT BUYERS",
     title: "AI Agent",
     subtitle: "An intelligent agent for seamless collections.",
     href: "/fiber/ai-agent",
