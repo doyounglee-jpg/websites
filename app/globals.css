@@ -97,6 +97,24 @@ body {
     transition: none;
   }
 }
+/* Mobile: drop the filter:blur portion of the reveal. Filter-blur
+   compositing is GPU-expensive on phones, and the staged un-blurring
+   makes high-contrast content (like the savings ticker's bright
+   digits) appear sharp before the surrounding dark background reads
+   as solid — looks janky. Keep opacity + translate (cheap, smooth)
+   for the reveal feel; skip the blur transition. */
+@media (max-width: 768px) {
+  .reveal {
+    filter: none;
+    transition:
+      opacity 600ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+  .reveal.revealed {
+    filter: none;
+  }
+}
 
 /* ===== Linear-style hero stack reveal =====
    For hero sections specifically. RevealStack
