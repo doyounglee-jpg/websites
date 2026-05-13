@@ -54,6 +54,11 @@ export function HeroPhoneVideo({
         muted
         loop
         playsInline
+        // poster matches the phone video's first frame — painted
+        // immediately and blurred/scaled into the ambient halo so the
+        // area around the phone is warm-toned before the video starts.
+        poster="/v-t3-poster.jpg"
+        preload="auto"
         aria-hidden="true"
       >
         <source src={src} type="video/mp4" />
@@ -72,6 +77,11 @@ export function HeroPhoneVideo({
         muted
         loop
         playsInline
+        // poster shows the first frame instantly as a JPEG so the
+        // phone-shaped slot doesn't read as an empty dark container
+        // while the video is still buffering on first page load.
+        poster="/v-t3-poster.jpg"
+        preload="auto"
       >
         <source src={src} type="video/mp4" />
       </video>
