@@ -46,6 +46,99 @@ body {
   animation: fadeUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
+/* Used on landing -> sub-product destinations (/members, /companies,
+   /fiber/*). The landing stage fades to dark before router.push, then
+   the destination's <main> eases up from invisible. Combined effect:
+   a clean cross-fade through dark instead of an abrupt page swap. */
+@keyframes pageEnter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.page-enter {
+  animation: pageEnter 360ms ease-out both;
+}
+
+/* ===== Linear-style scroll reveal =====
+   Wraps sections on /members and /companies. The Reveal component
+   (app/components/Reveal.tsx) uses IntersectionObserver to add the
+   `revealed` class once the element scrolls into view. The transition
+   curve is cubic-bezier(0.16, 1, 0.3, 1) — a long, soft ease-out (close
+   to ease-out-expo) that Linear uses to give content a calm settling
+   motion as it lands.
+   - duration 800ms matches Linear's feel: slow enough to read as
+     intentional motion, fast enough not to drag.
+   - translateY(20px) is the entry offset — small enough to feel
+     subtle, large enough to read as movement.
+   - filter: blur(8px) is the distinctive Linear touch — content
+     "focuses into view" instead of just sliding. The combo of
+     opacity + translateY + blur sells the depth.
+   - Reduced-motion users skip the animation entirely (content is
+     visible immediately). */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  filter: blur(8px);
+  transition:
+    opacity 800ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 800ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 800ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
+}
+.reveal.revealed {
+  opacity: 1;
+  transform: none;
+  filter: blur(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+}
+
+/* ===== Linear-style hero stack reveal =====
+   For hero sections specifically. RevealStack
+   (app/components/RevealStack.tsx) holds the IntersectionObserver and
+   tags its descendants marked with `.reveal-item` with cascading
+   transition-delay values (in DOM order — top-to-bottom, then
+   left-to-right within a row). Each item then animates the same
+   opacity + translateY + blur recipe as .reveal, but:
+   - duration is longer (1200ms vs 800ms) — heroes deserve a more
+     cinematic settle.
+   - translateY is bigger (24px vs 20px) — slightly more pronounced
+     entrance.
+   - blur is deeper (12px vs 8px) — stronger focus-in feel.
+   - scale(0.97) is added — a subtle "rising up from depth" that
+     Linear uses on their headline hero. Pure opacity+translate would
+     feel too flat.
+   The actual per-item delay is set inline by the component so any
+   number of items work without hardcoding nth-child rules. */
+.reveal-stack .reveal-item {
+  opacity: 0;
+  transform: translateY(24px) scale(0.97);
+  filter: blur(12px);
+  transition:
+    opacity var(--reveal-duration, 1200ms) cubic-bezier(0.16, 1, 0.3, 1),
+    transform var(--reveal-duration, 1200ms) cubic-bezier(0.16, 1, 0.3, 1),
+    filter var(--reveal-duration, 1200ms) cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
+}
+.reveal-stack.revealed .reveal-item {
+  opacity: 1;
+  transform: none;
+  filter: blur(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal-stack .reveal-item {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+}
+
 /* ===== Monochrome aurora =====
    Used on the /members page hero + final CTA. A soft white halo over
    the dark ground — same atmospheric idea as the colored aurora, but

@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { TopNav } from "../components/TopNav";
+import Reveal from "../components/Reveal";
+import RevealStack from "../components/RevealStack";
 import FeatureCardsSection from "./FeatureCardsSection";
 
 /**
@@ -11,7 +13,7 @@ import FeatureCardsSection from "./FeatureCardsSection";
 
 export default function CompaniesPage() {
   return (
-    <main className="min-h-screen bg-[#0E1014] text-zinc-50">
+    <main className="page-enter min-h-screen bg-[#0E1014] text-zinc-50">
 
       {/* Shared marketing top nav - wordmark, center pill nav, CTA / hamburger. */}
       <TopNav active="companies" ctaLabel="Request demo" ctaHref="#cta" />
@@ -20,61 +22,70 @@ export default function CompaniesPage() {
       {/* overflow-hidden removed so the bottom of IntegrationMockup can
           extend below this section and get covered by LogoTicker. The
           aurora/dot-grid effects are now wrapped in their own bounded,
-          overflow-hidden div so they don't bleed into the next section. */}
+          overflow-hidden div so they don't bleed into the next section.
+          Hero uses <RevealStack>: eyebrow → headline → body → CTA →
+          mockup reveal in sequence with the Linear blur-in feel. The
+          outer section is no longer wrapped — the stack handles the
+          entry animation. */}
       <section className="relative">
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           <div className="aurora-mono absolute left-1/2 top-[-200px] h-[900px] w-[1400px] -translate-x-1/2" aria-hidden="true" />
           <div className="dot-grid absolute inset-x-0 top-0 h-[900px]" aria-hidden="true" />
         </div>
 
-        <div className="relative z-10 mx-auto flex max-w-[1440px] flex-col items-center gap-8 px-6 pb-12 pt-20 sm:gap-10 sm:px-10 sm:pb-16 sm:pt-28 md:px-16 md:pb-20 md:pt-[120px]">
-          <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] py-1.5 pl-2 pr-3.5">
-            <span className="rounded-full border border-[#5EEAD4]/30 bg-[#5EEAD4]/10 px-2 py-0.5 text-[11px] font-semibold tracking-[0.04em] text-[#5EEAD4]">
-              FOR COMPANIES
-            </span>
-            <span className="text-[13px] font-medium tracking-[-0.005em] text-zinc-300">
-              An employee benefit your team will actually use
-            </span>
+        <RevealStack>
+          <div className="relative z-10 mx-auto flex max-w-[1440px] flex-col items-center gap-8 px-6 pb-12 pt-20 sm:gap-10 sm:px-10 sm:pb-16 sm:pt-28 md:px-16 md:pb-20 md:pt-[120px]">
+            <div className="reveal-item flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] py-1.5 pl-2 pr-3.5">
+              <span className="rounded-full border border-[#5EEAD4]/30 bg-[#5EEAD4]/10 px-2 py-0.5 text-[11px] font-semibold tracking-[0.04em] text-[#5EEAD4]">
+                FOR COMPANIES
+              </span>
+              <span className="text-[13px] font-medium tracking-[-0.005em] text-zinc-300">
+                An employee benefit your team will actually use
+              </span>
+            </div>
+
+            <div className="flex max-w-[1040px] flex-col items-center gap-7">
+              <h1 className="reveal-item text-center text-[44px] font-semibold leading-[1.05] tracking-[-0.045em] sm:text-[60px] md:text-[72px] lg:text-[88px] lg:leading-[1.0]">
+                Help your community pay off their debt.
+              </h1>
+              <p className="reveal-item max-w-[680px] text-center text-base leading-[1.55] tracking-[-0.005em] text-zinc-400 sm:text-lg lg:text-[19px]">
+                Clerkie partners with employers, financial institutions, and unions
+                to provide borrowers with personalized, data-driven repayment options.
+              </p>
+            </div>
+
+            <div className="reveal-item flex items-center gap-3">
+              <a
+                href="#cta"
+                className="flex items-center gap-2 rounded-[10px] bg-zinc-50 px-5 py-3 text-sm font-medium tracking-[-0.005em] text-[#050507]"
+              >
+                Request Demo
+                <span className="text-zinc-500">→</span>
+              </a>
+            </div>
           </div>
 
-          <div className="flex max-w-[1040px] flex-col items-center gap-7">
-            <h1 className="text-center text-[44px] font-semibold leading-[1.05] tracking-[-0.045em] sm:text-[60px] md:text-[72px] lg:text-[88px] lg:leading-[1.0]">
-              Help your community pay off their debt.
-            </h1>
-            <p className="max-w-[680px] text-center text-base leading-[1.55] tracking-[-0.005em] text-zinc-400 sm:text-lg lg:text-[19px]">
-              Clerkie partners with employers, financial institutions, and unions
-              to provide borrowers with personalized, data-driven repayment options.
-            </p>
+          {/* Mockup container — no bottom padding, small negative-mb pushes
+              the mockup down so it overflows below the hero by ~5-7%. The
+              LogoTicker below (z-30) paints over that overflowed sliver. */}
+          <div className="reveal-item relative z-10 -mb-5 flex justify-center px-6 sm:-mb-6 sm:px-10 md:-mb-8 md:px-16">
+            <div className="aurora-mono-tight pointer-events-none absolute left-1/2 top-[40px] h-[600px] w-[1100px] -translate-x-1/2" aria-hidden="true" />
+            <IntegrationMockup />
           </div>
-
-          <div className="flex items-center gap-3">
-            <a
-              href="#cta"
-              className="flex items-center gap-2 rounded-[10px] bg-zinc-50 px-5 py-3 text-sm font-medium tracking-[-0.005em] text-[#050507]"
-            >
-              Request Demo
-              <span className="text-zinc-500">→</span>
-            </a>
-          </div>
-        </div>
-
-        {/* Mockup container — no bottom padding, small negative-mb pushes
-            the mockup down so it overflows below the hero by ~5-7%. The
-            LogoTicker below (z-30) paints over that overflowed sliver. */}
-        <div className="relative z-10 -mb-5 flex justify-center px-6 sm:-mb-6 sm:px-10 md:-mb-8 md:px-16">
-          <div className="aurora-mono-tight pointer-events-none absolute left-1/2 top-[40px] h-[600px] w-[1100px] -translate-x-1/2" aria-hidden="true" />
-          <IntegrationMockup />
-        </div>
+        </RevealStack>
       </section>
 
       {/* ── § LOGOS - TICKER ─────────────────────────────────────────── */}
       {/* relative + z-30 so the solid LogoTicker bg paints OVER the bottom
           slice of the mockup that overflowed past the hero section above. */}
+      <Reveal>
       <div className="relative z-30">
         <LogoTicker />
       </div>
+      </Reveal>
 
       {/* ── § 01 - PHOTO CARDS (Image #11 style) ────────────────────── */}
+      <Reveal>
       <section id="features" className="bg-[#0E1014] px-6 py-24 sm:px-10 md:px-16 md:py-32 lg:px-24 lg:py-40">
         <div className="mx-auto mb-16 max-w-[1440px] text-center md:mb-20">
           <SectionEyebrow>02 - PLATFORM</SectionEyebrow>
@@ -139,8 +150,10 @@ export default function CompaniesPage() {
 
         </div>
       </section>
+      </Reveal>
 
       {/* ── § 03 - CONTEXT ───────────────────────────────────────────── */}
+      <Reveal>
       <section className="border-t border-white/[0.06] bg-[#0E1014]">
         <div className="mx-auto max-w-[1440px] px-6 pb-20 pt-24 sm:px-10 sm:pb-24 sm:pt-28 md:px-16 md:pb-28 md:pt-32 lg:px-24 lg:pb-32 lg:pt-40">
           <div className="mb-12 flex flex-col gap-6 lg:mb-20 lg:flex-row lg:items-end lg:justify-between lg:gap-20">
@@ -203,10 +216,14 @@ export default function CompaniesPage() {
           </div>
         </div>
       </section>
+      </Reveal>
 
-      <FeatureCardsSection />
+      <Reveal>
+        <FeatureCardsSection />
+      </Reveal>
 
       {/* ── § 04 - RETURN ───────────────────────────────────────────── */}
+      <Reveal>
       <section className="border-t border-white/[0.06] bg-[#0E1014]">
         <div className="mx-auto flex max-w-[1440px] flex-col items-stretch gap-12 px-6 pb-20 pt-24 sm:px-10 sm:pb-24 sm:pt-28 md:px-16 md:pb-28 md:pt-32 lg:flex-row lg:gap-20 lg:px-24 lg:pb-32 lg:pt-40">
           <div className="flex flex-col gap-6 pt-0 sm:gap-8 lg:max-w-[480px] lg:shrink-0 lg:pt-6">
@@ -245,8 +262,10 @@ export default function CompaniesPage() {
           <RoiMockup />
         </div>
       </section>
+      </Reveal>
 
       {/* ── CTA ──────────────────────────────────────────────────────── */}
+      <Reveal>
       <section
         id="cta"
         className="relative h-[80vh] min-h-[640px] w-full overflow-hidden rounded-3xl"
@@ -276,6 +295,7 @@ export default function CompaniesPage() {
           </a>
         </div>
       </section>
+      </Reveal>
 
       {/* ── FOOTER ───────────────────────────────────────────────────── */}
       <footer className="border-t border-white/[0.08] bg-[#0E1014]">

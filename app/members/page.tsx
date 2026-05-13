@@ -9,6 +9,8 @@ import {
   StethoscopeIcon,
 } from "@hugeicons-pro/core-stroke-standard";
 import { TopNav } from "../components/TopNav";
+import Reveal from "../components/Reveal";
+import RevealStack from "../components/RevealStack";
 import { AnimatedBillsChatPanel } from "./AnimatedBillsChatPanel";
 import { AnimatedChatPanel } from "./AnimatedChatPanel";
 import { HeroPhoneVideo } from "./HeroPhoneVideo";
@@ -52,17 +54,21 @@ const PHOTOS = {
 
 export default function MembersV3Page() {
   return (
-    <main className="min-h-screen bg-[#0E1014] text-zinc-50">
+    <main className="page-enter min-h-screen bg-[#0E1014] text-zinc-50">
       {/* Shared marketing top nav - wordmark, center pill nav, CTA / hamburger. */}
       <TopNav active="members" ctaLabel="Get the App" ctaHref="#cta" />
 
       {/* ============================================================
           2. HERO - Full-bleed, no rounded corners. Lives outside the
           padded bento wrapper below so it spans edge-to-edge.
+          Hero uses <RevealStack> instead of <Reveal>: each grid column
+          (headline → video → body+CTA) reveals serially on a slow
+          cinematic stagger, with the Linear-style blur-in. The outer
+          <section> is no longer wrapped — the stack handles the entry.
          ============================================================ */}
       <section className="relative flex min-h-svh w-full items-center overflow-hidden bg-gradient-to-b from-[#15171B] via-[#101216] to-[#0E1014] lg:min-h-screen">
         {/* Cash App-style 3-col: headline · video · body + CTA */}
-        {/* Dotted grid texture */}
+        {/* Dotted grid texture — backdrop, not a reveal item. */}
         <div
           className="dot-grid pointer-events-none absolute inset-x-0 top-0 h-[900px]"
           aria-hidden="true"
@@ -73,24 +79,27 @@ export default function MembersV3Page() {
           Stacks on mobile; video pulled to top via `order-1` to match Cash App's mobile pattern.
           Section uses `items-center` so the grid is vertically centered in the viewport.
         */}
-        <div className="relative z-10 mx-auto w-full max-w-[1440px] px-6 py-20 sm:px-10 sm:py-24 md:px-16">
+        {/* Reveal order: video (center) → headline (left) → body (right) →
+            CTA. The DOM order below matches the reveal order so RevealStack
+            picks up the cascade correctly. Visual layout is unchanged
+            because the CSS `lg:order-*` and `lg:col-start-*` classes still
+            place each block in its original column. On mobile (no grid)
+            the `order-*` classes do the same thing for the stacked view.
+            Cascade tuned faster (110ms stagger, 900ms duration) per the
+            "a little faster" request. */}
+        <RevealStack
+          stagger={110}
+          duration={900}
+          className="relative z-10 mx-auto w-full max-w-[1440px] px-6 py-20 sm:px-10 sm:py-24 md:px-16"
+        >
           <div className="flex w-full flex-col items-center gap-8 lg:grid lg:grid-cols-12 lg:items-center lg:gap-6">
-            {/* LEFT - Headline (spans cols 1-4 = full left half, content
-                block constrained to ~280px and centered within the half so
-                it visually sits in the middle of the left side, not hugging
-                the page edge or the phone). */}
-            <div className="order-2 w-full text-center lg:order-1 lg:col-span-4 lg:col-start-1 lg:max-w-[280px] lg:justify-self-center lg:text-left">
-              <h1 className="text-[32px] font-medium leading-[0.95] tracking-[-0.03em] sm:text-[40px] sm:font-normal xl:text-[48px]">
-                Solve your debt and money problems.
-              </h1>
-            </div>
-
             {/*
               CENTER - Video (cols 5-8). aspect 9:19.5 = 0.462 (iPhone), per Cash App spec.
               Height capped at small viewport on mobile and 68vh on desktop so the video
-              never overflows the section.
+              never overflows the section. First in DOM (and first to reveal) per user
+              request — the video draws the eye, then the surrounding copy fades in.
             */}
-            <div className="relative order-1 flex w-full justify-center lg:order-2 lg:col-span-4 lg:col-start-5">
+            <div className="reveal-item relative order-1 flex w-full justify-center lg:order-2 lg:col-span-4 lg:col-start-5">
               {/* Soft halo behind the video */}
               <div
                 className="aurora-mono-tight pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[680px] w-[900px] -translate-x-1/2 -translate-y-1/2"
@@ -103,25 +112,38 @@ export default function MembersV3Page() {
               />
             </div>
 
-            {/* RIGHT - Body + CTA (spans cols 9-12 = full right half, content
+            {/* LEFT - Headline (spans cols 1-4 = full left half, content
                 block constrained to ~280px and centered within the half so
-                it mirrors the headline placement on the left). */}
+                it visually sits in the middle of the left side, not hugging
+                the page edge or the phone). Reveals after the video. */}
+            <div className="reveal-item order-2 w-full text-center lg:order-1 lg:col-span-4 lg:col-start-1 lg:max-w-[280px] lg:justify-self-center lg:text-left">
+              <h1 className="text-[32px] font-medium leading-[0.95] tracking-[-0.03em] sm:text-[40px] sm:font-normal xl:text-[48px]">
+                Solve your debt and money problems.
+              </h1>
+            </div>
+
+            {/* RIGHT - Body + CTA (spans cols 9-12). The column wrapper is
+                no longer a reveal-item — instead, the body <p> and the
+                CTA <a> are individually marked, so they cascade one after
+                the other (body reveals third, CTA reveals fourth/last
+                per the brief). The flex layout still keeps them stacked
+                vertically within the right column. */}
             <div className="order-3 flex w-full flex-col items-center gap-6 text-center lg:order-3 lg:col-span-4 lg:col-start-9 lg:max-w-[280px] lg:items-start lg:justify-self-center lg:text-left">
-              <p className="text-[16px] font-normal leading-[1.4] text-zinc-400 lg:text-[17px] xl:text-[18px]">
+              <p className="reveal-item text-[16px] font-normal leading-[1.4] text-zinc-400 lg:text-[17px] xl:text-[18px]">
                 The easiest way to pay off debt, manage bills, and get
                 personalized financial answers - built for the way real people
                 earn and spend.
               </p>
               <a
                 href="#cta"
-                className="inline-flex items-center gap-2 rounded-[10px] bg-zinc-50 px-5 py-3 text-[14px] font-normal text-[#0E1014]"
+                className="reveal-item inline-flex items-center gap-2 rounded-[10px] bg-zinc-50 px-5 py-3 text-[14px] font-normal text-[#0E1014]"
               >
                 Get the App
                 <span className="text-zinc-500">→</span>
               </a>
             </div>
           </div>
-        </div>
+        </RevealStack>
       </section>
 
       <div className="flex flex-col gap-3 p-3">
@@ -130,6 +152,7 @@ export default function MembersV3Page() {
          ============================================================ */}
       {/* Mobile: panels stack and each gets its own min-height (via children below).
           md+: section is locked to viewport height so the two columns share it. */}
+      <Reveal>
       <section className="grid w-full grid-cols-1 gap-3 md:h-[100vh] md:min-h-[760px] md:grid-cols-2">
         {/* Left: cool-toned portrait with overlay copy */}
         <div className="relative min-h-[600px] overflow-hidden rounded-3xl md:min-h-0">
@@ -178,16 +201,20 @@ export default function MembersV3Page() {
           </div>
         </div>
       </section>
+      </Reveal>
 
       {/* ============================================================
           5. § 03 - LIVE TICKER (replaces the static "Crush your debt 70%")
          ============================================================ */}
-      <LiveSavingsTicker />
+      <Reveal>
+        <LiveSavingsTicker />
+      </Reveal>
 
       {/* ============================================================
           6. § 04 - BENTO PAIR (bills dashboard / dark testimonial)
          ============================================================ */}
       {/* Same pattern as § 02: panels get tall min-heights on mobile, share viewport on md+ */}
+      <Reveal>
       <section className="grid w-full grid-cols-1 gap-3 md:h-[100vh] md:min-h-[760px] md:grid-cols-2">
         {/* Left: dark bills dashboard panel. Taller min-h on mobile so the
             bills chat card (header + 380px body + input row) fits without
@@ -243,10 +270,12 @@ export default function MembersV3Page() {
           </div>
         </div>
       </section>
+      </Reveal>
 
       {/* ============================================================
           6.5 § 05 - COVERAGE (categories grid, ported from /members)
          ============================================================ */}
+      <Reveal>
       <section className="w-full overflow-hidden rounded-3xl bg-[#0E1014]">
         <div className="px-6 pb-20 pt-20 sm:px-10 sm:pb-24 sm:pt-24 md:px-16 md:pb-28 md:pt-28">
           <div className="mb-10 flex max-w-[720px] flex-col gap-4 sm:gap-6 lg:mb-16">
@@ -274,10 +303,12 @@ export default function MembersV3Page() {
           </div>
         </div>
       </section>
+      </Reveal>
 
       {/* ============================================================
           7. CTA - full-bleed dark photo + signup
          ============================================================ */}
+      <Reveal>
       <section
         id="cta"
         className="relative h-[80vh] min-h-[640px] w-full overflow-hidden rounded-3xl"
@@ -307,6 +338,7 @@ export default function MembersV3Page() {
           </a>
         </div>
       </section>
+      </Reveal>
       </div>
 
       {/* ============================================================

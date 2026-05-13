@@ -6,6 +6,7 @@
 // are presentational and just receive props.
 
 import { useCallback, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Panel from "./Panel";
 import type { SubColumnData } from "./SubColumn";
 import styles from "./landing.module.css";
@@ -23,6 +24,11 @@ const TIMING = {
   titleReturnDelay: 350,  // when the initial title fades back in
   panelReturnDelay: 400,  // when panels slide back to 50/50
   colCollapseStep: 60,    // faster stagger on collapse (60ms vs 130ms)
+  // How long the landing takes to fade to dark before we router.push
+  // into /members, /companies, /fiber/*. Matched roughly to the panel
+  // expand tempo so the leave feels like part of the same animation
+  // family rather than a separate concept.
+  leaveDuration: 320,
 };
 
 // Sub-column copy. Keeping this here (not in Panel) so the parent can
@@ -81,6 +87,7 @@ const FIBER_COLS: SubColumnData[] = [
 type Side = "clerkie" | "fiber";
 
 export default function LandingStage() {
+  const router = useRouter();
   // Which side is currently expanded — null when both panels are at 50/50.
   const [expanded, setExpanded] = useState<Side | null>(null);
   // Lock that prevents another click from being processed while an
@@ -92,6 +99,26 @@ export default function LandingStage() {
   const [activeCols, setActiveCols] = useState<number[]>([]);
   // Whether the back button is in its visible state.
   const [backVisible, setBackVisible] = useState(false);
+  // True once the user has clicked a sub-card — the stage fades to dark
+  // before we router.push to the destination. Replaces the previous
+  // instant-snap navigation that felt abrupt.
+  const [leaving, setLeaving] = useState(false);
+
+  // Called when the user clicks a sub-card (Members, Companies, CRM, etc).
+  // The SubColumn calls preventDefault on its <Link> and routes through
+  // here so we can fade the landing out first.
+  const navigateTo = useCallback(
+    (href: string) => {
+      if (leaving) return; // ignore double-clicks during the fade
+      setLeaving(true);
+      // Kick off Next's client-side route prefetch/navigation only after
+      // the fade has had time to land. router.push during the fade would
+      // cause the destination page to mount and re-render under the still-
+      // visible landing, which we don't need yet.
+      window.setTimeout(() => router.push(href), TIMING.leaveDuration);
+    },
+    [leaving, router],
+  );
 
   const expand = useCallback(
     (side: Side) => {
@@ -171,8 +198,14 @@ export default function LandingStage() {
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [expanded, collapse]);
 
+  // Build stage className — when leaving=true, apply the fade-out class so
+  // the whole stage eases to dark before navigation actually happens.
+  const stageClassName = [styles.stage, leaving ? styles.isLeaving : ""]
+    .filter(Boolean)
+    .join(" ");
+
   return (
-    <div className={styles.stage}>
+    <div className={stageClassName}>
       <Panel
         side="clerkie"
         cols={CLERKIE_COLS}
@@ -183,6 +216,7 @@ export default function LandingStage() {
         backVisible={expanded === "clerkie" && backVisible}
         onExpand={() => expand("clerkie")}
         onCollapse={collapse}
+        onNavigate={navigateTo}
       />
       <Panel
         side="fiber"
@@ -194,6 +228,7 @@ export default function LandingStage() {
         backVisible={expanded === "fiber" && backVisible}
         onExpand={() => expand("fiber")}
         onCollapse={collapse}
+        onNavigate={navigateTo}
       />
     </div>
   );
