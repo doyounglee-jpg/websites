@@ -779,7 +779,7 @@ function UpcomingPaymentsPanel() {
 
 function IntegrationMockup() {
   return (
-    <div className="relative z-20 flex w-[1040px] max-w-full flex-col overflow-hidden rounded-[18px] border border-white/10 bg-[#0C0D0F] shadow-[0_30px_80px_rgba(0,0,0,0.5)]">
+    <div className="relative z-20 flex w-[1040px] max-w-full max-h-[513px] flex-col overflow-hidden rounded-[18px] border border-white/10 bg-[#0C0D0F] shadow-[0_30px_80px_rgba(0,0,0,0.5)] sm:max-h-none">
       <div className="flex items-center justify-between border-b border-white/[0.06] px-5 py-3.5">
         <div className="flex items-center gap-2.5">
           <span className="block h-2.5 w-2.5 rounded-full bg-white/10" />
