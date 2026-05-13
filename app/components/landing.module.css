@@ -452,7 +452,7 @@
    "opening a door into the daylit product." Wireframe animations
    inside use DARK colors so they're visible on this light surface. */
 .colFiber {
-  background: #FBFCFD;
+  background: #FFFFFF;
   border-right: 0.5px solid rgba(0, 0, 0, 0.08);
 }
 .colFiber:last-child { border-right: none; }
@@ -498,6 +498,7 @@
   top: 32px;
   right: 32px;
   font-size: 13px;
+  line-height: 1;
   cursor: pointer;
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -507,6 +508,13 @@
   border: none;
   padding: 8px 12px;
   font-family: inherit;
+  /* inline-flex so the two children (← arrow + "Back" label) share a
+     vertical center axis. align-items:center compensates for the fact
+     that the ← glyph renders at a slightly higher offset than letters
+     in most fonts, which otherwise makes the arrow look "off". */
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .isVisible {
@@ -567,8 +575,24 @@
   .stage { flex-direction: column; }
   .panelInitial { padding: 32px; }
   .panelTitle { font-size: 48px; }
-  .col { padding: 32px 24px; }
-  .colTitle { font-size: 28px; }
+  .col { padding: 32px 24px 24px; }
+  .colTitle { font-size: 28px; margin-bottom: 8px; }
+  /* Match title→subtitle gap so the three lines of the title block
+     are evenly spaced. .learnMore was 16px on desktop; on mobile we
+     bring it down to 8px to read as a single tight block. */
+  .learnMore { margin-top: 8px; }
+
+  /* Align the back button on the same baseline as the sub-card label.
+     Right: matches .col's 24px right padding so the button's right
+     edge sits in the same text column.
+     Top: 20px shifts the button up so the 13px back-text BASELINE
+     visually aligns with the 10px label-text baseline. (top:24 made
+     the text-tops match, but the larger 13px text then read as ~4px
+     low compared to the small caps label.) */
+  .backBtn {
+    right: 24px;
+    top: 18px;
+  }
 
   /* On mobile there's no hover state, so the product chips are shown
      by default on both panels. No transition needed — they're just part

@@ -30,7 +30,7 @@ const TIMING = {
 const CLERKIE_COLS: SubColumnData[] = [
   {
     key: "members",
-    label: "CLERKIE · MEMBERS",
+    label: "CONSUMERS · EMPLOYEES",
     title: "Members",
     subtitle: "Take control of what you owe with personalized plans.",
     href: "/members",
@@ -39,7 +39,7 @@ const CLERKIE_COLS: SubColumnData[] = [
   },
   {
     key: "companies",
-    label: "CLERKIE · COMPANIES",
+    label: "HR TEAMS · EMPLOYERS",
     title: "Companies",
     subtitle: "Help your members thrive with financial wellness tools.",
     href: "/companies",
@@ -51,7 +51,7 @@ const CLERKIE_COLS: SubColumnData[] = [
 const FIBER_COLS: SubColumnData[] = [
   {
     key: "crm",
-    label: "FIBER · CRM",
+    label: "COLLECTORS · AGENCIES · BUYERS",
     title: "CRM",
     subtitle: "A modern recovery management platform.",
     href: "/fiber/crm",
@@ -60,7 +60,7 @@ const FIBER_COLS: SubColumnData[] = [
   },
   {
     key: "ims",
-    label: "FIBER · IMS",
+    label: "CREDITORS",
     title: "IMS",
     subtitle: "A fully-integrated inventory management system.",
     href: "/fiber/ims",
@@ -69,7 +69,7 @@ const FIBER_COLS: SubColumnData[] = [
   },
   {
     key: "agent",
-    label: "FIBER · AI AGENT",
+    label: "COLLECTORS · AGENCIES · BUYERS",
     title: "AI Agent",
     subtitle: "An intelligent agent for seamless collections.",
     href: "/fiber/ai-agent",
