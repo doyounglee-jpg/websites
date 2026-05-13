@@ -292,7 +292,6 @@ export default function CompaniesPage() {
             <div className="grid w-full grid-cols-2 gap-10 sm:grid-cols-3 md:w-auto md:gap-20">
               <FooterCol title="PRODUCT" links={[
                 { label: "For members", href: "/members" },
-                { label: "For lenders" },
                 { label: "For companies", href: "/companies", active: true },
                 { label: "Get the app" },
               ]} />
