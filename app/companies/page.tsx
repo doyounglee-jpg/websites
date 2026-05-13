@@ -45,7 +45,7 @@ export default function CompaniesPage() {
             </div>
 
             <div className="flex max-w-[1040px] flex-col items-center gap-7">
-              <h1 className="reveal-item text-center text-[44px] font-semibold leading-[1.05] tracking-[-0.045em] sm:text-[60px] md:text-[72px] lg:text-[88px] lg:leading-[1.0]">
+              <h1 className="reveal-item text-center text-[44px] font-medium leading-[1.05] tracking-[-0.045em] sm:text-[60px] md:text-[72px] lg:text-[88px] lg:leading-[1.0]">
                 Help your community pay off their debt.
               </h1>
               <p className="reveal-item max-w-[680px] text-center text-base leading-[1.55] tracking-[-0.005em] text-zinc-400 sm:text-lg lg:text-[19px]">
