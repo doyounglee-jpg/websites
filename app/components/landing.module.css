@@ -405,6 +405,7 @@
   font-weight: 500;
 }
 
+
 .dot {
   display: inline-block;
   width: 4px;
@@ -592,6 +593,29 @@
   .backBtn {
     right: 24px;
     top: 22px;
+  }
+
+  /* Mobile label layout — keep the desktop flex container but switch
+     to align-items:flex-start so the dot anchors to the FIRST line
+     of text (not the vertical center of the wrapped block, which is
+     what align-items:center does). The text sits in its own flex
+     column, so when it wraps the second line ("DEBT BUYERS") aligns
+     under the first line's text, not under the dot. A small margin
+     -top on the dot nudges it down to visually center on line 1's
+     small-caps. */
+  .colLabel {
+    align-items: flex-start;
+  }
+  .colLabel .dot {
+    margin-top: 5px;
+  }
+  /* Padding-right only on the FIRST sub-card (top of stack), where
+     the absolute-positioned back button overlaps the top-right area
+     and forces the wrap. Other cards (IMS, AI Agent) get no padding-
+     right so their labels fit on a single line. */
+  .pos2_0 .colLabel,
+  .pos3_0 .colLabel {
+    padding-right: 80px;
   }
 
   /* On mobile there's no hover state, so the product chips are shown
