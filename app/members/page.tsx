@@ -283,7 +283,7 @@ export default function MembersV3Page() {
         <div className="px-6 pb-20 pt-20 sm:px-10 sm:pb-24 sm:pt-24 md:px-16 md:pb-28 md:pt-28">
           <div className="mb-10 flex max-w-[720px] flex-col gap-4 sm:gap-6 lg:mb-16">
             <span className="reveal-item text-[13px] font-medium tracking-[0.06em] text-[#5EEAD4]">
-              03 - COVERAGE
+              COVERAGE
             </span>
             <h2 className="reveal-item text-4xl font-semibold leading-[1.05] tracking-[-0.04em] text-white sm:text-5xl md:text-[52px] lg:text-[56px]">
               Every kind of debt.{" "}
