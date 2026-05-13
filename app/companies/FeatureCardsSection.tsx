@@ -281,25 +281,29 @@ export default function FeatureCardsSection() {
   return (
     <section className="border-t border-white/[0.06] bg-[#0E1014]">
       <div className="mx-auto max-w-[1440px] px-6 pb-24 pt-24 sm:px-10 sm:pb-28 sm:pt-28 md:px-16 md:pb-32 md:pt-32 lg:px-24 lg:pb-40 lg:pt-40">
-        {/* Header */}
+        {/* Header — each element is its own reveal-item so the parent
+            <RevealStack> in page.tsx can cascade them in. */}
         <div className="mb-16 lg:mb-20">
-          <span className="text-[13px] font-medium tracking-[0.06em] text-[#5EEAD4]">
+          <span className="reveal-item text-[13px] font-medium tracking-[0.06em] text-[#5EEAD4]">
             04 — WHY IT WORKS
           </span>
-          <h2 className="mt-5 max-w-[700px] text-4xl font-semibold leading-[1.05] tracking-[-0.04em] sm:text-5xl md:text-[56px] lg:text-[64px] lg:leading-[1.02]">
+          <h2 className="reveal-item mt-5 max-w-[700px] text-4xl font-semibold leading-[1.05] tracking-[-0.04em] sm:text-5xl md:text-[56px] lg:text-[64px] lg:leading-[1.02]">
             Built around behavior, not intention.
           </h2>
-          <p className="mt-6 max-w-[560px] text-[16px] leading-[1.65] text-white/50">
+          <p className="reveal-item mt-6 max-w-[560px] text-[16px] leading-[1.65] text-white/50">
             Most financial tools tell people what to do. Clerkie automates the doing — and keeps adapting as life changes.
           </p>
         </div>
 
-        {/* 2×2 grid */}
+        {/* 2×2 grid — each card is its own reveal-item so they cascade
+            into view after the header. */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           {CARDS.map((c) => (
-            <FeatureCard key={c.title} title={c.title} body={c.body}>
-              {c.ui}
-            </FeatureCard>
+            <div key={c.title} className="reveal-item">
+              <FeatureCard title={c.title} body={c.body}>
+                {c.ui}
+              </FeatureCard>
+            </div>
           ))}
         </div>
       </div>
