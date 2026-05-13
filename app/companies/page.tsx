@@ -64,25 +64,32 @@ export default function CompaniesPage() {
               </a>
             </div>
           </div>
-
-          {/* Mockup container — no bottom padding, small negative-mb pushes
-              the mockup down so it overflows below the hero by ~5-7%. The
-              LogoTicker below (z-30) paints over that overflowed sliver. */}
-          <div className="reveal-item relative z-10 -mb-5 flex justify-center px-6 sm:-mb-6 sm:px-10 md:-mb-8 md:px-16">
-            <div className="aurora-mono-tight pointer-events-none absolute left-1/2 top-[40px] h-[600px] w-[1100px] -translate-x-1/2" aria-hidden="true" />
-            <IntegrationMockup />
-          </div>
         </RevealStack>
+
+        {/* Mockup container — no bottom padding, small negative-mb pushes
+            the mockup down so it overflows below the hero by ~5-7%. The
+            LogoTicker below (z-30) paints over that overflowed sliver.
+            INTENTIONALLY OUTSIDE RevealStack: marking this as a
+            .reveal-item would put `filter` and `transform` on the
+            container, which create a containing block that clips the
+            mockup's bottom overflow — breaking the LogoTicker overlap. */}
+        <div className="relative z-10 -mb-5 flex justify-center px-6 sm:-mb-6 sm:px-10 md:-mb-8 md:px-16">
+          <div className="aurora-mono-tight pointer-events-none absolute left-1/2 top-[40px] h-[600px] w-[1100px] -translate-x-1/2" aria-hidden="true" />
+          <IntegrationMockup />
+        </div>
       </section>
 
       {/* ── § LOGOS - TICKER ─────────────────────────────────────────── */}
       {/* relative + z-30 so the solid LogoTicker bg paints OVER the bottom
-          slice of the mockup that overflowed past the hero section above. */}
-      <Reveal>
+          slice of the mockup that overflowed past the hero section above.
+          NOT wrapped in <Reveal>: .reveal applies `filter: blur()` which
+          creates a stacking context, which sandboxes this z-30 inside the
+          Reveal element. The mockup (z-10 at document level) would then
+          render OVER this ticker. Leaving the ticker unrevealed keeps the
+          original stacking intact and the overlap correct. */}
       <div className="relative z-30">
         <LogoTicker />
       </div>
-      </Reveal>
 
       {/* ── § 01 - PHOTO CARDS (Image #11 style) ────────────────────── */}
       <Reveal>
