@@ -206,9 +206,13 @@ export default function MembersV3Page() {
       {/* ============================================================
           5. § 03 - LIVE TICKER (replaces the static "Crush your debt 70%")
          ============================================================ */}
-      <Reveal>
-        <LiveSavingsTicker />
-      </Reveal>
+      {/* No <Reveal> wrapper here intentionally — the savings ticker is
+          a high-contrast dark gradient section with bright white digits,
+          and the .reveal opacity-fade made the digits visible before the
+          dark background read as solid on mobile (looked like content
+          "appeared first, background after"). Letting the section paint
+          as one unit when scrolled into view eliminates that perception. */}
+      <LiveSavingsTicker />
 
       {/* ============================================================
           6. § 04 - BENTO PAIR (bills dashboard / dark testimonial)
