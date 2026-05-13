@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Reveal from "../components/Reveal";
 
 /**
  * "Members' Savings" ticker — a cumulative savings counter with a rotating
@@ -168,7 +169,17 @@ export function LiveSavingsTicker() {
         }}
       />
 
-      <div className="relative z-10 mx-auto flex h-full max-w-[1100px] flex-col items-center justify-center gap-6 px-5 py-10 md:gap-12 md:px-16 md:py-16">
+      {/* Reveal wraps the CONTENT only — not the section's dark gradient
+          bg. Earlier the entire section (bg + content) sat inside .reveal,
+          so the opacity fade ran on everything: the section bg blended
+          with the near-identical page bg behind it while the bright
+          white digits were already legible at mid-opacity, which read
+          as "numbers appear first, background appears later" on mobile.
+          With the gradient bg parked on the outer <section> (always
+          opaque from the moment the section enters the DOM) and only
+          the inner content fading in, the bg is always present as the
+          backdrop — content reveals cleanly on top of it. */}
+      <Reveal className="relative z-10 mx-auto flex h-full max-w-[1100px] flex-col items-center justify-center gap-6 px-5 py-10 md:gap-12 md:px-16 md:py-16">
         {/* Eyebrow — same chip pattern used by the homepage landing's
             hover-revealed product chips (.panelProductChip). Glass pill:
             white-tinted bg, 1px white border, backdrop blur, 11px caps. */}
@@ -197,7 +208,7 @@ export function LiveSavingsTicker() {
             <FeedRow key={item.id} item={item} index={i} />
           ))}
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }
