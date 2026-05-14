@@ -120,6 +120,7 @@ export default function CompaniesPage() {
             title="See instant ROI"
             body="Aggregate dashboards - engagement, dollar savings, payoff velocity - refreshed in real time. Never a single employee's personal data."
             graphic={<InsightsGraphic />}
+            bgImage="/c1.png"
           />
           <PlatformCard
             className="reveal-item"
@@ -127,6 +128,7 @@ export default function CompaniesPage() {
             title="Connect once, live in a week"
             body="Drop-in HRIS hookups for Workday, Rippling, BambooHR, ADP. No SSO project, no IT lift, no data export."
             graphic={<DeployGraphic />}
+            bgImage="/c2.png"
           />
           <PlatformCard
             className="reveal-item"
@@ -134,6 +136,7 @@ export default function CompaniesPage() {
             title="Privacy your lawyers will sign"
             body="SOC 2 Type II, GDPR/CCPA aligned, end-to-end encrypted. Individual financial data never crosses your servers."
             graphic={<TrustGraphic />}
+            bgImage="/c3.png"
           />
         </div>
       </section>
@@ -407,7 +410,7 @@ function PlatformCard({
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(to bottom, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.30) 45%, rgba(0,0,0,0.72) 100%)",
+                "linear-gradient(to bottom, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.30) 45%, rgba(0,0,0,0.80) 100%)",
             }}
             aria-hidden
           />
