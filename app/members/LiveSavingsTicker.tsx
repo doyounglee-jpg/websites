@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Reveal from "../components/Reveal";
+import RevealStack from "../components/RevealStack";
 
 /**
  * "Members' Savings" ticker — a cumulative savings counter with a rotating
@@ -98,6 +98,18 @@ type FeedItem = {
   amount: number;
 };
 
+// Three states the digit columns can be in:
+//   "pending"  — section hasn't entered the viewport yet. Every digit
+//                column renders at 0 with no transition (snapped).
+//   "arriving" — first intersect just fired. Digit columns transition
+//                from 0 → their target offsets with a slow ease-out
+//                (~1.4s), giving the "whole number winds up from 0"
+//                arrival feel the user asked for.
+//   "tick"     — arrival animation has settled. Subsequent feed-driven
+//                value changes use the existing fast 0.7s slot-machine
+//                transition.
+type DigitAnimState = "pending" | "arriving" | "tick";
+
 export function LiveSavingsTicker() {
   // Baseline jumps to today's Unix-time value on mount; sessionDelta
   // accumulates per-tick negotiation amounts during this view. Total =
@@ -108,31 +120,57 @@ export function LiveSavingsTicker() {
   const [feed, setFeed] = useState<FeedItem[]>(() =>
     FEED_POOL.slice(0, 4).map((item, i) => ({ id: i + 1, ...item })),
   );
-  // When true, digit columns animate transitions. Starts false so the
-  // initial baseline jump from SSR_BASELINE to the live calculated
-  // value snaps in place instead of running a ~3M-dollar scroll
-  // animation on mount — that long animation is the main thing that
-  // makes the savings ticker feel laggy on mobile when the section
-  // enters the viewport.
-  const [digitTransitions, setDigitTransitions] = useState(false);
+  // Drives the digit columns through pending → arriving → tick.
+  // Starts "pending" so digits initially snap to 0 (no SSR-to-live
+  // scroll on mount). Flips to "arriving" on first intersect of the
+  // section, then to "tick" after the arrival animation has played.
+  const [animState, setAnimState] = useState<DigitAnimState>("pending");
   const idRef = useRef(4);
+  const sectionRef = useRef<HTMLElement>(null);
 
   // After mount, snap baseline to current Unix-time-derived value AND
   // restore the running delta from localStorage so the total never
-  // appears to drop between page loads.
+  // appears to drop between page loads. The digit columns stay pinned
+  // at 0 (animState === "pending") while we wait for the section to
+  // enter the viewport — see the intersection effect below.
   useEffect(() => {
     setBaseline(calculateBaseline());
     setSessionDelta(readStoredDelta());
-    // Enable transitions on the second frame — by then the baseline
-    // state update has rendered (so the digits have already snapped
-    // to current values) and subsequent feed-driven ticks will scroll
-    // normally with the 0.7s slot-machine animation.
-    const r1 = requestAnimationFrame(() => {
-      const r2 = requestAnimationFrame(() => setDigitTransitions(true));
-      // store inner id on outer to allow cleanup
-      (r1 as unknown as { inner: number }).inner = r2;
-    });
-    return () => cancelAnimationFrame(r1);
+  }, []);
+
+  // Trigger the digit-flip arrival on the first time the section
+  // enters the viewport. If the section is already in view at mount
+  // (e.g. user reloads while scrolled to it), play the arrival
+  // immediately — they still get the satisfying wind-up.
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const startArrival = () => {
+      setAnimState("arriving");
+      // After the 1.4s arrival ease finishes, switch to the fast
+      // slot-machine cadence for ongoing feed-driven updates.
+      window.setTimeout(() => setAnimState("tick"), 1500);
+    };
+    const rect = el.getBoundingClientRect();
+    const inViewNow = rect.top < window.innerHeight && rect.bottom > 0;
+    if (inViewNow) {
+      // Wait one frame so the "pending" 0-snap paints first, then
+      // begin the transition — otherwise the browser can collapse
+      // both state changes into a single paint and skip the animation.
+      requestAnimationFrame(() => requestAnimationFrame(startArrival));
+      return;
+    }
+    const obs = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          startArrival();
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.25 },
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
   }, []);
 
   // Every 2s: one new negotiation. The feed item's amount is added to the
@@ -157,7 +195,10 @@ export function LiveSavingsTicker() {
   const total = baseline + sessionDelta;
 
   return (
-    <section className="relative w-full overflow-hidden rounded-3xl bg-gradient-to-br from-[#15171B] via-[#101216] to-[#0E1014] md:h-[100vh] md:min-h-[820px]">
+    <section
+      ref={sectionRef}
+      className="relative w-full overflow-hidden rounded-3xl bg-gradient-to-br from-[#15171B] via-[#101216] to-[#0E1014] md:h-[100vh] md:min-h-[820px]"
+    >
       <style>{KEYFRAMES}</style>
 
       {/* Soft near-monochrome glow centered behind the number */}
@@ -169,30 +210,26 @@ export function LiveSavingsTicker() {
         }}
       />
 
-      {/* Reveal wraps the CONTENT only — not the section's dark gradient
-          bg. Earlier the entire section (bg + content) sat inside .reveal,
-          so the opacity fade ran on everything: the section bg blended
-          with the near-identical page bg behind it while the bright
-          white digits were already legible at mid-opacity, which read
-          as "numbers appear first, background appears later" on mobile.
-          With the gradient bg parked on the outer <section> (always
-          opaque from the moment the section enters the DOM) and only
-          the inner content fading in, the bg is always present as the
-          backdrop — content reveals cleanly on top of it. */}
-      <Reveal className="relative z-10 mx-auto flex h-full max-w-[1100px] flex-col items-center justify-center gap-6 px-5 py-10 md:gap-12 md:px-16 md:py-16">
+      {/* RevealStack matches the hero/other sections — eyebrow → big
+          number → body → feed cascade in one after the other on
+          intersect. Each child marked .reveal-item picks up its
+          transition-delay from the stack. The section's dark gradient
+          bg stays on the outer <section> so it's always opaque, and
+          only the inner content fades in. */}
+      <RevealStack className="relative z-10 mx-auto flex h-full max-w-[1100px] flex-col items-center justify-center gap-6 px-5 py-10 md:gap-12 md:px-16 md:py-16">
         {/* Eyebrow — same chip pattern used by the homepage landing's
             hover-revealed product chips (.panelProductChip). Glass pill:
             white-tinted bg, 1px white border, backdrop blur, 11px caps. */}
-        <div className="inline-flex items-center rounded-full border border-white/[0.18] bg-white/[0.08] px-3 py-1.5 backdrop-blur-[8px]">
+        <div className="reveal-item inline-flex items-center rounded-full border border-white/[0.18] bg-white/[0.08] px-3 py-1.5 backdrop-blur-[8px]">
           <span className="text-[11px] font-medium uppercase tracking-[1.2px] text-white/95 md:text-[13px]">
             MEMBERS&apos; SAVINGS
           </span>
         </div>
 
         {/* Big counter with slot-machine digit scroll */}
-        <div className="flex flex-col items-center gap-4 text-center">
+        <div className="reveal-item flex flex-col items-center gap-4 text-center">
           <h2 className="text-[40px] font-medium leading-none tracking-[-0.04em] text-white sm:text-[56px] md:text-[110px]">
-            <ScrollingNumber value={total} animated={digitTransitions} />
+            <ScrollingNumber value={total} animState={animState} />
           </h2>
           <p className="max-w-[520px] text-[16px] leading-[1.55] text-white/65 md:text-[18px]">
             negotiated down for Clerkie members.
@@ -200,7 +237,7 @@ export function LiveSavingsTicker() {
         </div>
 
         {/* Curated example wins */}
-        <div className="flex w-full max-w-[480px] flex-col gap-2">
+        <div className="reveal-item flex w-full max-w-[480px] flex-col gap-2">
           <span className="self-start text-[11px] font-medium tracking-[0.18em] text-white/45">
             RECENT MEMBER WINS
           </span>
@@ -208,7 +245,7 @@ export function LiveSavingsTicker() {
             <FeedRow key={item.id} item={item} index={i} />
           ))}
         </div>
-      </Reveal>
+      </RevealStack>
     </section>
   );
 }
@@ -219,16 +256,16 @@ export function LiveSavingsTicker() {
  */
 function ScrollingNumber({
   value,
-  animated,
+  animState,
 }: {
   value: number;
-  animated: boolean;
+  animState: DigitAnimState;
 }) {
   const formatted = `$${value.toLocaleString("en-US")}`;
   return (
     <span className="inline-flex tabular-nums" style={{ lineHeight: 1 }}>
       {Array.from(formatted).map((char, i) => (
-        <ScrollingChar key={i} char={char} animated={animated} />
+        <ScrollingChar key={i} char={char} animState={animState} />
       ))}
     </span>
   );
@@ -239,24 +276,40 @@ function ScrollingNumber({
  * scrolls it to land on the right value, and CSS transition handles the
  * smooth animation between values.
  *
+ * animState wires up the three-step entrance:
+ *   - "pending":  translateY(0), no transition  → digit sits at 0
+ *   - "arriving": translateY(-target em), slow ease-out 1.4s  → digit
+ *                 winds up from 0 to its final value (the arrival)
+ *   - "tick":     translateY(-target em), 0.7s ease  → ongoing feed
+ *                 updates roll smoothly between values
+ *
  * Note: when a digit decreases (e.g. 9 → 0 on rollover) the animation
  * scrolls upward, which reads slightly different from the usual downward
- * tumble. Acceptable trade-off for the simpler implementation; for a true
- * forward-only slot-machine we'd extend the track + snap back on every
- * rollover, which adds non-trivial state.
+ * tumble. Acceptable trade-off for the simpler implementation.
  */
 function ScrollingChar({
   char,
-  animated,
+  animState,
 }: {
   char: string;
-  animated: boolean;
+  animState: DigitAnimState;
 }) {
   const isDigit = /[0-9]/.test(char);
   if (!isDigit) {
     return <span>{char}</span>;
   }
   const target = Number(char);
+  // "pending" snaps to 0 with no transition so the arrival animation
+  // can start from a clean 0. Other states sit at the digit's actual
+  // target; transition speed depends on which phase we're in.
+  const offset = animState === "pending" ? 0 : target;
+  const transition =
+    animState === "pending"
+      ? "none"
+      : animState === "arriving"
+        ? "transform 1.4s cubic-bezier(0.16, 1, 0.3, 1)"
+        : "transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)";
+
   return (
     <span
       className="inline-block overflow-hidden align-baseline"
@@ -265,14 +318,8 @@ function ScrollingChar({
       <span
         className="flex flex-col"
         style={{
-          transform: `translateY(-${target}em)`,
-          // Skip the transition before mount finishes so the initial
-          // jump from SSR_BASELINE to the current calculated baseline
-          // snaps instantly — animating that gap is what made the
-          // ticker feel laggy on first scroll-into-view on mobile.
-          transition: animated
-            ? "transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)"
-            : "none",
+          transform: `translateY(-${offset}em)`,
+          transition,
         }}
       >
         {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((d) => (
