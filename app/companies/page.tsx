@@ -410,7 +410,7 @@ function PlatformCard({
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(to bottom, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.30) 45%, rgba(0,0,0,0.80) 100%)",
+                "linear-gradient(to bottom, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0.45) 45%, rgba(0,0,0,0.88) 100%)",
             }}
             aria-hidden
           />
