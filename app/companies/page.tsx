@@ -3,6 +3,11 @@ import { TopNav } from "../components/TopNav";
 import RevealStack from "../components/RevealStack";
 import DebtScrollStory from "./DebtScrollStory";
 import FeatureCardsSection from "./FeatureCardsSection";
+import {
+  InsightsGraphic,
+  DeployGraphic,
+  TrustGraphic,
+} from "./PlatformGraphics";
 
 /**
  * /companies - Origin-style visual language.
@@ -129,6 +134,7 @@ export default function CompaniesPage() {
             body="Drop-in HRIS hookups for Workday, Rippling, BambooHR, ADP. No SSO project, no IT lift, no data export."
             graphic={<DeployGraphic />}
             bgImage="/c2.png"
+            darkerOverlay
           />
           <PlatformCard
             className="reveal-item"
@@ -383,6 +389,7 @@ function PlatformCard({
   body,
   graphic,
   bgImage,
+  darkerOverlay = false,
   className = "",
 }: {
   eyebrow: string;
@@ -390,8 +397,15 @@ function PlatformCard({
   body: string;
   graphic?: React.ReactNode;
   bgImage?: string;
+  // Bumps every gradient stop ~10 percentage points darker — for
+  // photos whose mid-band busies up the mockup graphic above it.
+  darkerOverlay?: boolean;
   className?: string;
 }) {
+  const overlay = darkerOverlay
+    ? "linear-gradient(to bottom, rgba(0,0,0,0.32) 0%, rgba(0,0,0,0.58) 45%, rgba(0,0,0,0.95) 100%)"
+    : "linear-gradient(to bottom, rgba(0,0,0,0.24) 0%, rgba(0,0,0,0.49) 45%, rgba(0,0,0,0.95) 100%)";
+
   return (
     <article className={`group relative flex min-h-[520px] flex-col overflow-hidden rounded-[22px] border border-white/[0.08] bg-white/[0.02] p-5 transition-all duration-300 hover:border-white/[0.18] sm:min-h-[600px] ${className}`}>
       {bgImage && (
@@ -404,19 +418,28 @@ function PlatformCard({
           <img
             src={bgImage}
             alt=""
-            className="absolute inset-0 h-full w-full object-cover"
+            className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
           />
           <div
             className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(to bottom, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0.45) 45%, rgba(0,0,0,0.88) 100%)",
-            }}
+            style={{ background: overlay }}
             aria-hidden
           />
         </>
       )}
-      <div className="relative z-10">
+      {/* Soft cyan halo behind the mockup on hover — adds the
+          "highlighted card" feel without a hard border change. */}
+      {bgImage && (
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -top-10 left-1/2 z-0 h-[260px] w-[420px] -translate-x-1/2 rounded-full opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100"
+          style={{
+            background:
+              "radial-gradient(closest-side, rgba(94,234,212,0.16), transparent 70%)",
+          }}
+        />
+      )}
+      <div className="relative z-10 transition-transform duration-500 ease-out group-hover:-translate-y-1">
         {graphic && <div>{graphic}</div>}
       </div>
       <div
@@ -441,175 +464,11 @@ function PlatformCard({
   );
 }
 
-/* All three graphics share the glass-panel design language of the
-   prior platform mockups: rounded-[16px] white-tinted card on a
-   nearly-opaque dark surface, monospace numerics, white-only tonal
-   accents (no brand cyan inside the mockups themselves). */
-
-/* INSIGHTS — aggregate savings dashboard. */
-function InsightsGraphic() {
-  const bars = [40, 55, 35, 70, 50, 78, 92];
-  const subs = [
-    { label: "Engagement", pct: 87 },
-    { label: "Coverage",   pct: 92 },
-  ];
-  return (
-    <div className="rounded-[16px] border border-white/[0.08] bg-[rgba(14,12,16,0.74)] p-5 backdrop-blur-md">
-      <div className="mb-4 flex items-start justify-between">
-        <div>
-          <span className="text-[10px] font-semibold tracking-[0.08em] text-white/35">
-            TEAM SAVINGS · Q4
-          </span>
-          <div className="mt-1 font-mono text-[26px] font-semibold leading-none tracking-[-0.03em]">
-            $487,290
-          </div>
-          <div className="mt-1.5 text-[11px] text-white/45">
-            ↑ $52K vs last quarter
-          </div>
-        </div>
-        <span className="rounded-full border border-white/[0.12] bg-white/[0.06] px-2.5 py-1 text-[10px] font-medium text-white/45">
-          On track
-        </span>
-      </div>
-
-      {/* Mini trend bars */}
-      <div className="mb-4 overflow-hidden rounded-[10px] border border-white/[0.05] bg-white/[0.02] px-3 py-3">
-        <div className="flex h-10 items-end gap-1.5">
-          {bars.map((h, i) => (
-            <div
-              key={i}
-              className="flex-1 rounded-[2px]"
-              style={{
-                height: `${h}%`,
-                background:
-                  i === bars.length - 1
-                    ? "linear-gradient(180deg,rgba(255,255,255,0.55),rgba(255,255,255,0.30))"
-                    : "rgba(255,255,255,0.10)",
-              }}
-            />
-          ))}
-        </div>
-      </div>
-
-      {/* Sub metrics */}
-      <div className="flex flex-col gap-3">
-        {subs.map((s) => (
-          <div key={s.label}>
-            <div className="mb-1.5 flex items-center justify-between">
-              <span className="text-[11px] font-medium text-white/55">{s.label}</span>
-              <span className="font-mono text-[11px] text-white/35">{s.pct}%</span>
-            </div>
-            <div className="h-[5px] overflow-hidden rounded-full bg-white/[0.06]">
-              <div
-                className="h-full rounded-full"
-                style={{
-                  width: `${s.pct}%`,
-                  background:
-                    "linear-gradient(90deg,rgba(255,255,255,0.18),rgba(255,255,255,0.40))",
-                }}
-              />
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-/* DEPLOY — HRIS connector status list. */
-function DeployGraphic() {
-  const integrations = [
-    { name: "Workday",  code: "WD", meta: "v2024.R2", state: "Synced 2m ago" },
-    { name: "Rippling", code: "RP", meta: "OAuth",    state: "Synced 4m ago" },
-    { name: "BambooHR", code: "BH", meta: "API key",  state: "Synced 6m ago" },
-    { name: "ADP",      code: "AD", meta: "Marketpl", state: "Synced 8m ago" },
-  ];
-  return (
-    <div className="rounded-[16px] border border-white/[0.08] bg-[rgba(14,12,16,0.74)] p-5 backdrop-blur-md">
-      <div className="mb-4 flex items-start justify-between">
-        <div>
-          <span className="text-[10px] font-semibold tracking-[0.08em] text-white/35">
-            HRIS · CONNECTED
-          </span>
-          <div className="mt-1 font-mono text-[26px] font-semibold leading-none tracking-[-0.03em]">
-            4 / 4
-          </div>
-          <div className="mt-1.5 text-[11px] text-white/45">
-            All systems syncing
-          </div>
-        </div>
-        <span className="rounded-full border border-white/[0.12] bg-white/[0.06] px-2.5 py-1 text-[10px] font-medium text-white/45">
-          Live
-        </span>
-      </div>
-
-      <div className="flex flex-col gap-1.5">
-        {integrations.map(({ name, code, meta, state }) => (
-          <div
-            key={name}
-            className="flex items-center gap-3 rounded-[10px] border border-white/[0.05] bg-white/[0.02] px-3 py-2"
-          >
-            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-white/[0.06] font-mono text-[10px] font-semibold tracking-wide text-white/80">
-              {code}
-            </span>
-            <div className="flex flex-1 flex-col leading-tight">
-              <span className="text-[12px] font-medium text-white/85">{name}</span>
-              <span className="font-mono text-[10px] text-white/30">{meta}</span>
-            </div>
-            <span className="font-mono text-[10px] text-white/35">{state}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-/* TRUST — compliance badges grid. */
-function TrustGraphic() {
-  const badges = [
-    { label: "SOC 2 TYPE II", sub: "Audited annually" },
-    { label: "GDPR",          sub: "EU aligned" },
-    { label: "CCPA",          sub: "CA aligned" },
-    { label: "AES-256",       sub: "End-to-end" },
-  ];
-  return (
-    <div className="rounded-[16px] border border-white/[0.08] bg-[rgba(14,12,16,0.74)] p-5 backdrop-blur-md">
-      <div className="mb-4 flex items-start justify-between">
-        <div>
-          <span className="text-[10px] font-semibold tracking-[0.08em] text-white/35">
-            COMPLIANCE · POSTURE
-          </span>
-          <div className="mt-1 font-mono text-[26px] font-semibold leading-none tracking-[-0.03em]">
-            v2.4
-          </div>
-          <div className="mt-1.5 text-[11px] text-white/45">
-            Reviewed quarterly
-          </div>
-        </div>
-        <span className="rounded-full border border-white/[0.12] bg-white/[0.06] px-2.5 py-1 text-[10px] font-medium text-white/45">
-          Verified
-        </span>
-      </div>
-
-      <div className="grid grid-cols-2 gap-2">
-        {badges.map(({ label, sub }) => (
-          <div
-            key={label}
-            className="flex flex-col gap-1.5 rounded-[10px] border border-white/[0.05] bg-white/[0.02] px-3 py-2.5"
-          >
-            <div className="flex items-center gap-1.5">
-              <span className="h-1.5 w-1.5 rounded-full bg-white/55" />
-              <span className="text-[10px] font-semibold tracking-[0.04em] text-white/85">
-                {label}
-              </span>
-            </div>
-            <span className="text-[10px] text-white/45">{sub}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
+/* Platform §02 graphics — extracted to ./PlatformGraphics.tsx so they
+   can use "use client" hooks (article-hover detection + count-up
+   animations). The visual recipe is unchanged: rounded-[16px] white-
+   tinted card on a nearly-opaque dark surface, monospace numerics,
+   white-only tonal accents inside the mockups themselves. */
 
 function LogoMark({ size = 24 }: { size?: number }) {
   return (
