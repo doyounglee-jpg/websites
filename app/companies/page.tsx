@@ -419,7 +419,14 @@ function PlatformCard({
       <div className="relative z-10">
         {graphic && <div>{graphic}</div>}
       </div>
-      <div className="relative z-10 mt-auto pt-6">
+      <div
+        className="relative z-10 mt-auto pt-6"
+        style={
+          bgImage
+            ? { textShadow: "0 1px 2px rgba(0,0,0,0.55), 0 2px 12px rgba(0,0,0,0.45)" }
+            : undefined
+        }
+      >
         <span className="text-[11px] font-semibold tracking-[0.18em] text-cyan-100/85">
           {eyebrow}
         </span>
