@@ -89,20 +89,21 @@ export default function CompaniesPage() {
         <LogoTicker />
       </div>
 
-      {/* ── § 01 - PHOTO CARDS (Image #11 style) ────────────────────── */}
-      {/* RevealStack cascade applies the same hero-style staggered
-          reveal to this section's pieces: header text first, then the
-          three cards in sequence. Order in DOM = order in cascade. */}
+      {/* ── § 02 - PLATFORM ──────────────────────────────────────────
+          Re-aimed at the COMPANIES audience — what HR/employer teams
+          get from the platform, not what employees see (that's /members).
+          RevealStack cascade reveals header pieces first, then each card
+          in sequence (reveal-item on each element). */}
       <RevealStack>
       <section id="features" className="bg-[#0E1014] px-6 py-24 sm:px-10 md:px-16 md:py-32 lg:px-24 lg:py-40">
         <div className="mx-auto mb-16 max-w-[1440px] text-center md:mb-20">
           <SectionEyebrow className="reveal-item">02 - PLATFORM</SectionEyebrow>
           <h2 className="reveal-item mt-5 text-4xl font-semibold leading-[1.05] tracking-[-0.04em] sm:text-5xl md:text-[56px] lg:text-[64px] lg:leading-[1.02]">
-            Everything they need, handled.
+            Built for the people writing the check.
           </h2>
-          <p className="reveal-item mx-auto mt-5 max-w-[500px] text-base leading-[1.55] text-zinc-400 sm:text-[18px]">
-            Clerkie gives every employee a personal debt advisor - AI-powered plans,
-            live lender negotiations, and real-time progress tracking.
+          <p className="reveal-item mx-auto mt-5 max-w-[540px] text-base leading-[1.55] text-zinc-400 sm:text-[18px]">
+            Aggregate visibility, no-lift deployment, and a security posture
+            your lawyers will sign off on the first read.
           </p>
           <a
             href="#cta"
@@ -113,49 +114,27 @@ export default function CompaniesPage() {
         </div>
 
         <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-4 sm:grid-cols-3">
-
-          {/* Card 1 - Smart Debt Paydown */}
-          <div className="reveal-item group relative flex min-h-[520px] flex-col overflow-hidden rounded-[22px] border border-white/[0.10] transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-white/[0.20] hover:shadow-[0_20px_60px_rgba(0,0,0,0.7)] sm:min-h-[600px]">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=800&q=80" alt="" className="absolute inset-0 h-full w-full object-cover object-top" />
-            <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom,rgba(0,0,0,0.04) 0%,rgba(0,0,0,0.22) 45%,rgba(0,0,0,0.65) 100%)" }} />
-            <div className="relative z-10 flex-1 p-5 pt-6">
-              <DebtPaydownPanel />
-            </div>
-            <div className="relative z-10 px-6 pb-7 pt-4">
-              <p className="text-[20px] font-semibold leading-snug tracking-[-0.015em]">Smart Debt Paydown</p>
-              <p className="mt-2 text-[14px] leading-[1.6] text-white/55">Automatically lower your balances faster with optimized payment strategies.</p>
-            </div>
-          </div>
-
-          {/* Card 2 - Adaptive Budgeting */}
-          <div className="reveal-item group relative flex min-h-[460px] flex-col overflow-hidden rounded-[22px] border border-white/[0.10] transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-white/[0.20] hover:shadow-[0_20px_60px_rgba(0,0,0,0.7)] sm:min-h-[600px]">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/sunrise-landscape.png" alt="" className="absolute inset-0 h-full w-full object-cover object-top" />
-            <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom,rgba(0,0,0,0.0) 0%,rgba(4,2,0,0.20) 40%,rgba(14,7,0,0.68) 100%)" }} />
-            <div className="relative z-10 flex-1 p-5 pt-6">
-              <BudgetMockPanel />
-            </div>
-            <div className="relative z-10 px-6 pb-7 pt-4">
-              <p className="text-[20px] font-semibold leading-snug tracking-[-0.015em]">Adaptive Budgeting</p>
-              <p className="mt-2 text-[14px] leading-[1.6] text-white/55">Stay on track with a budget that updates as your life changes.</p>
-            </div>
-          </div>
-
-          {/* Card 3 - Upcoming Payments */}
-          <div className="reveal-item group relative flex min-h-[520px] flex-col overflow-hidden rounded-[22px] border border-white/[0.10] transition-all duration-300 ease-in-out hover:-translate-y-1 hover:border-white/[0.20] hover:shadow-[0_20px_60px_rgba(0,0,0,0.7)] sm:min-h-[600px]">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/lake.avif" alt="" className="absolute inset-0 h-full w-full object-cover object-top" />
-            <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom,rgba(0,0,0,0.04) 0%,rgba(0,0,0,0.22) 45%,rgba(0,0,0,0.65) 100%)" }} />
-            <div className="relative z-10 flex-1 p-5 pt-6">
-              <UpcomingPaymentsPanel />
-            </div>
-            <div className="relative z-10 px-6 pb-7 pt-4">
-              <p className="text-[20px] font-semibold leading-snug tracking-[-0.015em]">Upcoming Payments, Simplified</p>
-              <p className="mt-2 text-[14px] leading-[1.6] text-white/55">See what&apos;s coming and stay ahead of every due date.</p>
-            </div>
-          </div>
-
+          <PlatformCard
+            className="reveal-item"
+            eyebrow="01 · INSIGHTS"
+            title="See instant ROI"
+            body="Aggregate dashboards - engagement, dollar savings, payoff velocity - refreshed in real time. Never a single employee's personal data."
+            graphic={<InsightsGraphic />}
+          />
+          <PlatformCard
+            className="reveal-item"
+            eyebrow="02 · DEPLOY"
+            title="Connect once, live in a week"
+            body="Drop-in HRIS hookups for Workday, Rippling, BambooHR, ADP. No SSO project, no IT lift, no data export."
+            graphic={<DeployGraphic />}
+          />
+          <PlatformCard
+            className="reveal-item"
+            eyebrow="03 · TRUST"
+            title="Privacy your lawyers will sign"
+            body="SOC 2 Type II, GDPR/CCPA aligned, end-to-end encrypted. Individual financial data never crosses your servers."
+            graphic={<TrustGraphic />}
+          />
         </div>
       </section>
       </RevealStack>
@@ -389,6 +368,239 @@ function SectionEyebrow({
   );
 }
 
+/* ================================================================
+   PLATFORM CARD + GRAPHICS - § 02
+   Card: subtle border, faint surface, eyebrow + graphic + text block.
+   Each card carries its own audience-relevant mockup graphic.
+   ================================================================ */
+
+function PlatformCard({
+  eyebrow,
+  title,
+  body,
+  graphic,
+  bgImage,
+  className = "",
+}: {
+  eyebrow: string;
+  title: string;
+  body: string;
+  graphic?: React.ReactNode;
+  bgImage?: string;
+  className?: string;
+}) {
+  return (
+    <article className={`group relative flex min-h-[520px] flex-col overflow-hidden rounded-[22px] border border-white/[0.08] bg-white/[0.02] p-5 transition-all duration-300 hover:border-white/[0.18] sm:min-h-[600px] ${className}`}>
+      {bgImage && (
+        <>
+          {/* Full-bleed photo backdrop. object-cover crops to the card's
+              taller-than-wide aspect. Gradient overlay sits above the
+              photo so the title/body at the bottom stays legible — same
+              recipe as the prior platform photo cards. */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={bgImage}
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(to bottom, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.30) 45%, rgba(0,0,0,0.72) 100%)",
+            }}
+            aria-hidden
+          />
+        </>
+      )}
+      <div className="relative z-10">
+        {graphic && <div>{graphic}</div>}
+      </div>
+      <div className="relative z-10 mt-auto pt-6">
+        <span className="text-[11px] font-semibold tracking-[0.18em] text-cyan-100/85">
+          {eyebrow}
+        </span>
+        <h3 className="mt-2 text-[26px] font-semibold leading-[1.15] tracking-[-0.02em] text-white sm:text-[30px]">
+          {title}
+        </h3>
+        <p className="mt-3 max-w-[360px] text-[14px] leading-[1.55] text-white/70 sm:text-[15px]">
+          {body}
+        </p>
+      </div>
+    </article>
+  );
+}
+
+/* All three graphics share the glass-panel design language of the
+   prior platform mockups: rounded-[16px] white-tinted card on a
+   nearly-opaque dark surface, monospace numerics, white-only tonal
+   accents (no brand cyan inside the mockups themselves). */
+
+/* INSIGHTS — aggregate savings dashboard. */
+function InsightsGraphic() {
+  const bars = [40, 55, 35, 70, 50, 78, 92];
+  const subs = [
+    { label: "Engagement", pct: 87 },
+    { label: "Coverage",   pct: 92 },
+  ];
+  return (
+    <div className="rounded-[16px] border border-white/[0.08] bg-[rgba(14,12,16,0.74)] p-5 backdrop-blur-md">
+      <div className="mb-4 flex items-start justify-between">
+        <div>
+          <span className="text-[10px] font-semibold tracking-[0.08em] text-white/35">
+            TEAM SAVINGS · Q4
+          </span>
+          <div className="mt-1 font-mono text-[26px] font-semibold leading-none tracking-[-0.03em]">
+            $487,290
+          </div>
+          <div className="mt-1.5 text-[11px] text-white/45">
+            ↑ $52K vs last quarter
+          </div>
+        </div>
+        <span className="rounded-full border border-white/[0.12] bg-white/[0.06] px-2.5 py-1 text-[10px] font-medium text-white/45">
+          On track
+        </span>
+      </div>
+
+      {/* Mini trend bars */}
+      <div className="mb-4 overflow-hidden rounded-[10px] border border-white/[0.05] bg-white/[0.02] px-3 py-3">
+        <div className="flex h-10 items-end gap-1.5">
+          {bars.map((h, i) => (
+            <div
+              key={i}
+              className="flex-1 rounded-[2px]"
+              style={{
+                height: `${h}%`,
+                background:
+                  i === bars.length - 1
+                    ? "linear-gradient(180deg,rgba(255,255,255,0.55),rgba(255,255,255,0.30))"
+                    : "rgba(255,255,255,0.10)",
+              }}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Sub metrics */}
+      <div className="flex flex-col gap-3">
+        {subs.map((s) => (
+          <div key={s.label}>
+            <div className="mb-1.5 flex items-center justify-between">
+              <span className="text-[11px] font-medium text-white/55">{s.label}</span>
+              <span className="font-mono text-[11px] text-white/35">{s.pct}%</span>
+            </div>
+            <div className="h-[5px] overflow-hidden rounded-full bg-white/[0.06]">
+              <div
+                className="h-full rounded-full"
+                style={{
+                  width: `${s.pct}%`,
+                  background:
+                    "linear-gradient(90deg,rgba(255,255,255,0.18),rgba(255,255,255,0.40))",
+                }}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* DEPLOY — HRIS connector status list. */
+function DeployGraphic() {
+  const integrations = [
+    { name: "Workday",  code: "WD", meta: "v2024.R2", state: "Synced 2m ago" },
+    { name: "Rippling", code: "RP", meta: "OAuth",    state: "Synced 4m ago" },
+    { name: "BambooHR", code: "BH", meta: "API key",  state: "Synced 6m ago" },
+    { name: "ADP",      code: "AD", meta: "Marketpl", state: "Synced 8m ago" },
+  ];
+  return (
+    <div className="rounded-[16px] border border-white/[0.08] bg-[rgba(14,12,16,0.74)] p-5 backdrop-blur-md">
+      <div className="mb-4 flex items-start justify-between">
+        <div>
+          <span className="text-[10px] font-semibold tracking-[0.08em] text-white/35">
+            HRIS · CONNECTED
+          </span>
+          <div className="mt-1 font-mono text-[26px] font-semibold leading-none tracking-[-0.03em]">
+            4 / 4
+          </div>
+          <div className="mt-1.5 text-[11px] text-white/45">
+            All systems syncing
+          </div>
+        </div>
+        <span className="rounded-full border border-white/[0.12] bg-white/[0.06] px-2.5 py-1 text-[10px] font-medium text-white/45">
+          Live
+        </span>
+      </div>
+
+      <div className="flex flex-col gap-1.5">
+        {integrations.map(({ name, code, meta, state }) => (
+          <div
+            key={name}
+            className="flex items-center gap-3 rounded-[10px] border border-white/[0.05] bg-white/[0.02] px-3 py-2"
+          >
+            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-white/[0.06] font-mono text-[10px] font-semibold tracking-wide text-white/80">
+              {code}
+            </span>
+            <div className="flex flex-1 flex-col leading-tight">
+              <span className="text-[12px] font-medium text-white/85">{name}</span>
+              <span className="font-mono text-[10px] text-white/30">{meta}</span>
+            </div>
+            <span className="font-mono text-[10px] text-white/35">{state}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* TRUST — compliance badges grid. */
+function TrustGraphic() {
+  const badges = [
+    { label: "SOC 2 TYPE II", sub: "Audited annually" },
+    { label: "GDPR",          sub: "EU aligned" },
+    { label: "CCPA",          sub: "CA aligned" },
+    { label: "AES-256",       sub: "End-to-end" },
+  ];
+  return (
+    <div className="rounded-[16px] border border-white/[0.08] bg-[rgba(14,12,16,0.74)] p-5 backdrop-blur-md">
+      <div className="mb-4 flex items-start justify-between">
+        <div>
+          <span className="text-[10px] font-semibold tracking-[0.08em] text-white/35">
+            COMPLIANCE · POSTURE
+          </span>
+          <div className="mt-1 font-mono text-[26px] font-semibold leading-none tracking-[-0.03em]">
+            v2.4
+          </div>
+          <div className="mt-1.5 text-[11px] text-white/45">
+            Reviewed quarterly
+          </div>
+        </div>
+        <span className="rounded-full border border-white/[0.12] bg-white/[0.06] px-2.5 py-1 text-[10px] font-medium text-white/45">
+          Verified
+        </span>
+      </div>
+
+      <div className="grid grid-cols-2 gap-2">
+        {badges.map(({ label, sub }) => (
+          <div
+            key={label}
+            className="flex flex-col gap-1.5 rounded-[10px] border border-white/[0.05] bg-white/[0.02] px-3 py-2.5"
+          >
+            <div className="flex items-center gap-1.5">
+              <span className="h-1.5 w-1.5 rounded-full bg-white/55" />
+              <span className="text-[10px] font-semibold tracking-[0.04em] text-white/85">
+                {label}
+              </span>
+            </div>
+            <span className="text-[10px] text-white/45">{sub}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function LogoMark({ size = 24 }: { size?: number }) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
@@ -583,181 +795,6 @@ function RoiChartPanel() {
   );
 }
 
-/* ================================================================
-   § 02 - PHOTO CARD UI PANELS (Image #11 style)
-   ================================================================ */
-
-/* Panel 1 - Payment schedule calendar (Image #11 Card 1 style) */
-function DebtPaydownPanel() {
-  const accounts = [
-    { label: "Credit Cards", balance: "$8,200",  pct: 72 },
-    { label: "Auto Loan",    balance: "$11,400", pct: 85 },
-    { label: "Medical",      balance: "$4,780",  pct: 45 },
-  ];
-  return (
-    <div className="rounded-[16px] border border-white/[0.08] bg-[rgba(14,12,16,0.74)] p-5 backdrop-blur-md">
-      <div className="mb-4 flex items-start justify-between">
-        <div>
-          <span className="text-[10px] font-semibold tracking-[0.08em] text-white/35">TOTAL BALANCE</span>
-          <div className="mt-1 font-mono text-[26px] font-semibold leading-none tracking-[-0.03em]">$24,380</div>
-          <div className="mt-1.5 text-[11px] text-white/45">↓ $2,140 saved this year</div>
-        </div>
-        <span className="rounded-full border border-white/[0.12] bg-white/[0.06] px-2.5 py-1 text-[10px] font-medium text-white/45">
-          On track
-        </span>
-      </div>
-
-      {/* Downward trend chart */}
-      <div className="mb-4 overflow-hidden rounded-[10px] border border-white/[0.05] bg-white/[0.02] px-3 pb-2 pt-3">
-        <svg viewBox="0 0 300 72" className="h-14 w-full" aria-hidden="true">
-          <defs>
-            <linearGradient id="debtAreaV7" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="rgba(255,255,255,0.10)" />
-              <stop offset="100%" stopColor="rgba(255,255,255,0)" />
-            </linearGradient>
-          </defs>
-          <path d="M 0,18 C 50,22 100,32 150,42 C 200,52 250,60 300,65 L 300,72 L 0,72 Z" fill="url(#debtAreaV7)" />
-          <path d="M 0,18 C 50,22 100,32 150,42 C 200,52 250,60 300,65" fill="none" stroke="rgba(255,255,255,0.55)" strokeWidth="1.5" strokeLinecap="round" />
-          <circle cx="0" cy="18" r="3" fill="rgba(255,255,255,0.65)" />
-          <circle cx="300" cy="65" r="3" fill="rgba(255,255,255,0.25)" />
-          {(["Jan","Apr","Jul","Oct"] as const).map((m, i) => (
-            <text key={m} x={i * 100} y={71} fontSize="6.5" fill="rgba(255,255,255,0.22)" textAnchor={i === 0 ? "start" : i === 3 ? "end" : "middle"}>{m}</text>
-          ))}
-        </svg>
-      </div>
-
-      {/* Per-account progress */}
-      <div className="flex flex-col gap-3">
-        {accounts.map((a) => (
-          <div key={a.label}>
-            <div className="mb-1.5 flex items-center justify-between">
-              <span className="text-[11px] font-medium text-white/55">{a.label}</span>
-              <span className="font-mono text-[11px] text-white/35">{a.balance}</span>
-            </div>
-            <div className="h-[5px] overflow-hidden rounded-full bg-white/[0.06]">
-              <div
-                className="h-full rounded-full"
-                style={{ width: `${a.pct}%`, background: "linear-gradient(90deg,rgba(255,255,255,0.18),rgba(255,255,255,0.40))" }}
-              />
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function BudgetMockPanel() {
-  const cats = [
-    { name: "Food & Dining",    pct: 68 },
-    { name: "Bills & Utilities",pct: 91 },
-    { name: "Transport",        pct: 60 },
-    { name: "Shopping",         pct: 73 },
-    { name: "Entertainment",    pct: 30 },
-  ];
-  return (
-    <div className="rounded-[16px] border border-white/[0.08] bg-[rgba(26,14,4,0.74)] p-5 backdrop-blur-md">
-      <div className="mb-4 flex items-start justify-between">
-        <div>
-          <span className="text-[10px] font-semibold tracking-[0.08em] text-white/35">MONTHLY BUDGET</span>
-          <div className="mt-1 font-mono text-[26px] font-semibold leading-none tracking-[-0.03em]">$1,675</div>
-        </div>
-        <div className="text-right">
-          <div className="text-[10px] text-white/30">of $2,250</div>
-          <div className="mt-0.5 text-[11px] font-medium text-white/50">74% used</div>
-        </div>
-      </div>
-
-      {/* Overall bar */}
-      <div className="mb-5 h-1.5 overflow-hidden rounded-full bg-white/[0.06]">
-        <div className="h-full w-[74%] rounded-full" style={{ background: "linear-gradient(90deg,rgba(255,255,255,0.20),rgba(255,255,255,0.42))" }} />
-      </div>
-
-      <div className="flex flex-col gap-3.5">
-        {cats.map((c) => (
-          <div key={c.name} className="flex items-center gap-3">
-            <span className="w-[110px] shrink-0 truncate text-[11px] font-medium text-white/55">{c.name}</span>
-            <div className="h-[5px] flex-1 overflow-hidden rounded-full bg-white/[0.05]">
-              <div
-                className="h-full rounded-full"
-                style={{ width: `${c.pct}%`, background: "linear-gradient(90deg,rgba(255,255,255,0.18),rgba(255,255,255,0.38))" }}
-              />
-            </div>
-            <span className="w-8 shrink-0 text-right font-mono text-[10px] text-white/30">{c.pct}%</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function UpcomingPaymentsPanel() {
-  const DAY_LABELS = ["S","M","T","W","T","F","S"];
-  const weeks = [
-    [null,null,null,null,1,2,3],
-    [4,5,6,7,8,9,10],
-    [11,12,13,14,15,16,17],
-    [18,19,20,21,22,23,24],
-    [25,26,27,28,29,30,31],
-  ];
-  const events: Record<number,{ label:string; color:string; amount:string }> = {
-    7:  { label:"Netflix",   color:"rgba(185,65,65,0.85)",   amount:"$15.99" },
-    12: { label:"Rent",      color:"rgba(120,95,175,0.85)",  amount:"$2,200" },
-    15: { label:"Spotify",   color:"rgba(50,145,75,0.85)",   amount:"$9.99"  },
-    20: { label:"Car ins.",  color:"rgba(65,115,175,0.85)",  amount:"$124"   },
-    28: { label:"Gym",       color:"rgba(175,130,45,0.85)",  amount:"$45"    },
-  };
-  const TODAY = 14;
-  return (
-    <div className="rounded-[16px] border border-white/[0.08] bg-[rgba(8,12,22,0.74)] p-5 backdrop-blur-md">
-      <div className="mb-4 flex items-center justify-between">
-        <span className="text-[10px] font-semibold tracking-[0.08em] text-white/35">UPCOMING PAYMENTS</span>
-        <span className="font-mono text-[10px] text-white/25">MAY 2025</span>
-      </div>
-
-      <div className="grid grid-cols-7 gap-y-1 text-center">
-        {DAY_LABELS.map((d, i) => (
-          <span key={i} className="pb-1.5 text-[9px] font-medium tracking-wider text-white/25">{d}</span>
-        ))}
-        {weeks.flat().map((day, i) => {
-          if (day === null) return <span key={`e${i}`} />;
-          const ev = events[day];
-          const isToday = day === TODAY;
-          return (
-            <div
-              key={day}
-              className={`flex flex-col items-center rounded-[8px] py-1.5 ${isToday ? "bg-white/10 ring-1 ring-inset ring-white/20" : ""}`}
-            >
-              <span className={`text-[10px] font-medium leading-none ${isToday ? "text-white" : "text-white/40"}`}>{day}</span>
-              {ev ? (
-                <span
-                  className="mt-1 block h-1.5 w-1.5 rounded-full"
-                  style={{ background: ev.color }}
-                />
-              ) : <span className="mt-1 block h-1.5" />}
-            </div>
-          );
-        })}
-      </div>
-
-      <div className="mt-4 flex flex-col gap-2 border-t border-white/[0.06] pt-4">
-        {([7,12,15] as const).map((day) => {
-          const ev = events[day];
-          return (
-            <div key={day} className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="block h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: ev.color }} />
-                <span className="text-[11px] font-medium text-white/60">{ev.label}</span>
-                <span className="text-[10px] text-white/28">May {day}</span>
-              </div>
-              <span className="font-mono text-[11px] text-white/45">{ev.amount}</span>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
 
 /* ================================================================
    INTEGRATION MOCKUP (hero)
