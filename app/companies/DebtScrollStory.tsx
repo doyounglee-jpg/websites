@@ -252,7 +252,7 @@ export default function DebtScrollStory() {
             of the viewport for the whole duration of the section.
             Hidden on mobile where the in-flow bar above renders
             instead. Same component, different placement. */}
-        <div className="absolute inset-x-0 bottom-8 z-20 mx-auto hidden px-6 sm:px-10 md:px-16 lg:block lg:px-24">
+        <div className="absolute inset-x-0 bottom-16 z-20 mx-auto hidden px-6 sm:px-10 md:px-16 lg:block lg:px-24">
           <div className="mx-auto max-w-[1440px]">
             <ProgressBar progress={progress} clerkieIntensity={clerkieIntensity} />
           </div>
