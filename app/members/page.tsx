@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { HugeiconsIcon } from "@hugeicons/react";
 import {
   Car01Icon,
   ChartUpIcon,
@@ -12,6 +11,7 @@ import { TopNav } from "../components/TopNav";
 import RevealStack from "../components/RevealStack";
 import { AnimatedBillsChatPanel } from "./AnimatedBillsChatPanel";
 import { AnimatedChatPanel } from "./AnimatedChatPanel";
+import { CoverageCards } from "./CoverageCards";
 import { HeroPhoneVideo } from "./HeroPhoneVideo";
 import { LiveSavingsTicker } from "./LiveSavingsTicker";
 
@@ -296,16 +296,12 @@ export default function MembersV3Page() {
             </p>
           </div>
 
-          {/* 2x3 grid — wrap the whole grid as one reveal-item so the
-              cards land together (they're tightly clustered, cascading
-              each one individually felt fussy on the 6-card grid). */}
-          <div className="reveal-item overflow-hidden rounded-[18px] border border-white/[0.06] bg-white/[0.06]">
-            <div className="flex flex-wrap gap-px">
-              {CATEGORIES.map((cat) => (
-                <CategoryCard key={cat.title} {...cat} />
-              ))}
-            </div>
-          </div>
+          {/* Separated glass cards with cursor-tracked tilt + sheen.
+              Replaces the prior single-bordered 2x3 grid; each card
+              now stands on its own with a subtle 3D-tilt hover that
+              follows the cursor and a radial sheen highlight that
+              rides under it (see ./CoverageCards.tsx). */}
+          <CoverageCards categories={CATEGORIES} />
         </div>
       </section>
       </RevealStack>
@@ -441,44 +437,6 @@ const CATEGORIES = [
   },
 ];
 
-function CategoryCard({
-  title,
-  desc,
-  statLabel,
-  statValue,
-  icon,
-}: (typeof CATEGORIES)[number]) {
-  return (
-    <div className="flex min-h-[240px] basis-full flex-col gap-6 bg-[#0C0D0F] px-6 py-7 sm:basis-[calc(50%-1px)] sm:px-8 sm:py-9 lg:basis-[calc(33.333%-1px)]">
-      {/* Icon bubble - Hugeicons stroke icon, white at 80% opacity. */}
-      <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5">
-        <HugeiconsIcon
-          icon={icon}
-          size={22}
-          color="currentColor"
-          strokeWidth={1.5}
-          className="text-white/80"
-        />
-      </div>
-      <div className="flex flex-1 flex-col gap-2">
-        <span className="text-[22px] font-semibold leading-[1.2] tracking-[-0.02em] text-white">
-          {title}
-        </span>
-        <span className="text-sm leading-[1.55] tracking-[-0.005em] text-white/60">
-          {desc}
-        </span>
-      </div>
-      <div className="flex items-center gap-2 pt-1">
-        <span className="font-mono text-[11px] font-medium tracking-[0.02em] text-white/50">
-          {statLabel}
-        </span>
-        <span className="font-mono text-[13px] font-medium text-white">
-          {statValue}
-        </span>
-      </div>
-    </div>
-  );
-}
 
 function FooterCol({ title, links }: { title: string; links: Array<{ label: string; active?: boolean; href?: string }> }) {
   return (
