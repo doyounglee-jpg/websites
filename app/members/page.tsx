@@ -9,6 +9,7 @@ import {
 } from "@hugeicons-pro/core-stroke-standard";
 import { TopNav } from "../components/TopNav";
 import RevealStack from "../components/RevealStack";
+import { AmbientShaderBackground } from "./AmbientShaderBackground";
 import { AnimatedBillsChatPanel } from "./AnimatedBillsChatPanel";
 import { AnimatedChatPanel } from "./AnimatedChatPanel";
 import { CoverageCards } from "./CoverageCards";
@@ -112,11 +113,11 @@ export default function MembersV3Page() {
             </div>
 
             {/* LEFT - Headline (spans cols 1-4 = full left half, content
-                block constrained to ~280px and centered within the half so
-                it visually sits in the middle of the left side, not hugging
-                the page edge or the phone). Reveals after the video. */}
-            <div className="reveal-item order-2 w-full text-center lg:order-1 lg:col-span-4 lg:col-start-1 lg:max-w-[280px] lg:justify-self-center lg:text-left">
-              <h1 className="text-[32px] font-medium leading-[0.95] tracking-[-0.03em] sm:text-[40px] sm:font-normal xl:text-[48px]">
+                block constrained to ~280px and anchored to the RIGHT edge
+                of its column area — sits close to the phone instead of
+                drifting toward the page edge as the viewport widens). */}
+            <div className="reveal-item order-2 w-full text-center lg:order-1 lg:col-span-4 lg:col-start-1 lg:mr-12 lg:max-w-[280px] lg:justify-self-end lg:text-left">
+              <h1 className="text-[32px] font-medium leading-[0.95] tracking-[-0.03em] sm:text-[40px] sm:font-normal lg:leading-[48px] xl:text-[48px]">
                 Solve your debt and money problems.
               </h1>
             </div>
@@ -127,7 +128,7 @@ export default function MembersV3Page() {
                 the other (body reveals third, CTA reveals fourth/last
                 per the brief). The flex layout still keeps them stacked
                 vertically within the right column. */}
-            <div className="order-3 flex w-full flex-col items-center gap-6 text-center lg:order-3 lg:col-span-4 lg:col-start-9 lg:max-w-[280px] lg:items-start lg:justify-self-center lg:text-left">
+            <div className="order-3 flex w-full flex-col items-center gap-6 text-center lg:order-3 lg:col-span-4 lg:col-start-9 lg:ml-20 lg:max-w-[280px] lg:items-start lg:justify-self-start lg:text-left">
               <p className="reveal-item text-[16px] font-normal leading-[1.4] text-zinc-400 lg:text-[17px] xl:text-[18px]">
                 The easiest way to pay off debt, manage bills, and get
                 personalized financial answers - built for the way real people
@@ -175,14 +176,14 @@ export default function MembersV3Page() {
 
         {/* Right: dark surface panel with restrained cyan-accented chat */}
         <div className="reveal-item relative min-h-[600px] overflow-hidden rounded-3xl bg-gradient-to-br from-[#15171B] via-[#101216] to-[#0E1014] md:min-h-0">
-          {/* Subtle neutral-white glow */}
-          <div
-            className="pointer-events-none absolute right-[-20%] top-[-20%] h-[600px] w-[600px] rounded-full"
-            style={{
-              background:
-                "radial-gradient(circle, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.025) 38%, rgba(255,255,255,0) 70%)",
-            }}
-          />
+          {/* Ambient shader-style backdrop: handhold.io fragment shader port,
+              DARK palette tuned for this panel (very dark with subtle white). */}
+          <AmbientShaderBackground />
+          {/* Legibility scrim — sits between the shader and the chat/text
+              so the foreground reads cleanly without dimming the shader's
+              tuning. Adjust opacity here to balance shader visibility vs.
+              text contrast. */}
+          <div className="pointer-events-none absolute inset-0 bg-black/45" />
           <div className="relative z-10 flex h-full flex-col justify-between p-10 md:p-14">
             {/* Live chat: looping conversation + animated voice waveform. */}
             <AnimatedChatPanel />
@@ -263,9 +264,9 @@ export default function MembersV3Page() {
           <div className="relative z-10 flex h-full flex-col justify-end gap-5 p-10 md:p-14">
             <p className="max-w-[480px] text-[24px] leading-[1.3] tracking-[-0.01em] text-white">
               &ldquo;Clerkie cleared{" "}
-              <span className="text-[#5EEAD4]">$14,000</span> in student loans
-              I&apos;d been dragging for six years. I didn&apos;t even have to
-              call.&rdquo;
+              <span className="text-[#5EEAD4]">$4,200</span> in credit card
+              debt I&apos;d been dragging for six years. I didn&apos;t even
+              have to call.&rdquo;
             </p>
             <span className="text-[13px] tracking-[0.04em] text-white/60">
               - M. ALVAREZ, MEMBER SINCE 2024
