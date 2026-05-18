@@ -167,7 +167,11 @@ export default function CompaniesPage() {
       {/* ── § 04 - RETURN ───────────────────────────────────────────── */}
       <RevealStack>
       <section className="border-t border-white/[0.06] bg-[#0E1014]">
-        <div className="mx-auto flex max-w-[1440px] flex-col items-stretch gap-12 px-6 pb-20 pt-24 sm:px-10 sm:pb-24 sm:pt-28 md:px-16 md:pb-28 md:pt-32 lg:flex-row lg:gap-20 lg:px-24 lg:pb-32 lg:pt-40">
+        {/* Extra-tall pt/pb (was pt-24…lg:pt-40 / pb-20…lg:pb-32) so
+            the RETURN section gets visible breathing room between the
+            WHY IT WORKS card grid above and the CTA section below. */}
+        <div className="mx-auto flex max-w-[1440px] flex-col items-stretch gap-12 px-6 pb-32 pt-32 sm:px-10 sm:pb-40 sm:pt-40 md:px-16 md:pb-48 md:pt-48 lg:flex-row lg:gap-20 lg:px-24 lg:pb-56 lg:pt-56">
+
           <div className="flex flex-col gap-6 pt-0 sm:gap-8 lg:max-w-[480px] lg:shrink-0 lg:pt-6">
             <SectionEyebrow className="reveal-item">05 - RETURN</SectionEyebrow>
             <h2 className="reveal-item text-4xl font-semibold leading-[1.05] tracking-[-0.04em] sm:text-5xl md:text-[52px] lg:text-[56px]">

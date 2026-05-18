@@ -307,6 +307,9 @@ export default function RoiMockup() {
         onMouseEnter={hoverCapable ? () => setHovered(true) : undefined}
         onMouseMove={hoverCapable ? handleMove : undefined}
         onMouseLeave={hoverCapable ? handleLeave : undefined}
+        // Original card sizing — padding/gap match the pre-tilt-wrap
+        // version. Section-level breathing room is handled by the
+        // parent section's pt/pb in page.tsx, not by the card itself.
         className="relative flex flex-1 flex-col gap-5 overflow-hidden rounded-[18px] border bg-white/[0.02] p-7"
         style={{
           transform: tiltTransform,

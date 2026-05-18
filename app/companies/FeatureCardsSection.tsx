@@ -229,8 +229,12 @@ function MilestoneProgress() {
         </span>
       </div>
 
-      {/* Track + fill + dots */}
-      <div className="relative mb-2 h-1.5 w-full rounded-full bg-white/[0.09]">
+      {/* Track + fill + dots
+          Bar height matched to Card 2's adaptive plan bars (4px) so
+          all progress rails on the page share one weight. Dots are
+          slightly bigger than the bar so they read as markers, but
+          small enough that they don't loom over the rail. */}
+      <div className="relative mb-2 h-1 w-full rounded-full bg-white/[0.09]">
         <div
           key={`fill-${playCount}`}
           className="absolute left-0 top-0 h-full rounded-full"
@@ -242,20 +246,24 @@ function MilestoneProgress() {
           }}
         />
         {milestones.map((m, i) => (
+          // Outer wrapper ONLY handles centering on the bar (no
+          // animation). Inner span carries the visible dot styles +
+          // the pop-in animation. Splitting these avoids the bug
+          // where the animation's `transform: translate(-50%,-50%)`
+          // collides with the centering and ends up nudging the dot
+          // ~5px off the rail.
           <div
             key={`${playCount}-${m.label}`}
             className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2"
-            style={{
-              left: `${m.pct}%`,
-              animation: `feat-dot-pop 420ms cubic-bezier(0.16, 1, 0.3, 1) ${300 + i * 160}ms both`,
-            }}
+            style={{ left: `${m.pct}%` }}
           >
-            <div
-              className={`h-3 w-3 rounded-full border-2 ${
+            <span
+              className={`block h-2.5 w-2.5 rounded-full border ${
                 BAR >= m.pct
                   ? "border-white/60 bg-white/30"
                   : "border-white/[0.20] bg-white/[0.07]"
               }`}
+              style={{ animation: `feat-dot-pop 420ms cubic-bezier(0.16, 1, 0.3, 1) ${300 + i * 160}ms both` }}
             />
           </div>
         ))}
@@ -288,7 +296,7 @@ function MilestoneProgress() {
       </div>
 
       <style>{`
-        @keyframes feat-dot-pop  { from { opacity: 0; transform: translate(-50%, -50%) scale(0.4); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
+        @keyframes feat-dot-pop  { from { opacity: 0; transform: scale(0.4); } to { opacity: 1; transform: scale(1); } }
       `}</style>
     </div>
   );
