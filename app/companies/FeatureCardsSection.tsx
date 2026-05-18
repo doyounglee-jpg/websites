@@ -337,7 +337,15 @@ function CoachingCardUI() {
         <p className="text-[13px] leading-[1.55] text-white/62">
           Nice progress — stay consistent this week.{" "}
           Your balance is down{" "}
-          <span className="font-semibold tabular-nums text-white/88">${balanceDown}</span>{" "}
+          {/* inline-block + fixed min-width reserves space for the
+              final "$420" so the count-up (which grows from 1 → 3
+              digits) doesn't re-wrap the paragraph. Without this,
+              the paragraph height fluctuates mid-animation, which
+              cascades up to the grid row and stretches the Progress
+              card next to it. text-right keeps digits aligned to the
+              right edge of the reserved box so the surrounding text
+              spacing stays consistent. */}
+          <span className="inline-block min-w-[2.5em] text-right font-semibold tabular-nums text-white/88">${balanceDown}</span>{" "}
           since last month.
         </p>
       </div>
