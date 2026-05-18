@@ -173,9 +173,11 @@ export function LiveSavingsTicker() {
     return () => obs.disconnect();
   }, []);
 
-  // Every 2s: one new negotiation. The feed item's amount is added to the
-  // counter so the visible jump matches what just appeared in the feed,
-  // and the new delta is persisted so the next page load picks up here.
+  // Every 3.5s: one new negotiation. The feed item's amount is added to
+  // the counter so the visible jump matches what just appeared in the
+  // feed, and the new delta is persisted so the next page load picks up
+  // here. 3.5s gives each item ~2.4s of quiet time after its 700ms digit
+  // flip + 400ms card entry — readable, not frantic.
   useEffect(() => {
     const i = setInterval(() => {
       const next: FeedItem = {
@@ -188,7 +190,7 @@ export function LiveSavingsTicker() {
         return newDelta;
       });
       setFeed((f) => [next, ...f.slice(0, 3)]);
-    }, 2000);
+    }, 3500);
     return () => clearInterval(i);
   }, []);
 
