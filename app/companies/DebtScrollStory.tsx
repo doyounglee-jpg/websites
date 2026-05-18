@@ -28,6 +28,7 @@
 //   visually-uniform growth feeling.
 
 import { useEffect, useRef, useState } from "react";
+import { AnimatedNumber } from "../components/AnimatedNumber";
 
 // The narrative beats. Beats 1-3 are the "growth" story (debt only goes
 // up); beat 4 is the "reversal" story (Clerkie's actual impact). The
@@ -93,93 +94,73 @@ export default function DebtScrollStory() {
     const el = containerRef.current;
     if (!el) return;
 
-    let frameId = 0;
+    // Plain handler — call setProgress on each scroll event. React 18
+    // batches state updates so rapid scroll-driven calls collapse to
+    // one render automatically. (Previously rAF-throttled; switched to
+    // un-throttled because rAF callbacks were unreliable in the embed
+    // preview context — same fix used in /members PayoffScrollStory.)
     const onScroll = () => {
-      // Throttle to one update per animation frame — getBoundingClientRect
-      // can be expensive at scroll-event frequency (especially on
-      // mobile where touch-scroll fires events very rapidly).
-      if (frameId) return;
-      frameId = requestAnimationFrame(() => {
-        frameId = 0;
-        const rect = el.getBoundingClientRect();
-        // Total scroll distance available within the section is its
-        // own height minus one viewport (since the sticky child takes
-        // a full viewport at any pinned moment).
-        const totalScroll = rect.height - window.innerHeight;
-        if (totalScroll <= 0) return;
-        // How far have we scrolled past the section's top? When the
-        // section's top is exactly at viewport top, rect.top is 0.
-        const scrolled = Math.max(0, Math.min(totalScroll, -rect.top));
-        setProgress(scrolled / totalScroll);
-      });
+      const rect = el.getBoundingClientRect();
+      // Total scroll distance available within the section is its
+      // own height minus one viewport (sticky child = full viewport).
+      const totalScroll = rect.height - window.innerHeight;
+      if (totalScroll <= 0) return;
+      const scrolled = Math.max(0, Math.min(totalScroll, -rect.top));
+      setProgress(scrolled / totalScroll);
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", onScroll);
-      if (frameId) cancelAnimationFrame(frameId);
     };
   }, []);
 
-  // Hold-aware progression. The scroll range is divided into
-  // alternating hold zones (number is static, label sits) and
-  // transition zones (number animates quickly to the next beat).
-  // Layout looks like:
+  // Hold-aware progression with SNAP semantics:
   //
   //   |---HOLD beat 0---|trans|---HOLD beat 1---|trans|...|---HOLD beat 3---|
   //   0%             22%   26%               48%   52% ... 78%            100%
   //
-  // Within a transition zone we use geometric interpolation so the
-  // number "ramps" rather than jumping. For the last transition (debt
-  // → Clerkie reversal), the value DECREASES (trillions to billions);
-  // exponential decay reads as a free-fall which suits the narrative.
-  const { value: interpolated, label } = (() => {
+  // We resolve a single snappedIndex that flips at the MIDPOINT of each
+  // transition zone — that's the moment the user commits to the next
+  // beat. The displayed number is rendered by AnimatedNumber (downstream)
+  // which tweens between the snapped beat values geometrically over
+  // ~800ms via rAF, running to completion on its own. The label switches
+  // at the same midpoint as the number target, so they always agree.
+  //
+  // Why snap instead of per-frame scroll-driven interpolation: previously
+  // every scroll micro-movement nudged the displayed number, which let
+  // users pause mid-tween at a meaningless intermediate value ($3.7T?).
+  // Snap + auto-complete means the number is always either AT a beat
+  // value or ANIMATING TOWARD one — never ambiguous.
+  const { value: targetValue, label, snappedIndex } = (() => {
     let cursor = 0;
     for (let i = 0; i < BEATS.length; i++) {
       const holdEnd = cursor + HOLD_FRACTION;
       if (progress < holdEnd) {
-        // We're in beat i's hold zone (or just entered).
-        return { value: BEATS[i].value, label: BEATS[i].label };
+        return { value: BEATS[i].value, label: BEATS[i].label, snappedIndex: i };
       }
-      // Past this beat's hold — if there's a next beat, check whether
-      // we're in the transition zone TO it.
       if (i < BEATS.length - 1) {
         const transEnd = holdEnd + TRANSITION_FRACTION;
         if (progress < transEnd) {
-          // In transition i → i+1. Local t goes 0..1 within the zone.
+          // In transition i → i+1. Snap at the MIDPOINT.
           const t = (progress - holdEnd) / TRANSITION_FRACTION;
-          const a = BEATS[i].value;
-          const b = BEATS[i + 1].value;
-          // Geometric interp: a * (b/a)^t. Works for both growth AND
-          // decay (final transition is decay) — produces a curve that
-          // feels uniform regardless of direction.
-          const value = a * Math.pow(b / a, t);
-          // Label flips at the MIDPOINT of the transition so the
-          // arriving label appears as the number nears its new value.
-          const labelSrc = t >= 0.5 ? BEATS[i + 1] : BEATS[i];
-          return { value, label: labelSrc.label };
+          const idx = t < 0.5 ? i : i + 1;
+          return { value: BEATS[idx].value, label: BEATS[idx].label, snappedIndex: idx };
         }
         cursor = transEnd;
       }
     }
-    // Past everything — hold final beat.
-    const last = BEATS[BEATS.length - 1];
-    return { value: last.value, label: last.label };
+    const last = BEATS.length - 1;
+    return { value: BEATS[last].value, label: BEATS[last].label, snappedIndex: last };
   })();
 
-  // How "deep" into the Clerkie reversal beat the user is. 0 = before
-  // the transition into beat 4 starts; 1 = fully in beat 4's hold zone.
-  // Ramps smoothly through the transition (progress 0.725 → 0.825) so
-  // the glow eases in as the narrative turns, rather than snapping on.
-  // The math mirrors the BEATS cursor layout (last hold = beat 3 starts
-  // at progress 0.825; prior transition starts at 0.725).
-  const clerkieIntensity = (() => {
-    const finalTransStart = (BEATS.length - 1) * HOLD_FRACTION + (BEATS.length - 2) * TRANSITION_FRACTION;
-    const finalHoldStart = finalTransStart + TRANSITION_FRACTION;
-    if (progress <= finalTransStart) return 0;
-    if (progress >= finalHoldStart) return 1;
-    return (progress - finalTransStart) / TRANSITION_FRACTION;
-  })();
+  // Clerkie-beat intensity also SNAPS (0 or 1) — 1 when the snap lands
+  // on the final reversal beat ("Saved per Clerkie member"), 0 otherwise.
+  // Downstream visuals (aurora, number text-shadow, progress-bar shining
+  // tip) use CSS transitions to fade smoothly between 0 and full. The
+  // trigger is the snap, not scroll position, so users can't pause the
+  // celebration glow mid-fade by easing off scroll.
+  const clerkieIntensity = snappedIndex === BEATS.length - 1 ? 1 : 0;
 
   return (
     <div
@@ -237,7 +218,7 @@ export default function DebtScrollStory() {
               the content so it's always visible without hunting for
               it at the viewport bottom. */}
           <div className="flex-1 min-w-0">
-            <DebtScrollVisual value={interpolated} label={label} clerkieIntensity={clerkieIntensity} />
+            <DebtScrollVisual targetValue={targetValue} label={label} clerkieIntensity={clerkieIntensity} />
             {/* Mobile-only progress bar — flows right below the
                 counter visual. mt-20 for breathing room between the
                 caption and the bar. Hidden on desktop where the
@@ -280,45 +261,35 @@ function ProgressBar({
   return (
     <div className="relative h-px w-full bg-white/[0.08]">
       <div
-        className="absolute inset-y-0 left-0 bg-white/60"
+        className="absolute inset-y-0 left-0"
         style={{
           width: `${Math.round(progress * 100)}%`,
-          boxShadow:
-            clerkieIntensity > 0
-              ? `0 0 ${10 * clerkieIntensity}px rgba(255, 255, 255, ${0.8 * clerkieIntensity}), 0 0 ${20 * clerkieIntensity}px rgba(255, 255, 255, ${0.4 * clerkieIntensity})`
-              : undefined,
-          backgroundColor:
-            clerkieIntensity > 0
-              ? `rgba(255, 255, 255, ${0.6 + 0.4 * clerkieIntensity})`
-              : undefined,
+          // Background lerps from 60% white → 100% white when finale
+          // snaps. Glow alphas multiplied by clerkieIntensity so CSS
+          // can transition between 0 (no glow) and full smoothly.
+          backgroundColor: `rgba(255, 255, 255, ${0.6 + 0.4 * clerkieIntensity})`,
+          boxShadow: `0 0 10px rgba(255, 255, 255, ${0.8 * clerkieIntensity}), 0 0 20px rgba(255, 255, 255, ${0.4 * clerkieIntensity})`,
+          transition:
+            "box-shadow 600ms ease-out, background-color 600ms ease-out",
         }}
         aria-hidden="true"
       >
-        {/* Shining tip — a soft white "light source" at the leading
-            edge of the fill. We use filter: blur() so the dot itself
-            has no hard edge (reads as light, not a pixel), and stack
-            multi-layer box-shadow on top for the spreading halo.
-            Combined effect is a glowing orb that feels like the head
-            of the progress bar is emitting light outward. Only on the
-            Clerkie beat. */}
-        {clerkieIntensity > 0 && (
-          <span
-            className="pointer-events-none absolute right-0 top-1/2 block h-1 w-1 -translate-y-1/2 translate-x-1/2 rounded-full bg-white"
-            style={{
-              // Blur + halo sizes are FIXED — they don't ramp with
-              // clerkieIntensity. The dot appears as a blurry light
-              // from the very first frame it's visible, instead of
-              // morphing from a sharp pixel into a soft light.
-              // clerkieIntensity only fades the OPACITY (via the dot's
-              // own opacity + the box-shadow alpha values), so the
-              // light eases IN at full shape rather than growing into it.
-              filter: "blur(2px)",
-              opacity: clerkieIntensity,
-              boxShadow: `0 0 10px rgba(255, 255, 255, ${clerkieIntensity}), 0 0 22px rgba(255, 255, 255, ${0.7 * clerkieIntensity}), 0 0 44px rgba(255, 255, 255, ${0.3 * clerkieIntensity})`,
-            }}
-            aria-hidden="true"
-          />
-        )}
+        {/* Shining tip — always rendered, opacity-driven by
+            clerkieIntensity. The blur + halo geometry is fixed; only
+            opacity transitions (smooth fade-in when finale snaps on).
+            The halo's box-shadow alphas are fixed at full strength too
+            — opacity does all the fading via CSS transition. */}
+        <span
+          className="pointer-events-none absolute right-0 top-1/2 block h-1 w-1 -translate-y-1/2 translate-x-1/2 rounded-full bg-white"
+          style={{
+            filter: "blur(2px)",
+            opacity: clerkieIntensity,
+            boxShadow:
+              "0 0 10px rgba(255, 255, 255, 1), 0 0 22px rgba(255, 255, 255, 0.7), 0 0 44px rgba(255, 255, 255, 0.3)",
+            transition: "opacity 600ms ease-out",
+          }}
+          aria-hidden="true"
+        />
       </div>
     </div>
   );
@@ -328,11 +299,11 @@ function ProgressBar({
 // indicator. Wrapped in a rounded card with a soft aurora behind it so
 // the number doesn't float in a void.
 function DebtScrollVisual({
-  value,
+  targetValue,
   label,
   clerkieIntensity,
 }: {
-  value: number;
+  targetValue: number;
   label: string;
   clerkieIntensity: number;
 }) {
@@ -345,34 +316,47 @@ function DebtScrollVisual({
     // but still gives beat 4 a distinct visual moment.
     <div className="relative flex w-full flex-col items-center gap-6 text-center">
       {/* Soft white aurora — large, blurred radial halo behind the
-          number + caption. Dialed down slightly (0.16 vs prior 0.22)
-          per "make the glow a little less around numbers" feedback;
-          still distinct enough that beat 4 reads as visually different. */}
+          number + caption. Gradient alphas are FIXED at full strength;
+          only `opacity` is driven by clerkieIntensity, with a CSS
+          transition so the snap (0→1 when finale beat lands) eases
+          in smoothly over 600ms rather than popping on. */}
       <div
         className="pointer-events-none absolute inset-0 -z-10"
         style={{
-          background: `radial-gradient(ellipse 75% 85% at 50% 50%, rgba(255, 255, 255, ${0.16 * clerkieIntensity}) 0%, rgba(255, 255, 255, ${0.04 * clerkieIntensity}) 40%, rgba(255, 255, 255, 0) 70%)`,
+          background:
+            "radial-gradient(ellipse 75% 85% at 50% 50%, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.04) 40%, rgba(255, 255, 255, 0) 70%)",
           filter: "blur(50px)",
           opacity: clerkieIntensity,
+          transition: "opacity 600ms ease-out",
         }}
         aria-hidden="true"
       />
-      {/* The number — gets a white text-shadow halo on the Clerkie
-          beat. Dialed down slightly (tight 8px @ 0.45 alpha, wide
-          45px @ 0.55 alpha) so the number reads as "lit" without
-          looking overblown. */}
-      <div
+      {/* The number — rendered by AnimatedNumber in GEOMETRIC mode so
+          the tween between order-of-magnitude beats ($172B → $4.2T)
+          feels uniform (linear would look like nothing for ~95% of
+          the duration then a sudden jump). 800ms duration gives the
+          digits room to read as they climb. Geometric falls back to
+          linear when an endpoint is 0 (defensive — none of our beats
+          hit 0, but the safeguard is there).
+          Still gets the white text-shadow halo on the Clerkie beat;
+          AnimatedNumber wraps the formatted string in a span so the
+          style passes through. */}
+      <AnimatedNumber
+        target={targetValue}
+        formatter={formatDebt}
+        mode="geometric"
+        durationMs={800}
         className="font-mono text-[72px] font-medium leading-[1] tracking-[-0.04em] text-white sm:text-[100px] lg:text-[140px]"
         style={{
           fontVariantNumeric: "tabular-nums",
-          textShadow:
-            clerkieIntensity > 0
-              ? `0 0 ${8 * clerkieIntensity}px rgba(255, 255, 255, ${0.45 * clerkieIntensity}), 0 0 ${45 * clerkieIntensity}px rgba(255, 255, 255, ${0.55 * clerkieIntensity})`
-              : undefined,
+          // Text-shadow halo on the finale Clerkie beat. ALWAYS rendered
+          // with its full geometry; only the alpha is multiplied by
+          // clerkieIntensity (0 or 1 when snap-driven), so CSS can
+          // transition the glow smoothly between 0 and full over 600ms.
+          textShadow: `0 0 8px rgba(255, 255, 255, ${0.45 * clerkieIntensity}), 0 0 45px rgba(255, 255, 255, ${0.55 * clerkieIntensity})`,
+          transition: "text-shadow 600ms ease-out",
         }}
-      >
-        {formatDebt(value)}
-      </div>
+      />
       {/* Caption — picks up the same glow treatment as the number on
           the Clerkie beat so "Saved per Clerkie member" reads as part
           of the lit moment, not as muted afterthought. Color shifts
@@ -382,10 +366,11 @@ function DebtScrollVisual({
         className="text-lg font-medium sm:text-xl lg:text-2xl"
         style={{
           color: `rgba(${244 + (255 - 244) * clerkieIntensity}, ${244 + (255 - 244) * clerkieIntensity}, ${245 + (255 - 245) * clerkieIntensity}, ${0.6 + 0.4 * clerkieIntensity})`,
-          textShadow:
-            clerkieIntensity > 0
-              ? `0 0 ${24 * clerkieIntensity}px rgba(255, 255, 255, ${0.6 * clerkieIntensity})`
-              : undefined,
+          // Text-shadow halo on the caption — always rendered with
+          // fixed geometry, alpha scaled by clerkieIntensity. CSS
+          // transition smooths the snap (0→1) over 600ms.
+          textShadow: `0 0 24px rgba(255, 255, 255, ${0.6 * clerkieIntensity})`,
+          transition: "color 600ms ease-out, text-shadow 600ms ease-out",
         }}
       >
         {label}
