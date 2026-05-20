@@ -12,6 +12,7 @@ import RevealStack from "../components/RevealStack";
 import { AnimatedBillsChatPanel } from "./AnimatedBillsChatPanel";
 import { AnimatedChatPanel } from "./AnimatedChatPanel";
 import { CoverageCards } from "./CoverageCards";
+import { CreditScoreSequence } from "./CreditScoreSequence";
 import { DebtPayoffSequence } from "./DebtPayoffSequence";
 import { HeroPhoneVideo } from "./HeroPhoneVideo";
 import { LiveSavingsTicker } from "./LiveSavingsTicker";
@@ -267,16 +268,15 @@ export default function MembersV3Page() {
             className="absolute inset-0 h-full w-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/0" />
-          <div className="relative z-10 flex h-full flex-col justify-end gap-5 p-10 md:p-14">
-            <p className="max-w-[480px] text-[24px] leading-[1.3] tracking-[-0.01em] text-white">
-              &ldquo;Clerkie cleared{" "}
-              <span className="text-[#5EEAD4]">$4,200</span> in credit card
-              debt I&apos;d been dragging for six years. I didn&apos;t even
-              have to call.&rdquo;
+          <CreditScoreSequence />
+          <div className="relative z-10 flex h-full flex-col justify-end gap-4 p-10 md:p-14">
+            <h3 className="text-[34px] font-medium leading-[1.15] tracking-[-0.02em] text-white">
+              Watch your credit climb.
+            </h3>
+            <p className="max-w-[420px] text-[15px] leading-[1.55] text-white/70">
+              Clerkie handles negotiations and disputes — every win flows
+              straight into your score.
             </p>
-            <span className="text-[13px] tracking-[0.04em] text-white/60">
-              - M. ALVAREZ, MEMBER SINCE 2024
-            </span>
           </div>
         </div>
       </section>
