@@ -47,7 +47,7 @@ export function DebtPayoffSequence() {
           -translate-y-1/2 recenters it; on mobile the wrapper stays
           anchored at the top and the notification appears below the
           progress bar naturally. */}
-      <div className="pointer-events-none absolute left-1/2 top-16 z-20 flex w-[calc(100%-4rem)] max-w-[360px] -translate-x-1/2 flex-col gap-5 rounded-3xl border border-white/15 bg-white/[0.05] p-5 backdrop-blur-md md:top-1/2 md:w-[calc(100%-6rem)] md:-translate-y-1/2 md:p-6 shadow-[0_20px_50px_rgba(0,0,0,0.35)]">
+      <div className="pointer-events-none absolute left-1/2 top-12 z-20 flex w-[calc(100%-4rem)] max-w-[360px] -translate-x-1/2 flex-col gap-5 rounded-3xl border border-white/15 bg-white/[0.05] p-5 backdrop-blur-md md:top-1/2 md:w-[calc(100%-6rem)] md:-translate-y-1/2 md:p-6 shadow-[0_20px_50px_rgba(0,0,0,0.35)]">
         {/* Progress bar block - sits at the center of the panel when
             alone. Gets pushed up when the notification mounts below. */}
         <div className="flex flex-col gap-2">

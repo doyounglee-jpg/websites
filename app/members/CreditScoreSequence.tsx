@@ -107,11 +107,15 @@ export function CreditScoreSequence() {
     <>
       <style>{KEYFRAMES}</style>
 
-      {/* Centered glass card. Opacity transitions on phase = hidden so
-          the card naturally dissolves between cycles, letting the photo
-          breathe for ~1.3s (2s phase minus the 700ms fade). */}
+      {/* Glass card. Mobile: anchored near the top of the panel (top-12,
+          no Y translate) so it sits above the headline/body that sit at
+          the bottom of the panel. md+: anchored to the middle of the
+          panel (top-1/2 + -translate-y-1/2) so the original centered
+          composition is preserved. Opacity transitions on phase = hidden
+          so the card naturally dissolves between cycles, letting the
+          photo breathe for ~1.3s (2s phase minus the 700ms fade). */}
       <div
-        className="pointer-events-none absolute left-1/2 top-1/2 z-20 flex w-[calc(100%-4rem)] max-w-[280px] -translate-x-1/2 -translate-y-1/2 flex-col gap-5 rounded-3xl border border-white/15 bg-white/[0.05] p-5 shadow-[0_20px_50px_rgba(0,0,0,0.35)] backdrop-blur-md md:w-[calc(100%-6rem)] md:p-6"
+        className="pointer-events-none absolute left-1/2 top-12 z-20 flex w-[calc(100%-4rem)] max-w-[280px] -translate-x-1/2 flex-col gap-5 rounded-3xl border border-white/15 bg-white/[0.05] p-5 shadow-[0_20px_50px_rgba(0,0,0,0.35)] backdrop-blur-md md:top-1/2 md:w-[calc(100%-6rem)] md:-translate-y-1/2 md:p-6"
         style={{
           opacity: visible ? 1 : 0,
           transition: `opacity ${FADE_MS}ms ease-out`,
