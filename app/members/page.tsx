@@ -45,6 +45,8 @@ const PHOTOS = {
   bentoPortrait: "/dancing-woman.png",
   // "More personalized than most apps" portrait - local asset
   personalizedPortrait: "/happy-man-with-phone.png",
+  // "Every bill, paid on time" portrait - local asset
+  billsPortrait: "/woman-with-tablet.png",
   // "Crush your debt by 70%" backdrop - local asset
   feature2Portrait: "/woman-on-mountain.png",
   // Warm intimate family portrait - testimonial (local asset)
@@ -223,30 +225,29 @@ export default function MembersV3Page() {
       {/* Same pattern as § 02: panels get tall min-heights on mobile, share viewport on md+ */}
       <RevealStack>
       <section className="grid w-full grid-cols-1 gap-3 md:h-[100vh] md:min-h-[760px] md:grid-cols-2">
-        {/* Left: dark bills dashboard panel. Taller min-h on mobile so the
-            bills chat card (header + 380px body + input row) fits without
-            being clipped above the headline. */}
+        {/* Left: photo background + frosted-glass bills chat overlay
+            (mirrors the §02 "More personalized" treatment). */}
         {/* order-2 on mobile so the testimonial stacks first; reverts to source order on md+ */}
-        <div className="reveal-item relative order-2 min-h-[760px] overflow-hidden rounded-3xl bg-gradient-to-br from-[#15171B] via-[#101216] to-[#0E1014] md:order-none md:min-h-0">
-          {/* Subtle white glow corner */}
-          <div
-            className="pointer-events-none absolute left-[-20%] bottom-[-20%] h-[500px] w-[500px] rounded-full"
-            style={{
-              background:
-                "radial-gradient(circle, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0) 70%)",
-            }}
+        <div className="reveal-item relative order-2 min-h-[760px] overflow-hidden rounded-3xl md:order-none md:min-h-0">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={PHOTOS.billsPortrait}
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover"
           />
+          {/* Subtle uniform dark wash + soft bottom gradient for headline
+              legibility (same recipe as §02). */}
+          <div className="absolute inset-0 bg-black/30" />
+          <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/45 to-transparent" />
           <div className="relative z-10 flex h-full flex-col justify-between p-10 md:p-14">
-            <div className="flex flex-1 items-center justify-center">
-              <AnimatedBillsChatPanel />
-            </div>
+            <AnimatedBillsChatPanel />
 
             {/* 16px buffer below the bills UI on mobile (justify-between collapses). */}
             <div className="mt-4 flex flex-col gap-3">
               <h3 className="text-[34px] font-medium leading-[1.15] tracking-[-0.02em] text-white">
                 Every bill, paid on time.
               </h3>
-              <p className="max-w-[420px] text-[15px] leading-[1.55] text-white/60">
+              <p className="max-w-[420px] text-[15px] leading-[1.55] text-white/75">
                 Clerkie watches your bills, due dates, and balances - and gives
                 you a heads-up before anything slips.
               </p>
