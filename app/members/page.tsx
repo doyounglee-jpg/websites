@@ -71,6 +71,18 @@ export default function MembersV3Page() {
           <section> is no longer wrapped - the stack handles the entry.
          ============================================================ */}
       <section className="relative flex min-h-svh w-full items-center overflow-hidden bg-gradient-to-b from-[#15171B] via-[#101216] to-[#0E1014] lg:min-h-screen">
+        {/* Desktop-only backdrop image — naturally extends the sky into
+            the top sliver of the section left exposed by the video's
+            lg:translate-y-[4%] downward shift. Placed BEFORE the video
+            in DOM so the video renders on top, leaving only the top
+            band visible. Hidden on mobile (no gap to fill there). */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/herotwo.png"
+          alt=""
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-0 hidden h-full w-full object-cover object-top lg:block"
+        />
         {/* Full-bleed hero video - shared by mobile and desktop. The
             scrim layers below adapt per-viewport. object-cover so the
             video fills the section regardless of aspect ratio. On
