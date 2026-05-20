@@ -14,7 +14,6 @@ import { AnimatedChatPanel } from "./AnimatedChatPanel";
 import { CoverageCards } from "./CoverageCards";
 import { CreditScoreSequence } from "./CreditScoreSequence";
 import { DebtPayoffSequence } from "./DebtPayoffSequence";
-import { HeroPhoneVideo } from "./HeroPhoneVideo";
 import { LiveSavingsTicker } from "./LiveSavingsTicker";
 
 /**
@@ -72,10 +71,13 @@ export default function MembersV3Page() {
           <section> is no longer wrapped - the stack handles the entry.
          ============================================================ */}
       <section className="relative flex min-h-svh w-full items-center overflow-hidden bg-gradient-to-b from-[#15171B] via-[#101216] to-[#0E1014] lg:min-h-screen">
-        {/* DESKTOP-ONLY: Full-bleed hero video. `lg:block` keeps the
-            existing mobile layout untouched (mobile still shows the
-            center phone video below). object-cover so the video fills
-            the section regardless of viewport aspect ratio. */}
+        {/* Full-bleed hero video - shared by mobile and desktop. The
+            scrim layers below adapt per-viewport. object-cover so the
+            video fills the section regardless of aspect ratio. On
+            mobile the video is shifted up via object-position so the
+            faces (which sit in the lower portion of the frame) land
+            inside the phone-outline area near the top of the section.
+            Desktop reverts to a center anchor. */}
         <video
           src="/hero.mp4"
           autoPlay
@@ -83,23 +85,20 @@ export default function MembersV3Page() {
           loop
           playsInline
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-0 hidden h-full w-full object-cover lg:block"
+          className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover object-[center_92%] lg:object-center"
         />
-        {/* DESKTOP-ONLY: side-darkening scrim so the left headline and
-            right body+CTA stay readable over the video. Symmetric -
-            both edges land at the same opacity, center stays clearer
-            so the video subject reads through. Right-side text stays
-            legible because the body copy uses `lg:text-zinc-200` and
-            a small text-shadow (see the <p> below). */}
+        {/* MOBILE scrim - uniform top-to-bottom darken since copy spans
+            the full content column (a horizontal gradient like desktop
+            would leave the mid-screen too bright behind the text). */}
         <div
-          className="pointer-events-none absolute inset-0 z-0 hidden bg-gradient-to-r from-black/60 via-black/15 to-black/60 lg:block"
+          className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-b from-black/55 via-black/40 to-black/65 lg:hidden"
           aria-hidden="true"
         />
-        {/* Cash App-style 3-col: headline · video · body + CTA */}
-        {/* Dotted grid texture - backdrop, not a reveal item.
-            Hidden on desktop now that the video fills the backdrop. */}
+        {/* DESKTOP scrim - left/right vignette so the side text columns
+            stay readable while the center (video subject) shows
+            through cleanly. */}
         <div
-          className="dot-grid pointer-events-none absolute inset-x-0 top-0 h-[900px] lg:hidden"
+          className="pointer-events-none absolute inset-0 z-0 hidden bg-gradient-to-r from-black/60 via-black/15 to-black/60 lg:block"
           aria-hidden="true"
         />
 
@@ -119,7 +118,7 @@ export default function MembersV3Page() {
         <RevealStack
           stagger={110}
           duration={900}
-          className="relative z-10 mx-auto w-full max-w-[1440px] px-6 py-20 sm:px-10 sm:py-24 md:px-16"
+          className="relative z-10 mx-auto w-full max-w-[1440px] px-6 pb-20 pt-24 sm:px-10 sm:py-24 md:px-16"
         >
           <div className="flex w-full flex-col items-center gap-8 lg:grid lg:grid-cols-12 lg:items-center lg:gap-6">
             {/*
@@ -128,40 +127,24 @@ export default function MembersV3Page() {
               never overflows the section. First in DOM (and first to reveal) per user
               request - the video draws the eye, then the surrounding copy fades in.
             */}
-            {/* Center phone video - desktop now uses a full-bleed hero
-                video (see <video> at the top of the section), so this
-                center block is hidden on lg+. Mobile is out of scope
-                for this pass, so it still renders below `lg`. */}
-            <div className="reveal-item relative order-1 flex w-full justify-center lg:order-2 lg:col-span-4 lg:col-start-5 lg:hidden">
-              {/* Soft halo behind the video */}
-              <div
-                className="aurora-mono-tight pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[680px] w-[900px] -translate-x-1/2 -translate-y-1/2"
-                aria-hidden="true"
-              />
-              <HeroPhoneVideo
-                src="/v-t3.mp4"
-                notificationStart={2.2}
-                notificationDuration={3}
-              />
-            </div>
-
-            {/* DESKTOP ONLY - Phone-shaped outline frame over the hero
-                video. Transparent background, thin white border, rounded
-                corners that mimic an iPhone silhouette. A glass-morphism
-                notification card sits inside it and pulses in/out on a
-                slow loop (see `.phone-notif-pulse` in globals.css).
-                Sits in the same grid slot (col 5-8) as the mobile phone
-                video above, so the layout reads identically. */}
-            <div className="reveal-item relative hidden w-full justify-center lg:order-2 lg:col-span-4 lg:col-start-5 lg:flex">
+            {/* Phone-shaped outline frame over the hero video. Shared
+                by mobile and desktop: same transparent fill, thin
+                white border, glass notification pulsing in/out on the
+                `.phone-notif-pulse` loop. Mobile uses iPhone SE aspect
+                (9/16, less tall than modern iPhones); desktop steps up
+                to the tall 10/19.5 aspect. Placed in the center column
+                (cols 5-8) on desktop; stacks first in source order on
+                mobile (above the headline/body). */}
+            <div className="reveal-item relative order-1 flex w-full justify-center lg:order-2 lg:col-span-4 lg:col-start-5">
               {/* Phone outline. overflow-hidden clips the notification
                   card while it sits above the top edge, so the slide-in
                   reads as the card appearing from the top of the phone. */}
-              <div className="relative aspect-[10/19.5] h-[68vh] max-h-[760px] overflow-hidden rounded-[40px] border border-white/40 bg-transparent shadow-[0_0_0_1px_rgba(0,0,0,0.18)]">
+              <div className="relative aspect-[9/16] h-[400px] w-auto overflow-hidden rounded-[28px] border border-white/40 bg-transparent shadow-[0_0_0_1px_rgba(0,0,0,0.18)] lg:aspect-[10/19.5] lg:h-[68vh] lg:max-h-[760px] lg:rounded-[40px]">
                 {/* Glass-morphism notification - identical material to
                     the previous HeroPhoneVideo notification, just driven
                     by a CSS keyframe loop instead of video timeupdate. */}
                 <div
-                  className="phone-notif-pulse pointer-events-none absolute left-1/2 top-[4%] z-20 w-[88%]"
+                  className="phone-notif-pulse pointer-events-none absolute left-1/2 top-[3%] z-20 w-[200px] lg:top-[4%] lg:w-[88%]"
                   aria-hidden="true"
                 >
                   <div className="rounded-2xl border border-white/15 bg-white/[0.08] px-4 py-3 backdrop-blur-3xl">
@@ -189,7 +172,7 @@ export default function MembersV3Page() {
                 column's vertical center on desktop, so it sits slightly
                 higher than the phone outline / right body+CTA midline. */}
             <div className="reveal-item order-2 w-full text-center lg:order-1 lg:col-span-4 lg:col-start-1 lg:mr-12 lg:max-w-[280px] lg:-translate-y-3 lg:justify-self-end lg:text-left">
-              <h1 className="text-[32px] font-medium leading-[0.95] tracking-[-0.03em] sm:text-[40px] sm:font-normal lg:leading-[48px] xl:text-[48px]">
+              <h1 className="text-[32px] font-medium leading-[0.95] tracking-[-0.03em] [text-shadow:0_2px_10px_rgba(0,0,0,0.55)] sm:text-[40px] sm:font-normal lg:leading-[48px] xl:text-[48px]">
                 Solve your debt and money problems.
               </h1>
             </div>
@@ -201,7 +184,7 @@ export default function MembersV3Page() {
                 per the brief). The flex layout still keeps them stacked
                 vertically within the right column. */}
             <div className="order-3 flex w-full flex-col items-center gap-6 text-center lg:order-3 lg:col-span-4 lg:col-start-9 lg:ml-20 lg:max-w-[280px] lg:items-start lg:justify-self-start lg:text-left">
-              <p className="reveal-item text-[16px] font-normal leading-[1.4] text-zinc-400 [text-shadow:0_1px_4px_rgba(0,0,0,0.55)] lg:text-[17px] lg:text-zinc-200 xl:text-[18px]">
+              <p className="reveal-item text-[16px] font-normal leading-[1.4] text-zinc-100 [text-shadow:0_1px_4px_rgba(0,0,0,0.6)] lg:text-[17px] lg:text-zinc-200 xl:text-[18px]">
                 The easiest way to pay off debt, manage bills, and get
                 personalized financial answers - built for the way real people
                 earn and spend.
