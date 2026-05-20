@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import RevealStack from "../components/RevealStack";
 
 /**
- * "Members' Savings" ticker — a cumulative savings counter with a rotating
+ * "Members' Savings" ticker - a cumulative savings counter with a rotating
  * showcase of example member wins.
  *
  * Framed as totals, not live. The big number does tick up slowly (the kind
@@ -22,7 +22,7 @@ import RevealStack from "../components/RevealStack";
  * On mount we set the baseline using a Unix-time formula:
  *   baseline = ANCHOR_TOTAL + (Date.now() - ANCHOR_EPOCH_MS) / 1000 × RATE_PER_SEC
  * That makes the *starting* number different on different days, so reloads
- * over time give visibly higher numbers — no per-load reset.
+ * over time give visibly higher numbers - no per-load reset.
  *
  * From then on, each new feed item bumps the total by that item's amount.
  * The counter and the "K.O. saved $4,180" notification are causally linked:
@@ -46,7 +46,7 @@ function calculateBaseline(): number {
  * localStorage and read it back on mount. Combined with the Unix-anchored
  * baseline (which also only grows), the displayed total is monotonic
  * within a single browser. Different browsers/devices may show slightly
- * different totals — fine for marketing.
+ * different totals - fine for marketing.
  */
 const STORAGE_KEY = "clerkie:members-savings-delta-v1";
 
@@ -99,13 +99,13 @@ type FeedItem = {
 };
 
 // Three states the digit columns can be in:
-//   "pending"  — section hasn't entered the viewport yet. Every digit
+//   "pending"  - section hasn't entered the viewport yet. Every digit
 //                column renders at 0 with no transition (snapped).
-//   "arriving" — first intersect just fired. Digit columns transition
+//   "arriving" - first intersect just fired. Digit columns transition
 //                from 0 → their target offsets with a slow ease-out
 //                (~1.4s), giving the "whole number winds up from 0"
 //                arrival feel the user asked for.
-//   "tick"     — arrival animation has settled. Subsequent feed-driven
+//   "tick"     - arrival animation has settled. Subsequent feed-driven
 //                value changes use the existing fast 0.7s slot-machine
 //                transition.
 type DigitAnimState = "pending" | "arriving" | "tick";
@@ -132,7 +132,7 @@ export function LiveSavingsTicker() {
   // restore the running delta from localStorage so the total never
   // appears to drop between page loads. The digit columns stay pinned
   // at 0 (animState === "pending") while we wait for the section to
-  // enter the viewport — see the intersection effect below.
+  // enter the viewport - see the intersection effect below.
   useEffect(() => {
     setBaseline(calculateBaseline());
     setSessionDelta(readStoredDelta());
@@ -141,7 +141,7 @@ export function LiveSavingsTicker() {
   // Trigger the digit-flip arrival on the first time the section
   // enters the viewport. If the section is already in view at mount
   // (e.g. user reloads while scrolled to it), play the arrival
-  // immediately — they still get the satisfying wind-up.
+  // immediately - they still get the satisfying wind-up.
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
@@ -155,7 +155,7 @@ export function LiveSavingsTicker() {
     const inViewNow = rect.top < window.innerHeight && rect.bottom > 0;
     if (inViewNow) {
       // Wait one frame so the "pending" 0-snap paints first, then
-      // begin the transition — otherwise the browser can collapse
+      // begin the transition - otherwise the browser can collapse
       // both state changes into a single paint and skip the animation.
       requestAnimationFrame(() => requestAnimationFrame(startArrival));
       return;
@@ -177,7 +177,7 @@ export function LiveSavingsTicker() {
   // the counter so the visible jump matches what just appeared in the
   // feed, and the new delta is persisted so the next page load picks up
   // here. 3.5s gives each item ~2.4s of quiet time after its 700ms digit
-  // flip + 400ms card entry — readable, not frantic.
+  // flip + 400ms card entry - readable, not frantic.
   useEffect(() => {
     const i = setInterval(() => {
       const next: FeedItem = {
@@ -212,14 +212,14 @@ export function LiveSavingsTicker() {
         }}
       />
 
-      {/* RevealStack matches the hero/other sections — eyebrow → big
+      {/* RevealStack matches the hero/other sections - eyebrow → big
           number → body → feed cascade in one after the other on
           intersect. Each child marked .reveal-item picks up its
           transition-delay from the stack. The section's dark gradient
           bg stays on the outer <section> so it's always opaque, and
           only the inner content fades in. */}
       <RevealStack className="relative z-10 mx-auto flex h-full max-w-[1100px] flex-col items-center justify-center gap-6 px-5 py-10 md:gap-12 md:px-16 md:py-16">
-        {/* Eyebrow — same chip pattern used by the homepage landing's
+        {/* Eyebrow - same chip pattern used by the homepage landing's
             hover-revealed product chips (.panelProductChip). Glass pill:
             white-tinted bg, 1px white border, backdrop blur, 11px caps. */}
         <div className="reveal-item inline-flex items-center rounded-full border border-white/[0.18] bg-white/[0.08] px-3 py-1.5 backdrop-blur-[8px]">

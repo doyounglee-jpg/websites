@@ -7,14 +7,14 @@ import { useEffect, useState } from "react";
  *
  * Loops a short conversation between user and Clerkie, with typing-dot
  * indicators between turns. The voice-waveform pill on the bottom-left of
- * the chat reads as "agent is live" — animates continuously.
+ * the chat reads as "agent is live" - animates continuously.
  *
- * Layout — the bubble column has a reserved min-height covering the full
+ * Layout - the bubble column has a reserved min-height covering the full
  * conversation, anchored at the bottom (justify-end). Bubbles render
  * conditionally and fade in: each new one appears at the bottom and pushes
  * the older bubbles up, chat-style. The outer panel never reflows.
  *
- * Step model — `step` advances on a timer; each step = one new bubble (or
+ * Step model - `step` advances on a timer; each step = one new bubble (or
  * a typing indicator that gets replaced when the agent's reply lands).
  *
  *   step 0 → empty (about to start)
@@ -52,7 +52,7 @@ export function AnimatedChatPanel() {
     <>
       <style>{KEYFRAMES}</style>
       <div className="flex flex-1 items-center justify-center">
-        {/* Fixed-height stack with justify-end — bubbles enter at the
+        {/* Fixed-height stack with justify-end - bubbles enter at the
             bottom and push existing ones up (chat-from-bottom feel).
             The container itself stays a constant height so the section
             layout below never reflows during the loop. Width + height
@@ -84,7 +84,7 @@ export function AnimatedChatPanel() {
 }
 
 function UserBubble({ children }: { children: React.ReactNode }) {
-  // User (right): faint frosted ghost — outline + light fill so the bubble
+  // User (right): faint frosted ghost - outline + light fill so the bubble
   // still reads as a shape over warm/bright photo regions.
   return (
     <div className="anim-bubble-in max-w-[85%] self-end rounded-3xl rounded-br-md border border-white/25 bg-white/[0.06] px-5 py-3 backdrop-blur-md">
@@ -94,7 +94,7 @@ function UserBubble({ children }: { children: React.ReactNode }) {
 }
 
 function AiBubble({ children }: { children: React.ReactNode }) {
-  // AI (left): heavier frosted glass — slightly more fill + strong blur so
+  // AI (left): heavier frosted glass - slightly more fill + strong blur so
   // the response anchors visually against bright photo areas.
   return (
     <div className="anim-bubble-in max-w-[85%] self-start rounded-3xl rounded-bl-md border border-white/15 bg-white/[0.18] px-5 py-3 backdrop-blur-md">

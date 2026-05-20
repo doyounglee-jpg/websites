@@ -69,11 +69,11 @@ export default function MembersV3Page() {
           Hero uses <RevealStack> instead of <Reveal>: each grid column
           (headline → video → body+CTA) reveals serially on a slow
           cinematic stagger, with the Linear-style blur-in. The outer
-          <section> is no longer wrapped — the stack handles the entry.
+          <section> is no longer wrapped - the stack handles the entry.
          ============================================================ */}
       <section className="relative flex min-h-svh w-full items-center overflow-hidden bg-gradient-to-b from-[#15171B] via-[#101216] to-[#0E1014] lg:min-h-screen">
         {/* Cash App-style 3-col: headline · video · body + CTA */}
-        {/* Dotted grid texture — backdrop, not a reveal item. */}
+        {/* Dotted grid texture - backdrop, not a reveal item. */}
         <div
           className="dot-grid pointer-events-none absolute inset-x-0 top-0 h-[900px]"
           aria-hidden="true"
@@ -102,7 +102,7 @@ export default function MembersV3Page() {
               CENTER - Video (cols 5-8). aspect 9:19.5 = 0.462 (iPhone), per Cash App spec.
               Height capped at small viewport on mobile and 68vh on desktop so the video
               never overflows the section. First in DOM (and first to reveal) per user
-              request — the video draws the eye, then the surrounding copy fades in.
+              request - the video draws the eye, then the surrounding copy fades in.
             */}
             <div className="reveal-item relative order-1 flex w-full justify-center lg:order-2 lg:col-span-4 lg:col-start-5">
               {/* Soft halo behind the video */}
@@ -119,7 +119,7 @@ export default function MembersV3Page() {
 
             {/* LEFT - Headline (spans cols 1-4 = full left half, content
                 block constrained to ~280px and anchored to the RIGHT edge
-                of its column area — sits close to the phone instead of
+                of its column area - sits close to the phone instead of
                 drifting toward the page edge as the viewport widens). */}
             <div className="reveal-item order-2 w-full text-center lg:order-1 lg:col-span-4 lg:col-start-1 lg:mr-12 lg:max-w-[280px] lg:justify-self-end lg:text-left">
               <h1 className="text-[32px] font-medium leading-[0.95] tracking-[-0.03em] sm:text-[40px] sm:font-normal lg:leading-[48px] xl:text-[48px]">
@@ -128,7 +128,7 @@ export default function MembersV3Page() {
             </div>
 
             {/* RIGHT - Body + CTA (spans cols 9-12). The column wrapper is
-                no longer a reveal-item — instead, the body <p> and the
+                no longer a reveal-item - instead, the body <p> and the
                 CTA <a> are individually marked, so they cascade one after
                 the other (body reveals third, CTA reveals fourth/last
                 per the brief). The flex layout still keeps them stacked
@@ -188,7 +188,7 @@ export default function MembersV3Page() {
             alt=""
             className="absolute inset-0 h-full w-full object-cover"
           />
-          {/* Subtle uniform dark wash — knocks the photo back just enough
+          {/* Subtle uniform dark wash - knocks the photo back just enough
               for the chat bubbles + headline to read without losing the
               warmth of the underlying image. */}
           <div className="absolute inset-0 bg-black/30" />
@@ -214,7 +214,7 @@ export default function MembersV3Page() {
       {/* ============================================================
           5. § 03 - LIVE TICKER (replaces the static "Crush your debt 70%")
          ============================================================ */}
-      {/* No <Reveal> wrapper here intentionally — the savings ticker is
+      {/* No <Reveal> wrapper here intentionally - the savings ticker is
           a high-contrast dark gradient section with bright white digits,
           and the .reveal opacity-fade made the digits visible before the
           dark background read as solid on mobile (looked like content
@@ -274,7 +274,7 @@ export default function MembersV3Page() {
               Watch your credit climb.
             </h3>
             <p className="max-w-[420px] text-[15px] leading-[1.55] text-white/70">
-              Clerkie handles negotiations and disputes — every win flows
+              Clerkie handles negotiations and disputes - every win flows
               straight into your score.
             </p>
           </div>

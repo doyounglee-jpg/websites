@@ -1,17 +1,17 @@
 "use client";
 
 /**
- * § 05 COVERAGE — separated glass cards with cursor-tracked tilt + sheen.
+ * § 05 COVERAGE - separated glass cards with cursor-tracked tilt + sheen.
  *
  * What this gives you (per the brief):
- *   1. Each category is now its OWN card — glass chrome that matches
+ *   1. Each category is now its OWN card - glass chrome that matches
  *      companies §02 (rounded, white-10% border, opaque-dark surface,
  *      backdrop blur). No more single bordered wrapper with hairline
  *      dividers; each card stands alone on the page background.
  *   2. On hover, the card rotates to face the cursor. Max ±6° on each
  *      axis (rotateX from vertical mouse pos, rotateY from horizontal),
  *      and the whole card lifts ~16px out of the page on translateZ.
- *   3. A radial-gradient "sheen" highlight rides under the cursor —
+ *   3. A radial-gradient "sheen" highlight rides under the cursor -
  *      its position is tied to the same mouse coords, so as the card
  *      tilts the highlight glides across the surface like real glass
  *      catching light.
@@ -21,7 +21,7 @@
  * the cursor at native refresh rate without re-rendering every frame.
  *
  * Touch devices never fire `mousemove`, so they get the static glass
- * card and skip the tilt entirely — by design (touch-tilt feels wrong).
+ * card and skip the tilt entirely - by design (touch-tilt feels wrong).
  */
 
 import { useEffect, useRef, useState, type MouseEvent } from "react";
@@ -35,7 +35,7 @@ export type CoverageCategory = {
   icon: IconSvgElement;
 };
 
-// Tuning constants — small enough that the effect reads as "subtle
+// Tuning constants - small enough that the effect reads as "subtle
 // premium feedback" rather than "swinging in every direction".
 const MAX_TILT_DEG = 3.5;
 const LIFT_PX = 12;
@@ -56,7 +56,7 @@ function TiltCard({ category }: { category: CoverageCategory }) {
   // Touch-only devices never fire `mousemove`, but Tailwind's `:hover`
   // pseudo-class DOES stick after a tap and can persist until the
   // user taps elsewhere. So we gate every hover interaction (tilt,
-  // sheen, lift, border brightening) on this flag — checked on mount
+  // sheen, lift, border brightening) on this flag - checked on mount
   // via matchMedia. SSR-safe: starts false; useEffect upgrades it on
   // desktop where it ends up true.
   const [hoverCapable, setHoverCapable] = useState(false);
@@ -68,10 +68,10 @@ function TiltCard({ category }: { category: CoverageCategory }) {
   }, []);
 
   // Translate the cursor's pixel position inside the card to:
-  //   --rx / --ry — rotation in degrees (clamped to ±MAX_TILT_DEG)
-  //   --mx / --my — % from top-left of card (drives sheen position)
+  //   --rx / --ry - rotation in degrees (clamped to ±MAX_TILT_DEG)
+  //   --mx / --my - % from top-left of card (drives sheen position)
   // Writing CSS vars directly on the element avoids any React re-render
-  // on mousemove — the GPU just animates from var() values.
+  // on mousemove - the GPU just animates from var() values.
   const handleMove = (e: MouseEvent<HTMLDivElement>) => {
     const el = ref.current;
     if (!el) return;
@@ -100,7 +100,7 @@ function TiltCard({ category }: { category: CoverageCategory }) {
     setHovered(false);
   };
 
-  // Hover tilt layer transform — runs ON TOP of the scroll-proximity
+  // Hover tilt layer transform - runs ON TOP of the scroll-proximity
   // translateY applied by the outer wrapper. Two layers means the
   // proximity wave can scroll smoothly (no transition) while the
   // hover lift still glides nicely.
@@ -116,7 +116,7 @@ function TiltCard({ category }: { category: CoverageCategory }) {
     : "transform 500ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 500ms ease, border-color 300ms ease";
 
   return (
-    // Perspective container — gives the rotateX/Y inside it a vanishing
+    // Perspective container - gives the rotateX/Y inside it a vanishing
     // point. Without this the rotations are flat (just shears).
     <div style={{ perspective: "1100px" }}>
       <div
@@ -130,7 +130,7 @@ function TiltCard({ category }: { category: CoverageCategory }) {
           transition: tiltTransition,
           transformStyle: "preserve-3d",
           // Border is state-driven (not Tailwind's `:hover`) so the
-          // brightening only happens on hover-capable devices — taps
+          // brightening only happens on hover-capable devices - taps
           // on mobile won't stick a brighter border state.
           borderColor:
             hoverCapable && hovered
@@ -144,7 +144,7 @@ function TiltCard({ category }: { category: CoverageCategory }) {
               : "0 0 0 0 transparent",
         }}
       >
-        {/* Sheen highlight — a radial gradient anchored to --mx/--my.
+        {/* Sheen highlight - a radial gradient anchored to --mx/--my.
             As the cursor moves, the bright spot follows; combined with
             the rotation this reads as the card surface catching light. */}
         <div

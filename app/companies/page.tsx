@@ -31,7 +31,7 @@ export default function CompaniesPage() {
           overflow-hidden div so they don't bleed into the next section.
           Hero uses <RevealStack>: eyebrow → headline → body → CTA →
           mockup reveal in sequence with the Linear blur-in feel. The
-          outer section is no longer wrapped — the stack handles the
+          outer section is no longer wrapped - the stack handles the
           entry animation. */}
       <section className="relative">
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -70,7 +70,7 @@ export default function CompaniesPage() {
               </a>
             </div>
           </div>
-          {/* Mockup container — no bottom padding, small negative-mb pushes
+          {/* Mockup container - no bottom padding, small negative-mb pushes
               the mockup down so it overflows below the hero by ~5-7%. The
               LogoTicker below (z-30 at document level) paints over the
               overflowed sliver. This works *with* the reveal-item because
@@ -96,7 +96,7 @@ export default function CompaniesPage() {
       </div>
 
       {/* ── § 02 - PLATFORM ──────────────────────────────────────────
-          Re-aimed at the COMPANIES audience — what HR/employer teams
+          Re-aimed at the COMPANIES audience - what HR/employer teams
           get from the platform, not what employees see (that's /members).
           RevealStack cascade reveals header pieces first, then each card
           in sequence (reveal-item on each element). */}
@@ -402,7 +402,7 @@ function PlatformCard({
   body: string;
   graphic?: React.ReactNode;
   bgImage?: string;
-  // Bumps every gradient stop ~10 percentage points darker — for
+  // Bumps every gradient stop ~10 percentage points darker - for
   // photos whose mid-band busies up the mockup graphic above it.
   darkerOverlay?: boolean;
   className?: string;
@@ -417,7 +417,7 @@ function PlatformCard({
         <>
           {/* Full-bleed photo backdrop. object-cover crops to the card's
               taller-than-wide aspect. Gradient overlay sits above the
-              photo so the title/body at the bottom stays legible — same
+              photo so the title/body at the bottom stays legible - same
               recipe as the prior platform photo cards. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -432,7 +432,7 @@ function PlatformCard({
           />
         </>
       )}
-      {/* Soft cyan halo behind the mockup on hover — adds the
+      {/* Soft cyan halo behind the mockup on hover - adds the
           "highlighted card" feel without a hard border change. */}
       {bgImage && (
         <div
@@ -469,7 +469,7 @@ function PlatformCard({
   );
 }
 
-/* Platform §02 graphics — extracted to ./PlatformGraphics.tsx so they
+/* Platform §02 graphics - extracted to ./PlatformGraphics.tsx so they
    can use "use client" hooks (article-hover detection + count-up
    animations). The visual recipe is unchanged: rounded-[16px] white-
    tinted card on a nearly-opaque dark surface, monospace numerics,
@@ -613,14 +613,14 @@ function IntegrationMockup() {
 
         {/* Col 3: Savings by debt type
             Replaced the old "Member Wins · TODAY" panel which surfaced
-            individual employee names + their savings — employers should
+            individual employee names + their savings - employers should
             never see PII like that. Aggregating by debt category is both
             privacy-correct AND a stronger pitch (it shows the breadth of
             debt types Clerkie handles). */}
         <div className="flex flex-col gap-3.5 bg-[#0C0D0F] p-6">
           <div className="flex items-center justify-between">
             <span className="text-xs font-medium tracking-[0.04em] text-zinc-500">SAVINGS · BY DEBT TYPE</span>
-            {/* Visual-only filter chip — sells the "filterable" idea without
+            {/* Visual-only filter chip - sells the "filterable" idea without
                 wiring up state. Mimics the look of a real picker. */}
             <span className="flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.04] px-2 py-0.5 font-mono text-[10px] tracking-[0.02em] text-zinc-400">
               THIS QUARTER
@@ -667,7 +667,7 @@ function IntegrationRow({ code, name, meta, status }: (typeof INTEGRATIONS)[numb
 }
 
 // Aggregated savings rolled up by debt category. Numbers are mockup-grade
-// (sum is close to but not exactly $1,184,602 in the footer — reads as
+// (sum is close to but not exactly $1,184,602 in the footer - reads as
 // more honest than a tidy mockup). Deltas are vs the prior quarter.
 const SAVINGS_BY_DEBT_TYPE: Array<{
   category: string;
@@ -689,7 +689,7 @@ function SavingsByDebtTypeRow({
 }: (typeof SAVINGS_BY_DEBT_TYPE)[number]) {
   return (
     <div className="flex items-center gap-3 py-1.5">
-      {/* Rounded-square icon — replaces the avatar circle in the old
+      {/* Rounded-square icon - replaces the avatar circle in the old
           per-member version. Same 24px footprint so the row height
           stays identical. */}
       <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md border border-white/10 bg-white/[0.04]">
@@ -697,7 +697,7 @@ function SavingsByDebtTypeRow({
       </span>
       <span className="flex-1 text-[12px] text-zinc-300">
         <span className="font-medium text-zinc-50">{category}</span>{" "}
-        {/* Tiny green delta pill — sells "trend" without a chart. */}
+        {/* Tiny green delta pill - sells "trend" without a chart. */}
         <span className="ml-1 inline-flex items-center rounded-full bg-emerald-400/10 px-1.5 py-px font-mono text-[10px] font-medium text-emerald-300">
           {delta}
         </span>

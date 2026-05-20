@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 /**
  * Animated credit score gauge for the §04 right bento ("Watch your credit
  * climb."). Mirrors the structure + visual language of DebtPayoffSequence
- * in §02 left — same glass UI card, same notification + sparkle effects,
+ * in §02 left - same glass UI card, same notification + sparkle effects,
  * neutral white accents (no cyan).
  *
  * Cycle (loops):
@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
  *
  * Visual reset trick: during `hidden`, the bar + score + notification
  * stay at their END state while the card fades out (so the user never
- * sees a "snap to empty" — the card is already invisible by the time we
+ * sees a "snap to empty" - the card is already invisible by the time we
  * reset visuals).
  */
 
@@ -53,7 +53,7 @@ export function CreditScoreSequence() {
   const [score, setScore] = useState(SCORE_START);
   const [barAtEnd, setBarAtEnd] = useState(false);
 
-  // Phase ticker — moves through the loop on a timer.
+  // Phase ticker - moves through the loop on a timer.
   useEffect(() => {
     const t = setTimeout(() => setPhase(NEXT_PHASE[phase]), PHASE_DURATIONS[phase]);
     return () => clearTimeout(t);
@@ -85,7 +85,7 @@ export function CreditScoreSequence() {
       setScore(SCORE_END);
       return;
     }
-    // phase === "hidden" — hold visuals at END while the card fades out,
+    // phase === "hidden" - hold visuals at END while the card fades out,
     // then reset to START once the fade is complete (snap is invisible
     // because card opacity has already reached 0).
     const t = setTimeout(() => {
@@ -117,7 +117,7 @@ export function CreditScoreSequence() {
           transition: `opacity ${FADE_MS}ms ease-out`,
         }}
       >
-        {/* Gauge block — eyebrow + half-circle arc + score + range labels. */}
+        {/* Gauge block - eyebrow + half-circle arc + score + range labels. */}
         <div className="flex flex-col items-center gap-1">
           <span className="text-[11px] font-medium uppercase tracking-[0.06em] text-white/65">
             Credit Score
@@ -125,7 +125,7 @@ export function CreditScoreSequence() {
 
           <div className="relative w-full max-w-[220px]">
             <svg viewBox="0 0 200 110" className="w-full" aria-hidden="true">
-              {/* Track — faint white half-circle. */}
+              {/* Track - faint white half-circle. */}
               <path
                 d="M 10 100 A 90 90 0 0 1 190 100"
                 fill="none"
@@ -133,7 +133,7 @@ export function CreditScoreSequence() {
                 strokeWidth="10"
                 strokeLinecap="round"
               />
-              {/* Fill — animated via stroke-dashoffset. */}
+              {/* Fill - animated via stroke-dashoffset. */}
               <path
                 d="M 10 100 A 90 90 0 0 1 190 100"
                 fill="none"
@@ -151,7 +151,7 @@ export function CreditScoreSequence() {
               />
             </svg>
 
-            {/* Score number — centered inside the arc dome. */}
+            {/* Score number - centered inside the arc dome. */}
             <div className="pointer-events-none absolute inset-x-0 bottom-2 text-center">
               <div className="font-mono text-[32px] font-medium leading-none tabular-nums text-white">
                 {score}
@@ -170,7 +170,7 @@ export function CreditScoreSequence() {
           </div>
         </div>
 
-        {/* Notification — slides up from below, pushing the gauge upward.
+        {/* Notification - slides up from below, pushing the gauge upward.
             No own card chrome (would read as box-in-box). Mounted through
             both paid + hidden so it fades with the card instead of
             popping off at phase change. */}
@@ -216,7 +216,7 @@ export function CreditScoreSequence() {
   );
 }
 
-// Sparkle particle config — small dots that fan outward from the check
+// Sparkle particle config - small dots that fan outward from the check
 // token area on entry.
 const SPARKS = [
   { dx: -22, dy: -24, delay: 0.05 },

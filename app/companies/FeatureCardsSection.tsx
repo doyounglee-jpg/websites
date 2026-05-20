@@ -3,14 +3,14 @@
 import React, { useEffect, useRef, useState, type MouseEvent } from "react";
 
 /* ================================================================
-   04 — WHY IT WORKS
+   04 - WHY IT WORKS
    2×2 feature card grid. Dark glass surfaces, Linear-style depth.
 
    Two layers of interactive polish:
      1. Cursor-tracked tilt + sheen on each card (mirrors
-        members §05 COVERAGE — see ./../members/CoverageCards.tsx).
+        members §05 COVERAGE - see ./../members/CoverageCards.tsx).
      2. Each graphic inside the card replays its entrance animation
-        on every hover (mirrors companies §02 PLATFORM — see
+        on every hover (mirrors companies §02 PLATFORM - see
         ./PlatformGraphics.tsx).
    ================================================================ */
 
@@ -64,7 +64,7 @@ function useCountUp(target: number, key: number, durMs = 900) {
   return val;
 }
 
-/* ── Card 1 UI — Automation flow ─────────────────────────────── */
+/* ── Card 1 UI - Automation flow ─────────────────────────────── */
 function AutomationFlow() {
   const { ref, playCount } = useArticleHover();
   const steps = [
@@ -97,7 +97,7 @@ function AutomationFlow() {
 
   return (
     <div ref={ref}>
-      {/* Steps row — each step + connector pair cascades in left-to-right. */}
+      {/* Steps row - each step + connector pair cascades in left-to-right. */}
       <div className="mb-5 flex items-start">
         {steps.map((s, i) => (
           <React.Fragment key={`${playCount}-${s.label}`}>
@@ -123,7 +123,7 @@ function AutomationFlow() {
         ))}
       </div>
 
-      {/* Status bar — fades in after the last step lands. */}
+      {/* Status bar - fades in after the last step lands. */}
       <div
         key={`status-${playCount}`}
         className="flex items-center gap-2.5 rounded-[10px] border border-white/[0.07] bg-white/[0.015] px-3.5 py-2.5"
@@ -146,7 +146,7 @@ function AutomationFlow() {
   );
 }
 
-/* ── Card 2 UI — Adaptive plan ────────────────────────────────── */
+/* ── Card 2 UI - Adaptive plan ────────────────────────────────── */
 function AdaptivePlanPanel() {
   const { ref, playCount } = useArticleHover();
   const rows = [
@@ -203,7 +203,7 @@ function AdaptivePlanPanel() {
   );
 }
 
-/* ── Card 3 UI — Milestone progress ──────────────────────────── */
+/* ── Card 3 UI - Milestone progress ──────────────────────────── */
 function MilestoneProgress() {
   const { ref, playCount } = useArticleHover();
   const BAR = 68;
@@ -281,7 +281,7 @@ function MilestoneProgress() {
         ))}
       </div>
 
-      {/* Stats — cascade up after the bar finishes filling. */}
+      {/* Stats - cascade up after the bar finishes filling. */}
       <div className="grid grid-cols-3 gap-2">
         {stats.map((s, i) => (
           <div
@@ -302,7 +302,7 @@ function MilestoneProgress() {
   );
 }
 
-/* ── Card 4 UI — Coaching message ────────────────────────────── */
+/* ── Card 4 UI - Coaching message ────────────────────────────── */
 function CoachingCardUI() {
   const { ref, playCount } = useArticleHover();
   // Dollar amount counts up so the coaching feels "fresh" each hover.
@@ -328,14 +328,14 @@ function CoachingCardUI() {
         </div>
       </div>
 
-      {/* Message — fades in after the header. Dollar amount counts up. */}
+      {/* Message - fades in after the header. Dollar amount counts up. */}
       <div
         key={`msg-${playCount}`}
         className="mb-4 rounded-[10px] border border-white/[0.07] bg-white/[0.015] px-4 py-3"
         style={{ animation: "feat-fade-up 480ms cubic-bezier(0.16, 1, 0.3, 1) 180ms both" }}
       >
         <p className="text-[13px] leading-[1.55] text-white/62">
-          Nice progress — stay consistent this week.{" "}
+          Nice progress - stay consistent this week.{" "}
           Your balance is down{" "}
           {/* inline-block + fixed min-width reserves space for the
               final "$420" so the count-up (which grows from 1 → 3
@@ -350,7 +350,7 @@ function CoachingCardUI() {
         </p>
       </div>
 
-      {/* Action chips — cascade in after the message. */}
+      {/* Action chips - cascade in after the message. */}
       <div className="flex gap-2">
         {["Review plan", "Keep going"].map((chip, i) => (
           <span
@@ -390,7 +390,7 @@ function FeatureCard({
   const [hovered, setHovered] = useState(false);
   const [hoverCapable, setHoverCapable] = useState(false);
 
-  // Touch devices never fire mousemove — and Tailwind :hover sticks
+  // Touch devices never fire mousemove - and Tailwind :hover sticks
   // after a tap. Gating all hover behavior on (hover: hover) keeps
   // mobile clean.
   useEffect(() => {
@@ -466,7 +466,7 @@ function FeatureCard({
         {/* Top-edge highlight (kept from the prior design). */}
         <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
 
-        {/* Sheen — radial gradient anchored to the cursor position. */}
+        {/* Sheen - radial gradient anchored to the cursor position. */}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 rounded-[22px]"
@@ -495,7 +495,7 @@ function FeatureCard({
 const CARDS = [
   {
     title: "Automation removes the hard part",
-    body: "Employees don't have to rely on willpower. Key financial actions happen in the background — no manual steps needed.",
+    body: "Employees don't have to rely on willpower. Key financial actions happen in the background - no manual steps needed.",
     ui: <AutomationFlow />,
   },
   {
@@ -505,7 +505,7 @@ const CARDS = [
   },
   {
     title: "Small wins compound over time",
-    body: "Visible progress milestones keep employees engaged and moving forward — not just in the first week.",
+    body: "Visible progress milestones keep employees engaged and moving forward - not just in the first week.",
     ui: <MilestoneProgress />,
   },
   {
@@ -521,13 +521,13 @@ export default function FeatureCardsSection() {
       <div className="mx-auto max-w-[1440px] px-6 pb-24 pt-24 sm:px-10 sm:pb-28 sm:pt-28 md:px-16 md:pb-32 md:pt-32 lg:px-24 lg:pb-40 lg:pt-40">
         <div className="mb-16 lg:mb-20">
           <span className="reveal-item text-[13px] font-medium tracking-[0.06em] text-[#5EEAD4]">
-            04 — WHY IT WORKS
+            04 - WHY IT WORKS
           </span>
           <h2 className="reveal-item mt-5 max-w-[700px] text-4xl font-semibold leading-[1.05] tracking-[-0.04em] sm:text-5xl md:text-[56px] lg:text-[64px] lg:leading-[1.02]">
             Built around behavior, not intention.
           </h2>
           <p className="reveal-item mt-6 max-w-[560px] text-[16px] leading-[1.65] text-white/50">
-            Most financial tools tell people what to do. Clerkie automates the doing — and keeps adapting as life changes.
+            Most financial tools tell people what to do. Clerkie automates the doing - and keeps adapting as life changes.
           </p>
         </div>
 
