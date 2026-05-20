@@ -121,13 +121,22 @@ export function CreditScoreSequence() {
           transition: `opacity ${FADE_MS}ms ease-out`,
         }}
       >
-        {/* Gauge block - eyebrow + half-circle arc + score + range labels. */}
+        {/* Gauge block - eyebrow + (MIN, half-circle arc, MAX) on one
+            horizontal line, with the score sitting inside the arc dome. */}
         <div className="flex flex-col items-center gap-1">
           <span className="text-[11px] font-medium uppercase tracking-[0.06em] text-white/65">
             Credit Score
           </span>
 
-          <div className="relative w-full max-w-[150px] pb-3 md:max-w-[220px] md:pb-4">
+          {/* MIN | gauge | MAX. items-end so MIN and MAX align with the
+              bottom of the gauge SVG — sitting beside the arc endpoints
+              on the same line as the graph. */}
+          <div className="flex w-full items-end justify-center gap-2">
+            <span className="font-mono text-[10px] leading-none tabular-nums text-white/50">
+              {SCORE_MIN}
+            </span>
+
+          <div className="relative w-full max-w-[150px] md:max-w-[220px]">
             <svg viewBox="0 0 200 110" className="w-full" aria-hidden="true">
               {/* Track - faint white half-circle. */}
               <path
@@ -155,23 +164,15 @@ export function CreditScoreSequence() {
               />
             </svg>
 
-            {/* Score number - centered inside the arc dome, well above
-                the range bookends so the two read as separate lines. */}
-            <div className="pointer-events-none absolute inset-x-0 bottom-[26px] text-center md:bottom-[40px]">
+            {/* Score number - centered inside the arc dome. */}
+            <div className="pointer-events-none absolute inset-x-0 bottom-2 text-center">
               <div className="font-mono text-[20px] font-medium leading-none tabular-nums text-white md:text-[32px]">
                 {score}
               </div>
             </div>
+          </div>
 
-            {/* Range bookends - bottom-left and bottom-right corners of
-                the gauge container (in the pb area below the arc). They
-                share one line with each other but sit on a separate row
-                from the score above, so 300 / 850 are clearly placed on
-                left and right sides without overlapping the score. */}
-            <span className="absolute bottom-0 left-0 font-mono text-[10px] tabular-nums text-white/50">
-              {SCORE_MIN}
-            </span>
-            <span className="absolute bottom-0 right-0 font-mono text-[10px] tabular-nums text-white/50">
+            <span className="font-mono text-[10px] leading-none tabular-nums text-white/50">
               {SCORE_MAX}
             </span>
           </div>
