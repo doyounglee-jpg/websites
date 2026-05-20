@@ -85,7 +85,7 @@ export default function MembersV3Page() {
           loop
           playsInline
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-0 h-full w-full origin-bottom translate-y-[10%] scale-[1.25] object-cover object-[center_92%] lg:origin-center lg:translate-y-0 lg:scale-100 lg:object-center"
+          className="pointer-events-none absolute inset-0 z-0 h-full w-full origin-bottom translate-y-[10%] scale-[1.25] object-cover object-[center_92%] lg:origin-center lg:translate-y-[4%] lg:scale-100 lg:object-center"
         />
         {/* MOBILE scrim - uniform top-to-bottom darken since copy spans
             the full content column (a horizontal gradient like desktop
@@ -172,7 +172,7 @@ export default function MembersV3Page() {
                 column's vertical center on desktop, so it sits slightly
                 higher than the phone outline / right body+CTA midline. */}
             <div className="reveal-item order-2 w-full text-center lg:order-1 lg:col-span-4 lg:col-start-1 lg:mr-12 lg:max-w-[280px] lg:-translate-y-3 lg:justify-self-end lg:text-left">
-              <h1 className="text-[32px] font-medium leading-[0.95] tracking-[-0.03em] [text-shadow:0_2px_10px_rgba(0,0,0,0.55)] sm:text-[40px] sm:font-normal lg:leading-[48px] xl:text-[48px]">
+              <h1 className="text-[32px] font-medium leading-[0.95] tracking-[-0.03em] [text-shadow:0_2px_10px_rgba(0,0,0,0.55)] sm:text-[40px] sm:font-normal lg:leading-[48px] lg:[text-shadow:0_0_32px_rgba(0,0,0,0.35),0_0_64px_rgba(0,0,0,0.22)] xl:text-[48px]">
                 Solve your debt and money problems.
               </h1>
             </div>
@@ -184,7 +184,7 @@ export default function MembersV3Page() {
                 per the brief). The flex layout still keeps them stacked
                 vertically within the right column. */}
             <div className="order-3 flex w-full flex-col items-center gap-6 text-center lg:order-3 lg:col-span-4 lg:col-start-9 lg:ml-20 lg:max-w-[280px] lg:items-start lg:justify-self-start lg:text-left">
-              <p className="reveal-item text-[16px] font-normal leading-[1.4] text-zinc-100 [text-shadow:0_1px_4px_rgba(0,0,0,0.6)] lg:text-[17px] lg:text-zinc-200 xl:text-[18px]">
+              <p className="reveal-item text-[16px] font-normal leading-[1.4] text-zinc-100 [text-shadow:0_1px_4px_rgba(0,0,0,0.6)] lg:text-[17px] lg:text-zinc-200 lg:[text-shadow:0_0_24px_rgba(0,0,0,0.35),0_0_48px_rgba(0,0,0,0.22)] xl:text-[18px]">
                 The easiest way to pay off debt, manage bills, and get
                 personalized financial answers - built for the way real people
                 earn and spend.
