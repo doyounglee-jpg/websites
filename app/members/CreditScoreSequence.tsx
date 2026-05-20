@@ -115,7 +115,7 @@ export function CreditScoreSequence() {
           so the card naturally dissolves between cycles, letting the
           photo breathe for ~1.3s (2s phase minus the 700ms fade). */}
       <div
-        className="pointer-events-none absolute left-1/2 top-8 z-20 flex w-[calc(100%-5rem)] max-w-[320px] -translate-x-1/2 flex-col gap-3 rounded-3xl border border-white/15 bg-white/[0.05] p-2.5 shadow-[0_20px_50px_rgba(0,0,0,0.35)] backdrop-blur-md md:top-1/2 md:max-w-[280px] md:w-[calc(100%-6rem)] md:-translate-y-1/2 md:gap-5 md:p-6"
+        className="pointer-events-none absolute left-1/2 top-8 z-20 flex w-[calc(100%-5rem)] max-w-[320px] -translate-x-1/2 flex-col gap-3 rounded-3xl border border-white/15 bg-white/[0.05] p-3 shadow-[0_20px_50px_rgba(0,0,0,0.35)] backdrop-blur-md md:top-1/2 md:max-w-[280px] md:w-[calc(100%-6rem)] md:-translate-y-1/2 md:gap-5 md:p-6"
         style={{
           opacity: visible ? 1 : 0,
           transition: `opacity ${FADE_MS}ms ease-out`,
@@ -136,7 +136,7 @@ export function CreditScoreSequence() {
               {SCORE_MIN}
             </span>
 
-          <div className="relative w-full max-w-[190px] md:max-w-[220px]">
+          <div className="relative w-full max-w-[170px] md:max-w-[220px]">
             <svg viewBox="0 0 200 110" className="w-full" aria-hidden="true">
               {/* Track - faint white half-circle. */}
               <path
@@ -166,7 +166,7 @@ export function CreditScoreSequence() {
 
             {/* Score number - centered inside the arc dome. */}
             <div className="pointer-events-none absolute inset-x-0 bottom-2 text-center">
-              <div className="font-mono text-[26px] font-medium leading-none tabular-nums text-white md:text-[32px]">
+              <div className="font-mono text-[23px] font-medium leading-none tabular-nums text-white md:text-[32px]">
                 {score}
               </div>
             </div>
