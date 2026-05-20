@@ -115,7 +115,7 @@ export function CreditScoreSequence() {
           so the card naturally dissolves between cycles, letting the
           photo breathe for ~1.3s (2s phase minus the 700ms fade). */}
       <div
-        className="pointer-events-none absolute left-1/2 top-8 z-20 flex w-[calc(100%-4rem)] max-w-[280px] -translate-x-1/2 flex-col gap-5 rounded-3xl border border-white/15 bg-white/[0.05] p-5 shadow-[0_20px_50px_rgba(0,0,0,0.35)] backdrop-blur-md md:top-1/2 md:w-[calc(100%-6rem)] md:-translate-y-1/2 md:p-6"
+        className="pointer-events-none absolute left-1/2 top-8 z-20 flex w-[calc(100%-4rem)] max-w-[240px] -translate-x-1/2 flex-col gap-3 rounded-3xl border border-white/15 bg-white/[0.05] p-3 shadow-[0_20px_50px_rgba(0,0,0,0.35)] backdrop-blur-md md:top-1/2 md:max-w-[280px] md:w-[calc(100%-6rem)] md:-translate-y-1/2 md:gap-5 md:p-6"
         style={{
           opacity: visible ? 1 : 0,
           transition: `opacity ${FADE_MS}ms ease-out`,
@@ -127,7 +127,7 @@ export function CreditScoreSequence() {
             Credit Score
           </span>
 
-          <div className="relative w-full max-w-[220px]">
+          <div className="relative w-full max-w-[150px] md:max-w-[220px]">
             <svg viewBox="0 0 200 110" className="w-full" aria-hidden="true">
               {/* Track - faint white half-circle. */}
               <path
@@ -157,7 +157,7 @@ export function CreditScoreSequence() {
 
             {/* Score number - centered inside the arc dome. */}
             <div className="pointer-events-none absolute inset-x-0 bottom-2 text-center">
-              <div className="font-mono text-[32px] font-medium leading-none tabular-nums text-white">
+              <div className="font-mono text-[20px] font-medium leading-none tabular-nums text-white md:text-[32px]">
                 {score}
               </div>
             </div>
@@ -181,8 +181,8 @@ export function CreditScoreSequence() {
         {showNotification && (
           <div className="anim-score-notif-slide-up">
             <div className="relative flex items-center gap-3">
-              <span className="anim-score-check-pop flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/25 bg-white/[0.10] backdrop-blur-md">
-                <svg viewBox="0 0 12 12" className="h-3.5 w-3.5 text-white">
+              <span className="anim-score-check-pop flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-white/25 bg-white/[0.10] backdrop-blur-md md:h-8 md:w-8">
+                <svg viewBox="0 0 12 12" className="h-3 w-3 text-white md:h-3.5 md:w-3.5">
                   <path
                     d="M2.5 6.5L4.5 8.5L9.5 3.5"
                     stroke="currentColor"
@@ -194,10 +194,10 @@ export function CreditScoreSequence() {
                 </svg>
               </span>
               <div className="flex flex-col">
-                <span className="text-[14px] font-medium leading-[1.2] text-white">
+                <span className="text-[12px] font-medium leading-[1.2] text-white md:text-[14px]">
                   Score up {SCORE_GAIN} points
                 </span>
-                <span className="text-[12px] leading-[1.3] text-white/70">
+                <span className="text-[10px] leading-[1.3] text-white/70 md:text-[12px]">
                   {SCORE_START} → {SCORE_END} in 6 months
                 </span>
               </div>
