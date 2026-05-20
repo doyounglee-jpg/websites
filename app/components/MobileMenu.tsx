@@ -47,7 +47,7 @@ export function MobileMenu({
         onClick={() => setOpen(true)}
         aria-label="Open menu"
         aria-expanded={open}
-        className="flex h-9 w-9 items-center justify-center rounded-md border border-white/10 bg-white/[0.03] text-zinc-200 transition-colors hover:bg-white/[0.06] md:hidden"
+        className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-zinc-200 transition-colors hover:bg-white/[0.06] md:hidden"
       >
         <svg
           width="14"
@@ -92,7 +92,7 @@ export function MobileMenu({
               type="button"
               onClick={close}
               aria-label="Close menu"
-              className="flex h-9 w-9 items-center justify-center rounded-md border border-white/10 bg-white/[0.03] text-zinc-200 transition-colors hover:bg-white/[0.06]"
+              className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-zinc-200 transition-colors hover:bg-white/[0.06]"
             >
               <svg
                 width="14"
