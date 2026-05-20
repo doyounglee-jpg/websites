@@ -54,9 +54,11 @@ export function AnimatedChatPanel() {
       <div className="flex flex-1 items-center justify-center">
         {/* Fixed-height stack with justify-end — bubbles enter at the
             bottom and push existing ones up (chat-from-bottom feel).
-            The container itself stays a constant h-[360px] so the
-            section layout below never reflows during the loop. */}
-        <div className="flex h-[360px] w-full max-w-[420px] flex-col justify-end gap-5">
+            The container itself stays a constant height so the section
+            layout below never reflows during the loop. Width + height
+            scale up at xl/2xl so the chat doesn't feel lost on wide
+            displays (≥1280px / ≥1536px). */}
+        <div className="flex h-[360px] w-full max-w-[420px] flex-col justify-end gap-5 xl:h-[400px] xl:max-w-[500px] xl:gap-6 2xl:h-[440px] 2xl:max-w-[560px]">
           {step >= 1 && (
             <UserBubble key="u1">
               Why am I always broke on Fridays?
@@ -82,26 +84,28 @@ export function AnimatedChatPanel() {
 }
 
 function UserBubble({ children }: { children: React.ReactNode }) {
-  // User (right): outline-only ghost — visually quieter, reads as "prompt".
+  // User (right): faint frosted ghost — outline + light fill so the bubble
+  // still reads as a shape over warm/bright photo regions.
   return (
-    <div className="anim-bubble-in max-w-[85%] self-end rounded-3xl rounded-br-md border border-white/15 px-5 py-3">
-      <p className="text-[14px] leading-[1.4] text-white/75">{children}</p>
+    <div className="anim-bubble-in max-w-[85%] self-end rounded-3xl rounded-br-md border border-white/25 bg-white/[0.06] px-5 py-3 backdrop-blur-md">
+      <p className="text-[14px] leading-[1.4] 2xl:text-[15px] text-white/85">{children}</p>
     </div>
   );
 }
 
 function AiBubble({ children }: { children: React.ReactNode }) {
-  // AI (left): filled — visually heavier, reads as "the focus / response".
+  // AI (left): heavier frosted glass — slightly more fill + strong blur so
+  // the response anchors visually against bright photo areas.
   return (
-    <div className="anim-bubble-in max-w-[85%] self-start rounded-3xl rounded-bl-md bg-white/[0.10] px-5 py-3 backdrop-blur">
-      <p className="text-[14px] leading-[1.4] text-white/95">{children}</p>
+    <div className="anim-bubble-in max-w-[85%] self-start rounded-3xl rounded-bl-md border border-white/15 bg-white/[0.18] px-5 py-3 backdrop-blur-md">
+      <p className="text-[14px] leading-[1.4] 2xl:text-[15px] text-white">{children}</p>
     </div>
   );
 }
 
 function TypingBubble() {
   return (
-    <div className="anim-bubble-in self-start rounded-3xl rounded-bl-md bg-white/[0.10] px-4 py-3.5 backdrop-blur">
+    <div className="anim-bubble-in self-start rounded-3xl rounded-bl-md border border-white/15 bg-white/[0.18] px-4 py-3.5 backdrop-blur-md">
       <div className="flex items-center gap-1">
         <span
           className="anim-typing-dot block h-1.5 w-1.5 rounded-full bg-white/60"

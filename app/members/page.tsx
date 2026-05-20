@@ -9,7 +9,6 @@ import {
 } from "@hugeicons-pro/core-stroke-standard";
 import { TopNav } from "../components/TopNav";
 import RevealStack from "../components/RevealStack";
-import { AmbientShaderBackground } from "./AmbientShaderBackground";
 import { AnimatedBillsChatPanel } from "./AnimatedBillsChatPanel";
 import { AnimatedChatPanel } from "./AnimatedChatPanel";
 import { CoverageCards } from "./CoverageCards";
@@ -44,6 +43,8 @@ const PHOTOS = {
     "https://images.unsplash.com/photo-1454496522488-7a8e488e8606?auto=format&fit=crop&w=2400&q=80",
   // "Get your debt off your mind" portrait - local asset
   bentoPortrait: "/dancing-woman.png",
+  // "More personalized than most apps" portrait - local asset
+  personalizedPortrait: "/happy-man-with-phone.png",
   // "Crush your debt by 70%" backdrop - local asset
   feature2Portrait: "/woman-on-mountain.png",
   // Warm intimate family portrait - testimonial (local asset)
@@ -174,26 +175,28 @@ export default function MembersV3Page() {
           </div>
         </div>
 
-        {/* Right: dark surface panel with restrained cyan-accented chat */}
-        <div className="reveal-item relative min-h-[600px] overflow-hidden rounded-3xl bg-gradient-to-br from-[#15171B] via-[#101216] to-[#0E1014] md:min-h-0">
-          {/* Ambient shader-style backdrop: handhold.io fragment shader port,
-              DARK palette tuned for this panel (very dark with subtle white). */}
-          <AmbientShaderBackground />
-          {/* Legibility scrim — sits between the shader and the chat/text
-              so the foreground reads cleanly without dimming the shader's
-              tuning. Adjust opacity here to balance shader visibility vs.
-              text contrast. */}
-          <div className="pointer-events-none absolute inset-0 bg-black/45" />
+        {/* Right: photo background + frosted-glass chat panel overlay */}
+        <div className="reveal-item relative min-h-[600px] overflow-hidden rounded-3xl md:min-h-0">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={PHOTOS.personalizedPortrait}
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+          {/* Subtle uniform dark wash — knocks the photo back just enough
+              for the chat bubbles + headline to read without losing the
+              warmth of the underlying image. */}
+          <div className="absolute inset-0 bg-black/30" />
+          {/* Soft bottom gradient just for the headline area. */}
+          <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/45 to-transparent" />
           <div className="relative z-10 flex h-full flex-col justify-between p-10 md:p-14">
-            {/* Live chat: looping conversation + animated voice waveform. */}
             <AnimatedChatPanel />
 
-            {/* 16px buffer from waveform pill (mobile compresses justify-between to 0). */}
             <div className="mt-4 flex flex-col gap-3">
               <h3 className="text-[34px] font-medium leading-[1.15] tracking-[-0.02em] text-white">
                 More personalized than most apps.
               </h3>
-              <p className="max-w-[420px] text-[15px] leading-[1.55] text-white/60">
+              <p className="max-w-[420px] text-[15px] leading-[1.55] text-white/75">
                 Clerkie&apos;s always learning about you and your spending - so
                 money conversations feel personal (with real personality).
               </p>
