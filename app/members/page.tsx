@@ -139,7 +139,7 @@ export default function MembersV3Page() {
               {/* Phone outline. overflow-hidden clips the notification
                   card while it sits above the top edge, so the slide-in
                   reads as the card appearing from the top of the phone. */}
-              <div className="relative aspect-[9/16] h-[400px] w-auto overflow-hidden rounded-[28px] border border-white/40 bg-transparent shadow-[0_0_0_1px_rgba(0,0,0,0.18)] lg:aspect-[10/19.5] lg:h-[68vh] lg:max-h-[760px] lg:rounded-[40px]">
+              <div className="relative aspect-[9/16] h-[440px] w-auto overflow-hidden rounded-[28px] border border-white/40 bg-transparent shadow-[0_0_0_1px_rgba(0,0,0,0.18)] lg:aspect-[10/19.5] lg:h-[68vh] lg:max-h-[760px] lg:rounded-[40px]">
                 {/* Glass-morphism notification - identical material to
                     the previous HeroPhoneVideo notification, just driven
                     by a CSS keyframe loop instead of video timeupdate. */}
