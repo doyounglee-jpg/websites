@@ -115,7 +115,7 @@ export function CreditScoreSequence() {
           so the card naturally dissolves between cycles, letting the
           photo breathe for ~1.3s (2s phase minus the 700ms fade). */}
       <div
-        className="pointer-events-none absolute left-1/2 top-8 z-20 flex w-[calc(100%-4rem)] max-w-[240px] -translate-x-1/2 flex-col gap-3 rounded-3xl border border-white/15 bg-white/[0.05] p-3 shadow-[0_20px_50px_rgba(0,0,0,0.35)] backdrop-blur-md md:top-1/2 md:max-w-[280px] md:w-[calc(100%-6rem)] md:-translate-y-1/2 md:gap-5 md:p-6"
+        className="pointer-events-none absolute left-1/2 top-8 z-20 flex w-[calc(100%-5rem)] max-w-[320px] -translate-x-1/2 flex-col gap-3 rounded-3xl border border-white/15 bg-white/[0.05] p-4 shadow-[0_20px_50px_rgba(0,0,0,0.35)] backdrop-blur-md md:top-1/2 md:max-w-[280px] md:w-[calc(100%-6rem)] md:-translate-y-1/2 md:gap-5 md:p-6"
         style={{
           opacity: visible ? 1 : 0,
           transition: `opacity ${FADE_MS}ms ease-out`,
