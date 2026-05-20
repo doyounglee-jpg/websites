@@ -54,31 +54,20 @@ export function AnimatedBillsChatPanel() {
   return (
     <>
       <style>{KEYFRAMES}</style>
-      <div className="flex w-full max-w-[440px] flex-col overflow-hidden rounded-[18px] border border-white/10 bg-[#101113]/60 backdrop-blur shadow-[0_30px_60px_rgba(0,0,0,0.4)]">
-        {/* Header — Clerkie AI · ONLINE · ⌘K (always visible) */}
-        <div className="flex items-center justify-between border-b border-white/[0.06] px-4 py-3">
-          <div className="flex items-center gap-2">
-            <span className="text-[13px] font-semibold tracking-[-0.005em] text-white">
-              Clerkie AI
-            </span>
-            <span className="flex items-center gap-1.5 rounded-full bg-[#5EEAD4]/10 px-2 py-0.5">
-              <span className="block h-[5px] w-[5px] rounded-full bg-[#5EEAD4]" />
-              <span className="text-[10px] font-medium tracking-[0.04em] text-[#5EEAD4]">
-                ONLINE
-              </span>
-            </span>
-          </div>
-          <span className="font-mono text-[11px] text-zinc-500">⌘K</span>
-        </div>
-
-        {/* Body — animated bubbles. min-h reserves the full conversation
-            height so adding new bubbles never pushes the panel taller. */}
-        <div className="flex min-h-[380px] flex-col gap-3 px-5 py-5">
+      {/* Outer wrapper — centers the bills chat in the panel's upper area
+          (same pattern as §02 AnimatedChatPanel). Scales up at xl/2xl so
+          the chat doesn't feel lost on wide displays. */}
+      <div className="flex flex-1 items-center justify-center">
+        {/* Bubble column — fixed height + justify-end so bubbles enter at
+            the bottom and push older messages up (chat-from-bottom feel,
+            matches §02 AnimatedChatPanel). Heights leave headroom for the
+            full convo (user + AI bubble with reasoning + buttons + pill). */}
+        <div className="flex h-[420px] w-full max-w-[440px] flex-col justify-end gap-3 xl:h-[460px] xl:max-w-[500px] 2xl:h-[500px] 2xl:max-w-[560px]">
           {/* User question */}
           {step >= 1 && (
             <div className="anim-bills-in flex justify-end pl-12">
-              <div className="rounded-[14px_14px_4px_14px] border border-white/[0.06] bg-white/[0.06] px-3.5 py-2.5">
-                <span className="text-[13px] leading-[1.4] text-white/90">
+              <div className="rounded-3xl rounded-br-md border border-white/25 bg-white/[0.06] px-4 py-2.5 backdrop-blur-md">
+                <span className="text-[14px] leading-[1.4] text-white/85 2xl:text-[15px]">
                   What&apos;s coming up this week?
                 </span>
               </div>
@@ -88,7 +77,7 @@ export function AnimatedBillsChatPanel() {
           {/* Typing indicator (only while step === 2) */}
           {step === 2 && (
             <div className="anim-bills-in flex">
-              <div className="rounded-[14px_14px_14px_4px] border border-white/15 bg-white/[0.07] px-3.5 py-3 backdrop-blur">
+              <div className="rounded-3xl rounded-bl-md border border-white/15 bg-white/[0.18] px-4 py-3 backdrop-blur-md">
                 <div className="flex items-center gap-1">
                   <span
                     className="anim-bills-dot block h-1.5 w-1.5 rounded-full bg-white/80"
@@ -107,18 +96,18 @@ export function AnimatedBillsChatPanel() {
             </div>
           )}
 
-          {/* AI response: meta line + text + reasoning card + action buttons */}
+          {/* AI response: meta + text + reasoning card + action buttons,
+              all wrapped in one frosted-glass bubble so the multi-part
+              answer reads as a single response over the photo. */}
           {step >= 3 && (
-            <div className="anim-bills-in flex flex-col items-start gap-2 pr-6">
+            <div className="anim-bills-in flex flex-col items-start gap-2 self-start max-w-[95%] rounded-3xl rounded-bl-md border border-white/15 bg-white/[0.18] px-4 py-3 backdrop-blur-md">
               {/* Meta line ("CLERKIE · ANALYZED 3 ACCOUNTS") */}
-              <div className="flex items-center gap-2">
-                <span className="text-[10px] font-medium tracking-[0.04em] text-zinc-500">
-                  CLERKIE · ANALYZED 3 ACCOUNTS
-                </span>
-              </div>
+              <span className="text-[10px] font-medium tracking-[0.04em] text-white/60">
+                CLERKIE · ANALYZED 3 ACCOUNTS
+              </span>
 
               {/* Answer text */}
-              <p className="text-[13px] leading-[1.5] text-white/85">
+              <p className="text-[14px] leading-[1.45] text-white/95 2xl:text-[15px]">
                 You&apos;ve got{" "}
                 <span className="font-medium text-white">3 bills</span> due
                 this week, totaling{" "}
@@ -126,15 +115,15 @@ export function AnimatedBillsChatPanel() {
                 the order I&apos;m paying them:
               </p>
 
-              {/* Reasoning card — rows stagger in. min-h reserves full height
-                  so action buttons don't jump as rows appear. */}
+              {/* Reasoning card — nested glass over the parent glass bubble.
+                  min-h reserves full height so action buttons don't jump. */}
               {step >= 4 && (
-                <div className="anim-bills-in flex min-h-[140px] w-full flex-col gap-2 rounded-xl border border-white/10 bg-[#0E1014]/60 px-3.5 py-3">
+                <div className="anim-bills-in flex min-h-[140px] w-full flex-col gap-2 rounded-xl border border-white/15 bg-black/20 px-3.5 py-3 backdrop-blur">
                   <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-medium tracking-[0.04em] text-zinc-500">
+                    <span className="text-[10px] font-medium tracking-[0.04em] text-white/60">
                       UPCOMING THIS WEEK
                     </span>
-                    <span className="font-mono text-[10px] text-zinc-500">
+                    <span className="font-mono text-[10px] text-white/50">
                       payment plan · v1
                     </span>
                   </div>
@@ -144,18 +133,18 @@ export function AnimatedBillsChatPanel() {
                         key={bill.label}
                         className="anim-bills-in flex items-center gap-2.5"
                       >
-                        <span className="w-4 font-mono text-[11px] font-medium text-zinc-500">
+                        <span className="w-4 font-mono text-[11px] font-medium text-white/50">
                           {i + 1}.
                         </span>
                         <div className="flex flex-1 items-center gap-2">
                           <span className="text-[13px] font-medium text-white">
                             {bill.label}
                           </span>
-                          <span className="rounded bg-white/[0.06] px-1.5 py-px font-mono text-[10px] font-medium text-zinc-300">
+                          <span className="rounded bg-white/[0.10] px-1.5 py-px font-mono text-[10px] font-medium text-white/80">
                             {bill.due}
                           </span>
                         </div>
-                        <span className="font-mono text-[13px] text-zinc-300">
+                        <span className="font-mono text-[13px] text-white/85">
                           {bill.amount}
                         </span>
                       </div>
@@ -164,35 +153,53 @@ export function AnimatedBillsChatPanel() {
                 </div>
               )}
 
-              {/* Action buttons */}
+              {/* Action buttons — glass chips */}
               {step >= 8 && (
                 <div className="anim-bills-in flex items-center gap-2 pt-1">
-                  <span className="rounded-lg border border-white/[0.06] bg-white/[0.06] px-3 py-1.5 text-[11px] font-medium text-white">
+                  <span className="rounded-lg border border-white/25 bg-white/[0.10] px-3 py-1.5 text-[11px] font-medium text-white backdrop-blur-md">
                     Looks good
                   </span>
-                  <span className="px-3 py-1.5 text-[11px] font-medium text-zinc-400">
+                  <span className="px-3 py-1.5 text-[11px] font-medium text-white/70">
                     Change order
                   </span>
                 </div>
               )}
             </div>
           )}
-        </div>
 
-        {/* Input row — always visible */}
-        <div className="flex items-center gap-2 border-t border-white/[0.06] bg-[#0E1014]/60 px-4 py-3">
-          <span className="flex-1 text-[12px] tracking-[-0.005em] text-zinc-600">
-            Ask anything about your money…
-          </span>
-          <div className="flex items-center gap-2">
-            <span className="font-mono text-[10px] text-zinc-600">↵</span>
-            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-zinc-50 text-[12px] font-semibold text-[#0E1014]">
-              ↑
-            </span>
-          </div>
+          {/* Always-on voice waveform pill — reads as "Clerkie is listening".
+              Matches the pattern from §02 AnimatedChatPanel. */}
+          <BillsVoiceWaveformPill />
         </div>
       </div>
     </>
+  );
+}
+
+function BillsVoiceWaveformPill() {
+  return (
+    <div className="mt-2 self-start">
+      <div className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/[0.06] backdrop-blur-md">
+        <div className="flex items-center gap-0.5">
+          <span
+            className="anim-bills-wave block w-0.5 rounded-full bg-[#5EEAD4]/80"
+            style={{ animationDelay: "0s" }}
+          />
+          <span
+            className="anim-bills-wave block w-0.5 rounded-full bg-[#5EEAD4]/80"
+            style={{ animationDelay: "0.18s" }}
+          />
+          <span
+            className="anim-bills-wave block w-0.5 rounded-full bg-[#5EEAD4]/80"
+            style={{ animationDelay: "0.36s" }}
+          />
+          <span
+            className="anim-bills-wave block w-0.5 rounded-full bg-[#5EEAD4]/80"
+            style={{ animationDelay: "0.12s" }}
+          />
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -222,5 +229,14 @@ const KEYFRAMES = `
 }
 .anim-bills-dot {
   animation: bills-typing-dot 1.2s ease-in-out infinite;
+}
+
+@keyframes bills-wave {
+  0%, 100% { height: 4px; }
+  50% { height: 14px; }
+}
+.anim-bills-wave {
+  animation: bills-wave 0.85s ease-in-out infinite;
+  height: 4px;
 }
 `;
