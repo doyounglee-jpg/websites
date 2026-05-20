@@ -183,7 +183,7 @@ export function CreditScoreSequence() {
             both paid + hidden so it fades with the card instead of
             popping off at phase change. */}
         {showNotification && (
-          <div className="anim-score-notif-slide-up">
+          <div className="anim-score-notif-slide-up pl-[11px] md:pl-0">
             <div className="relative flex items-center gap-3">
               <span className="anim-score-check-pop flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-white/25 bg-white/[0.10] backdrop-blur-md md:h-8 md:w-8">
                 <svg viewBox="0 0 12 12" className="h-3 w-3 text-white md:h-3.5 md:w-3.5">
