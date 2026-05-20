@@ -132,7 +132,7 @@ export function CreditScoreSequence() {
               bottom of the gauge SVG — sitting beside the arc endpoints
               on the same line as the graph. */}
           <div className="flex w-full items-end justify-center gap-2">
-            <span className="font-mono text-[10px] leading-none tabular-nums text-white/50">
+            <span className="mb-[2px] font-mono text-[10px] leading-none tabular-nums text-white/50">
               {SCORE_MIN}
             </span>
 
@@ -172,7 +172,7 @@ export function CreditScoreSequence() {
             </div>
           </div>
 
-            <span className="font-mono text-[10px] leading-none tabular-nums text-white/50">
+            <span className="mb-[2px] font-mono text-[10px] leading-none tabular-nums text-white/50">
               {SCORE_MAX}
             </span>
           </div>
