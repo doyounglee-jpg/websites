@@ -226,6 +226,33 @@ body {
   background-size: 240px 240px;
 }
 
+/* ===== Phone-outline notification pulse =====
+   Used in the /members hero: the phone-shaped outline rectangle in
+   the center contains a glass notification card. The card sits hidden
+   above the top of the outline (clipped by overflow-hidden) and slides
+   into view on a slow loop — slides in fast, holds for ~3s, slides out,
+   then sits hidden for the rest of the cycle. translate uses translateX
+   to preserve the horizontal centering (`left-1/2 -translate-x-1/2`)
+   while only animating the vertical offset. */
+@keyframes phoneNotifPulse {
+  0%,
+  6% {
+    transform: translate(-50%, -180%);
+  }
+  16%,
+  56% {
+    transform: translate(-50%, 0);
+  }
+  66%,
+  100% {
+    transform: translate(-50%, -180%);
+  }
+}
+
+.phone-notif-pulse {
+  animation: phoneNotifPulse 7s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
 /* ===== Dot grid =====
    Subtle dotted texture behind the hero. Fades out toward the bottom
    so it doesn't compete with content below. */
