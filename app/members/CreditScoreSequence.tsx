@@ -127,7 +127,7 @@ export function CreditScoreSequence() {
             Credit Score
           </span>
 
-          <div className="relative w-full max-w-[150px] md:max-w-[220px]">
+          <div className="relative w-full max-w-[150px] pb-3 md:max-w-[220px] md:pb-4">
             <svg viewBox="0 0 200 110" className="w-full" aria-hidden="true">
               {/* Track - faint white half-circle. */}
               <path
@@ -156,19 +156,19 @@ export function CreditScoreSequence() {
             </svg>
 
             {/* Score number - centered inside the arc dome. */}
-            <div className="pointer-events-none absolute inset-x-0 bottom-2 text-center">
+            <div className="pointer-events-none absolute inset-x-0 bottom-[18px] text-center md:bottom-[28px]">
               <div className="font-mono text-[20px] font-medium leading-none tabular-nums text-white md:text-[32px]">
                 {score}
               </div>
             </div>
-          </div>
 
-          {/* Range bookends. */}
-          <div className="flex w-full max-w-[200px] items-center justify-between">
-            <span className="font-mono text-[10px] tabular-nums text-white/50">
+            {/* Range bookends - sit at the bottom of the gauge container
+                in the padding-bottom area, on the same line, so they
+                don't need a separate row below the gauge. */}
+            <span className="absolute bottom-0 left-0 font-mono text-[10px] tabular-nums text-white/50">
               {SCORE_MIN}
             </span>
-            <span className="font-mono text-[10px] tabular-nums text-white/50">
+            <span className="absolute bottom-0 right-0 font-mono text-[10px] tabular-nums text-white/50">
               {SCORE_MAX}
             </span>
           </div>
