@@ -12,6 +12,7 @@ import RevealStack from "../components/RevealStack";
 import { AnimatedBillsChatPanel } from "./AnimatedBillsChatPanel";
 import { AnimatedChatPanel } from "./AnimatedChatPanel";
 import { CoverageCards } from "./CoverageCards";
+import { DebtPayoffSequence } from "./DebtPayoffSequence";
 import { HeroPhoneVideo } from "./HeroPhoneVideo";
 import { LiveSavingsTicker } from "./LiveSavingsTicker";
 
@@ -167,6 +168,7 @@ export default function MembersV3Page() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/10" />
           <div className="relative z-10 flex h-full flex-col justify-end gap-4 p-10 md:p-14">
+            <DebtPayoffSequence />
             <h3 className="text-[34px] font-medium leading-[1.15] tracking-[-0.02em] text-white">
               Get your debt off your mind.
             </h3>
