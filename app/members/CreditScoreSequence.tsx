@@ -155,16 +155,19 @@ export function CreditScoreSequence() {
               />
             </svg>
 
-            {/* Score number - centered inside the arc dome. */}
-            <div className="pointer-events-none absolute inset-x-0 bottom-[18px] text-center md:bottom-[28px]">
+            {/* Score number - centered inside the arc dome, well above
+                the range bookends so the two read as separate lines. */}
+            <div className="pointer-events-none absolute inset-x-0 bottom-[26px] text-center md:bottom-[40px]">
               <div className="font-mono text-[20px] font-medium leading-none tabular-nums text-white md:text-[32px]">
                 {score}
               </div>
             </div>
 
-            {/* Range bookends - sit at the bottom of the gauge container
-                in the padding-bottom area, on the same line, so they
-                don't need a separate row below the gauge. */}
+            {/* Range bookends - bottom-left and bottom-right corners of
+                the gauge container (in the pb area below the arc). They
+                share one line with each other but sit on a separate row
+                from the score above, so 300 / 850 are clearly placed on
+                left and right sides without overlapping the score. */}
             <span className="absolute bottom-0 left-0 font-mono text-[10px] tabular-nums text-white/50">
               {SCORE_MIN}
             </span>
