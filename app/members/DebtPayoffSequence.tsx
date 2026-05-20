@@ -38,15 +38,16 @@ export function DebtPayoffSequence() {
     <>
       <style>{KEYFRAMES}</style>
 
-      {/* Centered cluster - anchored to the middle of the panel. Wrapped
-          in a soft glass card so the animation has a clear UI boundary
-          against the photo (vs. floating "loose" elements). When the
-          notification mounts (phase 1), the flex column grows and the
-          wrapper's -translate-y-1/2 recenters it - visually pushing the
-          progress bar UP to make room for the notification appearing
-          below it. The notification animates IN from below for a natural
-          "rise from bottom into center" feel. */}
-      <div className="pointer-events-none absolute left-1/2 top-1/2 z-20 flex w-[calc(100%-4rem)] max-w-[360px] -translate-x-1/2 -translate-y-1/2 flex-col gap-5 rounded-3xl border border-white/15 bg-white/[0.05] p-5 backdrop-blur-md md:w-[calc(100%-6rem)] md:p-6 shadow-[0_20px_50px_rgba(0,0,0,0.35)]">
+      {/* UI cluster. Mobile: anchored near the top of the panel (top-16,
+          no Y translate) so it sits above the headline/body that sit at
+          the bottom of the panel. md+: anchored to the middle of the
+          panel (top-1/2 + -translate-y-1/2) so the original centered
+          composition is preserved. When the notification mounts (phase
+          1), the flex column grows and - on md+ - the wrapper's
+          -translate-y-1/2 recenters it; on mobile the wrapper stays
+          anchored at the top and the notification appears below the
+          progress bar naturally. */}
+      <div className="pointer-events-none absolute left-1/2 top-16 z-20 flex w-[calc(100%-4rem)] max-w-[360px] -translate-x-1/2 flex-col gap-5 rounded-3xl border border-white/15 bg-white/[0.05] p-5 backdrop-blur-md md:top-1/2 md:w-[calc(100%-6rem)] md:-translate-y-1/2 md:p-6 shadow-[0_20px_50px_rgba(0,0,0,0.35)]">
         {/* Progress bar block - sits at the center of the panel when
             alone. Gets pushed up when the notification mounts below. */}
         <div className="flex flex-col gap-2">
