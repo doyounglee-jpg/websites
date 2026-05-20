@@ -85,7 +85,7 @@ export default function MembersV3Page() {
           loop
           playsInline
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover object-[center_92%] lg:object-center"
+          className="pointer-events-none absolute inset-0 z-0 h-full w-full origin-bottom translate-y-[10%] scale-[1.25] object-cover object-[center_92%] lg:origin-center lg:translate-y-0 lg:scale-100 lg:object-center"
         />
         {/* MOBILE scrim - uniform top-to-bottom darken since copy spans
             the full content column (a horizontal gradient like desktop
@@ -118,9 +118,9 @@ export default function MembersV3Page() {
         <RevealStack
           stagger={110}
           duration={900}
-          className="relative z-10 mx-auto w-full max-w-[1440px] px-6 pb-20 pt-24 sm:px-10 sm:py-24 md:px-16"
+          className="relative z-10 mx-auto w-full max-w-[1440px] px-6 pb-10 pt-20 sm:px-10 sm:py-24 md:px-16"
         >
-          <div className="flex w-full flex-col items-center gap-8 lg:grid lg:grid-cols-12 lg:items-center lg:gap-6">
+          <div className="flex w-full flex-col items-center gap-6 lg:grid lg:grid-cols-12 lg:items-center lg:gap-6">
             {/*
               CENTER - Video (cols 5-8). aspect 9:19.5 = 0.462 (iPhone), per Cash App spec.
               Height capped at small viewport on mobile and 68vh on desktop so the video
@@ -139,12 +139,12 @@ export default function MembersV3Page() {
               {/* Phone outline. overflow-hidden clips the notification
                   card while it sits above the top edge, so the slide-in
                   reads as the card appearing from the top of the phone. */}
-              <div className="relative aspect-[9/16] h-[440px] w-auto overflow-hidden rounded-[28px] border border-white/40 bg-transparent shadow-[0_0_0_1px_rgba(0,0,0,0.18)] lg:aspect-[10/19.5] lg:h-[68vh] lg:max-h-[760px] lg:rounded-[40px]">
+              <div className="relative h-[400px] w-full max-w-[340px] overflow-hidden rounded-[28px] border border-white/40 bg-transparent shadow-[0_0_0_1px_rgba(0,0,0,0.18)] lg:aspect-[10/19.5] lg:h-[68vh] lg:w-auto lg:max-h-[760px] lg:max-w-none lg:rounded-[40px]">
                 {/* Glass-morphism notification - identical material to
                     the previous HeroPhoneVideo notification, just driven
                     by a CSS keyframe loop instead of video timeupdate. */}
                 <div
-                  className="phone-notif-pulse pointer-events-none absolute left-1/2 top-[3%] z-20 w-[200px] lg:top-[4%] lg:w-[88%]"
+                  className="phone-notif-pulse pointer-events-none absolute left-1/2 top-[3%] z-20 w-[92%] lg:top-[4%] lg:w-[88%]"
                   aria-hidden="true"
                 >
                   <div className="rounded-2xl border border-white/15 bg-white/[0.08] px-4 py-3 backdrop-blur-3xl">
