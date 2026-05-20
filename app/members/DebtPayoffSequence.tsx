@@ -75,12 +75,14 @@ export function DebtPayoffSequence() {
           </div>
         </div>
 
-        {/* Notification banner — slides up from below into the center,
-            naturally pushing the bar upward as the column grows. */}
+        {/* Notification — slides up from below the bar. No own card chrome
+            (the outer DebtPayoffSequence wrapper already provides the
+            glass surface); rendering an inner card would read as
+            box-in-box. */}
         {paid && (
           <div className="anim-debt-notif-slide-up">
-            <div className="relative flex items-center gap-3 rounded-3xl border border-white/15 bg-white/[0.18] px-4 py-3 backdrop-blur-md">
-              {/* Check token — lighter glass, neutral white (no cyan). */}
+            <div className="relative flex items-center gap-3">
+              {/* Check token — small glass circle, the lone graphic. */}
               <span className="anim-debt-check-pop flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/25 bg-white/[0.10] backdrop-blur-md">
                 <svg viewBox="0 0 12 12" className="h-3.5 w-3.5 text-white">
                   <path
