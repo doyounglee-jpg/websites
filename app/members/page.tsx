@@ -69,7 +69,7 @@ export default function MembersV3Page() {
           Hero uses <RevealStack> instead of <Reveal>: each grid column
           (headline → video → body+CTA) reveals serially on a slow
           cinematic stagger, with the Linear-style blur-in. The outer
-          <section> is no longer wrapped — the stack handles the entry.
+          <section> is no longer wrapped - the stack handles the entry.
          ============================================================ */}
       <section className="relative flex min-h-svh w-full items-center overflow-hidden bg-gradient-to-b from-[#15171B] via-[#101216] to-[#0E1014] lg:min-h-screen">
         {/* DESKTOP-ONLY: Full-bleed hero video. `lg:block` keeps the
@@ -86,7 +86,7 @@ export default function MembersV3Page() {
           className="pointer-events-none absolute inset-0 z-0 hidden h-full w-full object-cover lg:block"
         />
         {/* DESKTOP-ONLY: side-darkening scrim so the left headline and
-            right body+CTA stay readable over the video. Symmetric —
+            right body+CTA stay readable over the video. Symmetric -
             both edges land at the same opacity, center stays clearer
             so the video subject reads through. Right-side text stays
             legible because the body copy uses `lg:text-zinc-200` and
@@ -96,7 +96,7 @@ export default function MembersV3Page() {
           aria-hidden="true"
         />
         {/* Cash App-style 3-col: headline · video · body + CTA */}
-        {/* Dotted grid texture — backdrop, not a reveal item.
+        {/* Dotted grid texture - backdrop, not a reveal item.
             Hidden on desktop now that the video fills the backdrop. */}
         <div
           className="dot-grid pointer-events-none absolute inset-x-0 top-0 h-[900px] lg:hidden"
@@ -126,9 +126,9 @@ export default function MembersV3Page() {
               CENTER - Video (cols 5-8). aspect 9:19.5 = 0.462 (iPhone), per Cash App spec.
               Height capped at small viewport on mobile and 68vh on desktop so the video
               never overflows the section. First in DOM (and first to reveal) per user
-              request — the video draws the eye, then the surrounding copy fades in.
+              request - the video draws the eye, then the surrounding copy fades in.
             */}
-            {/* Center phone video — desktop now uses a full-bleed hero
+            {/* Center phone video - desktop now uses a full-bleed hero
                 video (see <video> at the top of the section), so this
                 center block is hidden on lg+. Mobile is out of scope
                 for this pass, so it still renders below `lg`. */}
@@ -145,7 +145,7 @@ export default function MembersV3Page() {
               />
             </div>
 
-            {/* DESKTOP ONLY — Phone-shaped outline frame over the hero
+            {/* DESKTOP ONLY - Phone-shaped outline frame over the hero
                 video. Transparent background, thin white border, rounded
                 corners that mimic an iPhone silhouette. A glass-morphism
                 notification card sits inside it and pulses in/out on a
@@ -157,7 +157,7 @@ export default function MembersV3Page() {
                   card while it sits above the top edge, so the slide-in
                   reads as the card appearing from the top of the phone. */}
               <div className="relative aspect-[10/19.5] h-[68vh] max-h-[760px] overflow-hidden rounded-[40px] border border-white/40 bg-transparent shadow-[0_0_0_1px_rgba(0,0,0,0.18)]">
-                {/* Glass-morphism notification — identical material to
+                {/* Glass-morphism notification - identical material to
                     the previous HeroPhoneVideo notification, just driven
                     by a CSS keyframe loop instead of video timeupdate. */}
                 <div
@@ -183,7 +183,7 @@ export default function MembersV3Page() {
 
             {/* LEFT - Headline (spans cols 1-4 = full left half, content
                 block constrained to ~280px and anchored to the RIGHT edge
-                of its column area — sits close to the phone instead of
+                of its column area - sits close to the phone instead of
                 drifting toward the page edge as the viewport widens). */}
             {/* lg:-translate-y-3 lifts the headline 12px above the
                 column's vertical center on desktop, so it sits slightly
@@ -195,7 +195,7 @@ export default function MembersV3Page() {
             </div>
 
             {/* RIGHT - Body + CTA (spans cols 9-12). The column wrapper is
-                no longer a reveal-item — instead, the body <p> and the
+                no longer a reveal-item - instead, the body <p> and the
                 CTA <a> are individually marked, so they cascade one after
                 the other (body reveals third, CTA reveals fourth/last
                 per the brief). The flex layout still keeps them stacked
@@ -255,7 +255,7 @@ export default function MembersV3Page() {
             alt=""
             className="absolute inset-0 h-full w-full object-cover"
           />
-          {/* Subtle uniform dark wash — knocks the photo back just enough
+          {/* Subtle uniform dark wash - knocks the photo back just enough
               for the chat bubbles + headline to read without losing the
               warmth of the underlying image. */}
           <div className="absolute inset-0 bg-black/30" />
@@ -281,7 +281,7 @@ export default function MembersV3Page() {
       {/* ============================================================
           5. § 03 - LIVE TICKER (replaces the static "Crush your debt 70%")
          ============================================================ */}
-      {/* No <Reveal> wrapper here intentionally — the savings ticker is
+      {/* No <Reveal> wrapper here intentionally - the savings ticker is
           a high-contrast dark gradient section with bright white digits,
           and the .reveal opacity-fade made the digits visible before the
           dark background read as solid on mobile (looked like content
@@ -341,7 +341,7 @@ export default function MembersV3Page() {
               Watch your credit climb.
             </h3>
             <p className="max-w-[420px] text-[15px] leading-[1.55] text-white/70">
-              Clerkie handles negotiations and disputes — every win flows
+              Clerkie handles negotiations and disputes - every win flows
               straight into your score.
             </p>
           </div>

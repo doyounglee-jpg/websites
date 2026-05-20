@@ -12,7 +12,7 @@ import { useEffect, useRef } from "react";
  * Knobs (props):
  *   - palette: which of 5 palettes to use (default YELLOW = warm
  *     orange/amber, matches handhold's Q&A section).
- *   - seed: offsets u_time by 137.5 * seed — used by handhold to make
+ *   - seed: offsets u_time by 137.5 * seed - used by handhold to make
  *     three identical canvases look different. 0 if unused.
  *
  * Implementation notes (matching handhold):
@@ -21,22 +21,22 @@ import { useEffect, useRef } from "react";
  *   - IntersectionObserver pauses render when off-screen.
  *   - prefers-reduced-motion → draw one frame, stop.
  *   - signalRef (their interactive boost) is hard-coded to 0 here, so
- *     warp=0.8, energy=0.5 baseline — what an idle handhold panel uses.
+ *     warp=0.8, energy=0.5 baseline - what an idle handhold panel uses.
  */
 
 // Palettes are 4 RGB triples in 0..1, fed to u_color0..u_color3.
 // Original 5 are direct ports from handhold's bundle (bright/colorful,
-// meant for white sections). DARK is ours — neutral grayscale anchored
+// meant for white sections). DARK is ours - neutral grayscale anchored
 // at the panel base #0E1014 so the shader reads as a B&W atmosphere
 // instead of a saturated overlay.
 const PALETTES = {
-  // —— our palette ——
+  // -- our palette --
   // Tuned for the /members "More personalized than apps" panel:
   // very dark with only a faint white whisper at transitions. The
   // shader's edgeGlow + diffuse white-injection factors are also damped
   // below (look for "TUNED:" comments) so the dark stays dark.
   DARK:   [[0.022, 0.026, 0.034], [0.042, 0.047, 0.058], [0.080, 0.088, 0.105], [0.155, 0.165, 0.182]],
-  // —— handhold's originals (kept for easy A/B) ——
+  // -- handhold's originals (kept for easy A/B) --
   BLUE:   [[0.173, 0.545, 1], [0.94, 0.935, 0.9],  [0.98, 0.92, 0.68], [1, 0.686, 0.224]],
   PURPLE: [[0.173, 0.545, 1], [0.92, 0.9, 0.97],   [0.72, 0.68, 0.95], [0.77, 0.63, 1]],
   GREEN:  [[0.16, 0.75, 0.35], [0.85, 0.97, 0.9],  [0.25, 0.9, 0.6],   [0.255, 0.875, 0.77]],
@@ -146,7 +146,7 @@ void main() {
   color = mix(color, warm, smoothstep(warmStart, warmEnd, pattern));
 
   float edgeGlow = smoothstep(0.2, 0.4, pattern) * smoothstep(0.85, 0.5, pattern);
-  color = mix(color, vec3(1.0), edgeGlow * 0.10);  // TUNED: was 0.25 in handhold — damped for dark theme
+  color = mix(color, vec3(1.0), edgeGlow * 0.10);  // TUNED: was 0.25 in handhold - damped for dark theme
 
   float energyBoost = u_energy;
   vec3 gray = vec3(dot(color, vec3(0.299, 0.587, 0.114)));
@@ -156,7 +156,7 @@ void main() {
   float diffMask2 = snoise(v_uv * 0.8 + vec2(6.2, 11.8) + t2 * 0.4);
   float diffuse = smoothstep(-0.1, 0.4, diffMask1) * smoothstep(-0.2, 0.3, diffMask2);
   vec3 diffColor = mix(color, vec3(1.0), 0.5);
-  color = mix(color, diffColor, diffuse * 0.12);  // TUNED: was 0.35 in handhold — damped for dark theme
+  color = mix(color, diffColor, diffuse * 0.12);  // TUNED: was 0.35 in handhold - damped for dark theme
 
   float colorMax = max(max(color.r, color.g), color.b);
   float colorSat = (colorMax - min(min(color.r, color.g), color.b)) / (colorMax + 0.001);
@@ -294,7 +294,7 @@ export function AmbientShaderBackground({
 
     const ro = new ResizeObserver(() => {
       resize();
-      // Re-draw immediately if we're visible — keeps it crisp during resize
+      // Re-draw immediately if we're visible - keeps it crisp during resize
       if (visible && raf == null) raf = requestAnimationFrame(draw);
     });
     ro.observe(canvas);

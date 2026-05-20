@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * § 05 RETURN — Employer ROI mockup card.
+ * § 05 RETURN - Employer ROI mockup card.
  *
  * Two layers of polish (same recipe as the "Why It Works" cards in
  * ./FeatureCardsSection.tsx and the platform cards in
@@ -20,7 +20,7 @@
 import { useEffect, useRef, useState, type MouseEvent } from "react";
 
 /* ─────────────────────────────────────────────────────────────────
-   HOOKS — same shape as FeatureCardsSection / PlatformGraphics
+   HOOKS - same shape as FeatureCardsSection / PlatformGraphics
    ───────────────────────────────────────────────────────────────── */
 
 function useArticleHover() {
@@ -82,16 +82,16 @@ function useCountUpDecimal(target: number, key: number, decimals = 1, durMs = 90
 }
 
 /* ─────────────────────────────────────────────────────────────────
-   INNER GRAPHIC — wires up the count-ups + sparkline draw-in.
+   INNER GRAPHIC - wires up the count-ups + sparkline draw-in.
    ───────────────────────────────────────────────────────────────── */
 
 function RoiInner() {
   const { ref, playCount } = useArticleHover();
-  // "+14.2%" — animate the integer part. The decimal ".2%" stays
+  // "+14.2%" - animate the integer part. The decimal ".2%" stays
   // suffixed so the visual rhythm during the count-up matches the
   // final settled value.
   const retention = useCountUpDecimal(14.2, playCount, 1, 1000);
-  // "−32%" — flat integer.
+  // "−32%" - flat integer.
   const stress = useCountUp(32, playCount, 900);
 
   return (
@@ -171,7 +171,7 @@ function RoiInner() {
 }
 
 /* ─────────────────────────────────────────────────────────────────
-   SPARKLINE — animated stroke-draw-in on hover.
+   SPARKLINE - animated stroke-draw-in on hover.
    ───────────────────────────────────────────────────────────────── */
 
 function Sparkline({ playCount }: { playCount: number }) {
@@ -249,7 +249,7 @@ function Sparkline({ playCount }: { playCount: number }) {
 }
 
 /* ─────────────────────────────────────────────────────────────────
-   TILT WRAPPER — same cursor-tracked tilt + sheen as
+   TILT WRAPPER - same cursor-tracked tilt + sheen as
    FeatureCardsSection. Rendered as <article> so RoiInner's
    useArticleHover binds to the right ancestor.
    ───────────────────────────────────────────────────────────────── */
@@ -307,7 +307,7 @@ export default function RoiMockup() {
         onMouseEnter={hoverCapable ? () => setHovered(true) : undefined}
         onMouseMove={hoverCapable ? handleMove : undefined}
         onMouseLeave={hoverCapable ? handleLeave : undefined}
-        // Original card sizing — padding/gap match the pre-tilt-wrap
+        // Original card sizing - padding/gap match the pre-tilt-wrap
         // version. Section-level breathing room is handled by the
         // parent section's pt/pb in page.tsx, not by the card itself.
         className="relative flex flex-1 flex-col gap-5 overflow-hidden rounded-[18px] border bg-white/[0.02] p-7"

@@ -42,7 +42,7 @@ export function HeroPhoneVideo({
 
   return (
     <>
-      {/* Ambient-mode halo — YouTube-style. The same video plays here
+      {/* Ambient-mode halo - YouTube-style. The same video plays here
           scaled up, heavily blurred, and at low opacity, so the area
           around the phone takes on the dominant tones of the current
           frame. -z-10 places it below the phone within the flex parent's
@@ -54,7 +54,7 @@ export function HeroPhoneVideo({
         muted
         loop
         playsInline
-        // poster matches the phone video's first frame — painted
+        // poster matches the phone video's first frame - painted
         // immediately and blurred/scaled into the ambient halo so the
         // area around the phone is warm-toned before the video starts.
         poster="/v-t3-poster.jpg"
@@ -64,7 +64,7 @@ export function HeroPhoneVideo({
         <source src={src} type="video/mp4" />
       </video>
 
-      {/* Phone-shaped video container — overflow-hidden serves double duty:
+      {/* Phone-shaped video container - overflow-hidden serves double duty:
          it clips the video to the rounded corners AND clips the notification
          card while it sits above its target position, so the card slides in
          from above as a fully-opaque object instead of fading. This keeps
@@ -86,7 +86,7 @@ export function HeroPhoneVideo({
         <source src={src} type="video/mp4" />
       </video>
 
-      {/* Glass-morphism notification — always at opacity 1; only its
+      {/* Glass-morphism notification - always at opacity 1; only its
           position animates. When hidden it sits above the phone top edge
           (clipped by the container's overflow-hidden) and slides into the
           visible top-[8%] slot. Glass material at full strength always. */}

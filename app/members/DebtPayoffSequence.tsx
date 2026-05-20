@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
  *
  * Visual language: light frosted glass for the notification + check token
  * (matches the §02 right-panel chat bubbles). No cyan accent, no surrounding
- * frame — the bar and notification sit directly over the photo.
+ * frame - the bar and notification sit directly over the photo.
  */
 export function DebtPayoffSequence() {
   const [phase, setPhase] = useState<0 | 1 | 2>(2);
@@ -38,16 +38,16 @@ export function DebtPayoffSequence() {
     <>
       <style>{KEYFRAMES}</style>
 
-      {/* Centered cluster — anchored to the middle of the panel. Wrapped
+      {/* Centered cluster - anchored to the middle of the panel. Wrapped
           in a soft glass card so the animation has a clear UI boundary
           against the photo (vs. floating "loose" elements). When the
           notification mounts (phase 1), the flex column grows and the
-          wrapper's -translate-y-1/2 recenters it — visually pushing the
+          wrapper's -translate-y-1/2 recenters it - visually pushing the
           progress bar UP to make room for the notification appearing
           below it. The notification animates IN from below for a natural
           "rise from bottom into center" feel. */}
       <div className="pointer-events-none absolute left-1/2 top-1/2 z-20 flex w-[calc(100%-4rem)] max-w-[360px] -translate-x-1/2 -translate-y-1/2 flex-col gap-5 rounded-3xl border border-white/15 bg-white/[0.05] p-5 backdrop-blur-md md:w-[calc(100%-6rem)] md:p-6 shadow-[0_20px_50px_rgba(0,0,0,0.35)]">
-        {/* Progress bar block — sits at the center of the panel when
+        {/* Progress bar block - sits at the center of the panel when
             alone. Gets pushed up when the notification mounts below. */}
         <div className="flex flex-col gap-2">
           <div className="flex items-center justify-between">
@@ -55,7 +55,7 @@ export function DebtPayoffSequence() {
               Capital One · $4,200 payoff
             </span>
             <span className="font-mono text-[11px] tabular-nums text-white/55">
-              {paid ? "paid" : phase === 0 ? "in progress" : "—"}
+              {paid ? "paid" : phase === 0 ? "in progress" : "-"}
             </span>
           </div>
           <div className="h-2 w-full overflow-hidden rounded-full border border-white/15 bg-white/[0.06] backdrop-blur-md">
@@ -75,14 +75,14 @@ export function DebtPayoffSequence() {
           </div>
         </div>
 
-        {/* Notification — slides up from below the bar. No own card chrome
+        {/* Notification - slides up from below the bar. No own card chrome
             (the outer DebtPayoffSequence wrapper already provides the
             glass surface); rendering an inner card would read as
             box-in-box. */}
         {paid && (
           <div className="anim-debt-notif-slide-up">
             <div className="relative flex items-center gap-3">
-              {/* Check token — small glass circle, the lone graphic. */}
+              {/* Check token - small glass circle, the lone graphic. */}
               <span className="anim-debt-check-pop flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/25 bg-white/[0.10] backdrop-blur-md">
                 <svg viewBox="0 0 12 12" className="h-3.5 w-3.5 text-white">
                   <path
@@ -103,7 +103,7 @@ export function DebtPayoffSequence() {
                   Capital One · $4,200 cleared
                 </span>
               </div>
-              {/* Sparkles — fan outward from the check token on entry. */}
+              {/* Sparkles - fan outward from the check token on entry. */}
               {SPARKS.map((s, i) => (
                 <span
                   key={i}
@@ -124,7 +124,7 @@ export function DebtPayoffSequence() {
   );
 }
 
-// Sparkle particle config — small dots that fan outward from the
+// Sparkle particle config - small dots that fan outward from the
 // notification's left edge (where the check token sits).
 const SPARKS = [
   { dx: -22, dy: -24, delay: 0.05 },

@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
  * conversation loops: user asks about upcoming bills, Clerkie replies
  * with a reasoning card whose rows stagger in.
  *
- * Layout — body has min-h reserved for the full conversation so the
+ * Layout - body has min-h reserved for the full conversation so the
  * headline below the panel never reflows. Bubbles render conditionally
  * and use the chat-bubble-in keyframe for entry. The reasoning card has
  * a min-h so staggered row entry doesn't push the action buttons down.
@@ -54,11 +54,11 @@ export function AnimatedBillsChatPanel() {
   return (
     <>
       <style>{KEYFRAMES}</style>
-      {/* Outer wrapper — centers the bills chat in the panel's upper area
+      {/* Outer wrapper - centers the bills chat in the panel's upper area
           (same pattern as §02 AnimatedChatPanel). Scales up at xl/2xl so
           the chat doesn't feel lost on wide displays. */}
       <div className="flex flex-1 items-center justify-center">
-        {/* Bubble column — fixed height + justify-end so bubbles enter at
+        {/* Bubble column - fixed height + justify-end so bubbles enter at
             the bottom and push older messages up (chat-from-bottom feel,
             matches §02 AnimatedChatPanel). Heights leave headroom for the
             full convo (user + AI bubble with reasoning + buttons + pill). */}
@@ -115,7 +115,7 @@ export function AnimatedBillsChatPanel() {
                 the order I&apos;m paying them:
               </p>
 
-              {/* Reasoning card — nested glass over the parent glass bubble.
+              {/* Reasoning card - nested glass over the parent glass bubble.
                   min-h reserves full height so action buttons don't jump. */}
               {step >= 4 && (
                 <div className="anim-bills-in flex min-h-[140px] w-full flex-col gap-2 rounded-xl border border-white/15 bg-black/20 px-3.5 py-3 backdrop-blur">
@@ -153,7 +153,7 @@ export function AnimatedBillsChatPanel() {
                 </div>
               )}
 
-              {/* Action buttons — glass chips */}
+              {/* Action buttons - glass chips */}
               {step >= 8 && (
                 <div className="anim-bills-in flex items-center gap-2 pt-1">
                   <span className="rounded-lg border border-white/25 bg-white/[0.10] px-3 py-1.5 text-[11px] font-medium text-white backdrop-blur-md">
@@ -167,7 +167,7 @@ export function AnimatedBillsChatPanel() {
             </div>
           )}
 
-          {/* Always-on voice waveform pill — reads as "Clerkie is listening".
+          {/* Always-on voice waveform pill - reads as "Clerkie is listening".
               Matches the pattern from §02 AnimatedChatPanel. */}
           <BillsVoiceWaveformPill />
         </div>

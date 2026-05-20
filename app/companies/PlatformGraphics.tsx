@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * Platform §02 graphics — hover-animated.
+ * Platform §02 graphics - hover-animated.
  *
  * Each graphic listens for hover on its closest parent `<article>`
  * (the PlatformCard) and replays a short animation that "fits" what
@@ -17,7 +17,7 @@
  *
  *   - TrustGraphic (compliance posture):
  *       Each compliance dot lights up cyan in sequence, with the
- *       label briefly brightening — like a posture re-verification.
+ *       label briefly brightening - like a posture re-verification.
  *
  * Trigger model: animation replays on every mouseenter (so users can
  * hover-off-and-back to see it again). On mouseleave we leave the
@@ -70,7 +70,7 @@ function useCountUp(target: number, key: number, durMs = 900) {
 }
 
 /* ================================================================
-   INSIGHTS — aggregate savings dashboard
+   INSIGHTS - aggregate savings dashboard
    ================================================================ */
 export function InsightsGraphic() {
   const { ref, playCount } = useArticleHover();
@@ -104,7 +104,7 @@ export function InsightsGraphic() {
         </span>
       </div>
 
-      {/* Trend bars — each rises from 0 to its target height, staggered. */}
+      {/* Trend bars - each rises from 0 to its target height, staggered. */}
       <div className="mb-4 overflow-hidden rounded-[10px] border border-white/[0.05] bg-white/[0.02] px-3 py-3">
         <div className="flex h-10 items-end gap-1.5">
           {bars.map((h, i) => (
@@ -125,7 +125,7 @@ export function InsightsGraphic() {
         </div>
       </div>
 
-      {/* Sub-metric progress bars — sweep 0 → final pct. */}
+      {/* Sub-metric progress bars - sweep 0 → final pct. */}
       <div className="flex flex-col gap-3">
         {subs.map((s, i) => (
           <div key={s.label}>
@@ -163,7 +163,7 @@ export function InsightsGraphic() {
 }
 
 /* ================================================================
-   DEPLOY — HRIS connector status list
+   DEPLOY - HRIS connector status list
    ================================================================ */
 export function DeployGraphic() {
   const { ref, playCount } = useArticleHover();
@@ -241,7 +241,7 @@ export function DeployGraphic() {
 }
 
 /* ================================================================
-   TRUST — compliance badges grid
+   TRUST - compliance badges grid
    ================================================================ */
 export function TrustGraphic() {
   const { ref, playCount } = useArticleHover();
