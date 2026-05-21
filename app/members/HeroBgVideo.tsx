@@ -69,10 +69,16 @@ export function HeroBgVideo() {
     }
   };
 
-  // Shared classes so <img> and <video> occupy the exact same
+  // Shared base classes so <img> and <video> occupy the same
   // transformed slot; switching between them is invisible to layout.
-  const SLOT_CLASS =
+  const VIDEO_CLASS =
     "pointer-events-none absolute inset-0 z-0 h-full w-full origin-bottom translate-y-[10%] scale-[1.25] object-cover object-[center_92%] lg:origin-center lg:translate-y-0 lg:scale-100 lg:object-center";
+  // The still poster is shifted an extra 40px up on mobile so the
+  // figures in the photo land where the user expects (the standalone
+  // still has slightly different framing from the video's first frame).
+  // Desktop matches the video exactly.
+  const IMG_CLASS =
+    "pointer-events-none absolute inset-0 z-0 h-full w-full origin-bottom translate-y-[calc(10%_-_40px)] scale-[1.25] object-cover object-[center_92%] lg:origin-center lg:translate-y-0 lg:scale-100 lg:object-center";
 
   return (
     <>
@@ -87,7 +93,7 @@ export function HeroBgVideo() {
           loop
           playsInline
           aria-hidden="true"
-          className={SLOT_CLASS}
+          className={VIDEO_CLASS}
         />
       )}
       {(mode === "poster" || imageVisible) && (
@@ -97,7 +103,7 @@ export function HeroBgVideo() {
             src="/hero.png"
             alt=""
             aria-hidden="true"
-            className={SLOT_CLASS}
+            className={IMG_CLASS}
           />
         </>
       )}
