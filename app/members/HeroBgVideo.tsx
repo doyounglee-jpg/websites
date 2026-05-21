@@ -57,6 +57,20 @@ export function HeroBgVideo() {
 
   return (
     <>
+      {/* Suppress the browser's native start-playback button (WebKit
+          renders one in the bottom-right of the video when muted
+          autoplay is blocked). We render our own centered button
+          instead, so the native one would just be a duplicate. */}
+      <style>{`
+        .hero-bg-video::-webkit-media-controls-start-playback-button,
+        .hero-bg-video::-webkit-media-controls-overlay-play-button,
+        .hero-bg-video::-webkit-media-controls-play-button,
+        .hero-bg-video::-webkit-media-controls-panel,
+        .hero-bg-video::-webkit-media-controls {
+          display: none !important;
+          -webkit-appearance: none;
+        }
+      `}</style>
       <video
         ref={videoRef}
         src="/hero.mp4"
@@ -65,7 +79,7 @@ export function HeroBgVideo() {
         loop
         playsInline
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 h-full w-full origin-bottom translate-y-[10%] scale-[1.25] object-cover object-[center_92%] lg:origin-center lg:translate-y-0 lg:scale-100 lg:object-center"
+        className="hero-bg-video pointer-events-none absolute inset-0 z-0 h-full w-full origin-bottom translate-y-[10%] scale-[1.25] object-cover object-[center_92%] lg:origin-center lg:translate-y-0 lg:scale-100 lg:object-center"
       />
       {needsTap && (
         <button
