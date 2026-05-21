@@ -63,14 +63,16 @@ export function AnimatedBillsChatPanel() {
             matches §02 AnimatedChatPanel). Heights leave headroom for the
             full convo (user + AI bubble with reasoning + buttons + pill). */}
         <div className="flex h-[420px] w-full max-w-[440px] flex-col justify-end gap-3 xl:h-[460px] xl:max-w-[500px] 2xl:h-[500px] 2xl:max-w-[560px]">
-          {/* User question */}
+          {/* User question - same glass material + animation pattern as
+              §02 AnimatedChatPanel UserBubble so the blur reads at full
+              strength during the entry (animation lives on the same
+              element as backdrop-blur, not on an outer wrapper that
+              would dim the composited blur via parent opacity). */}
           {step >= 1 && (
-            <div className="anim-bills-in flex justify-end pl-12">
-              <div className="rounded-3xl rounded-br-md border border-white/25 bg-white/[0.06] px-4 py-2.5 backdrop-blur-md">
-                <span className="text-[14px] leading-[1.4] text-white/85 2xl:text-[15px]">
-                  What&apos;s coming up this week?
-                </span>
-              </div>
+            <div className="anim-bills-in max-w-[85%] self-end rounded-3xl rounded-br-md border border-white/25 bg-white/[0.06] px-5 py-3 backdrop-blur-md">
+              <p className="text-[14px] leading-[1.4] text-white/85 2xl:text-[15px]">
+                What&apos;s coming up this week?
+              </p>
             </div>
           )}
 
@@ -215,12 +217,14 @@ const BILLS = [
 /* Distinct class names from AnimatedChatPanel so the two components
    don't fight over global CSS, even though the animations are similar. */
 const KEYFRAMES = `
+/* Match §02 AnimatedChatPanel chat-bubble-in: opacity + small translate
+   + scale on the SAME element that carries backdrop-blur. */
 @keyframes bills-fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from { opacity: 0; transform: translateY(10px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 .anim-bills-in {
-  animation: bills-fade-in 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation: bills-fade-in 0.34s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
 @keyframes bills-typing-dot {
