@@ -14,6 +14,7 @@ import { AnimatedChatPanel } from "./AnimatedChatPanel";
 import { CoverageCards } from "./CoverageCards";
 import { CreditScoreSequence } from "./CreditScoreSequence";
 import { DebtPayoffSequence } from "./DebtPayoffSequence";
+import { HeroBgVideo } from "./HeroBgVideo";
 import { LiveSavingsTicker } from "./LiveSavingsTicker";
 
 /**
@@ -71,22 +72,11 @@ export default function MembersV3Page() {
           <section> is no longer wrapped - the stack handles the entry.
          ============================================================ */}
       <section className="relative flex min-h-svh w-full items-center overflow-hidden bg-gradient-to-b from-[#15171B] via-[#101216] to-[#0E1014] lg:min-h-screen">
-        {/* Full-bleed hero video - shared by mobile and desktop. The
-            scrim layers below adapt per-viewport. object-cover so the
-            video fills the section regardless of aspect ratio. On
-            mobile the video is shifted up via object-position so the
-            faces (which sit in the lower portion of the frame) land
-            inside the phone-outline area near the top of the section.
-            Desktop reverts to a center anchor. */}
-        <video
-          src="/hero.mp4"
-          autoPlay
-          muted
-          loop
-          playsInline
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-0 h-full w-full origin-bottom translate-y-[10%] scale-[1.25] object-cover object-[center_92%] lg:origin-center lg:translate-y-0 lg:scale-100 lg:object-center"
-        />
+        {/* Full-bleed hero video — same transforms / scrim recipe as
+            before, but extracted into a client component that detects
+            autoplay failure and shows a centered tap-to-play button
+            on mobile. */}
+        <HeroBgVideo />
         {/* MOBILE scrim - uniform top-to-bottom darken since copy spans
             the full content column (a horizontal gradient like desktop
             would leave the mid-screen too bright behind the text). */}
