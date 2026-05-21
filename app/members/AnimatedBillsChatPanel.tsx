@@ -216,8 +216,8 @@ const BILLS = [
    don't fight over global CSS, even though the animations are similar. */
 const KEYFRAMES = `
 @keyframes bills-fade-in {
-  from { opacity: 0; transform: translateY(6px) scale(0.98); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 .anim-bills-in {
   animation: bills-fade-in 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both;
