@@ -22,7 +22,7 @@ export function DebtPayoffSequence() {
 
   useEffect(() => {
     const durations: Record<0 | 1 | 2, number> = {
-      0: 4500,
+      0: 3000,
       1: 2800,
       2: 200,
     };
@@ -69,7 +69,7 @@ export function DebtPayoffSequence() {
                 width: phase === 2 ? "0%" : "100%",
                 transition:
                   phase === 0
-                    ? "width 4.5s cubic-bezier(0.65, 0, 0.35, 1)"
+                    ? "width 3s cubic-bezier(0.65, 0, 0.35, 1)"
                     : "none",
               }}
             />

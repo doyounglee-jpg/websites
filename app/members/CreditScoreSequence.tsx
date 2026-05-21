@@ -23,7 +23,7 @@ const SCORE_MAX = 850;
 const SCORE_START = 580;
 const SCORE_END = 720;
 const SCORE_GAIN = SCORE_END - SCORE_START;
-const FILL_DURATION_MS = 4500;
+const FILL_DURATION_MS = 3000;
 const FADE_MS = 700;
 
 const ARC_RADIUS = 90;

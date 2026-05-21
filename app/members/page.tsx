@@ -280,8 +280,8 @@ export default function MembersV3Page() {
       <section className="grid w-full grid-cols-1 gap-3 md:h-[100vh] md:min-h-[760px] md:grid-cols-2">
         {/* Left: photo background + frosted-glass bills chat overlay
             (mirrors the §02 "More personalized" treatment). */}
-        {/* order-2 on mobile so the testimonial stacks first; reverts to source order on md+ */}
-        <div className="reveal-item relative order-2 min-h-[760px] overflow-hidden rounded-3xl md:order-none md:min-h-0">
+        {/* order-1 on mobile so the bills panel stacks first; reverts to source order on md+ */}
+        <div className="reveal-item relative order-1 min-h-[760px] overflow-hidden rounded-3xl md:order-none md:min-h-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={PHOTOS.billsPortrait}
@@ -309,8 +309,8 @@ export default function MembersV3Page() {
         </div>
 
         {/* Right: dark testimonial portrait */}
-        {/* order-1 on mobile so it appears above the bills panel; reverts on md+ */}
-        <div className="reveal-item relative order-1 min-h-[600px] overflow-hidden rounded-3xl md:order-none md:min-h-0">
+        {/* order-2 on mobile so it stacks below the bills panel; reverts on md+ */}
+        <div className="reveal-item relative order-2 min-h-[600px] overflow-hidden rounded-3xl md:order-none md:min-h-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={PHOTOS.testimonialPortrait}
