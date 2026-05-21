@@ -1,86 +1,99 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 
 /**
- * Full-bleed hero background video with a mobile-only tap-to-play
- * fallback. Some phones (iOS low-power mode, Android Data Saver) block
- * muted autoplay even with playsinline, and Safari then paints its
- * own play-button glyph somewhere on the <video> element. That glyph
- * lives in the user-agent shadow DOM and is often unstyleable from
- * outside, so a pure CSS hide isn't enough to guarantee a clean UI.
+ * Hero background with autoplay-blocked fallback that cannot be
+ * defeated by iOS Safari's UA shadow DOM play button.
  *
- * Strategy:
- *   - On mount, try video.play().
- *   - If it succeeds, the video plays as usual; nothing else mounts.
- *   - If it rejects, switch to a fallback state where the <video> is
- *     made `invisible` (visibility: hidden, which also hides any UA
- *     shadow-DOM controls) and an <img src="/hero.png"> still frame is
- *     rendered in its place with the same transforms.
- *   - A centered custom play button is shown alongside the image.
- *     Tapping it calls video.play() synchronously inside the click
- *     handler — the user gesture unblocks playback, the 'play' event
- *     restores `needsTap` to false, image disappears, video reappears.
+ * Why this is structured the way it is: iOS Safari paints a
+ * start-playback button on a <video> whenever muted autoplay is
+ * blocked (Low Power Mode / Accessibility / Data Saver). That
+ * button lives in the user-agent shadow DOM and CANNOT be reliably
+ * hidden by CSS pseudo-elements or `visibility: hidden` — both were
+ * tried (PRs #94 and #95) and iPhone users still saw it. The only
+ * guaranteed way to suppress it is to not have a <video> element in
+ * the DOM at all while autoplay is blocked.
+ *
+ * Flow:
+ *   mode = "video"  — <video> is mounted; tries to play().
+ *                     Success → stays mounted, video plays.
+ *                     Failure → switch to "poster".
+ *   mode = "poster" — <video> is UNMOUNTED. A still <img src="/hero.png">
+ *                     fills the slot with the exact same transforms,
+ *                     and a centered tap-to-play button is shown.
+ *   On tap          — flushSync(setMode("video")) so the <video>
+ *                     element mounts synchronously inside the click
+ *                     handler (user-gesture context is preserved),
+ *                     then play() is called on the fresh ref. iOS
+ *                     treats this as user-initiated and allows
+ *                     playback. No native button is ever shown.
  */
 export function HeroBgVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [needsTap, setNeedsTap] = useState(false);
+  const [mode, setMode] = useState<"video" | "poster">("video");
+  // Once the user has tapped, stop auto-switching back to "poster" on
+  // any future play() rejection — that prevents a poster/video loop
+  // if the user's device really refuses to play even after a gesture.
+  const userTappedRef = useRef(false);
 
   useEffect(() => {
+    if (mode !== "video") return;
     const v = videoRef.current;
     if (!v) return;
-
     const p = v.play();
     if (p && typeof p.catch === "function") {
-      p.then(() => setNeedsTap(false)).catch(() => setNeedsTap(true));
+      p.catch(() => {
+        if (!userTappedRef.current) setMode("poster");
+      });
     }
-
-    const onPlay = () => setNeedsTap(false);
-    const onPause = () => {
-      if (v.currentTime === 0) setNeedsTap(true);
-    };
-
-    v.addEventListener("play", onPlay);
-    v.addEventListener("pause", onPause);
-    return () => {
-      v.removeEventListener("play", onPlay);
-      v.removeEventListener("pause", onPause);
-    };
-  }, []);
+  }, [mode]);
 
   const handleTap = () => {
+    userTappedRef.current = true;
+    // flushSync forces the <video> to mount synchronously before this
+    // click handler returns, so play() is still inside the user gesture.
+    flushSync(() => setMode("video"));
     const v = videoRef.current;
     if (!v) return;
-    // Synchronous play() inside the click handler — preserves the user
-    // gesture so iOS will let the playback start.
     const p = v.play();
     if (p && typeof p.catch === "function") {
-      p.then(() => setNeedsTap(false)).catch(() => {});
+      // If for some reason play() still rejects after a real tap, leave
+      // the video mounted — at that point iOS may show its native
+      // button as a last-resort manual control.
+      p.catch(() => {});
     }
   };
 
+  // Shared classes so the <img> and <video> occupy the exact same
+  // transformed slot; switching between them is invisible to layout.
+  const SLOT_CLASS =
+    "pointer-events-none absolute inset-0 z-0 h-full w-full origin-bottom translate-y-[10%] scale-[1.25] object-cover object-[center_92%] lg:origin-center lg:translate-y-0 lg:scale-100 lg:object-center";
+
   return (
     <>
-      <video
-        ref={videoRef}
-        src="/hero.mp4"
-        autoPlay
-        muted
-        loop
-        playsInline
-        aria-hidden="true"
-        className={`pointer-events-none absolute inset-0 z-0 h-full w-full origin-bottom translate-y-[10%] scale-[1.25] object-cover object-[center_92%] lg:origin-center lg:translate-y-0 lg:scale-100 lg:object-center ${
-          needsTap ? "invisible" : ""
-        }`}
-      />
-      {needsTap && (
+      {mode === "video" && (
+        <video
+          key="hero-bg-video"
+          ref={videoRef}
+          src="/hero.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          aria-hidden="true"
+          className={SLOT_CLASS}
+        />
+      )}
+      {mode === "poster" && (
         <>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/hero.png"
             alt=""
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 z-0 h-full w-full origin-bottom translate-y-[10%] scale-[1.25] object-cover object-[center_92%] lg:origin-center lg:translate-y-0 lg:scale-100 lg:object-center"
+            className={SLOT_CLASS}
           />
           <button
             type="button"
